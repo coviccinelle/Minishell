@@ -14,6 +14,14 @@
 
 int		main(int ac, char **av)
 {
+	if (ac != 2)
+	{
+		ft_error("Wrong arguments\n");
+		return (1);
+	}
+	parsing(av[1], 
+
 
 	return (0);
 }
+
