@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thi-phng <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 11:32:21 by thi-phng          #+#    #+#              #
-#    Updated: 2021/12/13 11:33:33 by thi-phng         ###   ########.fr        #
+#    Updated: 2022/01/18 13:44:48 by thi-phng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ RM			=	rm -rf
 CC			=	clang
 
 SRCS		=	main.c \
+				pars_utils_01.c \
+				
 
 
 OBJS		=	$(SRCS:.c=.o)

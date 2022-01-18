@@ -1,41 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   pars_utils_01.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/18 13:58:47 by thi-phng         ###   ########.fr       */
+/*   Created: 2022/01/18 11:57:12 by thi-phng          #+#    #+#             */
+/*   Updated: 2022/01/18 13:43:05 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-
-// *** // STRUCTURE  // *** //
-
-typedef struct s_mini
+int find_me(char c, char *str)
 {
+    int i;
 
-}               t_struct;
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == c)
+            return (i);
+        i++;
+    }
+    return (-1);
+}
 
 
+int is_token_char(char c)
+{
+    if (c == '|')
+        return (1);
+    if (c == '<')
+        return (1);
+    if (c == '>')
+        return (1);
+    return (0);
+}
 
-
-
-// *** // PARSING  // *** //
-
-//   Pars_utils_01.c  //
-int find_me(char c, char *str);
-int is_token_char(char c);
-
-
-#endif
