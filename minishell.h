@@ -6,7 +6,7 @@
 /*   By: thi-phng <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/18 00:21:14 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/01/18 16:18:12 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_export *new_export(char *export_name, char *export_data);
 void	delete_export(t_export **export_lst, char *export_name);
 void add_to_export_lst(t_export **export_lst, char *export_name, char *export_data);
 void	printstack(t_env *env);
+void	ft_memdel(char **s);
 void	ft_free_lst(t_env **head);
 
 #endif

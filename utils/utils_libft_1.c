@@ -55,3 +55,18 @@ char    *ft_strjoin(char *s1, char *s2)
         res[j] = '\0';
         return (res);
 }
+
+
+/*
+int	ft_strcmp(char *s, char *t)
+{
+
+	while (*s && (*s == *t))
+	{
+		s++;
+		t++;
+	}
+	return (*s - *t);
+}
+
+*/
