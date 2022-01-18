@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_utils_01.c                                    :+:      :+:    :+:   */
+/*   readline_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/18 11:57:12 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/18 18:27:35 by thi-phng         ###   ########.fr       */
+/*   Created: 2022/01/18 17:52:11 by thi-phng          #+#    #+#             */
+/*   Updated: 2022/01/18 18:13:09 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int find_me(char c, char *str)
+int readline_input(char *str)
 {
-    int i;
-
-    i = 0;
-    while (str[i])
+    char    *buffer;
+    
+    buffer = readline("\n");
+    if (strlen(buffer))
     {
-        if (str[i] == c)
-            return (i);
-        i++;
+        add_history(buffer);
+        strcpy(str, buffer);
+        return (0);
     }
-    return (-1);
+    else
+    {
+        return (1);
+    }
 }
-
-int is_token_char(char c)
-{
-    if (c == '|')
-        return (1);
-    if (c == '<')
-        return (1);
-    if (c == '>')
-        return (1);
-    return (0);
-}
-

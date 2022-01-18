@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/18 14:50:04 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/18 18:21:12 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ typedef struct s_mini
 int find_me(char c, char *str);
 int is_token_char(char c);
 
-
+// readline_input //
+int readline_input(char *str);
 
 // *** // main  // *** //
 

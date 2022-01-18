@@ -6,7 +6,7 @@
 #    By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 11:32:21 by thi-phng          #+#    #+#              #
-#    Updated: 2022/01/18 13:44:48 by thi-phng         ###   ########.fr        #
+#    Updated: 2022/01/18 18:46:40 by thi-phng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ CC			=	clang
 
 SRCS		=	main.c \
 				pars_utils_01.c \
+				readline_input.c \
 				
 
 
@@ -74,7 +75,7 @@ endef
 				printf "█"
 
 $(NAME) :		$(OBJS)
-						$(CC) $(CLAGS) $(OBJS) -o $(NAME)
+						$(CC) $(CLAGS) $(OBJS) -lreadline -o $(NAME)
 
 launch:
 				$(call progress_bar)
