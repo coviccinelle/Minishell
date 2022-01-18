@@ -6,13 +6,13 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/17 14:00:26 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/17 17:39:54 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		main(int ac, char **av)
+int		main(int ac, char **av, char **env)
 {
 	read_from_terminal();
 	break_into_tokens(); // break into words & operators obeying the quoting rules
