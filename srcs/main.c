@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/19 20:21:06 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/19 20:52:49 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		line = ft_readline_input(line/*, env*/);
+		printf("line = %s\n", line);
 	//	line_history(line);
 		if (line)
 		{
