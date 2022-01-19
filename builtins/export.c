@@ -107,14 +107,13 @@ t_export *new_export(char *export_name, char *export_data)
 
 	export = (t_export*)malloc(sizeof(*export));
 
-//	printf("je passe ici\n");
-/*	if (!export)
+	if (!export)
 	{
 		ft_puterror_fd("overflow", NULL, NULL);
-    		ft_free_lst(&lst->export);
+    	//	ft_free_lst(&lst->export);
 		return(0);
 	}
-*/	export->name = export_name;
+	export->name = export_name;
 	export->value= export_data;
 	export->next = NULL;
 	return (export);
@@ -131,85 +130,47 @@ void	printexport(t_export *export)
 	}	
 }
 
-// me met bien dans lordre par contre moublie le 1e arg. et ne me printe pas tout qd deja dans lordre. quand tout est dans lordre et que le 1e arg est desordonne mimprime tout donc wtf!!
-
-void add_to_export_lst(t_export **export_lst, char *export_name, char *export_data)
+int	ft_strcmp(char *s1, char *s2)
 {
-printf("fonction addtoexport\n");
-//in alphabetical order !
-	t_export *newnode;
-	t_export *tmp;
-	int pos;
+	int	i;
 
-	pos = 0;
-	newnode = new_export(export_name, export_data);
-	//newnode->next = NULL;
-	tmp = (*export_lst);
-	printf("newnode name = %s, newnode value = %s", newnode->name, newnode->value);
-		printf("STACK before\n");
-		printexport(*export_lst);
-
-	if ((!*export_lst) || (strcmp((*export_lst)->name, newnode->name) < 0)) //pour 2nodes pas dans lordre segfault sinon. par contre ne me le print pas encore
-	{
-		printf("PREMIER NODE\n");
-		*export_lst = newnode;
-
-		printf("STACK after\n");
-		printexport(*export_lst);
-		return ;
-	}
-	int	i = 0;
-	while (tmp)
-	{
-		i++;
-		//printf("newnode = %s, name = %s, i = %d\n", export_name, tmp->name, i);
-		if (strcmp(tmp->name, export_name) > 0) // mettre ft_strcmp
-		{
-			printf("bonne place juste apres\n");
-			break ;
-		}
-		tmp = tmp->next;
-	}
-	printf("Ok ok\n");
-	newnode->next = tmp->next;
-	tmp->next = newnode;
-	printf("STACK after\n");
-	printexport(*export_lst);
-/*	if (strcmp(tmp->name, export_name) > 0) // si new value et new name
-	{
-		tmp->next = newnode;
-		newnode->next = tmp; //point new node to current pos
-		tmp = newnode; //now pointold node to newnode
-		*export_lst =newnode;
-	}
-
-	if (strcmp(tmp->name, export_name) == 0) // si remplace une old value
-	{
-		newnode = tmp->next->next;
-		free(tmp->next);
-		tmp->next = newnode;
-	}
-*/
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		++i;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-/*
+int	get_right_index(t_export **head, t_export *newnode)
+{
+	t_export	*tmp;
+	int	pos;
+
+	tmp = (*head)->next;
+	pos = 0;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->name, newnode->name) < 0)
+			pos++;
+		tmp = tmp->next;
+	}
+	return (pos);
+}
+
 void add_to_export_lst(t_export **export_lst, char *export_name, char *export_data)
 {
 	t_export *newnode;
 	t_export *tmp;
-
 	tmp = *export_lst;
 	newnode = new_export(export_name, export_data);
-	if ((!*export_lst) || (*export_lst)->name  >= newnode->name)
+	if ((!*export_lst) || ft_strcmp((*export_lst)->name, newnode->name) > 0)
 	{
 		newnode->next = *export_lst;
 		*export_lst = newnode;
 	}
 	else
 	{
-		// Locate the node before the point of insertion
 		tmp = *export_lst;
-		while (tmp->next != NULL && tmp->next->name < newnode->name)
+		while (tmp->next != NULL && (ft_strcmp(tmp->next->name, newnode->name) < 0))
 		{
 			tmp = tmp->next;
         	}
@@ -217,23 +178,7 @@ void add_to_export_lst(t_export **export_lst, char *export_name, char *export_da
 		tmp->next = newnode;
 	}
 }
-*/
-//free all, du coup est ce que va prendre neen compte aussi t_data et dataenv ?etc ?
-void	ft_free_lst(t_env **head)
-{
-	t_env	*lst;
-	t_env	*next;
 
-	lst = *head;
-	while (lst)
-	{
-		next = lst->next;
-		free(lst);
-		lst = next;
-	}
-	free(lst);
-	*head = NULL;
-}
 
 int main(int ac, char **av)
 {
@@ -243,7 +188,8 @@ int main(int ac, char **av)
 	env = NULL;
 	exec_export(ac, av, &env);
 	printf("Print = $$$$$$$$\n");
-	printexport(env->export);	
+	printexport(env->export);
+	
 	return (0);
 }
 
