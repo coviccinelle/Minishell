@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/19 18:53:03 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/19 19:45:05 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_parsing
 
 
 // *** // PARSING  // *** //
-
+int	parsing(char *line/*, t_parsing param, char **env*/);
 
 
 // readline_input //

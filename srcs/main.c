@@ -6,11 +6,11 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/19 19:33:14 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/19 20:21:06 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	init_shell()
 {
@@ -92,76 +92,6 @@ char	**ft_env_cpy(char **envp)
 	return (env);
 }
 
-int	is_token(char *str, char *token)
-{
-	char	*res;
-
-	res = strstr(str, token);
-	if (res == NULL)
-		return (0);
-	return (1);
-}
-
-
-int	detect_cmd(char *str)
-{
-	int	i;
-	
-	i = 0;
-	while (str[i])
-	{
-		if (is_token(str, "echo"))
-		{
-			printf("\nECHO founded\n");
-			return (1);
-		}
-		if (is_token(str, "export"))
-		{
-			printf("\nEXPORT founded\n");
-			return (1);
-		}
-		if (is_token(str, "env"))
-		{
-			printf("\nENV founded\n");
-			return (1);
-		}
-		if (is_token(str, "exit"))
-		{
-			printf("\nEXIT founded\n");
-			return (1);
-		}
-		if (is_token(str, "cd"))
-		{
-			printf("\nCD founded\n");
-			return (1);
-		}
-		if (is_token(str, "pwd"))
-		{
-			printf("\nPWD founded\n");
-			return (1);
-		}
-		if (is_token(str, "unset"))
-		{
-			printf("\nUNSET founded\n");
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-
-
-int	parsing(char *line/*, t_parsing param, char **env*/)
-{
-	if (detect_cmd(line))
-	{
-		printf("Detect_cmd successed\n");
-		return (1);
-	}
-	return (0);
-}
-
 char	*ft_readline_input(char *line/*, char **env*/)
 {
 	//signal(SIGINT, ft_sigint);
@@ -189,11 +119,9 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		line = ft_readline_input(line/*, env*/);
-	//	line = readline_input(line);
 	//	line_history(line);
 		if (line)
 		{
-		//	printf("Starting parsing line\n");
 			if (parsing(line/*, &param, env*/))
 			//	env = ft_exec_all_cmd(&param, env);
 				printf("Parsing done -> Cmd found ! Allez on executer tout\n");

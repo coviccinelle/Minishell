@@ -6,11 +6,11 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:57:12 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/18 18:27:35 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/19 20:19:12 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 int find_me(char c, char *str)
 {
