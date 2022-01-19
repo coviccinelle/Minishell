@@ -2,4 +2,4 @@
 *.o
 minishell
 .DS_Store
-a.out
+*a.out
