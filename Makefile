@@ -6,7 +6,7 @@
 #    By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 11:32:21 by thi-phng          #+#    #+#              #
-#    Updated: 2022/01/18 19:05:28 by thi-phng         ###   ########.fr        #
+#    Updated: 2022/01/19 18:53:23 by thi-phng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ CFLAGS	=	-Wall -Wextra -Werror
 RM		=	rm -rf
 SRC		=	main.c \
 			pars_utils_01.c \
-			readline_input.c \
+			#readline_input.c \
 				
 
 OBJ 	=	$(addprefix $(OBJDIR)/, $(SRC:.c=.o))

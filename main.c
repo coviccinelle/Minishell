@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/19 18:15:08 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/19 19:33:14 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	init_shell()
 	printf("");
 	char *user_name = getenv("USER");
 	printf("Your user_name is : %s\n", user_name);
-	sleep(5);
+	sleep(3);
 	printf("\e[1;1H\e[2J");
 }
 
@@ -49,6 +49,30 @@ void	get_pwd()
 	printf("\nCurrent Directory: %s", cwd);
 }
 
+
+char    *ft_strdup(const char *s1)
+{
+        char    *str;
+        int             i;
+        int             size;
+
+        size = 0;
+        while (s1[size])
+        {
+                size++;
+        }
+        str = malloc((size + 1) * sizeof(char));
+        if (!str)
+                return (NULL);
+        i = 0;
+        while (s1[i])
+        {
+                str[i] = s1[i];
+                i++;
+        }
+        str[i] = '\0';
+        return (str);
+}
 
 char	**ft_env_cpy(char **envp)
 {
@@ -86,32 +110,67 @@ int	detect_cmd(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (find_me(str[i], "ecpu"))
+		if (is_token(str, "echo"))
 		{
-			if (str[i] == 'e' && is_token(str, "echo"))
-				return (1);
-			if (str[i] == 'e' && is_token(str, "export"))
-				return (1);
-			if (str[i] == 'e' && is_token(str, "env"))
-				return (1);
-			if (str[i] == 'e' && is_token(str, "exit"))
-				return (1);
-			if (str[i] == 'c' && is_token(str, "cd"))
-				return (1);
-			if (str[i] == 'p' && is_token(str, "pwd"))
-				return (1);
-			if (str[i] == 'u' && is_token(str, "unset"))
-				return (1);
+			printf("\nECHO founded\n");
+			return (1);
 		}
+		if (is_token(str, "export"))
+		{
+			printf("\nEXPORT founded\n");
+			return (1);
+		}
+		if (is_token(str, "env"))
+		{
+			printf("\nENV founded\n");
+			return (1);
+		}
+		if (is_token(str, "exit"))
+		{
+			printf("\nEXIT founded\n");
+			return (1);
+		}
+		if (is_token(str, "cd"))
+		{
+			printf("\nCD founded\n");
+			return (1);
+		}
+		if (is_token(str, "pwd"))
+		{
+			printf("\nPWD founded\n");
+			return (1);
+		}
+		if (is_token(str, "unset"))
+		{
+			printf("\nUNSET founded\n");
+			return (1);
+		}
+		i++;
 	}
 	return (0);
 }
 
+
+
 int	parsing(char *line/*, t_parsing param, char **env*/)
 {
 	if (detect_cmd(line))
+	{
+		printf("Detect_cmd successed\n");
 		return (1);
+	}
 	return (0);
+}
+
+char	*ft_readline_input(char *line/*, char **env*/)
+{
+	//signal(SIGINT, ft_sigint);
+	//signal(SIGQUIT, ft_sigquit);
+	line = readline("\033[0;34m~Minishell$\033[0m ");
+	if (!line)
+		//ft_exit(NULL, env);
+		printf("Ft_exit please\n");
+	return (line);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -129,15 +188,17 @@ int	main(int ac, char **av, char **envp)
 	init_shell();
 	while (1)
 	{
-		line = readline_input(line);
+		line = ft_readline_input(line/*, env*/);
+	//	line = readline_input(line);
 	//	line_history(line);
 		if (line)
 		{
+		//	printf("Starting parsing line\n");
 			if (parsing(line/*, &param, env*/))
 			//	env = ft_exec_all_cmd(&param, env);
-				printf("Allez on executer tout\n");
+				printf("Parsing done -> Cmd found ! Allez on executer tout\n");
 			else
-				printf("free the structure\n");//ft_free_params(&param);
+				printf("No cmd found ! free the structure\n");//ft_free_params(&param);
 		}
 	}
 	printf("Freeeee all tabs pls\n");
