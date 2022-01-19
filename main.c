@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/19 11:50:18 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/19 12:02:27 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	init_shell()
 {
 	printf("\e[1;1H\e[2J");
-//	clear();
 	printf("Welcome to our mini-tiny-shell made by Marie-Ines and Thao\n");
 	printf("Attention: Version demo.00\n");
 	printf("        ,----,\n");
@@ -36,12 +35,10 @@ void	init_shell()
     printf("\n");
     printf("\n");
     printf("\n");
-	
 	printf("");
 	char *user_name = getenv("USER");
 	printf("Your user_name is : %s\n", user_name);
-	sleep(300);
-	//clear();
+	sleep(5);
 	printf("\e[1;1H\e[2J");
 }
 
