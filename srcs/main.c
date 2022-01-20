@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/20 15:32:19 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/20 18:30:49 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	*ft_readline_input(char *line/*, char **env*/)
 {
 	//signal(SIGINT, ft_sigint);
 	//signal(SIGQUIT, ft_sigquit);
-	line = readline("\033[0;34m~Minishell$\033[0m ");
+	line = readline("\033[1;33m~Minishell$\033[0m ");
 	if (!line)
 		//ft_exit(NULL, env);
 		printf("Ft_exit please\n");
@@ -120,17 +120,15 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		line = ft_readline_input(line/*, env*/);
-		printf("line = %s\n", line);
 		add_history(line);
 	//	line_history(line);
 		if (line)
 		{
-			printf("Not segfaut, before parsing\n");
 			if (parsing(line, &a, env))
 			//	env = ft_exec_all_cmd(&param, env);
 				printf("Parsing done -> Cmd found ! Allez on executer tout\n");
 			else
-				printf("No cmd found ! free the structure\n");//ft_free_params(&param);
+				printf("Error: Command not found !(Free)\n");//ft_free_params(&param);
 		}
 	}
 	printf("Freeeee all tabs pls\n");

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/20 17:20:28 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/20 18:31:29 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,23 +110,19 @@ int	parsing(char *av, t_pars *a, char **env)
 	t_env		arg;
 	t_pars		*tmp;
 	(void)tmp;
-	// (void)a;
 	(void)arg;
 	(void)env;
 	
 	if (!ft_init(*a, &arg, av, env))
 		return (0);	
-	//printf("%d\n", arg.av[arg.i]);
-	printf("not segfaut please\n");
 //	tmp = a;
 	while (av/*arg.av[arg.i]*/)
 	{
-	
 		if (detect_cmd(av))
 		{
-			printf("Detect_cmd successed\n");
 			return (1);
 		}
+		return (0);
 	}
 	return (0);
 }
