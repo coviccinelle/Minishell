@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/20 15:45:12 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/20 17:20:28 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	detect_cmd(char *str)
 
 
 
-int	ft_init_line(char *av, t_line arg, char **env)
+int	ft_init_env(char *av, t_env arg, char **env)
 {
 	arg.env = env;
 	arg.i = 0;
@@ -92,12 +92,12 @@ int	ft_init_pars(t_pars a)
 	return (1);
 }
 
-int	ft_init(t_pars a, t_line *arg, char *av, char **env)
+int	ft_init(t_pars a, t_env *arg, char *av, char **env)
 {
 	(void)a;
 	(void)arg;
 	(void)env;
-	if (ft_init_line(av, *arg, env))
+	if (ft_init_env(av, *arg, env))
 		printf("done ft_init\n");
 	if (ft_init_pars(a))
 		printf("Done ft_init_pars\n");
@@ -107,9 +107,9 @@ int	ft_init(t_pars a, t_line *arg, char *av, char **env)
 
 int	parsing(char *av, t_pars *a, char **env)
 {
-	t_line		arg;
+	t_env		arg;
 	t_pars		*tmp;
-	//(void)tmp;
+	(void)tmp;
 	// (void)a;
 	(void)arg;
 	(void)env;
@@ -118,9 +118,8 @@ int	parsing(char *av, t_pars *a, char **env)
 		return (0);	
 	//printf("%d\n", arg.av[arg.i]);
 	printf("not segfaut please\n");
-	tmp = a;
-	/*
-	while (av//arg.av[arg.i])
+//	tmp = a;
+	while (av/*arg.av[arg.i]*/)
 	{
 	
 		if (detect_cmd(av))
@@ -128,15 +127,6 @@ int	parsing(char *av, t_pars *a, char **env)
 			printf("Detect_cmd successed\n");
 			return (1);
 		}
-	}
-	*/
-	int	j = 0;
-	printf("\n\n\n\n\n\n");
-	while(env[j])
-	{
-			
-			printf("%s\n", env[j]);
-			j++;
 	}
 	return (0);
 }
