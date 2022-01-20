@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/20 19:46:04 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/01/20 20:03:50 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,8 @@ int	main(int ac, char **av, char **envp)
 
 	mini = NULL;
 	mini = malloc(40000);
-//	env_struct(&mini, envp);
-	//print_env(mini->env);
+	env_struct(&mini, envp);
+	print_env(mini->env);
 
 
 	

@@ -47,7 +47,7 @@ int get_into_export_lst(char **name, char **data, t_mini **mini)
 		if (name[j] != NULL)  // ok du moment que name ok, si data est null  va justeassocier une chaine vide a name
 		{
 			printf("added %s=%s. name = |%s|, value = |%s|\n", name[j], data[j], name[j], data[j]);
-			add_to_export_lst(&tmp->export, name[j], data[j]); // à export list. nom étant avant = et data étant après = et jusqu'à nouveau av[j].
+			add_to_export_lst(&tmp->export, NULL, name[j], data[j]); // à export list. nom étant avant = et data étant après = et jusqu'à nouveau av[j].
 			//add_to_env(&tmp->env, NULL, name[j], data[j]);
 		}
 		j++;
@@ -126,7 +126,8 @@ t_export *new_export(char *export_name, char *export_data)
 		return(0);
 	}
 	export->name = export_name;
-	export->value= export_data;
+	export->value = export_data;
+	export->envj = NULL;
 	export->next = NULL;
 	return (export);
 }
@@ -140,7 +141,7 @@ void	printexport(t_export *export)
 		if (export->name != NULL)
 		{
 			if (export->value == NULL)
-				printf("%s=""\n", export->name, export->value);
+				printf("%s=\"\"", export->name);
 			else
 				printf("%s=\"%s\"\n", export->name, export->value);
 		}
@@ -176,7 +177,7 @@ int	get_right_index(t_export **head, t_export *newnode)
 	return (pos);
 }
 
-void add_to_export_lst(t_export **export_lst, char *export_name, char *export_data)
+void add_to_export_lst(t_export **export_lst, char *envj, char *export_name, char *export_data)
 {
 	t_export *newnode;
 	t_export *tmp;
