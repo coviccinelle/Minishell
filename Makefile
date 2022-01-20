@@ -6,11 +6,9 @@
 #    By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 11:32:21 by thi-phng          #+#    #+#              #
-#    Updated: 2022/01/19 20:21:23 by thi-phng         ###   ########.fr        #
+#    Updated: 2022/01/20 11:40:19 by thi-phng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-
 
 NAME	=	minishell
 CC		=	clang
@@ -19,7 +17,7 @@ RM		=	rm -rf
 SRC		=	srcs/main.c \
 			srcs/utils/pars_utils_01.c \
 			srcs/parsing/parsing.c \
-			#readline_input.c \
+			#srcs/readline_input.c \
 				
 OBJ = ${SRC:.c=.o}
 
@@ -63,9 +61,6 @@ endef
 
 .c.o:
 	${CC} -c ${CFLAGS} -o $@ $<
-
-#$(NAME):    ${OBJ}
-#		${CC} ${CFLAGS} ${OBJ} -lreadline -o ${NAME}
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -lreadline -o $(NAME)
