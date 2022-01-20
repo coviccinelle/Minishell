@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/20 11:48:36 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/20 12:42:02 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	init_shell()
 	printf("");
 	char *user_name = getenv("USER");
 	printf("Your user_name is : %s\n", user_name);
-	sleep(3);
+	sleep(1);
 	printf("\e[1;1H\e[2J");
 }
 
@@ -103,11 +103,6 @@ char	*ft_readline_input(char *line/*, char **env*/)
 	return (line);
 }
 
-// void	ft_add_history(char *line)
-// {
-// 	if (line)
-// 		add_history(line);
-// }
 
 int	main(int ac, char **av, char **envp)
 {
