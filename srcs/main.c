@@ -6,11 +6,11 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/19 12:02:27 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/19 20:52:49 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	init_shell()
 {
@@ -38,7 +38,7 @@ void	init_shell()
 	printf("");
 	char *user_name = getenv("USER");
 	printf("Your user_name is : %s\n", user_name);
-	sleep(5);
+	sleep(3);
 	printf("\e[1;1H\e[2J");
 }
 
@@ -49,24 +49,91 @@ void	get_pwd()
 	printf("\nCurrent Directory: %s", cwd);
 }
 
-int		main(int ac, char **av, char **envp)
+
+char    *ft_strdup(const char *s1)
 {
-	char	*line = NULL;
+        char    *str;
+        int             i;
+        int             size;
+
+        size = 0;
+        while (s1[size])
+        {
+                size++;
+        }
+        str = malloc((size + 1) * sizeof(char));
+        if (!str)
+                return (NULL);
+        i = 0;
+        while (s1[i])
+        {
+                str[i] = s1[i];
+                i++;
+        }
+        str[i] = '\0';
+        return (str);
+}
+
+char	**ft_env_cpy(char **envp)
+{
+	int		i;
+	int		size;
 	char	**env;
-	(void)envp;
+
+	size = 0;
+	i = 0;
+	while (envp[i++])
+		size++;
+	env = malloc(sizeof(char *) * (size + 1));
+	i = -1;
+	while (++i < size)
+		env[i] = ft_strdup(envp[i]);
+	env[i] = NULL;
+	return (env);
+}
+
+char	*ft_readline_input(char *line/*, char **env*/)
+{
+	//signal(SIGINT, ft_sigint);
+	//signal(SIGQUIT, ft_sigquit);
+	line = readline("\033[0;34m~Minishell$\033[0m ");
+	if (!line)
+		//ft_exit(NULL, env);
+		printf("Ft_exit please\n");
+	return (line);
+}
+
+int	main(int ac, char **av, char **envp)
+{
+	char		*line;
+	char		**env;
+	//t_parsing	param;
+
+	//g_global_value_a _choisir = 0;
 	(void)av;
-	(void)line/* = NULL*/;
-	(void)env/* = strcpy(*env, *envp)*/;
+	line = NULL;
+	env = ft_env_cpy(envp);
 	if (ac != 1)
-		printf("Error: Invalid argument\nHint: only ./minishell\n");
+		return (printf("Error: Invalid argument\nHint: only ./minishell\n"), 1);
 	init_shell();
-	
 	while (1)
 	{
-		get_pwd();
-		if (readline_input(line))
-			continue;
-		
+		line = ft_readline_input(line/*, env*/);
+		printf("line = %s\n", line);
+	//	line_history(line);
+		if (line)
+		{
+			if (parsing(line/*, &param, env*/))
+			//	env = ft_exec_all_cmd(&param, env);
+				printf("Parsing done -> Cmd found ! Allez on executer tout\n");
+			else
+				printf("No cmd found ! free the structure\n");//ft_free_params(&param);
+		}
+	}
+	printf("Freeeee all tabs pls\n");
+//	free_everything(env);
+	return (0);
+
 //		read_from_terminal();
 		//break_into_tokens(); // break into words & operators obeying the quoting rules
 		//tokens_to_commands(); //simple commands, pipelines & lists
@@ -74,8 +141,6 @@ int		main(int ac, char **av, char **envp)
 		//redirections(); // files truncate < > or append << >>
 		//execute_cmds(); //echo, export, unset, pwd, cd, env, exit
 		//exit_status();
-	}
-	return (0);
 }
 
 
