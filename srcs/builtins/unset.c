@@ -1,3 +1,5 @@
+#include "../../minishell.h"
+
 //free all, du coup est ce que va prendre neen compte aussi t_data et dataenv ?etc ?
 void	ft_free_lst(t_env **head)
 {

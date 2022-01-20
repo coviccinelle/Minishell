@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int failure_cases_export_1(char *name)
 {
@@ -33,21 +33,22 @@ int failure_cases_export_2(char *av, char *data, char *name)
 }
 
 //dans l'ordre alphabétique mon add_node...
-int get_into_export_lst(char **name, char **data, t_env **env)
+int get_into_export_lst(char **name, char **data, t_mini **mini)
 {
 //sous forme de tableau car rien n'est pris en compte dans bash si une seule erreur dans un seul arg donc doit m'assurer que totut est ok avant envoi àl st export
-	*env = malloc(40000); //quelle size malloc? en dehors de pref
-	t_env *tmp;
+	*mini = malloc(40000); //quelle size malloc? en dehors de pref. a voir portabilite si je mets dans le main principal
+	t_mini *tmp;
 	int j;
 	
-	tmp = *env;
+	tmp = *mini;
 	j = 1;
 	while (name[j])
 	{
 		if (name[j] != NULL)  // ok du moment que name ok, si data est null  va justeassocier une chaine vide a name
 		{
 			printf("added %s=%s. name = |%s|, value = |%s|\n", name[j], data[j], name[j], data[j]);
-			add_to_export_lst(&tmp->export, name[j], data[j]); // à export list. nom étant avant = et data étant après = et jusqu'à nouveau av[j]. 
+			add_to_export_lst(&tmp->export, name[j], data[j]); // à export list. nom étant avant = et data étant après = et jusqu'à nouveau av[j].
+			//add_to_env(&tmp->env, NULL, name[j], data[j]);
 		}
 		j++;
 	}
@@ -55,7 +56,7 @@ int get_into_export_lst(char **name, char **data, t_env **env)
 	return (EXIT_SUCCESS);
 }
 
-int exec_export(int ac, char **av, t_env **env) // liste a faire dans point 4/expansions
+int exec_export(int ac, char **av, t_mini **mini) // liste a faire dans point 4/expansions
 {
 	char **name; // de la taille de **av
 	char **data; //idem 
@@ -80,14 +81,14 @@ int exec_export(int ac, char **av, t_env **env) // liste a faire dans point 4/ex
 		if (failure_cases_export_2(av[j], name[j],data[j]) == EXIT_FAILURE)
 			name[j] = NULL; // si bug rajouter data[j] = NULL car tout fonctionnait avant
 	}
-	get_into_export_lst(name, data, env);
+	get_into_export_lst(name, data, mini);
 	free_tab(&name); // a free en mode gnl aussi !! free_tab
 	free_tab(&data); // idem
 	return (EXIT_SUCCESS);
 }
 
 
-
+/*
 void	printstack(t_env *env)
 {
 	while (env)
@@ -95,6 +96,17 @@ void	printstack(t_env *env)
 		printf("%s =  ", env->export->name);
 		printf("%s\n", env->export->value);
 		env = env->next;
+	}	
+}
+*/
+
+void	printstack(t_mini *mini)
+{
+	while (mini)
+	{
+		printf("%s =  ", mini->export->name);
+		printf("%s\n", mini->export->value);
+		mini = mini->next;
 	}	
 }
 
@@ -124,10 +136,18 @@ void	printexport(t_export *export)
 {
 	while (export)
 	{
-		printf("%s =  ", export->name);
-		printf("%s\n", export->value);
+		printf("declare -x ");
+		if (export->name != NULL)
+		{
+			if (export->value == NULL)
+				printf("%s=""\n", export->name, export->value);
+			else
+				printf("%s=\"%s\"\n", export->name, export->value);
+		}
+		else if (export->envj != NULL)
+			printf("%s\n", export->envj);
 		export = export->next;
-	}	
+	}
 }
 
 int	ft_strcmp(char *s1, char *s2)
@@ -183,12 +203,12 @@ void add_to_export_lst(t_export **export_lst, char *export_name, char *export_da
 int main(int ac, char **av)
 {
 	(void)ac;
-	t_env *env;	
+	t_mini *mini;	
 
-	env = NULL;
-	exec_export(ac, av, &env);
+	mini = NULL;
+	exec_export(ac, av, &mini);
 	printf("Print = $$$$$$$$\n");
-	printexport(env->export);
+	printexport(mini->export);
 	
 	return (0);
 }

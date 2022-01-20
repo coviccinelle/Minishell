@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/19 20:52:49 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/20 19:46:04 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_shell()
     printf("\n");
     printf("\n");
     printf("\n");
-	printf("");
+//	printf("");
 	char *user_name = getenv("USER");
 	printf("Your user_name is : %s\n", user_name);
 	sleep(3);
@@ -92,6 +92,25 @@ char	**ft_env_cpy(char **envp)
 	return (env);
 }
 
+void	env_struct(t_mini **mini, char **envp)
+{
+	t_mini	*tmp;
+
+	tmp = *mini; 
+//	t_env	*env;
+//	t_export	*export;
+	int	j;
+
+	j = -1;
+	while (envp[++j])
+	{
+		add_to_env(&tmp->env, envp[j], NULL, NULL); //ajout dans lordre denv
+		//add_to_export_lst(&tmp->export_lst, env[j]) // ajout dans lordre asccii
+	}
+	//print_env(env)
+	//print_export(export);
+}
+
 char	*ft_readline_input(char *line/*, char **env*/)
 {
 	//signal(SIGINT, ft_sigint);
@@ -103,8 +122,21 @@ char	*ft_readline_input(char *line/*, char **env*/)
 	return (line);
 }
 
+
 int	main(int ac, char **av, char **envp)
 {
+
+
+	t_mini	*mini;
+
+	mini = NULL;
+	mini = malloc(40000);
+//	env_struct(&mini, envp);
+	//print_env(mini->env);
+
+
+	
+
 	char		*line;
 	char		**env;
 	//t_parsing	param;
@@ -123,7 +155,7 @@ int	main(int ac, char **av, char **envp)
 	//	line_history(line);
 		if (line)
 		{
-			if (parsing(line/*, &param, env*/))
+			if (parsing(line/*, &param, env)*/))
 			//	env = ft_exec_all_cmd(&param, env);
 				printf("Parsing done -> Cmd found ! Allez on executer tout\n");
 			else

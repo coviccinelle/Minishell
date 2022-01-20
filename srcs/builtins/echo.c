@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
 // option n a checker ceci est le seul parsing necessaire sauf erreur
 int	is_option_n(char **av)

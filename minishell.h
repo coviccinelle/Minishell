@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/19 19:45:05 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/20 19:39:30 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,18 @@ typedef struct s_export
 
 typedef struct s_env
 {
-	//char	*user_name;
-	char	*PWD;
-	char	*OLD_PWD;
-	int	exit_value;
+	char	*envj;
 	t_export	*export;
 	struct s_env	*next;
-}				t_env;
+}		t_env;
+
+
+typedef struct s_mini
+{
+	t_export	*export;
+	t_env		*env;
+	struct s_mini	*next;
+}		t_mini;
 
 //*** Utils ***//
 
@@ -85,8 +90,10 @@ void	free_tab(char ***line);
 t_export *new_export(char *export_name, char *export_data);
 void	delete_export(t_export **export_lst, char *export_name);
 void    add_to_export_lst(t_export **export_lst, char *export_name, char *export_data);
-void	printstack(t_env *env);
+void    add_to_env(t_env **env, char *envj, char *name, char *value);
+void	printstack(t_mini *mini);
 void	ft_memdel(char **s);
 void	ft_free_lst(t_env **head);
+void	print_env(t_env *env);
 
 #endif
