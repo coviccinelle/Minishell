@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/19 12:01:45 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/19 19:45:05 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,20 @@
 
 // *** // STRUCTURE  // *** //
 
-typedef struct s_mini
+typedef struct s_parsing
 {
+	//void	testets;
+	void	*param;
 
-}               t_struct;
+}               t_parsing;
 
 
 // *** // PARSING  // *** //
-
+int	parsing(char *line/*, t_parsing param, char **env*/);
 
 
 // readline_input //
-int readline_input(char *str);
+//int readline_input(char *str);
 
 
 // *** // main  // *** //

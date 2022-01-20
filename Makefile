@@ -6,7 +6,7 @@
 #    By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 11:32:21 by thi-phng          #+#    #+#              #
-#    Updated: 2022/01/18 19:05:28 by thi-phng         ###   ########.fr        #
+#    Updated: 2022/01/19 20:21:23 by thi-phng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,15 +14,14 @@
 
 NAME	=	minishell
 CC		=	clang
-OBJDIR	=	objects
 CFLAGS	=	-Wall -Wextra -Werror
 RM		=	rm -rf
-SRC		=	main.c \
-			pars_utils_01.c \
-			readline_input.c \
+SRC		=	srcs/main.c \
+			srcs/utils/pars_utils_01.c \
+			srcs/parsing/parsing.c \
+			#readline_input.c \
 				
-
-OBJ 	=	$(addprefix $(OBJDIR)/, $(SRC:.c=.o))
+OBJ = ${SRC:.c=.o}
 
 .SILENT:
 SHELL	:= bash
@@ -62,12 +61,17 @@ define  progress_bar
 endef
  # ******************************************************************************* #
 
+.c.o:
+	${CC} -c ${CFLAGS} -o $@ $<
+
+#$(NAME):    ${OBJ}
+#		${CC} ${CFLAGS} ${OBJ} -lreadline -o ${NAME}
+
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -lreadline -o $(NAME)
 	@printf "${B}${CWHITE}]\n"
 
-$(OBJDIR)/%.o: %.c
-	@mkdir -p objects
+%.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 	printf "█"
 
