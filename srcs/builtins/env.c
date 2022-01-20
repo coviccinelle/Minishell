@@ -9,7 +9,7 @@ void	add_to_env(t_env **env, char *envj, char *name, char *value)
 	newnode = malloc(sizeof(env));
 	//if (!newnode)
 	//	ft_free_lst(env);
-	newnode->envj = s;
+	newnode->envj = envj;
 	newnode->export_name = name;
 	newnode->export_value = value;
 	newnode->next = NULL;
@@ -32,7 +32,7 @@ void	print_env(t_env *env)
 	}	
 }
 
-
+/*
 int	main(int ac, char **av, char **envp)
 {
 	int	j;
@@ -50,3 +50,4 @@ int	main(int ac, char **av, char **envp)
 
 	print_env(env);
 }
+*/

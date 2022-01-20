@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/20 19:56:11 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/01/20 22:21:58 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct s_export
 typedef struct s_env
 {
 	char	*envj;
+	char	*export_name;
+	char	*export_value;
 	t_export	*export;
 	struct s_env	*next;
 }		t_env;

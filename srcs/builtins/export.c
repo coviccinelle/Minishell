@@ -32,6 +32,7 @@ int failure_cases_export_2(char *av, char *data, char *name)
 	return (exit_status);
 }
 
+#include <string.h>
 //dans l'ordre alphabétique mon add_node...
 int get_into_export_lst(char **name, char **data, t_mini **mini)
 {
@@ -46,7 +47,6 @@ int get_into_export_lst(char **name, char **data, t_mini **mini)
 	{
 		if (name[j] != NULL)  // ok du moment que name ok, si data est null  va justeassocier une chaine vide a name
 		{
-			printf("added %s=%s. name = |%s|, value = |%s|\n", name[j], data[j], name[j], data[j]);
 			add_to_export_lst(&tmp->export, NULL, name[j], data[j]); // à export list. nom étant avant = et data étant après = et jusqu'à nouveau av[j].
 			//add_to_env(&tmp->env, NULL, name[j], data[j]);
 		}
@@ -138,13 +138,12 @@ void	printexport(t_export *export)
 	while (export)
 	{
 		printf("declare -x ");
-		if (export->name != NULL)
-		{
-			if (export->value == NULL)
-				printf("%s=\"\"", export->name);
-			else
-				printf("%s=\"%s\"\n", export->name, export->value);
-		}
+		//if (export->name != NULL && export->value == NULL && export->envj == NULL) // export bonjour= print bien bonjour=""
+		//	printf("%s=\"\"\n", export->name);
+		if (export->name != NULL && export->value != NULL && export->envj == NULL)
+			printf("%s=\"%s\"\n", export->name, export->value);
+		else if (export->name != NULL && export->value == NULL && export->envj == NULL) // a regler, export bonjour devrait print bonjour
+			printf("%s\n", export->name);
 		else if (export->envj != NULL)
 			printf("%s\n", export->envj);
 		export = export->next;

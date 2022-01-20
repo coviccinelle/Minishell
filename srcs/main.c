@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/20 20:03:50 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/01/20 22:27:21 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	get_pwd()
 	printf("\nCurrent Directory: %s", cwd);
 }
 
-
+/*
 char    *ft_strdup(const char *s1)
 {
         char    *str;
@@ -73,7 +73,7 @@ char    *ft_strdup(const char *s1)
         str[i] = '\0';
         return (str);
 }
-
+*/
 char	**ft_env_cpy(char **envp)
 {
 	int		i;
@@ -96,7 +96,7 @@ void	env_struct(t_mini **mini, char **envp)
 {
 	t_mini	*tmp;
 
-	tmp = *mini; 
+	tmp = *mini;
 //	t_env	*env;
 //	t_export	*export;
 	int	j;
@@ -110,8 +110,8 @@ void	env_struct(t_mini **mini, char **envp)
 	//print_env(env)
 	//print_export(export);
 }
-
-char	*ft_readline_input(char *line/*, char **env*/)
+/*
+char	*ft_readline_input(char *line//, char **env)
 {
 	//signal(SIGINT, ft_sigint);
 	//signal(SIGQUIT, ft_sigquit);
@@ -121,7 +121,7 @@ char	*ft_readline_input(char *line/*, char **env*/)
 		printf("Ft_exit please\n");
 	return (line);
 }
-
+*/
 
 int	main(int ac, char **av, char **envp)
 {
@@ -133,10 +133,7 @@ int	main(int ac, char **av, char **envp)
 	mini = malloc(40000);
 	env_struct(&mini, envp);
 	print_env(mini->env);
-
-
-	
-
+/*
 	char		*line;
 	char		**env;
 	//t_parsing	param;
@@ -148,14 +145,14 @@ int	main(int ac, char **av, char **envp)
 	if (ac != 1)
 		return (printf("Error: Invalid argument\nHint: only ./minishell\n"), 1);
 	init_shell();
-	while (1)
+//	while (1)
 	{
-		line = ft_readline_input(line/*, env*/);
+		line = ft_readline_input(line//, env);
 		printf("line = %s\n", line);
 	//	line_history(line);
 		if (line)
 		{
-			if (parsing(line/*, &param, env)*/))
+			if (parsing(line//, &param, env)))
 			//	env = ft_exec_all_cmd(&param, env);
 				printf("Parsing done -> Cmd found ! Allez on executer tout\n");
 			else
@@ -164,7 +161,7 @@ int	main(int ac, char **av, char **envp)
 	}
 	printf("Freeeee all tabs pls\n");
 //	free_everything(env);
-	return (0);
+*/	return (0);
 
 //		read_from_terminal();
 		//break_into_tokens(); // break into words & operators obeying the quoting rules

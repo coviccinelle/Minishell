@@ -52,6 +52,8 @@ char	*ft_strndup(char *s, int n)
 	return (res);
 }
 
+#include <string.h>
+
 char	*cpy_trim(char *s, char from, char to)
 {
 	int i;
@@ -61,8 +63,12 @@ char	*cpy_trim(char *s, char from, char to)
 	d = NULL;
 	i = chpos(s, from);
 	j = chpos(s, to);
-	if (i == -1 || j == -1)
+	if (strchr(s, '=') == 0 && to == '=')
+		return (ft_strndup(s, ft_strlen(s)));
+	else if (strchr(s, '=') == 0 && to == '\0')
 		return (ft_strndup("", 0));
+	if (to == '=' && j == -1)
+		return (ft_strndup(s, ft_strlen(s)));
 	if (from == '=')
 		i = i + 1;
 	d = ft_strndup(&s[i], j);
