@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/20 12:41:30 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/20 16:05:13 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,26 @@ typedef struct s_export
 
 typedef struct s_env
 {
-	//char			*user_name;
-	char			*PWD;
-	char			*OLD_PWD;
-	int				exit_value;
+	char		**env;
+	int			i;
+	char		*line;
+	char		*av;
 	t_export		*export;
+}				t_env;
 
-	char			**tab;
+typedef struct s_pars
+{
+	char			**tab_av;
 	int				is_builtin;
 	int				n_cmd;
 	int				fork;
 	int				n_pipes;
 	int				heredoc;
 	int				stop;
-	struct s_env	*next;
-}				t_env;
+	struct s_pars	*next;
+}				t_pars;
+
+
 
 // *** // main  // *** //
 
@@ -79,7 +84,7 @@ void		ft_memdel(char **s);
 void		ft_free_lst(t_env **head);
 
 //*** PARSING ***//
-int	parsing(char *line/*, t_parsing param, char **env*/);
+int	parsing(char *line, t_pars *a, char **env);
 
 //*** PIPES ***//
 

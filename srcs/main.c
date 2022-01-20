@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/20 12:42:02 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:32:19 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	main(int ac, char **av, char **envp)
 {
 	char		*line;
 	char		**env;
-	//t_parsing	param;
+	t_pars		a;
 
 	//g_global_value_a _choisir = 0;
 	(void)av;
@@ -125,7 +125,8 @@ int	main(int ac, char **av, char **envp)
 	//	line_history(line);
 		if (line)
 		{
-			if (parsing(line/*, &param, env*/))
+			printf("Not segfaut, before parsing\n");
+			if (parsing(line, &a, env))
 			//	env = ft_exec_all_cmd(&param, env);
 				printf("Parsing done -> Cmd found ! Allez on executer tout\n");
 			else
