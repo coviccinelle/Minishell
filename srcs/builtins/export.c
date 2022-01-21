@@ -200,7 +200,7 @@ void add_to_export_lst(t_export **export_lst, char *envj, char *export_name, cha
 	}
 }
 
-
+/*
 int main(int ac, char **av)
 {
 	(void)ac;
@@ -213,4 +213,4 @@ int main(int ac, char **av)
 	
 	return (0);
 }
-
+*/

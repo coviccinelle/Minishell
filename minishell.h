@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/21 15:15:58 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/01/21 16:40:37 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,6 @@ void	printstack(t_mini *mini);
 void	ft_memdel(char **s);
 void	ft_free_lst(t_env **head);
 void	print_env(t_env *env);
+void	printexport(t_export *export);
 
 #endif

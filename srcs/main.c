@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/21 16:27:25 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/01/21 16:41:50 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	env_struct(t_mini **mini, char **envp)
 	{
 		//printf("%s\n", envp[j]);
 		add_to_env(&tmp->env, envp[j], NULL, NULL); //ajout dans lordre denv
-		//add_to_export_lst(&tmp->export_lst, env[j]) // ajout dans lordre asccii
+	//	add_to_export_lst(&tmp->export, envp[j], NULL, NULL); // ajout dans lordre asccii
 	}
 	//print_env(env)
 	//print_export(export);
@@ -137,6 +137,8 @@ int	main(int ac, char **av, char **envp)
 	mini = malloc(40000);
 	env_struct(&mini, envp);
 	print_env(mini->env);
+//	printexport(mini->export);
+	//printstack(mini);
 /*
 	char		*line;
 	char		**env;
