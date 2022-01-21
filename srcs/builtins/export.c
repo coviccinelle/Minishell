@@ -34,7 +34,7 @@ int failure_cases_export_2(char *av, char *data, char *name)
 
 #include <string.h>
 //dans l'ordre alphabétique mon add_node...
-int get_into_export_lst(char **name, char **data, t_mini **mini)
+int get_into_export_lst(char **av, char **name, char **data, t_mini **mini)
 {
 //sous forme de tableau car rien n'est pris en compte dans bash si une seule erreur dans un seul arg donc doit m'assurer que totut est ok avant envoi àl st export
 	*mini = malloc(40000); //quelle size malloc? en dehors de pref. a voir portabilite si je mets dans le main principal
@@ -45,9 +45,10 @@ int get_into_export_lst(char **name, char **data, t_mini **mini)
 	j = 1;
 	while (name[j])
 	{
-		if (name[j] != NULL)  // ok du moment que name ok, si data est null  va justeassocier une chaine vide a name
+	//	add_to_export_lst(&tmp->export, NULL, name[j], data[j]); // à export list. nom étant avant = et data étant après = et jusqu'à nouveau av[j].
+		if (name[j])
 		{
-			add_to_export_lst(&tmp->export, NULL, name[j], data[j]); // à export list. nom étant avant = et data étant après = et jusqu'à nouveau av[j].
+			add_to_export_lst(&tmp->export, NULL, name[j], data[j]);
 			//add_to_env(&tmp->env, NULL, name[j], data[j]);
 		}
 		j++;
@@ -65,8 +66,8 @@ int exec_export(int ac, char **av, t_mini **mini) // liste a faire dans point 4/
 	j = 0;
 	name = NULL;
 	data = NULL;
-	name = malloc(sizeof(char *) * 1000); // strlen de av je me dis ca fait plus serieux
-	data = malloc(sizeof(char *) * 1000); // same 
+	name = malloc(sizeof(char *) * 10000); // strlen de av je me dis ca fait plus serieux
+	data = malloc(sizeof(char *) * 10000); // same 
 /*	if (ac == 1) // if just exportprint env ou liste export
 	{
 		printstack(env) //env avec list export par ordre alphabetique ?
@@ -81,7 +82,7 @@ int exec_export(int ac, char **av, t_mini **mini) // liste a faire dans point 4/
 		if (failure_cases_export_2(av[j], name[j],data[j]) == EXIT_FAILURE)
 			name[j] = NULL; // si bug rajouter data[j] = NULL car tout fonctionnait avant
 	}
-	get_into_export_lst(name, data, mini);
+	get_into_export_lst(av, name, data, mini);
 	free_tab(&name); // a free en mode gnl aussi !! free_tab
 	free_tab(&data); // idem
 	return (EXIT_SUCCESS);
@@ -113,11 +114,11 @@ void	printstack(t_mini *mini)
 #include <string.h>
 
 
-t_export *new_export(char *export_name, char *export_data)
+t_export *new_export(char *av, char *export_name, char *export_data)
 {
 	t_export *export; // a voir t_env out t_export sachant que t_export est dans t_env
 
-	export = (t_export*)malloc(sizeof(*export));
+	export = (t_export*)malloc(sizeof(t_export));
 
 	if (!export)
 	{
@@ -127,7 +128,7 @@ t_export *new_export(char *export_name, char *export_data)
 	}
 	export->name = export_name;
 	export->value = export_data;
-	export->envj = NULL;
+	export->envj = av;
 	export->next = NULL;
 	return (export);
 }
@@ -140,10 +141,10 @@ void	printexport(t_export *export)
 		printf("declare -x ");
 		//if (export->name != NULL && export->value == NULL && export->envj == NULL) // export bonjour= print bien bonjour=""
 		//	printf("%s=\"\"\n", export->name);
-		if (export->name != NULL && export->value != NULL && export->envj == NULL)
+		if (export->name != NULL /*&& export->value != NULL*/)
 			printf("%s=\"%s\"\n", export->name, export->value);
-		else if (export->name != NULL && export->value == NULL && export->envj == NULL) // a regler, export bonjour devrait print bonjour
-			printf("%s\n", export->name);
+	//	else if (export->name != NULL && export->value == NULL && export->envj == NULL) // a regler, export bonjour devrait print bonjour
+	//		printf("%s\n", export->name);
 		else if (export->envj != NULL)
 			printf("%s\n", export->envj);
 		export = export->next;
@@ -181,7 +182,7 @@ void add_to_export_lst(t_export **export_lst, char *envj, char *export_name, cha
 	t_export *newnode;
 	t_export *tmp;
 	tmp = *export_lst;
-	newnode = new_export(export_name, export_data);
+	newnode = new_export(envj, export_name, export_data);
 	if ((!*export_lst) || ft_strcmp((*export_lst)->name, newnode->name) > 0)
 	{
 		newnode->next = *export_lst;

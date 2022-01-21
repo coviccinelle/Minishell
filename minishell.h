@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/20 22:21:58 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/01/21 15:15:58 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	ft_puterror_fd(char *error, char *s, char *error2);
 void	free_tab(char ***line);
 
 //*** Builtins ***//
-t_export *new_export(char *export_name, char *export_data);
+t_export *new_export(char *av, char *export_name, char *export_data);
 void	delete_export(t_export **export_lst, char *export_name);
 void    add_to_export_lst(t_export **export_lst, char *envj, char *export_name, char *export_data);
 void    add_to_env(t_env **env, char *envj, char *name, char *value);

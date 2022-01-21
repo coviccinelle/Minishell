@@ -6,9 +6,12 @@ void	add_to_env(t_env **env, char *envj, char *name, char *value)
 	t_env	*tmp;
 
 	tmp = *env;
-	newnode = malloc(sizeof(env));
+	newnode = malloc(sizeof(t_env)); // attention size of t_env pas env  !! voila pq me faisait un segfault
 	//if (!newnode)
 	//	ft_free_lst(env);
+
+	printf("je passe ici\n");
+
 	newnode->envj = envj;
 	newnode->export_name = name;
 	newnode->export_value = value;
