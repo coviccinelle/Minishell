@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/20 18:31:29 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/21 11:58:38 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,18 @@ int	detect_cmd(char *str)
 
 
 
-int	ft_init_env(char *av, t_env arg, char **env)
+int	ft_init_mini(char *av, t_mini arg, char **env)
 {
 	arg.env = env;
-	arg.i = 0;
+	//arg.i = 0;
 	arg.line = NULL;
-	arg.av = av;
+	//arg.av = av;
 	return (1);
 }
 
-int	ft_init_pars(t_pars a)
+int	ft_init_mini(t_mini a)
 {
-	a.is_builtin = 0;
+	a.builtin = 0;
 	a.fork = 0;
 	a.n_cmd = 0;
 	a.n_pipes = 0;
@@ -92,23 +92,23 @@ int	ft_init_pars(t_pars a)
 	return (1);
 }
 
-int	ft_init(t_pars a, t_env *arg, char *av, char **env)
+int	ft_init(t_mini a, t_mini *arg, char *av, char **env)
 {
 	(void)a;
 	(void)arg;
 	(void)env;
-	if (ft_init_env(av, *arg, env))
+	if (ft_init_mini(av, *arg, env))
 		printf("done ft_init\n");
-	if (ft_init_pars(a))
-		printf("Done ft_init_pars\n");
+	if (ft_init_mini(a))
+		printf("Done ft_init_mini\n");
 	return (1);
 }
 
 
-int	parsing(char *av, t_pars *a, char **env)
+int	parsing(char *av, t_mini *a, char **env)
 {
-	t_env		arg;
-	t_pars		*tmp;
+	t_mini		arg;
+	t_mini		*tmp;
 	(void)tmp;
 	(void)arg;
 	(void)env;

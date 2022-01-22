@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/20 16:05:13 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/22 20:59:44 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,20 @@ typedef struct s_export
 	struct s_export	*next;
 }				t_export;
 
-typedef struct s_env
+typedef struct s_mini
 {
-	char		**env;
-	int			i;
-	char		*line;
-	char		*av;
-	t_export		*export;
-}				t_env;
-
-typedef struct s_pars
-{
-	char			**tab_av;
-	int				is_builtin;
+	char			**env;
+	char			*line;
+	int				ret;
+	int				builtin;
 	int				n_cmd;
 	int				fork;
-	int				n_pipes;
+	int				pipes;
 	int				heredoc;
 	int				stop;
-	struct s_pars	*next;
-}				t_pars;
-
-
+	struct s_mini	*next;
+	t_export		*export;
+}				t_mini;
 
 // *** // main  // *** //
 
@@ -79,12 +71,12 @@ void		free_tab(char ***line);
 t_export	*new_export(char *export_name, char *export_data);
 void		delete_export(t_export **export_lst, char *export_name);
 void    	add_to_export_lst(t_export **export_lst, char *export_name, char *export_data);
-void		printstack(t_env *env);
+void		printstack(t_mini *env);
 void		ft_memdel(char **s);
-void		ft_free_lst(t_env **head);
+void		ft_free_lst(t_mini **head);
 
 //*** PARSING ***//
-int	parsing(char *line, t_pars *a, char **env);
+int	parsing(char *line, t_mini *a, char **env);
 
 //*** PIPES ***//
 
