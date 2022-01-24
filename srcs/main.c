@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/22 21:49:15 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/24 21:20:06 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,19 +104,7 @@ char	*ft_readline_input(char *line)
 }
 
 
-char			**env;
-	char			*line;
-	int				ret;
-	int				builtin;
-	int				n_cmd;
-	int				fork;
-	int				n_pipes;
-	int				heredoc;
-	int				stop;
-	struct s_mini	*next;
-	t_export		*export;
-
-void	ft_init_mini(t_mini *mini)
+void	ft_init_mini(t_mini mini)
 {
 	mini.env = NULL;
 	mini.line = NULL;
@@ -133,79 +121,62 @@ void	ft_init_mini(t_mini *mini)
 
 void	minishell(t_mini *mini)
 {
-	//token and exec
+	(void)mini;
+	printf("minishell is not defined by now, pls come back later\n");
+	//tous les cmd and exec
 }
 
-void	minishell_thamkhao(t_mini *mini)
-{
-	t_token	*token;
-	int		status;
+// Tham khao nha
 
-	token = next_run(mini->start, NOSKIP);
-	token = (is_types(mini->start, "TAI")) ? mini->start->next : token;
-	while (mini->exit == 0 && token)
-	{
-		mini->charge = 1;
-		mini->parent = 1;
-		mini->last = 1;
-		redir_and_exec(mini, token);
-		reset_std(mini);
-		close_fds(mini);
-		reset_fds(mini);
-		waitpid(-1, &status, 0);
-		status = WEXITSTATUS(status);
-		mini->ret = (mini->last == 0) ? status : mini->ret;
-		if (mini->parent == 0)
-		{
-			free_token(mini->start);
-			exit(mini->ret);
-		}
-		mini->no_exec = 0;
-		token = next_run(token, SKIP);
-	}
-}
+// void	minishell_thamkhao(t_mini *mini)
+// {
+// 	t_token	*token;
+// 	int		status;
+
+// 	token = next_run(mini->start, NOSKIP);
+// 	token = (is_types(mini->start, "TAI")) ? mini->start->next : token;
+// 	while (mini->exit == 0 && token)
+// 	{
+// 		mini->charge = 1;
+// 		mini->parent = 1;
+// 		mini->last = 1;
+// 		redir_and_exec(mini, token);
+// 		status = WEXITSTATUS(status);
+// 		mini->ret = (mini->last == 0) ? status : mini->ret;
+// 		if (mini->parent == 0)
+// 		{
+// 			free_token(mini->start);
+// 			exit(mini->ret);
+// 		}
+// 		mini->no_exec = 0;
+// 		token = next_run(token, SKIP);
+// 	}
+// }
 
 
 int	main(int ac, char **av, char **envp)
 {
 	t_mini		*mini;
+	(void)av;
 	//g_global_value_a _choisir = 0;
 
-	ft_init_mini(&mini);
-	mini.env = ft_env_cpy(envp);
+	mini = NULL;
+	ft_init_mini(*mini);
+	mini->env = ft_env_cpy(envp);
 	if (ac != 1)
 		return (printf("Error: Invalid argument\nHint: only ./minishell\n"), 1);
 	init_shell();
-	while (mini.stop == 0)
+	while (mini->stop == 0)
 	{
-		mini.line = ft_readline_input(mini.line);
-		add_history(mini.line);
-		parsing(&mini);
-		if (mini.line)
-			minishell(&mini);
+		mini->line = ft_readline_input(mini->line);
+		add_history(mini->line);
+		parsing(mini);
+		if (mini->line)
+			minishell(mini);
 		//free_token(mini.line);
 	}
 	//free_env(mini.env);
 	return(0);
-
-	
-// 	while (mini.stop = 0)
-// 	{
-// 		line = ft_readline_input(line/*, env*/);
-// 		add_history(line);
-// 		if (line)
-// 		{
-// 			if (parsing(&mini))
-// 				minishell(&mini);
-// 			//	env = ft_exec_all_cmd(&param, env);
-// 				printf("Parsing done -> Cmd found ! Allez on executer tout\n");
-// 			else
-// 				printf("Error: Command not found !(Free)\n");//ft_free_params(&param);
-// 		}
-// 	}
-// 	printf("Freeeee all tabs pls\n");
-// //	free_everything(env);
-// 	return (0);
 
 //		read_from_terminal();
 		//break_into_tokens(); // break into words & operators obeying the quoting rules

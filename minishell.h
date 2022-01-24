@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/22 20:59:44 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/24 21:18:19 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void		ft_memdel(char **s);
 void		ft_free_lst(t_mini **head);
 
 //*** PARSING ***//
-int	parsing(char *line, t_mini *a, char **env);
+int	parsing(t_mini *mini);
 
 //*** PIPES ***//
 
