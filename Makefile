@@ -6,13 +6,13 @@
 #    By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 11:32:21 by thi-phng          #+#    #+#              #
-#    Updated: 2022/01/20 11:40:19 by thi-phng         ###   ########.fr        #
+#    Updated: 2022/01/25 14:33:00 by thi-phng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 CC		=	clang
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror #-g
 RM		=	rm -rf
 SRC		=	srcs/main.c \
 			srcs/utils/pars_utils_01.c \

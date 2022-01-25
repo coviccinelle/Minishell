@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/24 21:18:19 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:03:44 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct s_mini
 	struct s_mini	*next;
 	t_export		*export;
 }				t_mini;
+
+extern int		g_n_exit;
 
 // *** // main  // *** //
 
@@ -87,5 +89,13 @@ int	parsing(t_mini *mini);
 //*** SIMPLE QUOTE ***//
 
 //*** DOUBLE QUOTE ***//
+
+//*** SIGNAL ***//
+void    ft_sigint_ctr_c(int sig);
+void    ft_sigquit_ctr_d(int sig);
+void    ft_ignore(int sig);
+void    ft_disable_if_fork(int pid);
+void    ft_start_signal(void);
+
 
 #endif
