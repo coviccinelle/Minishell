@@ -6,7 +6,7 @@
 #    By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 11:32:21 by thi-phng          #+#    #+#              #
-#    Updated: 2022/01/25 14:33:00 by thi-phng         ###   ########.fr        #
+#    Updated: 2022/01/25 15:42:44 by thi-phng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ RM		=	rm -rf
 SRC		=	srcs/main.c \
 			srcs/utils/pars_utils_01.c \
 			srcs/parsing/parsing.c \
+			srcs/signal/signal.c \
 			#srcs/readline_input.c \
 				
 OBJ = ${SRC:.c=.o}

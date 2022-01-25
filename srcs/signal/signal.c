@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:38:11 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/25 15:03:26 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:51:33 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@ void    ft_ignore(int sig)
     if (sig == SIGINT)
     {
         printf("\n");
-        g_n_exit = 130;
+        printf("g_n_exit = 130\n");
+    //    g_n_exit = 130;
     }
-    else if (sig = SIGQUIT)
+    else if (sig == SIGQUIT)
     {
         printf("Quit (core dumped)\n");
-        g_n_exit = 131;
+        printf("g_n_exit = 131\n");
+    //    g_n_exit = 131;
     }
 }
 

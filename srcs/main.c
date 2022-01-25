@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/24 21:20:06 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:50:32 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ char	**ft_env_cpy(char **envp)
 
 char	*ft_readline_input(char *line)
 {
-	//signal(SIGINT, ft_sigint);
-	//signal(SIGQUIT, ft_sigquit);
+	signal(SIGINT, ft_sigint_ctr_c);
+	signal(SIGQUIT, ft_sigquit_ctr_d);
 	line = readline("\033[1;33m~Minishell$\033[0m ");
 	if (!line)
 		//ft_exit(NULL, env);
@@ -158,7 +158,7 @@ int	main(int ac, char **av, char **envp)
 {
 	t_mini		*mini;
 	(void)av;
-	//g_global_value_a _choisir = 0;
+//	g_n_exit = 0;
 
 	mini = NULL;
 	ft_init_mini(*mini);
