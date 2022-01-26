@@ -24,7 +24,6 @@
 # include <string.h>
 
 
-
 // *** // STRUCTURE  // *** //
 
 typedef struct s_parsing
