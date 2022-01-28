@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/28 16:26:55 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/28 18:51:29 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	parsing(t_mini *mini)
 			i = i + detect_cmd(&mini->line[i]);
 			printf("i now is %d\n", i);
 			i++;
-			printf("And the rest of the line is : %s \n", &mini->line[igit ]);
+			printf("And the rest of the line is : %s \n", &mini->line[i]);
 			return (1);
 		}
 		else
