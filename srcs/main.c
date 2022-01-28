@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/28 13:36:00 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/28 13:42:26 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	get_pwd()
 	getcwd(cwd, sizeof(cwd));
 	printf("\nCurrent Directory: %s", cwd);
 }
-
 
 char    *ft_strdup(const char *s1)
 {
@@ -105,7 +104,6 @@ char	*ft_readline_input(char *line)
 	return (line);
 }
 
-
 void	ft_init_mini(t_mini *mini)
 {
 	printf("here\n");
@@ -120,7 +118,6 @@ void	ft_init_mini(t_mini *mini)
 	mini->stop = 0;
 	mini->next = NULL;
 }
-
 
 void	minishell(t_mini *mini)
 {
@@ -155,7 +152,6 @@ void	minishell(t_mini *mini)
 // 		token = next_run(token, SKIP);
 // 	}
 // }
-
 
 int	main(int ac, char **av, char **envp)
 {
