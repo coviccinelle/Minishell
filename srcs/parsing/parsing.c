@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/28 14:29:47 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/28 14:57:11 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,22 @@ int	is_token(char *str, char *token)
 	return (1);
 }
 
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	unsigned long	i;
+	unsigned char	*str1;
+	unsigned char	*str2;
+
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	i = 0;
+	if (str1 == str2)
+		return (0);
+	while (str1[i] && str2[i] && str1[i] == str2[i])
+		i++;
+	return (str1[i] - str2[i]);
+}
+
 
 int	detect_cmd(char *str)
 {
@@ -30,37 +46,37 @@ int	detect_cmd(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (is_token(str, "echo"))
+		if (ft_strcmp(str, "echo") == 0)
 		{
 			printf("\nECHO founded\n");
 			return (1);
 		}
-		if (is_token(str, "export"))
+		if (!ft_strcmp(str, "export"))
 		{
 			printf("\nEXPORT founded\n");
 			return (1);
 		}
-		if (is_token(str, "env"))
+		if (!ft_strcmp(str, "env"))
 		{
 			printf("\nENV founded\n");
 			return (1);
 		}
-		if (is_token(str, "exit"))
+		if (!ft_strcmp(str, "exit"))
 		{
 			printf("\nEXIT founded\n");
 			return (1);
 		}
-		if (is_token(str, "cd"))
+		if (!ft_strcmp(str, "cd"))
 		{
 			printf("\nCD founded\n");
 			return (1);
 		}
-		if (is_token(str, "pwd"))
+		if (!ft_strcmp(str, "pwd"))
 		{
 			printf("\nPWD founded\n");
 			return (1);
 		}
-		if (is_token(str, "unset"))
+		if (!ft_strcmp(str, "unset"))
 		{
 			printf("\nUNSET founded\n");
 			return (1);
