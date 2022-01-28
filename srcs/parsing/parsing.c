@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/24 21:23:06 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/28 14:29:47 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,13 @@ int	detect_cmd(char *str)
 
 int	parsing(t_mini *mini)
 {
+	int i;
 
-	
-//	tmp = a;
-	while (mini->line)
+	i = 0;
+	while (mini->line[i])
 	{
+		while (mini->line[i] == ' ' || mini->line[i] == '\t')
+			i++;
 		if (detect_cmd(mini->line))
 		{
 			return (1);
