@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/28 13:34:58 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/28 13:36:00 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*ft_readline_input(char *line)
 	line = readline("\033[1;33m~Minishell$\033[0m ");
 	if (!line)
 	{
-		printf("Oops someone just typed ctr^D?!? < 0_0 >\n");
+		printf("Oops someone just typed ctr^D?!? Bye, I'm out < 0_0 >\n");
 		exit(0);
 	}
 	return (line);
