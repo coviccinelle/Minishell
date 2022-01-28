@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/28 16:25:07 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:26:55 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int	detect_cmd(char *str)
 int	parsing(t_mini *mini)
 {
 	int i;
-	//int	n;
 
 	i = 0;
 	while (mini->line[i])
