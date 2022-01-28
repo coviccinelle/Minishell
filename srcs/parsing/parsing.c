@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/28 15:29:41 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:25:07 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,15 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (str1[i] - str2[i]);
 }
 
+int	ft_strlen(char *str)
+{
+	int i;
 
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
 
 int	detect_cmd(char *str)
 {
@@ -47,40 +55,40 @@ int	detect_cmd(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (ft_strncmp(str, "echo", 5) == 0)
+		if (!ft_strncmp(str, "echo", 5))
 		{
 			printf("\nECHO founded\n");
-			return (1);
+			return (ft_strlen("echo"));
 		}
 		if (!ft_strncmp(str, "export", 7))
 		{
 			printf("\nEXPORT founded\n");
-			return (1);
+			return (ft_strlen("export"));
 		}
 		if (!ft_strncmp(str, "env", 4))
 		{
 			printf("\nENV founded\n");
-			return (1);
+			return (ft_strlen("env"));
 		}
 		if (!ft_strncmp(str, "exit", 5))
 		{
 			printf("\nEXIT founded\n");
-			return (1);
+			return (ft_strlen("exit"));
 		}
 		if (!ft_strncmp(str, "cd", 3))
 		{
 			printf("\nCD founded\n");
-			return (1);
+			return (ft_strlen("cd"));
 		}
 		if (!ft_strncmp(str, "pwd", 4))
 		{
 			printf("\nPWD founded\n");
-			return (1);
+			return (ft_strlen("pwd"));
 		}
 		if (!ft_strncmp(str, "unset", 6))
 		{
 			printf("\nUNSET founded\n");
-			return (1);
+			return (ft_strlen("unset"));
 		}
 		i++;
 	}
@@ -92,17 +100,28 @@ int	detect_cmd(char *str)
 int	parsing(t_mini *mini)
 {
 	int i;
+	//int	n;
 
 	i = 0;
 	while (mini->line[i])
 	{
 		while (mini->line[i] == ' ' || mini->line[i] == '\t')
 			i++;
+
 		if (detect_cmd(&mini->line[i]))
 		{
+			i = i + detect_cmd(&mini->line[i]);
+			printf("i now is %d\n", i);
+			i++;
+			printf("And the rest of the line is : %s \n", &mini->line[igit ]);
 			return (1);
 		}
-		i++;
+		else
+		{
+			printf("Errr: command not found\n");
+			i++;
+			return (1);
+		}
 	}
 	return (0);
 }
