@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/28 14:57:11 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/28 15:29:41 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_token(char *str, char *token)
 	return (1);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	unsigned long	i;
 	unsigned char	*str1;
@@ -31,12 +31,13 @@ int	ft_strcmp(const char *s1, const char *s2)
 	str1 = (unsigned char *)s1;
 	str2 = (unsigned char *)s2;
 	i = 0;
-	if (str1 == str2)
+	if (!n || str1 == str2)
 		return (0);
-	while (str1[i] && str2[i] && str1[i] == str2[i])
+	while (str1[i] && str2[i] && i < (n - 1) && str1[i] == str2[i])
 		i++;
 	return (str1[i] - str2[i]);
 }
+
 
 
 int	detect_cmd(char *str)
@@ -46,37 +47,37 @@ int	detect_cmd(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (ft_strcmp(str, "echo") == 0)
+		if (ft_strncmp(str, "echo", 5) == 0)
 		{
 			printf("\nECHO founded\n");
 			return (1);
 		}
-		if (!ft_strcmp(str, "export"))
+		if (!ft_strncmp(str, "export", 7))
 		{
 			printf("\nEXPORT founded\n");
 			return (1);
 		}
-		if (!ft_strcmp(str, "env"))
+		if (!ft_strncmp(str, "env", 4))
 		{
 			printf("\nENV founded\n");
 			return (1);
 		}
-		if (!ft_strcmp(str, "exit"))
+		if (!ft_strncmp(str, "exit", 5))
 		{
 			printf("\nEXIT founded\n");
 			return (1);
 		}
-		if (!ft_strcmp(str, "cd"))
+		if (!ft_strncmp(str, "cd", 3))
 		{
 			printf("\nCD founded\n");
 			return (1);
 		}
-		if (!ft_strcmp(str, "pwd"))
+		if (!ft_strncmp(str, "pwd", 4))
 		{
 			printf("\nPWD founded\n");
 			return (1);
 		}
-		if (!ft_strcmp(str, "unset"))
+		if (!ft_strncmp(str, "unset", 6))
 		{
 			printf("\nUNSET founded\n");
 			return (1);
@@ -97,11 +98,11 @@ int	parsing(t_mini *mini)
 	{
 		while (mini->line[i] == ' ' || mini->line[i] == '\t')
 			i++;
-		if (detect_cmd(mini->line))
+		if (detect_cmd(&mini->line[i]))
 		{
 			return (1);
 		}
-		return (0);
+		i++;
 	}
 	return (0);
 }
