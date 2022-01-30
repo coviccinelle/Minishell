@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/28 18:51:29 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/30 22:15:36 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,11 @@ int	detect_cmd(char *str)
 }
 
 
+// there are 2 choices : put all in la liste chainee or tableau + liste chainee, depends on Marie-Ines
 
+//Step 1: parsing espaces and tabs
+// step 2: counting (single and doubles) quotes
+//  Step 3: tokenizing in liste chainee (2 ways: Balkis (tableau + liste chainee for each cmd) and Eclipse (liste chainee 100%))
 int	parsing(t_mini *mini)
 {
 	int i;
