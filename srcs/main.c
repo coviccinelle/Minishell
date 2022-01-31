@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/28 13:42:26 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/31 11:30:30 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	init_shell()
 	char *user_name = getenv("USER");
 	printf("Your user_name is : %s\n", user_name);
 	sleep(1);
-	printf("\e[1;1H\e[2J");
+//	printf("\e[1;1H\e[2J");
 }
 
 void	get_pwd()
@@ -109,6 +109,7 @@ void	ft_init_mini(t_mini *mini)
 	printf("here\n");
 	mini->env = NULL;
 	mini->line = NULL;
+	mini->execve = NULL;
 	mini->ret = 0;
 	mini->builtin = 0;
 	mini->n_cmd = 0;
