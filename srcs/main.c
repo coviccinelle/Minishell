@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/31 11:30:30 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/31 13:30:12 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	**ft_env_cpy(char **envp)
 char	*ft_readline_input(char *line)
 {
 	signal(SIGINT, ft_sigint_ctr_c);
-	signal(SIGQUIT, ft_sigquit_ctr_d);
+	signal(SIGQUIT, ft_sigquit_ctr_bs);
 	line = readline("\033[1;33m~Minishell$\033[0m ");
 	if (!line)
 	{
@@ -110,14 +110,8 @@ void	ft_init_mini(t_mini *mini)
 	mini->env = NULL;
 	mini->line = NULL;
 	mini->execve = NULL;
-	mini->ret = 0;
-	mini->builtin = 0;
-	mini->n_cmd = 0;
-	mini->fork = 0;
-	mini->pipes = 0;
-	mini->heredoc = 0;
+	mini->i = 0;
 	mini->stop = 0;
-	mini->next = NULL;
 }
 
 void	minishell(t_mini *mini)
