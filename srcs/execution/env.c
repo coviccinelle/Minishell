@@ -29,7 +29,7 @@ char	*find_cmd_path(char *cmd) // a renommer
 	struct stat	s;
 
 	j = -1;
-	path = ft_split(getenv("PATH"), ':'); //mon ft_getenv plutot non?
+	path = ft_split(ft_getenv(env, "PATH"), ':'); // mettre a lexterieur car flemme de rajouter env en param
 	while (path[++j])
 	{
 		absolute_path = ft_strxjoin(path[j], "/", cmd);
