@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 14:30:11 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/31 14:34:40 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/31 15:30:03 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int ft_count_quotes_char(const char *str, char c)
     return (j);
 }
 
+/*
 int main()
 {
     char    *str = "coucou em vit vit vu";
@@ -36,3 +37,5 @@ int main()
     printf("%d\n", ft_count_quotes_char(str, c));
     return (0);
 }
+*/
+
