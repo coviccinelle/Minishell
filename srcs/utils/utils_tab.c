@@ -21,13 +21,18 @@ void	print_export(char **tab)
 		printf("declare -x %s\n", tab[j]);
 }
 
+#include <string.h> //a enlever
+
 void	print_tab(char **env)
 {
 	int	j;
 
 	j = -1;
 	while (env[++j])
-		printf("%s\n", env[j]);
+	{
+		if (strchr(env[j], '=')) // a remplacer par ft_strchr
+			printf("%s\n", env[j]);
+	}
 }
 
 void swap(char **s1, char **s2)

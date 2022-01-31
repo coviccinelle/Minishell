@@ -1,6 +1,12 @@
 #include "../../minishell.h"
 
-//encore à tester
+//EXEC
+
+
+//Execute commands but this time without any path. (ls, wc, awk etc...)
+
+
+//fonction ok. a mettre dans utils_libft_1.c si jamais
 
 char	*ft_strxjoin(char *s1, char *s2, char *s3)
 {
@@ -13,12 +19,14 @@ char	*ft_strxjoin(char *s1, char *s2, char *s3)
 		return (res);
 }
 
+
+/*
 char	*find_cmd_path(char *cmd) // a renommer
 {
 	char	**path;
 	char	*absolute_path;
 	int		j;
-    struct stat	s;
+	struct stat	s;
 
 	j = -1;
 	path = ft_split(getenv("PATH"), ':'); //mon ft_getenv plutot non?
@@ -26,7 +34,7 @@ char	*find_cmd_path(char *cmd) // a renommer
 	{
 		absolute_path = ft_strxjoin(path[j], "/", cmd);
 		//if (access(asolute_path, F_OK) == 0)
-        if (stat(absolute_path, &s) == 0)
+        	if (stat(absolute_path, &s) == 0)
 		{
 			free_tab(&path);
 			return (absolute_path); // a free pour le dernier ft_strjoin non?
@@ -34,4 +42,14 @@ char	*find_cmd_path(char *cmd) // a renommer
 		ft_memdel(absolute_path);
 	}
 	free_tab(&path);
+}
+*/
+
+int	main(int ac, char **av)
+{
+	char	*final;
+
+	final = ft_strxjoin(av[1], av[2], av[3]);
+	printf("%s\n", final);
+	return (0);
 }

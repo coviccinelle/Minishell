@@ -29,17 +29,18 @@ char	**ft_copy_tab(char **env);
 
 int	ft_unsetenv(char ***env,char *name);
 
+void	print_export(char **tab);
 
-int		env_realloc_and_append_envvar(char ***env, char *name, char *value)
+int		env_realloc_and_append_envvar(char ***env, char *envvar, char *name, char *value)
 {
 	int	j;
-	char	*envvar;
+//	char	*envvar;
 	char	**new_env;
 	int	new_size;
 
 	j = -1;
-	envvar = ft_strcat(name, "=");
-	envvar =  ft_strcat(envvar, value);
+//	envvar = ft_strcat(name, "=");
+//	envvar =  ft_strcat(envvar, value);
 	new_size = nb_tabs(*env) + 1;
 	new_env = (char **)malloc(sizeof(char *) * new_size + 1);
 	if (!new_env)
@@ -65,7 +66,7 @@ char	*find_in_env(char **env, char *name, int *pos) //prend tout bonjour=hello e
 		return (NULL);
 	while (env[++j])
 	{
-		if (ft_strncmp(name, env[j], name_len) == 0)
+		if (ft_strncmp(name, env[j], name_len) == 0 && env[j][name_len] ==  '=')
 		{
 			*pos = j;
 			return (cpy_trim(env[j], '=', '\0'));
@@ -75,19 +76,19 @@ char	*find_in_env(char **env, char *name, int *pos) //prend tout bonjour=hello e
 }
 
 
-int	ft_setenv(char ***env, char *name, char *value)
+int	ft_setenv(char ***env, char *av, char *name, char *value)
 {
 	int	pos_name;
 	
 	printf("JE PASSE DANS SET ENV\n\n");
 	if (find_in_env(*env, name, &pos_name) != NULL)
 		ft_unsetenv(env, name);
-	env_realloc_and_append_envvar(env, name, value); // +1 etant nb_tab(envvar) concretemetnt
+	env_realloc_and_append_envvar(env, av, name, value); // +1 etant nb_tab(envvar) concretemetnt
 	return (0);
 }
 
 //dans l'ordre alphabétique mon add_node...
-int get_into_export_lst(char ***env, char **name, char **data)
+int get_into_export_lst(char ***env, char **av, char **name, char **data)
 {
 	int j;
 	
@@ -97,7 +98,7 @@ int get_into_export_lst(char ***env, char **name, char **data)
 		if (name[j] != NULL)  // ok du moment que name ok, si data est null  va justeassocier une chaine vide a name
 		{
 			printf("added %s=%s. name = |%s|, value = |%s|\n", name[j], data[j], name[j], data[j]);
-			ft_setenv(env, name[j], data[j]);
+			ft_setenv(env, av[j], name[j], data[j]);
 		}
 		j++;
 	}
@@ -133,7 +134,7 @@ int exec_export(int ac, char **av, char ***env) // liste a faire dans point 4/ex
 		}
 		data[j] = cpy_trim(av[j], '=', '\0');
 	}
-	get_into_export_lst(env, name, data);
+	get_into_export_lst(env, av, name, data);
 	free_tab(&name); // a free en mode gnl aussi !! free_tab
 	free_tab(&data); // idem
 	return (EXIT_SUCCESS);
@@ -145,7 +146,7 @@ int	ft_unsetenv(char ***env,char *name)
 	int pos_name;
 	int	j;
 
-	find_in_env(*env, name, &pos_name); //a voir si peux supp cette ligne
+	//find_in_env(*env, name, &pos_name); //a voir si peux supp cette ligne
 	if (!find_in_env(*env, name, &pos_name)) //comme ca exit si nexiste pas dans environ?a checker
 		return(0); // ret 0 car pas un echec en soi?
 	j = pos_name;
@@ -182,11 +183,13 @@ int		main(int ac, char **av, char **envp)
 	printf("******************************************ENV AVANT***************************8\n");
 	print_tab(env);
 	printf("*******************************************APRES EXPORT***************************8\n");
-	exec_export(ac, av, &env); //encore a regler : quand juste un name mais pas de value, mettre dans l'export list mais pas l'env
+	exec_export(ac, av, &env);
 	print_tab(env);
 	printf("*******************************************APRES UNSET**************************\n");
 	ft_unsetenv(&env, "bonjourrr"); // encore a tester apres parsing Thao : cmd_unset pour que arg1 arg2 etc soient tous unset.
 	print_tab(env);
 
+	printf("*******************************************EXPORT ALPHABETIQUE**************************\n");
+	print_export(env);
 	return (0);
 }
