@@ -1,46 +1,35 @@
 #include "../../minishell.h"
 
 
-//size_t	ft_strlen(const char *s);
-//char	*ft_strjoin(char const *s1, char const *s2);
-char *ft_strstr(char *str, char *to_find);
+//char *ft_strstr(char *str, char *to_find);
 void				ft_bzero(void *b, size_t n);
 void	*ft_memalloc(size_t size);
 void	test_print(char **envp);
-//char	**ft_copy_tab(char **envp);
 void	free_tab(char ***line);
 void	free_tabs(char **tabs);
 void ft_putchar(int c);
 void ft_putstr(char *s);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
-void	*ft_realloc(void *ptr, size_t newsize);
-//int	chpos(const char *s, int c);
-//char	*ft_strndup(char *s, int n);
 char	*cpy_trim(char *s, char from, char to);
 int ft_strncmp(char *s1, char *s2, unsigned int n);
-char *ft_strcat(char *dest, char *src);
+//char *ft_strcat(char *dest, char *src);
 int		nb_tabs(char **s);
 char	*ft_strdup(char *src);
 char	*ft_strcpy(char *dst, char *src);
-
 int	ft_alphabetical_order_tab(char **env);
 void	print_tab(char **env);
 char	**ft_copy_tab(char **env);
-
 int	ft_unsetenv(char ***env,char *name);
-
 void	print_export(char **tab);
 
-int		env_realloc_and_append_envvar(char ***env, char *envvar, char *name, char *value)
+
+int		env_realloc_and_append_envvar(char ***env, char *envvar)
 {
 	int	j;
-//	char	*envvar;
 	char	**new_env;
 	int	new_size;
 
 	j = -1;
-//	envvar = ft_strcat(name, "=");
-//	envvar =  ft_strcat(envvar, value);
 	new_size = nb_tabs(*env) + 1;
 	new_env = (char **)malloc(sizeof(char *) * new_size + 1);
 	if (!new_env)
@@ -83,7 +72,7 @@ int	ft_setenv(char ***env, char *av, char *name, char *value)
 	printf("JE PASSE DANS SET ENV\n\n");
 	if (find_in_env(*env, name, &pos_name) != NULL)
 		ft_unsetenv(env, name);
-	env_realloc_and_append_envvar(env, av, name, value); // +1 etant nb_tab(envvar) concretemetnt
+	env_realloc_and_append_envvar(env, av);
 	return (0);
 }
 
