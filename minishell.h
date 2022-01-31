@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/31 13:30:55 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/31 14:31:15 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct	s_file
 
 typedef struct	s_cmd
 {
+	char			**execve;
 	int				ret;
 	int				builtin;
 	int				pipe;
@@ -72,7 +73,6 @@ typedef struct s_mini
 	char			**env;
 	char			*line;
 	int				i;
-	char			**execve;
 	int				stop;
 }				t_mini;
 
@@ -97,6 +97,7 @@ void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_puterror_fd(char *error, char *s, char *error2);
 void		free_tab(char ***line);
+int			ft_count_quotes(const char *str);
 
 //*** Builtins ***//
 t_export	*new_export(char *export_name, char *export_data);
@@ -107,7 +108,7 @@ void		ft_memdel(char **s);
 void		ft_free_lst(t_mini **head);
 
 //*** PARSING ***//
-int	parsing(t_mini *mini);
+int	parsing(t_mini *mini, t_cmd *cmd);
 
 //*** PIPES ***//
 
