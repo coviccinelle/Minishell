@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/28 13:42:26 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/31 14:18:12 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	init_shell()
 	char *user_name = getenv("USER");
 	printf("Your user_name is : %s\n", user_name);
 	sleep(1);
-	printf("\e[1;1H\e[2J");
+//	printf("\e[1;1H\e[2J");
 }
 
 void	get_pwd()
@@ -94,7 +94,7 @@ char	**ft_env_cpy(char **envp)
 char	*ft_readline_input(char *line)
 {
 	signal(SIGINT, ft_sigint_ctr_c);
-	signal(SIGQUIT, ft_sigquit_ctr_d);
+	signal(SIGQUIT, ft_sigquit_ctr_bs);
 	line = readline("\033[1;33m~Minishell$\033[0m ");
 	if (!line)
 	{
@@ -109,19 +109,30 @@ void	ft_init_mini(t_mini *mini)
 	printf("here\n");
 	mini->env = NULL;
 	mini->line = NULL;
-	mini->ret = 0;
-	mini->builtin = 0;
-	mini->n_cmd = 0;
-	mini->fork = 0;
-	mini->pipes = 0;
-	mini->heredoc = 0;
+	mini->i = 0;
 	mini->stop = 0;
-	mini->next = NULL;
 }
 
-void	minishell(t_mini *mini)
+void	ft_init_cmd(t_cmd *cmd)
+{
+	cmd->execve = NULL;
+	cmd->ret = 0;
+	cmd->builtin = 0;
+	cmd->pipe = 0;
+	cmd->fork = 0;
+	cmd->quote = 0;
+	cmd->d_quotes = 0;
+	cmd->heredoc = 0;
+	cmd->stop = 0;
+	cmd->type = NOPE;
+	cmd->file = NULL;
+	cmd->next = NULL;
+}
+
+void	minishell(t_mini *mini, t_cmd *cmd)
 {
 	(void)mini;
+	(void)cmd;
 	printf("minishell is not defined by now, pls come back later\n");
 	//tous les cmd and exec
 }
@@ -156,12 +167,14 @@ void	minishell(t_mini *mini)
 int	main(int ac, char **av, char **envp)
 {
 	t_mini		mini;
+	t_cmd		cmd;
 	(void)av;
 //	g_n_exit = 0;
 
 	//mini = NULL;
 	printf("000\n");
 	ft_init_mini(&mini);
+	ft_init_cmd(&cmd);
 	printf("110\n");
 	mini.env = ft_env_cpy(envp);
 	if (ac != 1)
@@ -171,9 +184,9 @@ int	main(int ac, char **av, char **envp)
 	{
 		mini.line = ft_readline_input(mini.line);
 		add_history(mini.line);
-		parsing(&mini);
+		parsing(&mini, &cmd);
 		if (mini.line)
-			minishell(&mini);
+			minishell(&mini, &cmd);
 		//free_token(mini.line);
 	}
 	//free_env(mini.env);

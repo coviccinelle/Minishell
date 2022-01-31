@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/28 14:40:09 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/31 14:31:15 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,47 @@ typedef struct s_export
 	struct s_export	*next;
 }				t_export;
 
+typedef enum	e_redirecto
+{
+	NOPE,
+	IN,
+	OUT,
+	DOUBLE_IN,
+	DOUBLE_OUT,
+}				t_redirecto;
+
+typedef struct	s_file
+{
+	char			*name;
+	t_redirecto		type_redirecto;
+	struct s_file	*next;
+}				t_file;
+
+typedef struct	s_cmd
+{
+	char			**execve;
+	int				ret;
+	int				builtin;
+	int				pipe;
+	int				fork;
+	int				quote;
+	int				d_quotes;
+	int				heredoc;
+	int				stop;
+	t_redirecto		type;
+	t_file			*file;
+	struct s_cmd	*next;
+}				t_cmd;
+
 typedef struct s_mini
 {
 	char			**env;
 	char			*line;
-	int				ret;
-	int				builtin;
-	int				n_cmd;
-	int				fork;
-	int				pipes;
-	int				heredoc;
+	int				i;
 	int				stop;
-	struct s_mini	*next;
-	t_export		*export;
 }				t_mini;
 
-extern int		g_n_exit;
+extern int		g_nb_exit;
 
 // *** // main  // *** //
 
@@ -72,6 +97,7 @@ void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_puterror_fd(char *error, char *s, char *error2);
 void		free_tab(char ***line);
+int			ft_count_quotes(const char *str);
 
 //*** Builtins ***//
 t_export	*new_export(char *export_name, char *export_data);
@@ -82,7 +108,7 @@ void		ft_memdel(char **s);
 void		ft_free_lst(t_mini **head);
 
 //*** PARSING ***//
-int	parsing(t_mini *mini);
+int	parsing(t_mini *mini, t_cmd *cmd);
 
 //*** PIPES ***//
 
@@ -96,7 +122,7 @@ int	parsing(t_mini *mini);
 
 //*** SIGNAL ***//
 void    ft_sigint_ctr_c(int sig);
-void    ft_sigquit_ctr_d(int sig);
+void    ft_sigquit_ctr_bs(int sig);
 void    ft_ignore(int sig);
 void    ft_disable_if_fork(int pid);
 void    ft_start_signal(void);

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:38:11 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/25 15:51:33 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/01/31 14:00:22 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 void    ft_sigint_ctr_c(int sig)
 {
     (void)sig;
-    printf("\n");
-    rl_replace_line("", 0);
-    rl_on_new_line();
-    rl_redisplay();
+    write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
-void    ft_sigquit_ctr_d(int sig)
+void    ft_sigquit_ctr_bs(int sig)
 {
     (void)sig;
+    printf("\b\b  \b\b");
 }
 
 // In case we fork / in another processus //
@@ -60,5 +61,5 @@ void    ft_disable_if_fork(int pid)
 void    ft_start_signal(void)
 {
     signal(SIGINT, ft_sigint_ctr_c);
-    signal(SIGQUIT, ft_sigquit_ctr_d);
+    signal(SIGQUIT, ft_sigquit_ctr_bs);
 }
