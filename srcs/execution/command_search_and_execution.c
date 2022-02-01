@@ -1,32 +1,20 @@
 #include "../../minishell.h"
 
 
-void	exec()
+void	exec_cmd(int ac, char **av, char **env)
 {
 	char	*path;
 
-	path = find_path(); // cf ma fonction dans env je sais plus si je lavais appelee comme ca
-	if (is_builtin) // a retrouver dans mon notion
-		exec_builtin; // a retrouver dans mon notion puis tester apres parsing de thao
+	path = find_cmd_path(av[0]); // cf ma fonction dans env (encore a tester)
+	if (is_builtin(av[0]) //return 0 for success
+		exec_builtin(av[0], av); // all builtin return an exit status of 2 to indicate incorrate usage such as invalid option or missing arguments
 	else
-		execve(path, NULL, env); // sais plus le truc du milieu a rechecker
+		execve(path, av, env); // if a command is found but is not executable, the return status is 126
 	else
-		ft_puterror_fd(av[0], "command not found", NULL);
+		ft_puterror_fd("Minishell:", "command not found", av[0]);// exit status 127. if a command is not foundm the child process to execute it returns a status of 127
 }
 
-// file : command_search_and_execution.c
-/* All builtins return an exit status of 2 
-to indicate incorrect usage, 
-generally invalid options or missing arguments.
-donc ici exit_fail = 2 et non pas 126 ? quand pour 126 ?)
-*/
-if (is_builtin(av[0]))
-		exit_status = exec_builtin(av[0], av); // If a command is found but is not executable, the return status is 126.
-else
-{
-		printf("Minishell: command not found: %s\n", av[0]);
-		exit_status = 127; //If a command is not found, the child process created to execute it returns a status of 127. 
-}
+
 // 1/ fonction ft_strcmp list of shell builtins.
 int		is_builtin(char *builtin)
 {
