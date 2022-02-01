@@ -107,16 +107,13 @@ char	**ft_copy_tab(char **env)
 	int		size;
 	char	**envp;
 
-	size = 0;
 	i = -1;
+	if (!env)
+		return (NULL);
 	size = nb_tabs(env);
 	envp = malloc(sizeof(char *) * (size + 1));
-	i = 0;
-	while (i < size)
-	{
+	while (++i < size)
 		envp[i] = strdup(env[i]); // A REMPLACER ! pourquoi ne repere pas mon ft_strdup ????
-		i++;
-	}
 	envp[i] = NULL;
 	return (envp);
 }
@@ -130,10 +127,7 @@ void ft_putstr(char *s)
 {
 	int	i;
 
-	i = 0;
-	while(s[i])
-	{
+	i = -1;
+	while(s[++i])
 		write(1, &s[i], 1);
-		i++;
-	}
 }

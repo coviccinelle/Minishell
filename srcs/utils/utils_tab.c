@@ -23,7 +23,7 @@ void	print_export(char **tab)
 
 #include <string.h> //a enlever
 
-void	print_tab(char **env)
+void	print_tab(char **env) // plus print tab mais print env plutot vu que je viens dajouter la condition strchr
 {
 	int	j;
 
@@ -55,6 +55,7 @@ int	ft_alphabetical_order_tab(char **env)
 
 	copy = ft_copy_tab(env);
 	i = 0;
+	j = 0;
 	while (copy[i])
 	{
 		j = i + 1;

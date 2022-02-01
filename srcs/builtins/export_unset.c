@@ -30,14 +30,15 @@ int		env_realloc_and_append_envvar(char ***env, char *envvar)
 	int	new_size;
 
 	j = -1;
-	new_size = nb_tabs(*env) + 1;
-	new_env = (char **)malloc(sizeof(char *) * new_size + 1);
+	new_size = nb_tabs(*env) + 2;
+	new_env = (char **)malloc(sizeof(char *) * new_size);
 	if (!new_env)
 		return (-1); // voir quelle valeur dans errno
 	while ((*env)[++j])
 		new_env[j] = ft_strdup((*env)[j]);
 	new_env[j] = ft_strdup(envvar);
 	new_env[j + 1] = NULL;
+	free_tab(env);
 	*env = new_env;
 	return (EXIT_SUCCESS);
 }
@@ -90,7 +91,7 @@ int get_into_export_lst(char ***env, char **av, char **name, char **data)
 	int j;
 	
 	j = 1;
-	while (name[j])
+	while (/*name[j] && */j < nb_tabs(av))
 	{
 		if (name[j] != NULL)  // ok du moment que name ok, si data est null  va justeassocier une chaine vide a name
 		{
@@ -119,7 +120,7 @@ int exec_export(int ac, char **av, char ***env) // liste a faire dans point 4/ex
 	j = 0;
 	init_tab(av, &name);
 	init_tab(av, &data);
-	if (ac == 1) // if just exportprint env ou liste export
+	if (ac == 1) // if just exportprint env ou liste export. ok bien faire attention car je reprintais dautres trucs dans main donc avais limpression que ne fonctionnait plus
 		return (ft_alphabetical_order_tab(*env));
 	while (av[++j])
 	{
@@ -132,8 +133,8 @@ int exec_export(int ac, char **av, char ***env) // liste a faire dans point 4/ex
 		data[j] = cpy_trim(av[j], '=', '\0');
 	}
 	get_into_export_lst(env, av, name, data);
-	free_tab(&name); // a free en mode gnl aussi !! free_tab
-	free_tab(&data); // idem
+//	free_tab(&name); //  leaks dans mes init tabs que je free data et name ou pas... a comprendre
+//	free_tab(&data); // idem
 	return (EXIT_SUCCESS);
 }
 
@@ -188,5 +189,6 @@ int		main(int ac, char **av, char **envp)
 
 	printf("*******************************************EXPORT ALPHABETIQUE**************************\n");
 	print_export(env);
+	free_tab(&env); // a ajouter dans le main principal !!
 	return (0);
 }
