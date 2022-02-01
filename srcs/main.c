@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/31 14:18:12 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/01 21:13:06 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,33 +136,6 @@ void	minishell(t_mini *mini, t_cmd *cmd)
 	printf("minishell is not defined by now, pls come back later\n");
 	//tous les cmd and exec
 }
-
-// Tham khao nha
-
-// void	minishell_thamkhao(t_mini *mini)
-// {
-// 	t_token	*token;
-// 	int		status;
-
-// 	token = next_run(mini->start, NOSKIP);
-// 	token = (is_types(mini->start, "TAI")) ? mini->start->next : token;
-// 	while (mini->exit == 0 && token)
-// 	{
-// 		mini->charge = 1;
-// 		mini->parent = 1;
-// 		mini->last = 1;
-// 		redir_and_exec(mini, token);
-// 		status = WEXITSTATUS(status);
-// 		mini->ret = (mini->last == 0) ? status : mini->ret;
-// 		if (mini->parent == 0)
-// 		{
-// 			free_token(mini->start);
-// 			exit(mini->ret);
-// 		}
-// 		mini->no_exec = 0;
-// 		token = next_run(token, SKIP);
-// 	}
-// }
 
 int	main(int ac, char **av, char **envp)
 {
