@@ -106,8 +106,8 @@ int get_into_export_lst(char ***env, char **av, char **name, char **data)
 
 void	init_tab(char **av, char ***s)
 {
-	*s = NULL;
-	*s = malloc(sizeof(char **) * nb_tabs(av) + 1);
+	//*s = NULL;
+	*s = malloc(sizeof(char **) * (nb_tabs(av)));
 	//tout set a null, les tabs comme les strings
 }
 
@@ -118,8 +118,11 @@ int exec_export(int ac, char **av, char ***env) // liste a faire dans point 4/ex
 	int j;
 	
 	j = 0;
-	init_tab(av, &name);
-	init_tab(av, &data);
+	//init_tab(av, &name);
+//	init_tab(av, &data);
+
+	data = malloc(sizeof(char **) * (nb_tabs(av)));
+	name = malloc(sizeof(char **) * (nb_tabs(av)));
 	if (ac == 1) // if just exportprint env ou liste export. ok bien faire attention car je reprintais dautres trucs dans main donc avais limpression que ne fonctionnait plus
 		return (ft_alphabetical_order_tab(*env));
 	while (av[++j])
@@ -133,8 +136,8 @@ int exec_export(int ac, char **av, char ***env) // liste a faire dans point 4/ex
 		data[j] = cpy_trim(av[j], '=', '\0');
 	}
 	get_into_export_lst(env, av, name, data);
-//	free_tab(&name); //  leaks dans mes init tabs que je free data et name ou pas... a comprendre
-//	free_tab(&data); // idem
+	free_tab(&name); //  leaks dans mes init tabs que je free data et name ou pas... a comprendre
+	free_tab(&data); // idem
 	return (EXIT_SUCCESS);
 }
 
@@ -155,7 +158,7 @@ int	ft_unsetenv(char ***env,char *name)
 		ft_memdel(&(*env)[j + 1]);
 		j++;
 	}
-  return (0);
+	return (0);
 }
 
 /*
