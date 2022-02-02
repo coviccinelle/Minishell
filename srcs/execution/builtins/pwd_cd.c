@@ -53,8 +53,49 @@ void	exec_cd(int ac, char **av)
 #include <unistd.h>
 int	main(int ac, char **av)
 {
-	exec_pwd();
-//	chdir("../"); // pourquoi ne fonctionne pas ??
+//	exec_pwd();
+	chdir(av[1]); // pourquoi ne fonctionne pas ??
 	return (0);
+}
+*/
+/*
+#include<unistd.h> 
+
+int main(int ac, char **av) 
+{
+
+  // changing the current
+  // working directory(cwd)
+  // to /usr
+  //if (chdir("/usr") != 0)
+   // perror("chdir() to /usr failed");
+
+  // changing the cwd to /tmp
+  //if (chdir("/tmp") != 0)
+    //perror("chdir() to /temp failed");
+
+  if (chdir(av[1]) != 0)
+	  perror(av[1]);
+
+  return 0;
+}
+*/
+/*
+#include<unistd.h>
+int main()
+{
+    char s[100];
+
+    // printing current working directory
+    printf("%s\n", getcwd(s, 100));
+
+    // using the command
+    chdir("..");
+
+    // printing current working directory
+    printf("%s\n", getcwd(s, 100));
+
+    // after chdir is executed
+    return 0;
 }
 */
