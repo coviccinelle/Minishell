@@ -83,7 +83,7 @@ static char		**fill(char const *s, int words, char c, char **splitted)
 	return (splitted);
 }
 
-int			ft_split(char	const *s, char c)
+int			ft_spliti_2(char	const *s, char c)
 {
 	char	**splitted;
 	int		words;
@@ -149,7 +149,7 @@ char    *ft_reste_apres_quote(char *str, char c)
     return (NULL);
 }
 
-
+/*
 int main(void)
 {
    char    *str = "coucou \" hihi ' hu ' ' hihi \"  i love ' you' '";
@@ -167,4 +167,6 @@ int main(void)
     
 
     return (0);
-}
+}*/
+
+

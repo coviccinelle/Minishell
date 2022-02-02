@@ -20,18 +20,18 @@
 //     printf("strtok = %s\n", strtok(str, "cou"));
 //     return (0);
 // }
-
+/*
 int main()
 {
    char str[80] = "Coucou echo >> hihi.txt | ls token << xeho.txt | cd VietJack";
    const char s[4] = "|><";
    char *token;
-   
+   */
    /* lay token dau tien */
-   token = strtok(str, s);
+   //token = strtok(str, s);
    
    /* duyet qua cac token con lai */
-   while( token != NULL ) 
+   /*while( token != NULL ) 
    {
       printf( " %s\n", token );
     
@@ -39,4 +39,5 @@ int main()
    }
    
    return(0);
-}
+}*/
+
