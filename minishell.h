@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/02 17:44:15 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/02/02 18:20:04 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int			ft_count_quotes(const char *str);
 char		*ft_strdup(char *s1);
 char		**ft_copy_tab(char **env);
 int			ft_strcmp(char *s, char *t);
-
+void	*ft_memcpy(void *dst, const void *src, size_t n);
 //*** Builtins ***//
 t_export	*new_export(char *export_name, char *export_data);
 void		delete_export(t_export **export_lst, char *export_name);

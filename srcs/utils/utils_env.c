@@ -34,21 +34,20 @@ int	chpos(const char *s, int c) // pour trouver indice ou jai mon char.
 	return (str - s);
 }
 
-char	*ft_strndup(char *s, int n)
+char *ft_strndup(char *s, int n)
 {
-	char *res;
-	int	i;
+	int len;
+	char *copy;
 
-	res = (char *)malloc(sizeof(char) * (n + 1));
-	i = -1;
-	if (!s)
+	len = 0;
+	while (s[len] && len < n)
+		len++;
+	copy = malloc(len + 1);
+	if (!copy)
 		return (NULL);
-	if (!res)
-		return (NULL);
-	while (++i < n)
-		res[i] = s[i];
-	res[i] = '\0';
-	return (res);
+	ft_memcpy(copy, s, len);
+	copy[len] = '\0';
+	return (copy);
 }
 
 char	*cpy_trim(char *s, char from, char to)
