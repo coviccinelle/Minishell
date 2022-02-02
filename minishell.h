@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/02 19:17:30 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/02/02 21:20:02 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_mini
 	char			*line;
 	int				i;
 	int				stop;
+	t_cmd			*cmd;
 }				t_mini;
 
 extern int		g_nb_exit;

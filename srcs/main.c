@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/02 20:23:25 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/02 21:23:27 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	ft_init_mini(t_mini *mini)
 	mini->line = NULL;
 	mini->i = 0;
 	mini->stop = 0;
+	mini->cmd = NULL;
 }
 
 void	ft_init_cmd(t_cmd *cmd)
