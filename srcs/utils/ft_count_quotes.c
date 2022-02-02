@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 14:30:11 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/02 00:18:02 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/02 10:55:36 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,10 +123,7 @@ int ft_quotes(char *str, char c)
 
 int main()
 {
-    //char    *str = "echo 'c''ou\"c'ou \" em  vit  v'it vu";
     char str[500] = "bonjour \" 'hello'' 'grwgwrg' \"h\'i\'iii\" \"";
-    
-  //  printf("%d\n", ft_count_quotes_char(str, '\'', 0));
-   printf("%d\n", ft_check_quote(str));
+    printf("%d\n", ft_check_quote(str));
     return (0);
 }
