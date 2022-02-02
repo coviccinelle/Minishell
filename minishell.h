@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/31 14:31:15 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/01 11:49:33 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int     	find_me(char c, char *str);
 int     	is_token_char(char c);int	is_digit(char c);
 int 		is_alpha(char c);
 int	    	is_valid_var_name(char *av);
-char		*ft_strdup(const char *s1);
+//char		*ft_strdup(const char *s1);
 char		*ft_strjoin(char *s1, char *s2);
 int	    	ft_strlen(char *s);
 char		*cpy_trim(char *s, char from, char to);
@@ -98,6 +98,8 @@ void		ft_putendl_fd(char *s, int fd);
 void		ft_puterror_fd(char *error, char *s, char *error2);
 void		free_tab(char ***line);
 int			ft_count_quotes(const char *str);
+char		*ft_strdup(char *s1);
+char		**ft_copy_tab(char **env);
 
 //*** Builtins ***//
 t_export	*new_export(char *export_name, char *export_data);

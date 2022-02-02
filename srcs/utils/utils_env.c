@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int is_valid_var_name(char *av)
 {
@@ -39,14 +39,13 @@ char	*ft_strndup(char *s, int n)
 	char *res;
 	int	i;
 
-	res = (char *)malloc(sizeof(char) * ft_strlen(s)) + 1;
+	res = (char *)malloc(sizeof(char) * (n + 1));
 	i = -1;
 	if (!s)
 		return (NULL);
 	if (!res)
 		return (NULL);
-//		perror(ENOMEM);
-	while (s[++i] && i < n)
+	while (++i < n)
 		res[i] = s[i];
 	res[i] = '\0';
 	return (res);

@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int is_digit(char c)
 {
@@ -55,6 +55,7 @@ char    *ft_strjoin(char *s1, char *s2)
         res[j] = '\0';
         return (res);
 }
+
 
 
 /*

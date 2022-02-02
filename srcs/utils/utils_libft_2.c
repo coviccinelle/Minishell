@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
 void    ft_putchar_fd(char c, int fd)
 {
@@ -30,7 +30,7 @@ void	ft_puterror_fd(char *error, char *s, char *error2)
 	ft_putchar_fd('\n', 2);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(char *s1)
 {
 	char	*str;
 	int		i;

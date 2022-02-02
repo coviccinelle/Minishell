@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 14:30:11 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/02 10:55:36 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/02 19:19:33 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,12 @@ int ft_quotes(char *str, char c)
 }
 
 
+/*
 int main()
 {
     char str[500] = "bonjour \" 'hello'' 'grwgwrg' \"h\'i\'iii\" \"";
     printf("%d\n", ft_check_quote(str));
     return (0);
 }
+*/
+
