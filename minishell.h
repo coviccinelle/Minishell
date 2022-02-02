@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/01 11:49:33 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/02/02 17:44:15 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void		free_tab(char ***line);
 int			ft_count_quotes(const char *str);
 char		*ft_strdup(char *s1);
 char		**ft_copy_tab(char **env);
+int			ft_strcmp(char *s, char *t);
 
 //*** Builtins ***//
 t_export	*new_export(char *export_name, char *export_data);
@@ -108,7 +109,12 @@ void    	add_to_export_lst(t_export **export_lst, char *export_name, char *expor
 void		printstack(t_mini *env);
 void		ft_memdel(char **s);
 void		ft_free_lst(t_mini **head);
-
+int			exec_echo(int ac, char **av);
+int			exec_pwd(void);
+int			exec_export(int ac, char **av, char ***env);
+int			exec_unset(int ac, char **av, char ***env);
+void		print_env(char **env);
+char	*ft_getenv(char **env, char *name);
 //*** PARSING ***//
 int	parsing(t_mini *mini, t_cmd *cmd);
 

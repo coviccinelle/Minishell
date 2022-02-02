@@ -1,6 +1,6 @@
 #include "../../minishell.h"
 
-
+/*
 void	exit(int ac, char **av)
 {
 	if (ac > 3)
@@ -12,3 +12,4 @@ void	exit(int ac, char **av)
 	}
 	//EXIT
 }
+*/

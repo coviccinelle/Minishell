@@ -23,7 +23,7 @@ void	print_export(char **tab)
 
 #include <string.h> //a enlever
 
-void	print_tab(char **env) // plus print tab mais print env plutot vu que je viens dajouter la condition strchr
+void	print_env(char **env) // plus print tab mais print env plutot vu que je viens dajouter la condition strchr
 {
 	int	j;
 
