@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/02 21:23:27 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/02 21:35:43 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	ft_init_mini(t_mini *mini)
 
 void	ft_init_cmd(t_cmd *cmd)
 {
-	cmd->execve = NULL;
+	cmd->each_cmd = NULL;
 	cmd->ret = 0;
 	cmd->builtin = 0;
 	cmd->pipe = 0;

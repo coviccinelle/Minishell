@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/02 21:20:02 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/02 21:48:04 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ typedef struct	s_file
 
 typedef struct	s_cmd
 {
-	char			**execve;
+	char			**each_cmd;
+	int				n_cmd;
 	int				ret;
 	int				builtin;
 	int				pipe;
@@ -87,6 +88,9 @@ int     	find_me(char c, char *str);
 int     	is_token_char(char c);int	is_digit(char c);
 int 		is_alpha(char c);
 int	    	is_valid_var_name(char *av);
+char		**ft_split(char	const *s, char c);
+
+
 //char		*ft_strdup(const char *s1);
 char		*ft_strjoin(char *s1, char *s2);
 int	    	ft_strlen(char *s);
@@ -117,7 +121,7 @@ int			exec_unset(int ac, char **av, char ***env);
 void		print_env(char **env);
 char	*ft_getenv(char **env, char *name);
 
-void				ft_bzero(void *b, size_t n);
+void		ft_bzero(void *b, size_t n);
 void	*ft_memalloc(size_t size);
 void	test_print(char **envp);
 void	free_tab(char ***line);
@@ -136,6 +140,9 @@ void	print_tab(char **env);
 char	**ft_copy_tab(char **env);
 int	ft_unsetenv(char ***env,char *name);
 void	print_export(char **tab);
+
+
+
 //*** PARSING ***//
 int	parsing(t_mini *mini, t_cmd *cmd);
 

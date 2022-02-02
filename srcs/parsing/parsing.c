@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/02 21:22:00 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/02 22:15:07 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,17 +113,29 @@ int	detect_cmd(char *str)
 int	parsing(t_mini *mini, t_cmd *cmd)
 {
 	int i;
-	//char	*str= NULL;
+	char	*buf;
+	//char	**str= NULL;
 	(void)cmd;
 
+	buf = NULL;
 	i = 0;
 	while (mini->line[i])
 	{
-		//if (!ft_count_quotes(*line))
-		//	break ;
-		while (mini->line[i] == ' ' || mini->line[i] == '\t')
+		if (mini->line[i] == ' ' || mini->line[i] == '\t')
 			i++;
-
+		if (mini->line[i] == '|')
+		{
+			//str = malloc(sizeof(char) * i);
+			//**str = ft_split(*str, '|');
+			char **str;
+			str = ft_split(mini->line, '|'); //jhgj
+			int j = 0;
+			while (str[++j])
+				  //list = add_cell(list, str[i], i); // deux cellules, dans chaqune on met str[i]
+			printf("%s\n", *str);
+			printf("PIPE alert : Don't know what to do yet\n");
+			return (1);
+		}
 		if (detect_cmd(&mini->line[i]))
 		{
 			i = i + detect_cmd(&mini->line[i]) - 1;
@@ -132,12 +144,13 @@ int	parsing(t_mini *mini, t_cmd *cmd)
 			printf("And the rest of the line is : %s \n", &mini->line[i + 1]);
 			return (1);
 		}
-		else
-		{
-			printf("Errr: command not found\n");
-		//	i++;
-			return (1);
-		}
+		// else
+		// {
+		// 	printf("Errr: command not found\n");
+		// //	i++;
+		// 	return (1);
+		// }
+		i++;
 	}
 	return (0);
 }

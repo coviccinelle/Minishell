@@ -65,7 +65,7 @@ static char		**fill(char const *s, int words, char c, char **splitted)
 	int		len;
 
 	i = -1;
-	while (++i < 1)
+	while (++i < words)
 	{
      
 		while (*s == ' ')
@@ -77,25 +77,40 @@ static char		**fill(char const *s, int words, char c, char **splitted)
 		while (j < len)
 			splitted[i][j++] = *s++;
 		splitted[i][j] = '\0';
-        printf("str = ===%s=== ___ and len_str = %d\n", splitted[i], ft_strlen(splitted[i]));
+      //  printf("str = ===%s=== ___ and len_str = %d\n", splitted[i], ft_strlen(splitted[i]));
 	}
 	splitted[i] = NULL;
 	return (splitted);
 }
 
-int			ft_split(char	const *s, char c)
+
+char			**ft_split(char	const *s, char c)
 {
 	char	**splitted;
 	int		words;
 
 	if (!s)
-		return (0);
+		return (NULL);
 	words = count_words(s, c);
 	if (!(splitted = (char **)malloc(sizeof(char *) * (words + 1))))
-		return (0);
+		return (NULL);
 	splitted = fill(s, words, c, splitted);
-	return (ft_strlen(splitted[0]));
+	return (splitted);
 }
+
+// int			ft_split(char	const *s, char c)
+// {
+// 	char	**splitted;
+// 	int		words;
+
+// 	if (!s)
+// 		return (0);
+// 	words = count_words(s, c);
+// 	if (!(splitted = (char **)malloc(sizeof(char *) * (words + 1))))
+// 		return (0);
+// 	splitted = fill(s, words, c, splitted);
+// 	return (ft_strlen(splitted[0]));
+// }
 
 static int	ft_char_in_set(char c, char const *set)
 {
@@ -150,21 +165,21 @@ char    *ft_reste_apres_quote(char *str, char c)
 }
 
 
-int main(void)
-{
-   char    *str = "coucou \" hihi ' hu ' ' hihi \"  i love ' you' '";
-   char     *str2;
-   char    c = '"';
+// int main(void)
+// {
+//    char    *str = "coucou \" hihi ' hu ' ' hihi \"  i love ' you' '";
+//    char     *str2;
+//    char    c = '"';
 
-   //char    *str3 = "hello em be iu";
-    printf("str = %s\n", str);
-    str2 = ft_reste_apres_quote(str, c);
+//    //char    *str3 = "hello em be iu";
+//     printf("str = %s\n", str);
+//     str2 = ft_reste_apres_quote(str, c);
 
-    printf("the rest after quote = %s\n", str2);//Nouvelle string est le reste a partir de char C
+//     printf("the rest after quote = %s\n", str2);//Nouvelle string est le reste a partir de char C
 
-    printf("retour de split is %d\n", ft_split(str2, c));//renvoi ce qui est entre les 2 meme quotes
+//     printf("retour de split is %d\n", ft_split(str2, c));//renvoi ce qui est entre les 2 meme quotes
 
     
 
-    return (0);
-}
+//     return (0);
+// }
