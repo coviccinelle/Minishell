@@ -1,4 +1,4 @@
-#include "../../minishell.h"
+#include "../../../minishell.h"
 
 int exec_pwd(void) 
 {
@@ -14,6 +14,7 @@ int exec_pwd(void)
 	else if (!pwd)
 		return (EXIT_FAILURE); 
 	//update it to env PWD=
+	return (EXIT_SUCCESS);
 }
 
 
@@ -48,7 +49,7 @@ void	exec_cd(int ac, char **av)
 
 }
 */
-
+/*
 #include <unistd.h>
 int	main(int ac, char **av)
 {
@@ -56,3 +57,4 @@ int	main(int ac, char **av)
 //	chdir("../"); // pourquoi ne fonctionne pas ??
 	return (0);
 }
+*/

@@ -1,4 +1,4 @@
-#include "../../minishell.h"
+#include "../../../minishell.h"
 
 int	is_option_n(char *av)
 {
@@ -25,10 +25,12 @@ int	echo(int ac, char **av, int option_n)
 		j = 1;
 	if (ac > 1)
 	{
+		while (is_option_n(av[j]))
+			j++;
 		while (av[j])
 		{
 			ft_putstr_fd(av[j], 1);
-			if ((j + 1) != ac)
+			if ((j + 1) != ac) // ajouter plutot ac - 1 si bug apres parsing thao. sinon fonctionen tres bien on its own (mets un espace supp dans mon exec mais cest normal car &av[1])
 				ft_putchar_fd(' ', 1);
 			j++;
 		}
@@ -47,7 +49,9 @@ int	exec_echo(int ac, char **av)
 	return (EXIT_SUCCESS);
 }
 
+/*
 int	main(int ac, char **av)
 {
 	exec_echo(ac, av); 
 }
+*/

@@ -1,6 +1,6 @@
-#include "../../minishell.h"
+#include "../../../minishell.h"
 
-
+/*
 //char *ft_strstr(char *str, char *to_find);
 void				ft_bzero(void *b, size_t n);
 void	*ft_memalloc(size_t size);
@@ -21,7 +21,7 @@ void	print_tab(char **env);
 char	**ft_copy_tab(char **env);
 int	ft_unsetenv(char ***env,char *name);
 void	print_export(char **tab);
-
+*/
 
 int		env_realloc_and_append_envvar(char ***env, char *envvar)
 {
@@ -136,8 +136,9 @@ int exec_export(int ac, char **av, char ***env) // liste a faire dans point 4/ex
 		data[j] = cpy_trim(av[j], '=', '\0');
 	}
 	get_into_export_lst(env, av, name, data);
-	free_tab(&name); //  leaks dans mes init tabs que je free data et name ou pas... a comprendre
-	free_tab(&data); // idem
+
+//	free_tab(&name); //  leaks dans mes init tabs que je free data et name ou pas... a comprendre
+//	free_tab(&data); // idem
 	return (EXIT_SUCCESS);
 }
 
@@ -161,18 +162,16 @@ int	ft_unsetenv(char ***env,char *name)
 	return (0);
 }
 
-/*
-int	cmd_unset(int ac, char **av, char ***env)
+int	exec_unset(int ac, char **av, char ***env)
 {
 	int j;
 
 	j = 0; // car a partir de av[1] donc apres unset
 	while (av[++j]) // a tester. ai ajouté if pas found dans l'env dans ft_unsetenv. si ne marche pas, mettre ici
-		ft_unsetenv(&env, av[j]);
+		ft_unsetenv(env, av[j]);
 	return (0);
 }
-*/
-
+/*
 int		main(int ac, char **av, char **envp)
 {
 
@@ -195,3 +194,4 @@ int		main(int ac, char **av, char **envp)
 	free_tab(&env); // a ajouter dans le main principal !!
 	return (0);
 }
+*/
