@@ -6,12 +6,12 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/02 13:03:35 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/02 17:00:00 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
+/*
 int	is_token(char *str, char *token)
 {
 	char	*res;
@@ -20,7 +20,7 @@ int	is_token(char *str, char *token)
 	if (res == NULL)
 		return (0);
 	return (1);
-}
+}*/
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -58,27 +58,6 @@ int	ft_strcmp(char *s1, char *s2)
 		i++;
 	return (s1[i] - s2[i]);
 }
-
-/*
-int	detect_cmd(char *str)
-{
-	if (!(ft_strcmp(str, "cd")))
-		return (1);
-	if (!(ft_strcmp(str, "echo")))
-		return (1);
-	if (!(ft_strcmp(str, "env")))
-		return (1);
-	if (!(ft_strcmp(str, "export")))
-		return (1);
-	if (!(ft_strcmp(str, "exit")))
-		return (1);
-	if (!(ft_strcmp(str, "pwd")))
-		return (1);
-	if (!(ft_strcmp(str, "unset")))
-		return (1);
-	return (0);
-}*/
-
 
 int	detect_cmd(char *str)
 {
@@ -126,8 +105,6 @@ int	detect_cmd(char *str)
 	}
 	return (0);
 }
-
-
 
 // there are 2 choices : put all in la liste chainee or tableau + liste chainee, depends on Marie-Ines
 //Step 1: parsing espaces and tabs
