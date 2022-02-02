@@ -6,12 +6,12 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/01/31 15:20:52 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/02 17:00:00 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
+/*
 int	is_token(char *str, char *token)
 {
 	char	*res;
@@ -20,7 +20,7 @@ int	is_token(char *str, char *token)
 	if (res == NULL)
 		return (0);
 	return (1);
-}
+}*/
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -48,6 +48,17 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
+}
+
 int	detect_cmd(char *str)
 {
 	int	i;
@@ -57,45 +68,43 @@ int	detect_cmd(char *str)
 	{
 		if (!ft_strncmp(str, "echo", 5))
 		{
-			printf("\nECHO founded\n");
+			printf("ECHO founded\n");
 			return (ft_strlen("echo"));
 		}
 		if (!ft_strncmp(str, "export", 7))
 		{
-			printf("\nEXPORT founded\n");
+			printf("EXPORT founded\n");
 			return (ft_strlen("export"));
 		}
 		if (!ft_strncmp(str, "env", 4))
 		{
-			printf("\nENV founded\n");
+			printf("ENV founded\n");
 			return (ft_strlen("env"));
 		}
 		if (!ft_strncmp(str, "exit", 5))
 		{
-			printf("\nEXIT founded\n");
+			printf("EXIT founded\n");
 			return (ft_strlen("exit"));
 		}
 		if (!ft_strncmp(str, "cd", 3))
 		{
-			printf("\nCD founded\n");
+			printf("CD founded\n");
 			return (ft_strlen("cd"));
 		}
 		if (!ft_strncmp(str, "pwd", 4))
 		{
-			printf("\nPWD founded\n");
+			printf("PWD founded\n");
 			return (ft_strlen("pwd"));
 		}
 		if (!ft_strncmp(str, "unset", 6))
 		{
-			printf("\nUNSET founded\n");
+			printf("UNSET founded\n");
 			return (ft_strlen("unset"));
 		}
 		i++;
 	}
 	return (0);
 }
-
-
 
 // there are 2 choices : put all in la liste chainee or tableau + liste chainee, depends on Marie-Ines
 //Step 1: parsing espaces and tabs
@@ -104,6 +113,7 @@ int	detect_cmd(char *str)
 int	parsing(t_mini *mini, t_cmd *cmd)
 {
 	int i;
+	//char	*str= NULL;
 	(void)cmd;
 
 	i = 0;
@@ -116,16 +126,16 @@ int	parsing(t_mini *mini, t_cmd *cmd)
 
 		if (detect_cmd(&mini->line[i]))
 		{
-			i = i + detect_cmd(&mini->line[i]);
+			i = i + detect_cmd(&mini->line[i]) - 1;
 			printf("i now is %d\n", i);
-			i++;
-			printf("And the rest of the line is : %s \n", &mini->line[i]);
+		//	i++;
+			printf("And the rest of the line is : %s \n", &mini->line[i + 1]);
 			return (1);
 		}
 		else
 		{
 			printf("Errr: command not found\n");
-			i++;
+		//	i++;
 			return (1);
 		}
 	}
