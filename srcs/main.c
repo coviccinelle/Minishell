@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/01 21:13:06 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/02 20:23:25 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	get_pwd()
 	printf("\nCurrent Directory: %s", cwd);
 }
 
-char    *ft_strdup(const char *s1)
+char    *ft_strdup(char *s1)
 {
         char    *str;
         int             i;
