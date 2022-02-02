@@ -1,4 +1,4 @@
-#include "../../minishell.h"
+#include "../../../minishell.h"
 
 int	is_option_n(char *av)
 {

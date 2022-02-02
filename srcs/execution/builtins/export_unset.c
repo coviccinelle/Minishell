@@ -1,6 +1,6 @@
-#include "../../minishell.h"
+#include "../../../minishell.h"
 
-
+/*
 //char *ft_strstr(char *str, char *to_find);
 void				ft_bzero(void *b, size_t n);
 void	*ft_memalloc(size_t size);
@@ -21,7 +21,7 @@ void	print_tab(char **env);
 char	**ft_copy_tab(char **env);
 int	ft_unsetenv(char ***env,char *name);
 void	print_export(char **tab);
-
+*/
 
 int		env_realloc_and_append_envvar(char ***env, char *envvar)
 {

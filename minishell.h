@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/02 18:20:04 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/02/02 19:17:30 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,26 @@ int			exec_export(int ac, char **av, char ***env);
 int			exec_unset(int ac, char **av, char ***env);
 void		print_env(char **env);
 char	*ft_getenv(char **env, char *name);
+
+void				ft_bzero(void *b, size_t n);
+void	*ft_memalloc(size_t size);
+void	test_print(char **envp);
+void	free_tab(char ***line);
+void	free_tabs(char **tabs);
+void ft_putchar(int c);
+void ft_putstr(char *s);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+char	*cpy_trim(char *s, char from, char to);
+int ft_strncmp(char *s1, char *s2, unsigned int n);
+//char *ft_strcat(char *dest, char *src);
+int		nb_tabs(char **s);
+char	*ft_strdup(char *src);
+char	*ft_strcpy(char *dst, char *src);
+int	ft_alphabetical_order_tab(char **env);
+void	print_tab(char **env);
+char	**ft_copy_tab(char **env);
+int	ft_unsetenv(char ***env,char *name);
+void	print_export(char **tab);
 //*** PARSING ***//
 int	parsing(t_mini *mini, t_cmd *cmd);
 
