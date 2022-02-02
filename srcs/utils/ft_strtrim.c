@@ -154,7 +154,7 @@ int main(void)
 {
    char    *str = "coucou \" hihi ' hu ' ' hihi \"  i love ' you' '";
    char     *str2;
-   char    c = '\'';
+   char    c = '"';
 
    //char    *str3 = "hello em be iu";
     printf("str = %s\n", str);
