@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/03 22:03:03 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/03 23:26:35 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,24 +110,27 @@ int	detect_cmd(char *str)
 //Step 1: parsing espaces and tabs
 // step 2: counting (single and doubles) quotes
 //  Step 3: tokenizing in liste chainee (2 ways: Balkis (tableau + liste chainee for each cmd) and Eclipse (liste chainee 100%))
-int	parsing(t_mini *mini, t_cmd *cmd)
+int	parsing(t_mini *mini/*, t_cmd *cmd*/)
 {
-	int i;
-	char	*buf;
+	//int i;
+	//char	*buf;
 	//char	**str= NULL;
-	(void)cmd;
+	//(void)cmd;
 
-	buf = NULL;
-	i = 0;
-	while (mini->line[i])
+	//buf = NULL;
+	//i = 0;
+	while (mini->line)
 	{
 		if (ft_strchr(mini->line, '|'))
-			ft_piping(mini->line);
+		{
+			mini->i = ft_piping(mini->line, mini->cmd);
+			printf("%d\n", mini->i);
+		}
 		else
 		{
-			printf("Errr: command not found\n");
-			i++;
-		 	return (1);
+			printf("There's only one cmd! Simple\n");
+			if(ft_each_cmd(mini->cmd))
+				return (1);
 		}
 		return (0);
 		// if (mini->line[i] == ' ' || mini->line[i] == '\t')
@@ -160,4 +163,17 @@ int	parsing(t_mini *mini, t_cmd *cmd)
 		// i++;
 	}
 	return (0);
+}
+
+
+int	ft_each_cmd(t_cmd *cmd)
+{
+	int i = 0;
+
+	while (cmd->cmd_line[i])
+	{
+		printf("hhihi cmd_line exist\n");
+		i++;
+	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/03 21:43:14 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/03 23:26:51 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ typedef struct	s_file
 	struct s_file	*next;
 }				t_file;
 
+
 typedef struct	s_cmd
 {
 	char			**each_cmd;
+	char			*cmd_line;
 	int				n_cmd;
 	int				ret;
 	int				builtin;
@@ -67,6 +69,7 @@ typedef struct	s_cmd
 	t_redirecto		type;
 	t_file			*file;
 	struct s_cmd	*next;
+	struct s_cmd	*prev;
 }				t_cmd;
 
 typedef struct s_mini
@@ -146,8 +149,9 @@ void	print_export(char **tab);
 
 
 //*** PARSING ***//
-int	parsing(t_mini *mini, t_cmd *cmd);
-int   ft_piping(char *line);
+int	parsing(t_mini *mini/*, t_cmd *cmd*/);
+int   ft_piping(char *line, t_cmd *list);
+int	ft_each_cmd(t_cmd *cmd);
 
 //*** PIPES ***//
 

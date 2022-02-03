@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/03 19:40:28 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/03 23:21:14 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,26 +115,27 @@ void	ft_init_mini(t_mini *mini)
 	mini->cmd = NULL;
 }
 
-void	ft_init_cmd(t_cmd *cmd)
-{
-	cmd->each_cmd = NULL;
-	cmd->ret = 0;
-	cmd->builtin = 0;
-	cmd->pipe = 0;
-	cmd->fork = 0;
-	cmd->quote = 0;
-	cmd->d_quotes = 0;
-	cmd->heredoc = 0;
-	cmd->stop = 0;
-	cmd->type = NOPE;
-	cmd->file = NULL;
-	cmd->next = NULL;
-}
+// void	ft_init_cmd(t_mini &mini.cmd)
+// {
+// 	cmd->each_cmd = NULL;
+// 	cmd->cmd = NULL;
+// 	cmd->ret = 0;
+// 	cmd->builtin = 0;
+// 	cmd->pipe = 0;
+// 	cmd->fork = 0;
+// 	cmd->quote = 0;
+// 	cmd->d_quotes = 0;
+// 	cmd->heredoc = 0;
+// 	cmd->stop = 0;
+// 	cmd->type = NOPE;
+// 	cmd->file = NULL;
+// 	cmd->next = NULL;
+// }
 
-void	minishell_exec_cmds(t_mini *mini, t_cmd *cmd)
+void	minishell_exec_cmds(t_mini *mini/*, t_cmd *cmd*/)
 {
 	(void)mini;
-	(void)cmd;
+	//(void)cmd;
 	printf("minishell is not defined by now, pls come back later\n");
 	//tous les cmd and exec
 }
@@ -142,14 +143,14 @@ void	minishell_exec_cmds(t_mini *mini, t_cmd *cmd)
 int	main(int ac, char **av, char **envp)
 {
 	t_mini		mini;
-	t_cmd		cmd;
+	//t_cmd		cmd;
 	(void)av;
 //	g_n_exit = 0;
 
 	//mini = NULL;
 	printf("000\n");
 	ft_init_mini(&mini);
-	ft_init_cmd(&cmd);
+	//ft_init_cmd(&mini->cmd);
 	printf("110\n");
 	mini.env = ft_env_cpy(envp);
 	if (ac != 1)
@@ -159,8 +160,8 @@ int	main(int ac, char **av, char **envp)
 	{
 		mini.line = ft_readline_input(mini.line);
 		add_history(mini.line);
-		if (parsing(&mini, &cmd))// uhmmm before = if (mini.line)
-			minishell_exec_cmds(&mini, &cmd);
+		if (parsing(&mini/*, &cmd*/))// uhmmm before = if (mini.line)
+			minishell_exec_cmds(&mini/*, &cmd*/);
 		//free_tokens_and_structure(&mini);
 	}
 	//free(line);

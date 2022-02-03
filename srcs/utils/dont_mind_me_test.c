@@ -3,13 +3,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef	struct			s_sep
-{
-	char				*cmd_sep;
-	struct s_sep		*prev;
-	struct s_sep		*next;
-	struct s_pip		*pipcell;
-}						t_sep;
+// typedef	struct			s_sep
+// {
+// 	char				*cmd;
+// 	struct s_sep		*prev;
+// 	struct s_sep		*next;
+// 	struct s_pip		*pipcell;
+// }						t_sep;
 
 //    ft_slpit    //
 
@@ -144,30 +144,30 @@ char				**ft_split_3(char const *s, char c)
 //    Done split     //
 
 
-t_sep	*create_cell(char *cmd_sep)
+t_cmd	*create_cell(char *cmd)
 {
-  t_sep	*cell;
+  t_cmd	*cell;
 
-  cell = malloc(sizeof(t_sep));
+  cell = malloc(sizeof(t_cmd));
   if (!(cell))
   	return (NULL);
   cell->prev = NULL;
   cell->next = NULL;
-  cell->pipcell = NULL;
-  cell->cmd_sep = cmd_sep;
+  //cell->pipcell = NULL;
+  cell->cmd_line = cmd;
   return (cell);
 }
 
-t_sep	*add_cell(t_sep *list, char *cmd_sep, int pos)
+t_cmd	*add_cell(t_cmd *list, char *cmd, int pos)
 {
-  t_sep	*prec;
-  t_sep	*cur;
-  t_sep	*cell;
+  t_cmd	*prec;
+  t_cmd	*cur;
+  t_cmd	*cell;
   int		i;
 
   cur = list;
   i = 0;
-  cell = create_cell(cmd_sep);
+  cell = create_cell(cmd);
   if (list == NULL)
   	return (cell);
   while (i < pos)
@@ -182,7 +182,7 @@ t_sep	*add_cell(t_sep *list, char *cmd_sep, int pos)
 }
 //Imprimer les cellules :
 
-void	print_list(t_sep *list)
+void	print_list(t_cmd *list)
 {
   int		i;
 
@@ -191,7 +191,7 @@ void	print_list(t_sep *list)
   {
   	printf("-----------------------------------\n");
   	printf("| i = %d                            \n", i);
-  	printf("| list->cmd : %s            \n", list->cmd_sep);
+  	printf("| list->cmd : %s            \n", list->cmd_line);
   	printf("-----------------------------------\n");
   	list = list->next;
   	i++;
@@ -217,9 +217,9 @@ void	print_list(t_sep *list)
 // }
 
 
-int   ft_piping(char *line)
+int   ft_piping(char *line, t_cmd *list)
 {
-   t_sep *list;
+  // t_sep *list;
    //*line = "echo coucou | i'm done bye bye";
    int   i = 0;
    char **str;
@@ -231,23 +231,14 @@ int   ft_piping(char *line)
    printf("done splitting\n");
    while (str[i])
    {
-     // printf("         ~~~                every str ne = %s\n", str[i]);
+	   //add_number_of pipe [pipe++]
       list = add_cell(list, str[i], i); // deux cellules, dans chaqune on met str[i]
       i++;
    }
-   // i = 0;
-   // while (str[i])
-   // {
-   //    free(str[i]);
-   //    i++;
-   // }
-   //printf("list->cmd_sep = %s\n", list->cmd_sep);
-   
    print_list(list);
    free(list);
-  // free(line); // no use
    free(str);
-   return(0);
+   return(i);
 }
 
 
