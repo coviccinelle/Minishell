@@ -6,7 +6,7 @@
 #    By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 11:32:21 by thi-phng          #+#    #+#              #
-#    Updated: 2022/02/03 19:41:29 by thi-phng         ###   ########.fr        #
+#    Updated: 2022/02/03 21:50:54 by thi-phng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,9 @@ SRC		=	srcs/main.c \
 			srcs/parsing/parsing.c \
 			srcs/signal/signal.c \
 			srcs/utils/ft_strtrim.c \
-			srcs/utils/ft_split_3.c \
-			#srcs/readline_input.c \
+			srcs/utils/utils_libft_1.c \
+			srcs/utils/dont_mind_me_test.c \
+			#srcs/utils/ft_split_3.c 
 				
 OBJ = ${SRC:.c=.o}
 

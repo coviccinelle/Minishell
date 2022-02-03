@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/03 19:43:04 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/03 21:43:14 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int     	is_token_char(char c);int	is_digit(char c);
 int 		is_alpha(char c);
 int	    	is_valid_var_name(char *av);
 char		**ft_split_3(char	const *s, char c);
+char	*ft_strchr(const char *s, int c);
 
 
 //char		*ft_strdup(const char *s1);
@@ -107,6 +108,7 @@ char		*ft_strdup(char *s1);
 char		**ft_copy_tab(char **env);
 int			ft_strcmp(char *s, char *t);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
+
 //*** Builtins ***//
 t_export	*new_export(char *export_name, char *export_data);
 void		delete_export(t_export **export_lst, char *export_name);
@@ -145,6 +147,7 @@ void	print_export(char **tab);
 
 //*** PARSING ***//
 int	parsing(t_mini *mini, t_cmd *cmd);
+int   ft_piping(char *line);
 
 //*** PIPES ***//
 

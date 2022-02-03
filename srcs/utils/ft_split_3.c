@@ -128,7 +128,7 @@ char				**ft_split_3(char const *s, char c)
 		i++;
 	}
 	tab[i] = NULL;
-   ft_free_tab(tab);
+	ft_free_tab(tab);
 	return (tab);
 }
 

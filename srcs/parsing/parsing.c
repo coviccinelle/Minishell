@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/03 19:44:55 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/03 22:03:03 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,36 +121,43 @@ int	parsing(t_mini *mini, t_cmd *cmd)
 	i = 0;
 	while (mini->line[i])
 	{
-		if (mini->line[i] == ' ' || mini->line[i] == '\t')
+		if (ft_strchr(mini->line, '|'))
+			ft_piping(mini->line);
+		else
+		{
+			printf("Errr: command not found\n");
 			i++;
-		if (mini->line[i] == '|')
-		{
-			//str = malloc(sizeof(char) * i);
-			//**str = ft_split(*str, '|');
-			char **str;
-			str = ft_split_3(mini->line, '|'); //jhgj
-			int j = 0;
-			while (str[++j])
-				  //list = add_cell(list, str[i], i); // deux cellules, dans chaqune on met str[i]
-			printf("%s\n", *str);
-			printf("PIPE alert : Don't know what to do yet\n");
-			return (1);
+		 	return (1);
 		}
-		if (detect_cmd(&mini->line[i]))
-		{
-			i = i + detect_cmd(&mini->line[i]) - 1;
-			printf("i now is %d\n", i);
-		//	i++;
-			printf("And the rest of the line is : %s \n", &mini->line[i + 1]);
-			return (1);
-		}
-		// else
+		return (0);
+		// if (mini->line[i] == ' ' || mini->line[i] == '\t')
+		// 	i++;
+		// if (mini->line[i] == '|')
 		// {
-		// 	printf("Errr: command not found\n");
-		// //	i++;
+		// 	char **str;
+		// 	str = ft_split_3(mini->line, '|'); //jhgj
+		// 	int j = 0;
+		// 	while (str[++j])
+		// 		  //list = add_cell(list, str[i], i); // deux cellules, dans chaqune on met str[i]
+		// 	printf("%s\n", *str);
+		// 	printf("PIPE alert : Don't know what to do yet\n");
 		// 	return (1);
 		// }
-		i++;
+		// if (detect_cmd(&mini->line[i]))
+		// {
+		// 	i = i + detect_cmd(&mini->line[i]) - 1;
+		// 	printf("i now is %d\n", i);
+		// //	i++;
+		// 	printf("And the rest of the line is : %s \n", &mini->line[i + 1]);
+		// 	return (1);
+		// }
+		// // else
+		// // {
+		// // 	printf("Errr: command not found\n");
+		// // //	i++;
+		// // 	return (1);
+		// // }
+		// i++;
 	}
 	return (0);
 }

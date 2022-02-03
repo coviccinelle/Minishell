@@ -13,17 +13,16 @@ typedef	struct			s_sep
 
 //    ft_slpit    //
 
-int  ft_strlen(char *str)
-{
-    int i = 0;
+// int  ft_strlen(char *str)
+// {
+//     int i = 0;
 
-    while (str[i])
-        i++;
-    return (i);
-}
+//     while (str[i])
+//         i++;
+//     return (i);
+// }
 
-size_t	ft_strlcpy(char *dst, char *src,
-		size_t dstsize)
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 {
 	size_t	i;
 
@@ -137,7 +136,7 @@ char				**ft_split_3(char const *s, char c)
 	}
 	tab[i] = NULL;
    //free(tab);
-   ft_free_tab(tab);
+   //ft_free_tab(tab);
 	return (tab);
 }
 
@@ -192,7 +191,7 @@ void	print_list(t_sep *list)
   {
   	printf("-----------------------------------\n");
   	printf("| i = %d                            \n", i);
-  	printf("| list->cmd_sep : %s            \n", list->cmd_sep);
+  	printf("| list->cmd : %s            \n", list->cmd_sep);
   	printf("-----------------------------------\n");
   	list = list->next;
   	i++;
@@ -218,10 +217,10 @@ void	print_list(t_sep *list)
 // }
 
 
-int   main()
+int   ft_piping(char *line)
 {
    t_sep *list;
-   char  *line = "echo coucou | i'm done bye bye";
+   //*line = "echo coucou | i'm done bye bye";
    int   i = 0;
    char **str;
 
@@ -232,7 +231,7 @@ int   main()
    printf("done splitting\n");
    while (str[i])
    {
-      printf("         ~~~                every str ne = %s\n", str[i]);
+     // printf("         ~~~                every str ne = %s\n", str[i]);
       list = add_cell(list, str[i], i); // deux cellules, dans chaqune on met str[i]
       i++;
    }
@@ -244,9 +243,9 @@ int   main()
    // }
    //printf("list->cmd_sep = %s\n", list->cmd_sep);
    
-   //print_list(list);
+   print_list(list);
    free(list);
-   free(line); // no use
+  // free(line); // no use
    free(str);
    return(0);
 }
