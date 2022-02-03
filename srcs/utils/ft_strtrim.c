@@ -84,7 +84,7 @@ static char		**fill(char const *s, int words, char c, char **splitted)
 }
 
 
-char			**ft_split(char	const *s, char c)
+char			**ft_split_2(char	const *s, char c)
 {
 	char	**splitted;
 	int		words;
@@ -164,12 +164,12 @@ char    *ft_reste_apres_quote(char *str, char c)
     return (NULL);
 }
 
-
-// int main(void)
-// {
-//    char    *str = "coucou \" hihi ' hu ' ' hihi \"  i love ' you' '";
-//    char     *str2;
-//    char    c = '"';
+/*
+int main(void)
+{
+   char    *str = "coucou \" hihi ' hu ' ' hihi \"  i love ' you' '";
+   char     *str2;
+   char    c = '"';
 
 //    //char    *str3 = "hello em be iu";
 //     printf("str = %s\n", str);
@@ -177,9 +177,11 @@ char    *ft_reste_apres_quote(char *str, char c)
 
 //     printf("the rest after quote = %s\n", str2);//Nouvelle string est le reste a partir de char C
 
-//     printf("retour de split is %d\n", ft_split(str2, c));//renvoi ce qui est entre les 2 meme quotes
+//     printf("retour de split is %d\n", ft_split_2(str2, c));//renvoi ce qui est entre les 2 meme quotes
 
     
 
-//     return (0);
-// }
+    return (0);
+}*/
+
+

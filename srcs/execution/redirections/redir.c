@@ -12,7 +12,7 @@ int			open_file(int type_of_redir, char *filename, int *fd)
 	else if (type_of_redir == '<')
 		fd = open(O_RDONLY);
 //	if (fd == -1)
-//		return (ft_puterror_fd("minishell: ", filename, "no such file or directory\n"));
+//		return (ft_puterror_fd("minishell: ", filename, "no such file or directory\n")); //perror(filename);
 	return (0);
 }
 

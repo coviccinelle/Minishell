@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 14:30:11 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/02 19:19:33 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/02 22:29:37 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,16 @@ int ft_count_quotes_char(const char *str, char c, int i)
 
 
 
-int     find_second_quote(char *str, int *i, char c)
-{
-    while (str[*i])
-    {
-        if (str[*i] == c)
-            return (*i);
-        *i++;
-    }
-    return (0);
-}
+//int     find_second_quote(char *str, int *i, char c)
+//{
+  //  while (str[*i])
+    //{
+      //  if (str[*i] == c)
+        //    return (*i);
+       // *i++;
+   // }
+   // return (0);
+//}
 
 /*
 int     ft_check_quote(char *str)
