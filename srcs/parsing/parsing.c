@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/02 22:15:07 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/03 19:44:55 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ int	ft_strncmp(char *s1, char *s2, unsigned int n)
 	return (str1[i] - str2[i]);
 }
 
-int	ft_strlen(char *str)
-{
-	int i;
+// int	ft_strlen(char *str)
+// {
+// 	int i;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	while (str[i])
+// 		i++;
+// 	return (i);
+// }
 
 
 int	ft_strcmp(char *s1, char *s2)
@@ -128,7 +128,7 @@ int	parsing(t_mini *mini, t_cmd *cmd)
 			//str = malloc(sizeof(char) * i);
 			//**str = ft_split(*str, '|');
 			char **str;
-			str = ft_split(mini->line, '|'); //jhgj
+			str = ft_split_3(mini->line, '|'); //jhgj
 			int j = 0;
 			while (str[++j])
 				  //list = add_cell(list, str[i], i); // deux cellules, dans chaqune on met str[i]

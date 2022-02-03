@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/02 21:35:43 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/03 19:40:28 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ char	*ft_readline_input(char *line)
 	signal(SIGINT, ft_sigint_ctr_c);
 	signal(SIGQUIT, ft_sigquit_ctr_bs);
 	line = readline("\033[1;33m~Minishell$\033[0m ");
+	//add_history(line);
 	if (!line)
 	{
 		printf("Oops someone just typed ctr^D?!? Bye, I'm out < 0_0 >\n");
@@ -130,7 +131,7 @@ void	ft_init_cmd(t_cmd *cmd)
 	cmd->next = NULL;
 }
 
-void	minishell(t_mini *mini, t_cmd *cmd)
+void	minishell_exec_cmds(t_mini *mini, t_cmd *cmd)
 {
 	(void)mini;
 	(void)cmd;
@@ -158,11 +159,11 @@ int	main(int ac, char **av, char **envp)
 	{
 		mini.line = ft_readline_input(mini.line);
 		add_history(mini.line);
-		parsing(&mini, &cmd);
-		if (mini.line)
-			minishell(&mini, &cmd);
-		//free_token(mini.line);
+		if (parsing(&mini, &cmd))// uhmmm before = if (mini.line)
+			minishell_exec_cmds(&mini, &cmd);
+		//free_tokens_and_structure(&mini);
 	}
+	//free(line);
 	//free_env(mini.env);
 	return(0);
 
@@ -174,4 +175,3 @@ int	main(int ac, char **av, char **envp)
 		//execute_cmds(); //echo, export, unset, pwd, cd, env, exit
 		//exit_status();
 }
-

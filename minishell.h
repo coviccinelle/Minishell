@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/02 21:48:04 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/03 19:43:04 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int     	find_me(char c, char *str);
 int     	is_token_char(char c);int	is_digit(char c);
 int 		is_alpha(char c);
 int	    	is_valid_var_name(char *av);
-char		**ft_split(char	const *s, char c);
+char		**ft_split_3(char	const *s, char c);
 
 
 //char		*ft_strdup(const char *s1);
