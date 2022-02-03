@@ -1,4 +1,4 @@
-
+#include "../../minishell.h"
 #include <string.h> 
 #include <stdlib.h>
 #include <stdio.h>
@@ -13,7 +13,7 @@ typedef	struct			s_sep
 
 //    ft_slpit    //
 
-static int  ft_strlen(const char *str)
+int  ft_strlen(char *str)
 {
     int i = 0;
 
@@ -22,90 +22,125 @@ static int  ft_strlen(const char *str)
     return (i);
 }
 
-static int		count_words(char const *s, char c)
+size_t	ft_strlcpy(char *dst, char *src,
+		size_t dstsize)
 {
-	int		i;
-	int		words;
+	size_t	i;
 
-	words = 0;
+	if (!src)
+		return (0);
 	i = 0;
-	while (s[i])
+	while ((src[i]) && i < dstsize - 1 && dstsize != 0)
 	{
-		if (s[i] != c && (s[i + 1] == '\0' || s[i + 1] == c))
-			words++;
+		dst[i] = src[i];
 		i++;
 	}
-	return (words);
+	if (dstsize != 0)
+		dst[i] = '\0';
+	return (ft_strlen(src));
 }
 
-static int		words_len(char const *s, char c)
+static char			**ft_malloc_error(char **tab)
 {
-	int		i;
-	int		len;
+	unsigned int	i;
 
 	i = 0;
-	len = 0;
-	while (s[i] && s[i] != c)
+	while (tab[i])
 	{
-		i++;
-		len++;
-	}
-	return (len);
-}
-
-static void		*ft_free(char **splitted, int words)
-{
-	int	i;
-
-	i = 0;
-	while (i < words)
-	{
-		free(splitted[i]);
+		free(tab[i]);
 		i++;
 	}
-	free(splitted);
+	free(tab);
 	return (NULL);
 }
 
-static char		**fill(char const *s, int words, char c, char **splitted)
+static unsigned int	ft_get_nb_strs(char const *s, char c)
 {
-	int		i;
-	int		j;
-	int		len;
+	unsigned int	i;
+	unsigned int	nb_strs;
 
-	i = -1;
-	while (++i < words)
+	if (!s[0])
+		return (0);
+	i = 0;
+	nb_strs = 0;
+	while (s[i] && s[i] == c)
+		i++;
+	while (s[i])
 	{
-     
-		while (*s == ' ')
-			s++;
-		len = words_len(s, c);
-		if (!(splitted[i] = (char *)malloc(sizeof(char) * (len + 1))))
-			return (ft_free(splitted, i));
-		j = 0;
-		while (j <= len)
-			splitted[i][j++] = *s++;
-		splitted[i][j] = '\0';
-      printf("str = ===%s=== ___ and len_str = %d\n", splitted[i], ft_strlen(splitted[i]));
+		if (s[i] == c)
+		{
+			nb_strs++;
+			while (s[i] && s[i] == c)
+				i++;
+			continue ;
+		}
+		i++;
 	}
-	splitted[i] = NULL;
-	return (splitted);
+	if (s[i - 1] != c)
+		nb_strs++;
+	return (nb_strs);
 }
 
-
-char			**ft_split_2(char	const *s, char c)
+static void			ft_get_next_str(char **next_str, unsigned int *next_str_len,
+					char c)
 {
-	char	**splitted;
-	int		words;
+	unsigned int i;
+
+	*next_str += *next_str_len;
+	*next_str_len = 0;
+	i = 0;
+	while (**next_str && **next_str == c)
+		(*next_str)++;
+	while ((*next_str)[i])
+	{
+		if ((*next_str)[i] == c)
+			return ;
+		(*next_str_len)++;
+		i++;
+	}
+}
+
+void  ft_free_tab(char **tab)
+{
+   int i = 0;
+
+   while (tab[i])
+   {
+      free(tab[i]);
+      i++;
+   }
+}
+
+char				**ft_split_3(char const *s, char c)
+{
+	char			**tab;
+	char			*next_str;
+	unsigned int	next_str_len;
+	unsigned int	nb_strs;
+	unsigned int	i;
 
 	if (!s)
 		return (NULL);
-	words = count_words(s, c);
-	if (!(splitted = (char **)malloc(sizeof(char *) * (words + 1))))
+	nb_strs = ft_get_nb_strs(s, c);
+	if (!(tab = (char **)malloc(sizeof(char *) * (nb_strs + 1))))
 		return (NULL);
-	splitted = fill(s, words, c, splitted);
-	return (splitted);
+	i = 0;
+	next_str = (char *)s;
+	next_str_len = 0;
+	while (i < nb_strs)
+	{
+		ft_get_next_str(&next_str, &next_str_len, c);
+		if (!(tab[i] = (char *)malloc(sizeof(char) * (next_str_len + 1))))
+			return (ft_malloc_error(tab));
+		ft_strlcpy(tab[i], next_str, next_str_len + 1);
+		i++;
+	}
+	tab[i] = NULL;
+   //free(tab);
+   ft_free_tab(tab);
+	return (tab);
 }
+
 
 //    Done split     //
 
@@ -164,6 +199,25 @@ void	print_list(t_sep *list)
   }
 }
 
+
+// int   main()
+// {
+//    char  **str;
+//    int i = 0;
+//    char  *line = "echo coucou | i'm done bye bye";
+
+//    str = ft_split_3(line, '|');
+
+//    while (str[i])
+//    {
+//       printf("str current is %s\n", str[i]);
+//       i++;
+//    }
+//    free(str);
+//    return (0);
+// }
+
+
 int   main()
 {
    t_sep *list;
@@ -174,20 +228,31 @@ int   main()
    printf("Let's start\n");
    list = NULL;
    printf("origine line is : %s\n", line);
-   str = ft_split_2(line, '|');
+   str = ft_split_3(line, '|');
    printf("done splitting\n");
    while (str[i])
    {
-     // printf("         ~~~                every str ne = %s\n", str[i]);
+      printf("         ~~~                every str ne = %s\n", str[i]);
       list = add_cell(list, str[i], i); // deux cellules, dans chaqune on met str[i]
-      printf("attention : splittinggg \n");
       i++;
    }
+   // i = 0;
+   // while (str[i])
+   // {
+   //    free(str[i]);
+   //    i++;
+   // }
    //printf("list->cmd_sep = %s\n", list->cmd_sep);
    
-   print_list(list);
-   return (0);
+   //print_list(list);
+   free(list);
+   free(line); // no use
+   free(str);
+   return(0);
 }
+
+
+
 
 //char * strchr( const char * string, int searchedChar );
 // int main()
