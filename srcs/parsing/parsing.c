@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/04 17:32:57 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/04 17:42:29 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,10 +206,8 @@ int	malloc_node(t_cmd	**one_cmd)
 	t_cmd	*new;
 	
 	new = (t_cmd *)malloc(sizeof(t_cmd));
-	//new = malloc(10000000);
 	if (!new)
 		return (0);
-	//printf("nod \n");
 	new->next = NULL;
 	if (!(*one_cmd))
 	{
@@ -224,7 +222,6 @@ int	malloc_node(t_cmd	**one_cmd)
 
 int	init_one_cmd(t_cmd *one_cmd)
 {
-	//printf("coucou first step");
 	one_cmd->av = NULL;
 	one_cmd->cmd_line = NULL;
 	one_cmd->ret = 0;
@@ -247,9 +244,8 @@ int	ft_init_each_cmd(t_cmd *one_cmd, int *i, char *line)
 
 	if (!malloc_node(&one_cmd))
 		return (0);
-	if (init_one_cmd(one_cmd))
-		//return (0);
-		printf("after init_node\n");
+	if (!init_one_cmd(one_cmd))
+		return (0);
 	one_cmd->next = NULL;
 	(*i) = 0;
 	ft_space_skip(line, i);
