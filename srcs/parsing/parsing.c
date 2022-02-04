@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/03 23:26:35 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/04 12:08:13 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,17 @@ int	parsing(t_mini *mini/*, t_cmd *cmd*/)
 		{
 			mini->i = ft_piping(mini->line, mini->cmd);
 			printf("%d\n", mini->i);
+			return  (1);
 		}
 		else
 		{
 			printf("There's only one cmd! Simple\n");
-			if(ft_each_cmd(mini->cmd))
+
+			printf("line = %s\n", mini->line);
+			//mini->cmd->cmd_line = mini->line;
+			//printf("cmd_line is : %s\n", mini->cmd->cmd_line);
+			
+			if (ft_each_cmd(mini->line, mini->cmd))
 				return (1);
 		}
 		return (0);
@@ -166,14 +172,55 @@ int	parsing(t_mini *mini/*, t_cmd *cmd*/)
 }
 
 
-int	ft_each_cmd(t_cmd *cmd)
-{
-	int i = 0;
 
-	while (cmd->cmd_line[i])
+
+
+int   ft_piping_2(char *line, t_cmd *list)
+{
+  // t_sep *list;
+   //*line = "echo coucou | i'm done bye bye";
+   int   i = 0;
+   char **str;
+
+   printf("Let's start\n");
+   list = NULL;
+   printf("origine line is : %s\n", line);
+   str = ft_split_3(line, '|');
+   printf("done splitting\n");
+   while (str[i])
+   {
+	   //add_number_of pipe [pipe++]
+      list = add_cell(list, str[i], i); // deux cellules, dans chaqune on met str[i]
+      i++;
+   }
+   print_list(list);
+   free(list);
+   free(str);
+   return(i);
+}
+
+
+int	ft_each_cmd(char *line, t_cmd *one_cmd)
+{
+	//int i = 0;
+	//char *line_c;
+	
+	printf("Let's start\n");
+	one_cmd = NULL;
+	//ft_init_cmd(cmd);
+	printf("Orgine line is : %s\n", line);
+
+	while (line)
 	{
-		printf("hhihi cmd_line exist\n");
-		i++;
+		printf("line does exit for now\n");
+		// le problem commence //
+		//cmd->cmd_line = NULL;
+		// if (one_cmd->cmd_line == NULL)
+		// 	printf("cmd_line is actually NULLed\n");
+		printf("hhihi cmd_line exist, str = %s\n", one_cmd->cmd_line);
+		return (1);
+	//	i++;
 	}
-	return (1);
+	free(one_cmd->cmd_line);
+	return (0);
 }

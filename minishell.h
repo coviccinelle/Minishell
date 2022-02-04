@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/03 23:26:51 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/04 12:00:27 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_mini
 extern int		g_nb_exit;
 
 // *** // main  // *** //
-
+void	ft_init_cmd(t_cmd *cmd);
 
 //*** Utils ***//
 int     	find_me(char c, char *str);
@@ -150,8 +150,13 @@ void	print_export(char **tab);
 
 //*** PARSING ***//
 int	parsing(t_mini *mini/*, t_cmd *cmd*/);
-int   ft_piping(char *line, t_cmd *list);
-int	ft_each_cmd(t_cmd *cmd);
+int ft_piping(char *line, t_cmd *list);
+int	ft_each_cmd(char *line, t_cmd *cmd);
+
+t_cmd	*add_cell(t_cmd *list, char *cmd, int pos);
+void	print_list(t_cmd *list);
+
+
 
 //*** PIPES ***//
 
