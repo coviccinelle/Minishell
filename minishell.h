@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/04 12:00:27 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/04 15:31:25 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct	s_file
 
 typedef struct	s_cmd
 {
-	char			**each_cmd;
+	char			**av;
 	char			*cmd_line;
 	int				n_cmd;
 	int				ret;
@@ -69,7 +69,6 @@ typedef struct	s_cmd
 	t_redirecto		type;
 	t_file			*file;
 	struct s_cmd	*next;
-	struct s_cmd	*prev;
 }				t_cmd;
 
 typedef struct s_mini
@@ -93,6 +92,7 @@ int 		is_alpha(char c);
 int	    	is_valid_var_name(char *av);
 char		**ft_split_3(char	const *s, char c);
 char	*ft_strchr(const char *s, int c);
+void    ft_space_skip(char *str, int *i);
 
 
 //char		*ft_strdup(const char *s1);

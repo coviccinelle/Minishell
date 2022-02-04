@@ -151,9 +151,7 @@ t_cmd	*create_cell(char *cmd)
   cell = malloc(sizeof(t_cmd));
   if (!(cell))
   	return (NULL);
-  cell->prev = NULL;
   cell->next = NULL;
-  //cell->pipcell = NULL;
   cell->cmd_line = cmd;
   return (cell);
 }
@@ -199,28 +197,8 @@ void	print_list(t_cmd *list)
 }
 
 
-// int   main()
-// {
-//    char  **str;
-//    int i = 0;
-//    char  *line = "echo coucou | i'm done bye bye";
-
-//    str = ft_split_3(line, '|');
-
-//    while (str[i])
-//    {
-//       printf("str current is %s\n", str[i]);
-//       i++;
-//    }
-//    free(str);
-//    return (0);
-// }
-
-
 int   ft_piping(char *line, t_cmd *list)
 {
-  // t_sep *list;
-   //*line = "echo coucou | i'm done bye bye";
    int   i = 0;
    char **str;
 
@@ -231,7 +209,6 @@ int   ft_piping(char *line, t_cmd *list)
    printf("done splitting\n");
    while (str[i])
    {
-	   //add_number_of pipe [pipe++]
       list = add_cell(list, str[i], i); // deux cellules, dans chaqune on met str[i]
       i++;
    }

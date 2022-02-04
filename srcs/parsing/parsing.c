@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/04 12:50:23 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/04 16:26:47 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,20 +123,17 @@ int	parsing(t_mini *mini/*, t_cmd *cmd*/)
 	{
 		if (ft_strchr(mini->line, '|'))
 		{
-			mini->i = ft_piping(mini->line, mini->cmd);
+			mini->i = ft_piping(mini->line, mini->cmd); // = t_cmd *cmd
 			printf("%d\n", mini->i);
 			return  (1);
 		}
 		else
 		{
 			printf("There's only one cmd! Simple\n");
-
 			printf("line = %s\n", mini->line);
-			//mini->cmd->cmd_line = mini->line;
-			//printf("cmd_line is : %s\n", mini->cmd->cmd_line);
-			
 			if (ft_each_cmd(mini->line, mini->cmd))
 				return (1);
+			//return (1);
 		}
 		return (0);
 		// if (mini->line[i] == ' ' || mini->line[i] == '\t')
@@ -177,8 +174,6 @@ int	parsing(t_mini *mini/*, t_cmd *cmd*/)
 
 int   ft_piping_2(char *line, t_cmd *list)
 {
-  // t_sep *list;
-   //*line = "echo coucou | i'm done bye bye";
    int   i = 0;
    char **str;
 
@@ -189,7 +184,6 @@ int   ft_piping_2(char *line, t_cmd *list)
    printf("done splitting\n");
    while (str[i])
    {
-	   //add_number_of pipe [pipe++]
       list = add_cell(list, str[i], i); // deux cellules, dans chaqune on met str[i]
       i++;
    }
@@ -200,29 +194,123 @@ int   ft_piping_2(char *line, t_cmd *list)
 }
 
 
+
+
+
+
+// init
+
+
+int	malloc_node(t_cmd	**one_cmd)
+{
+	t_cmd	*new;
+	
+	new = (t_cmd *)malloc(sizeof(t_cmd));
+	//new = malloc(10000000);
+	if (!new)
+		return (0);
+	//printf("nod \n");
+	new->next = NULL;
+	if (!(*one_cmd))
+	{
+		*one_cmd = new;
+		printf("after node\n");
+	}
+	//new->next = NULL;
+	printf("done node\n");
+	return (1);
+}
+
+
+int	init_one_cmd(t_cmd *one_cmd)
+{
+	//printf("coucou first step");
+	one_cmd->av = NULL;
+	one_cmd->cmd_line = NULL;
+	one_cmd->ret = 0;
+	one_cmd->builtin = 0;
+	one_cmd->pipe = 0;
+	one_cmd->fork = 0;
+	one_cmd->quote = 0;
+	one_cmd->d_quotes = 0;
+	one_cmd->heredoc = 0;
+	one_cmd->stop = 0;
+	one_cmd->type = NOPE;
+	one_cmd->file = NULL;
+	one_cmd->next = NULL;
+	printf("done ft_init_cmd\n");
+	return(1);
+}
+
+int	ft_init_each_cmd(t_cmd *one_cmd, int *i, char *line)
+{
+
+	if (!malloc_node(&one_cmd))
+		return (0);
+	if (init_one_cmd(one_cmd))
+		//return (0);
+		printf("after init_node\n");
+	one_cmd->next = NULL;
+	(*i) = 0;
+	ft_space_skip(line, i);
+	return (1);
+}
+
+
 int	ft_each_cmd(char *line, t_cmd *one_cmd)
 {
-	//int i = 0;
-	//char *line_c;
-	t_cmd	*tmp;
+	int			i;
+	char		*buf;
+	char		*line_after;
+	t_cmd		*tmp;
+
+	(void)buf;
+
+	line_after = NULL;
+	//i = 0;
+	printf("before\n");
+	if (!ft_init_each_cmd(one_cmd, &i, line))
+		return (0);
+	tmp = one_cmd;
 	
 	printf("Let's start\n");
-	one_cmd = NULL;
-	tmp = one_cmd;
-	//ft_init_cmd(cmd);
 	printf("Orgine line is : %s\n", line);
 
-	while (line)
+	while (line[i])
 	{
-		printf("line does exit for now\n");
-		// le problem commence //
-		//cmd->cmd_line = NULL;
-		// if (one_cmd->cmd_line == NULL)
-		// 	printf("cmd_line is actually NULLed\n");
-		printf("hhihi cmd_line exist, str = %s\n", one_cmd->cmd_line);
-		return (1);
-	//	i++;
+		if (line[i] == ' ')
+		{
+			printf("space detecting\n");
+			//ft_
+			//return (1);
+		}
+		else if (line[i] == '\'')
+		{
+			printf("Single quote\n");
+		}
+		else if (line[i] == '"')
+		{
+			printf("double quotes\n");
+		}
+		else if (line[i] == '$' && !(line[i + 1] == '?'))
+		{
+			printf("dollar sign but not $? non plus\n");
+		}
+		else if ((line[i] == '<') || line[i] == '>')
+		{
+			printf("Redirection\n");
+		}
+		else
+		{
+			printf("adding into line_after?\n");
+				break ;
+			/*buf = malloc(sizeof(char) * 2);
+			ft_fill(line, &i, buf);
+			line_after = ft_line_after(line_after, buf[0]);
+			if (!line[i] && line_after)
+				ft_tabs(tmp, line_after);*/
+		}
+	//	free(buf);
 	}
-	free(one_cmd->cmd_line);
 	return (0);
 }
