@@ -11,8 +11,8 @@ int			open_file(int type_of_redir, char *filename, int *fd)
         	fd = open(O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
 	else if (type_of_redir == '<')
 		fd = open(O_RDONLY);
-//	if (fd == -1)
-//		return (ft_puterror_fd("minishell: ", filename, "no such file or directory\n")); //perror(filename);
+	if (fd == -1)
+		return (ft_puterror_fd("minishell: ", filename, "No such file or directory")); //perror(filename);
 	return (0);
 }
 
@@ -26,7 +26,7 @@ void	handle_redirection(int type_of_redir, char *last_filename, int *fd_last_fil
 	{
 		if (type_of_redir == '<')
 			dup2(fd_last_file, STDIN); //replace standard input with input file
-		else
+		else if (type_of_redir == '>' || type_of_redir == '>>')
 			dup2(fd_last_file, STDOUT); //replace standard output with output file
 		close(*fd_last_file) //close unused file descriptor
 	}
@@ -35,30 +35,64 @@ void	handle_redirection(int type_of_redir, char *last_filename, int *fd_last_fil
 	//EXIT = status
 }
 
+
+void	close_heredoc(int *pipe_fd[2], char **line)
+{
+	free(*line);
+	dup2(*pipe_fd[0], STDIN);
+	close(*pipe_fd[0]);
+	close(*pipe_fd[1]);
+	return ;
+}
+
+//faire une fonction qui retourne le char* inchange si pas trouve dans lenv
+void	handle_heredoc()
+{
+	char	*line;
+	int	pipe_fd[2];
+
+	line = NULL;
+	if (pipe(pipe_fd) == -1) //est ce que je dois dup qqch?
+		perror(pipe_fd); // moui retrouver bon message derreur + est ce que passe qd meme en bas si erreur ?
+	while (1)
+	{
+		line = readline("> ");
+		if (line)
+		{
+			ft_putendl_fd(line, pipe_fd[1]);
+			if (ft_strncmp(line, heredoc->eof, ft_strlen(heredoc->eof)) == 0)
+			{
+				if (heredoc->next)
+					heredoc = heredoc->next;
+				else
+					break;
+			}
+			free(line);
+		}
+	}
+	close_heredoc(&pipe_fd, &line);
+}
+
 void redirections()
 {
 	int j = -1;
 	int fd;
 	int	is_last_file = FONCTION_QUI_RET_LAST_FILE;
 	if (type_of_redir == '<<') // a modif of course car char **
-        	//call heredoc ET RETURN (ne t'occupe pas du reste > >> < )
-	else
+		handle_heredoc();
+	if (type_of_redir == '<' || type_of_redir == '>>' || type_of_redir == '>')
 	{
-		while (av[++j]) // bon obviously en fonction de thao si next->next ce sera different
+		while (file->next->next) //jusqua avant dernier
 		{
-			open_file(type_of_redir, filename, &fd); //filename etant av[j]. en fonction parsing thao
-			if (!is_last_file) // faire une fonction ? ou if j != ac tout simplement mais en fonction de thao
-				close(fd);
+			open_file(file->type, file->name, &fd);
+			close(fd);
+			file = file->next;
 		}
-		if (is_last_file) // faire une fonction? ou juste ac - 1? en fonction de thao
-		    handle_redirection(type_of_redir, filename, &fd); //filename etant av[ac] ou autre en fonction de thao
+		open_file(file->type, file->name, &fd);
+		handle_redirection(file->type, file->name, &fd);
 	}
 }
 
-void    heredoc()
-{
-    
-}
 
 void    pipelines()
 {
