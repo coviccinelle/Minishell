@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/04 12:08:13 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/04 12:50:23 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,9 +204,11 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 {
 	//int i = 0;
 	//char *line_c;
+	t_cmd	*tmp;
 	
 	printf("Let's start\n");
 	one_cmd = NULL;
+	tmp = one_cmd;
 	//ft_init_cmd(cmd);
 	printf("Orgine line is : %s\n", line);
 
