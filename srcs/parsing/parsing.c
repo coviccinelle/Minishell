@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/04 16:26:47 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/04 17:32:57 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,7 @@ int	init_one_cmd(t_cmd *one_cmd)
 	one_cmd->type = NOPE;
 	one_cmd->file = NULL;
 	one_cmd->next = NULL;
-	printf("done ft_init_cmd\n");
+	printf("done ft_init_cmd done\n");
 	return(1);
 }
 
@@ -267,8 +267,6 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 	(void)buf;
 
 	line_after = NULL;
-	//i = 0;
-	printf("before\n");
 	if (!ft_init_each_cmd(one_cmd, &i, line))
 		return (0);
 	tmp = one_cmd;
@@ -281,8 +279,10 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 		if (line[i] == ' ')
 		{
 			printf("space detecting\n");
-			//ft_
-			//return (1);
+			printf("line before [%s]\n", &line[i]);
+			ft_space_skip(line, &i);
+			printf("line after [%s]\n", &line[i]);
+			return (1);
 		}
 		else if (line[i] == '\'')
 		{
@@ -303,7 +303,7 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 		else
 		{
 			printf("adding into line_after?\n");
-				break ;
+			return (1);
 			/*buf = malloc(sizeof(char) * 2);
 			ft_fill(line, &i, buf);
 			line_after = ft_line_after(line_after, buf[0]);

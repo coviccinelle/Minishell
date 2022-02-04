@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/04 15:27:57 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/04 17:37:22 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ void	minishell_exec_cmds(t_mini *mini/*, t_cmd *cmd*/)
 {
 	(void)mini;
 	//(void)cmd;
-	printf("minishell is not defined by now, pls come back later\n");
+	printf("\n\033[1;33m  oopps...	~Minishell$\033[0m  is not defined by now, pls come back later\n");
 	//tous les cmd and exec
 }
 
