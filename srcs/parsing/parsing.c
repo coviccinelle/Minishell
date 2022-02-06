@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/06 18:04:32 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/06 18:19:44 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +283,14 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 		else if (line[i] == '\'')
 		{
 			printf("Single quote\n\n");
+			//line_after = ft_d2_quotes(line_after, &i, line, one_cmd);
+			if (tmp->stop == 1)
+				return (0);
+			if (line_after == 0)
+				break ;
+			//dollar in quote
+			//end of line/quote
+			line_after = NULL;
 			return (1);
 		}
 		else if (line[i] == '"')
@@ -314,3 +322,15 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 	}
 	return (0);
 }
+
+
+
+/*char	*ft_d2_quotes(char *line_after, int *i, char *argv, t_parsing *param)
+{
+	if (line_after)
+	{
+		ft_tabs(param, line_after);
+		line_after = NULL;
+	}
+	return (ft_add_double_quote(param, i, argv, line_after));
+}*/
