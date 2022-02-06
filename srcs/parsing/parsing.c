@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/04 17:42:29 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/06 18:03:03 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,18 +283,22 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 		else if (line[i] == '\'')
 		{
 			printf("Single quote\n");
+			return (1);
 		}
 		else if (line[i] == '"')
 		{
 			printf("double quotes\n");
+			return (1);
 		}
 		else if (line[i] == '$' && !(line[i + 1] == '?'))
 		{
 			printf("dollar sign but not $? non plus\n");
+			return (1);
 		}
 		else if ((line[i] == '<') || line[i] == '>')
 		{
 			printf("Redirection\n");
+			return (1);
 		}
 		else
 		{
