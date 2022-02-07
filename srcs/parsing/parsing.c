@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/06 18:19:44 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/07 12:54:09 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	ft_strncmp(char *s1, char *s2, unsigned int n)
 // 		i++;
 // 	return (i);
 // }
-
 
 int	ft_strcmp(char *s1, char *s2)
 {
