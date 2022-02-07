@@ -35,18 +35,18 @@ void	free_avs(char **avs)
 	int	i;
 
 	i = 0;
-	if (avs)
+	//if (avs)
+//	{
+	while (avs[i])
 	{
-		while (avs[i])
+		if (avs[i])
 		{
-			if (avs[i])
-			{
-				free(avs[i]);
-				avs[i] = NULL;
-			}
-			i++;
+			free(avs[i]);
+			avs[i] = NULL;
 		}
+		i++;
 	}
+//	}
 	free(avs);
 	avs = NULL;
 }
