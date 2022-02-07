@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/07 16:16:20 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/07 17:04:35 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,6 +271,17 @@ char *ft_strcpy(char *dest, char *src)
 }
 
 
+int	ft_buf(char *argv, int *i, char *buf)
+{
+	if (!argv[(*i)])
+		return (0);
+	buf[0] = argv[(*i)];
+	buf[1] = '\0';
+//	(void)line;
+	(*i)++;
+	return (1);
+}
+
 int	ft_fill_av(t_cmd *one_cmd, char **new, char *line)
 {
 	int	i;
@@ -372,9 +383,6 @@ int	ft_avs(t_cmd *one_cmd, char *line)
 }
 
 
-
-
-
 // quote checking + moving forward 
 // THINGS TODO : ft_malloc_avs 
 // 				ft_line = ft_add_line_after
@@ -446,16 +454,13 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 	{
 		if (line[i] == ' ')
 		{
-			//printf("space detecting\n");
-			printf("line before [%s]\n", &line[i]);
 			ft_space_skip(line, &i);
-			//printf("line after [%s]\n", &line[i]);
-			return (1);
+			line_after = NULL;
 		}
 		else if (line[i] == '"')
 		{
 			printf("Double quote part 1\n\n");
-			line_after = ft_d2_quotes(line_after, &i, line, one_cmd);
+			line_after = ft_d2_quotes(line_after, &i, line, tmp);
 			if (tmp->stop == 1)
 				return (0);
 			if (line_after == 0)
@@ -463,34 +468,39 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 			//dollar in quote
 			//end of line/quote
 			line_after = NULL;
-			return (1);
 		}
 		else if (line[i] == '\'')
 		{
 			printf("signle quotes\n\n");
-			return (1);
+			//if (ft_single_quote(line_after, &i, line, tmp))
+			//	return (0);
+			if (line[i + 1] == '\0')
+				break ;//pass_quote?
+			line_after = NULL;
 		}
-		else if (line[i] == '$' && !(line[i + 1] == '?'))
+		else if (line[i] == '$' && !(line[i + 1] == '?'/*ft_change?*/))
 		{
+			//line_after = ft_dollar_1(line, &i, line_after, one_cmd);
+			//line_after = ft_dollar_2(line, &i, line_after, envp);
 			printf("dollar sign but not $? non plus\n\n");
-			return (1);
+			ft_avs(tmp, line_after);
+			line_after = NULL;
 		}
 		else if ((line[i] == '<') || line[i] == '>')
 		{
 			printf("Redirection\n\n");
-			return (1);
+		//	if (!ft_pars_redir(line_after, &i, line, tmp))
+		//		return (0);
 		}
 		else
 		{
-			printf("adding into line_after?\n\n");
-			return (1);
-			/*buf = malloc(sizeof(char) * 2);
-			ft_fill(line, &i, buf);
-			line_after = ft_line_after(line_after, buf[0]);
+			buf = malloc(sizeof(char) * 2);
+			ft_buf(line, &i, buf);
+			line_after = ft_add_line_after(line_after, buf[0]);
 			if (!line[i] && line_after)
-				ft_malloc_avs(tmp, line_after);*/
+				ft_avs(tmp, line_after);
 		}
-	//	free(buf);
+		free(buf);
 	
 	}
 	return (0);
