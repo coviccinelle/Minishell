@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/07 16:02:22 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/07 16:16:20 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ int	ft_init_each_cmd(t_cmd *one_cmd, int *i, char *line)
 
 // ft_line_after
 
-char	*ft_line_after(char *line, char buf)
+char	*ft_add_line_after(char *line, char buf)
 {
 	int		i;
 	char	*new;
@@ -406,7 +406,7 @@ char	*ft_add_2rd_quote(t_cmd *one_cmd, int *i, char *line, char *line_after)
 	(*i)++;
 	while (line[*i] && line[*i] != '"')
 	{
-	//	line_after = ft_add_line_after(line_after, line[(*i)]);
+		line_after = ft_add_line_after(line_after, line[(*i)]);
 		(*i)++;
 	}
 	return (line_after);
@@ -416,7 +416,7 @@ char	*ft_d2_quotes(char *line_after, int *i, char *line, t_cmd *one_cmd)
 {
 	if (line_after)
 	{
-		//ft_malloc_avs(one_cmd, line_after);
+		ft_avs(one_cmd, line_after);
 		line_after = NULL;
 	}
 	return (ft_add_2rd_quote(one_cmd, i, line, line_after));
