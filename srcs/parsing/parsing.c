@@ -311,6 +311,7 @@ char	*ft_d2_quotes(char *line_after, int *i, char *line, t_cmd *one_cmd)
 // done double quote //
 
 
+
 int	ft_each_cmd(char *line, t_cmd *one_cmd)
 {
 	int			i;
