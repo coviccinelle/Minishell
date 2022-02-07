@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/07 14:51:31 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/07 16:02:22 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	detect_cmd(char *str)
 }
 
 // there are 2 choices : put all in la liste chainee or tableau + liste chainee, depends on Marie-Ines
-//Step 1: parsing espaces and tabs
+//Step 1: parsing espaces and avs
 // step 2: counting (single and doubles) quotes
 //  Step 3: tokenizing in liste chainee (2 ways: Balkis (tableau + liste chainee for each cmd) and Eclipse (liste chainee 100%))
 int	parsing(t_mini *mini/*, t_cmd *cmd*/)
@@ -223,25 +223,69 @@ int	ft_init_each_cmd(t_cmd *one_cmd, int *i, char *line)
 	return (1);
 }
 
-// ft_fill_tabs vs ft_malloc_tabs
+// ft_line_after
+
+char	*ft_line_after(char *line, char buf)
+{
+	int		i;
+	char	*new;
+
+	if (line == NULL)
+	{
+		new = malloc(sizeof(char) * 2);
+		new[0] = buf;
+		new[1] = '\0';
+		return (new);
+	}
+	i = ft_strlen(line);
+	new = malloc(sizeof(char) * (i + 2));
+	i = 0;
+	while (line[i])
+	{
+		new[i] = line[i];
+		i++;
+	}
+	new[i] = buf;
+	new[++i] = '\0';
+	free(line);
+	return (new);
+}
 
 
 
-int	ft_paste_tab(t_parsing *param, char **new, char *line)
+
+// ft_fill_av vs ft_malloc_avs
+
+char *ft_strcpy(char *dest, char *src)
+{
+	int i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+
+int	ft_fill_av(t_cmd *one_cmd, char **new, char *line)
 {
 	int	i;
 	int	y;
 
 	i = 0;
 	y = 0;
-	while (param->tabs[y])
+	while (one_cmd->av[y])
 	{
-		new[y] = malloc(sizeof(char) * (ft_strlen(param->tabs[y]) + 1));
+		new[y] = malloc(sizeof(char) * (ft_strlen(one_cmd->av[y]) + 1));
 		if (!new[y])
 			return (0);
-		while (param->tabs[y][i])
+		while (one_cmd->av[y][i])
 		{	
-			new[y][i] = param->tabs[y][i];
+			new[y][i] = one_cmd->av[y][i];
 			i++;
 		}
 		new[y][i] = '\0';
@@ -256,35 +300,34 @@ int	ft_paste_tab(t_parsing *param, char **new, char *line)
 	return (1);
 }
 
-void	free_avs(char **tabs)
+void	free_avs(char **avs)
 {
 	int	i;
 
 	i = 0;
-	if (tabs)
+	if (avs)
 	{
-		while (tabs[i])
+		while (avs[i])
 		{
-			if (tabs[i])
+			if (avs[i])
 			{
-				free(tabs[i]);
-				tabs[i] = NULL;
+				free(avs[i]);
+				avs[i] = NULL;
 			}
 			i++;
 		}
 	}
-	free(tabs);
-	tabs = NULL;
+	free(avs);
+	avs = NULL;
 }
 
-char	**ft_malloc_av(t_parsing *param, int len_tab, char *line)
+char	**ft_malloc_avs(t_cmd *one_cmd, int len_tab, char *line)
 {
 	char	**new;
 
 	if (len_tab == 0)
 	{
-		new = malloc(sizeof(char *) * 2);
-		if (!new)
+		if (!(new = malloc(sizeof(char *) * 2)))
 			return (0);
 		new[0] = malloc(sizeof(char) * (ft_strlen(line) + 1));
 		if (!new[0])
@@ -297,21 +340,33 @@ char	**ft_malloc_av(t_parsing *param, int len_tab, char *line)
 	new = malloc(sizeof(char *) * (len_tab + 2));
 	if (!new)
 		return (0);
-	ft_paste_tab(param, new, line);
+	ft_fill_av(one_cmd, new, line);
 	free(line);
-	free_tabs(param->tabs);
+	free_avs(one_cmd->av);
 	return (new);
 }
 
 
+int	ft_len_avs(char **avs)
+{
+	int	i;
 
-int	ft_fill_avs(t_parsing *param, char *line)
+	i = 0;
+	if (!avs)
+		return (0);
+	while (avs[i])
+		i++;
+	return (i);
+}
+
+
+int	ft_avs(t_cmd *one_cmd, char *line)
 {
 	int	len_tab;
 
-	len_tab = ft_len_tabs(param->tabs);
-	param->tabs = ft_malloc_av(param, len_tab, line);
-	if (!param->tabs)
+	len_tab = ft_len_avs(one_cmd->av);
+	one_cmd->av = ft_malloc_avs(one_cmd, len_tab, line);
+	if (!one_cmd->av)
 		return (0);
 	return (1);
 }
@@ -321,7 +376,7 @@ int	ft_fill_avs(t_parsing *param, char *line)
 
 
 // quote checking + moving forward 
-// THINGS TODO : ft_malloc_tabs 
+// THINGS TODO : ft_malloc_avs 
 // 				ft_line = ft_add_line_after
 
 int	ft_check_2rd_quote(char *line, int c)
@@ -361,7 +416,7 @@ char	*ft_d2_quotes(char *line_after, int *i, char *line, t_cmd *one_cmd)
 {
 	if (line_after)
 	{
-		//ft_malloc_tabs(one_cmd, line_after);
+		//ft_malloc_avs(one_cmd, line_after);
 		line_after = NULL;
 	}
 	return (ft_add_2rd_quote(one_cmd, i, line, line_after));
@@ -433,7 +488,7 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 			ft_fill(line, &i, buf);
 			line_after = ft_line_after(line_after, buf[0]);
 			if (!line[i] && line_after)
-				ft_malloc_tabs(tmp, line_after);*/
+				ft_malloc_avs(tmp, line_after);*/
 		}
 	//	free(buf);
 	
