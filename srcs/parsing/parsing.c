@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/06 18:19:44 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/07 10:19:40 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,60 @@ int	ft_init_each_cmd(t_cmd *one_cmd, int *i, char *line)
 	return (1);
 }
 
+// quote checking + moving forward 
+// THINGS TODO : ft_malloc_tabs 
+// 				ft_line = ft_add_line_after
+
+int	ft_check_2rd_quote(char *line, int c)
+{
+	int		i;
+	int		q;
+
+	i = 0;
+	q = 0;
+	while (line[i])
+	{
+		if (line[i + 1] && line[i + 1] == c)
+		{
+			q++;
+			return (1);
+		}
+		i++;
+	}
+	printf("No 2rd quote detected !!! \np final is = %d\n", q);
+	return (0);
+}
+
+char	*ft_add_2rd_quote(t_cmd *one_cmd, int *i, char *line, char *line_after)
+{
+	(void)one_cmd;
+	if (!ft_check_2rd_quote(&line[*i], '"'))
+	{
+		printf("ERROR: Double quotes are not safely closed\n");
+		one_cmd->stop = 1;
+		//g_exit_value = ???;
+		return (0);
+	}
+	(*i)++;
+	while (line[*i] && line[*i] != '"')
+	{
+	//	line_after = ft_add_line_after(line_after, line[(*i)]);
+		(*i)++;
+	}
+	return (line_after);
+}
+
+char	*ft_d2_quotes(char *line_after, int *i, char *line, t_cmd *one_cmd)
+{
+	if (line_after)
+	{
+		//ft_malloc_tabs(one_cmd, line_after);
+		line_after = NULL;
+	}
+	return (ft_add_2rd_quote(one_cmd, i, line, line_after));
+}
+// done double quote //
+
 
 int	ft_each_cmd(char *line, t_cmd *one_cmd)
 {
@@ -283,7 +337,7 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 		else if (line[i] == '\'')
 		{
 			printf("Single quote\n\n");
-			//line_after = ft_d2_quotes(line_after, &i, line, one_cmd);
+			line_after = ft_d2_quotes(line_after, &i, line, one_cmd);
 			if (tmp->stop == 1)
 				return (0);
 			if (line_after == 0)
@@ -316,7 +370,7 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 			ft_fill(line, &i, buf);
 			line_after = ft_line_after(line_after, buf[0]);
 			if (!line[i] && line_after)
-				ft_tabs(tmp, line_after);*/
+				ft_malloc_tabs(tmp, line_after);*/
 		}
 	//	free(buf);
 	}
@@ -325,12 +379,5 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 
 
 
-/*char	*ft_d2_quotes(char *line_after, int *i, char *argv, t_parsing *param)
-{
-	if (line_after)
-	{
-		ft_tabs(param, line_after);
-		line_after = NULL;
-	}
-	return (ft_add_double_quote(param, i, argv, line_after));
-}*/
+
+
