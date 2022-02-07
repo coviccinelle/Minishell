@@ -22,6 +22,7 @@
 //     return (i);
 // }
 
+/*
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 {
 	size_t	i;
@@ -238,6 +239,8 @@ int   ft_piping(char *line, t_cmd *list)
 //     printf("strtok = %s\n", strtok(str, "cou"));
 //     return (0);
 // }
+
+*/
 /*
 int main()
 {

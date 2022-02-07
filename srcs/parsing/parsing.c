@@ -6,7 +6,11 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/02/07 10:19:40 by thi-phng         ###   ########.fr       */
+=======
+/*   Updated: 2022/02/07 09:27:06 by thi-phng         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -373,6 +377,7 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 				ft_malloc_tabs(tmp, line_after);*/
 		}
 	//	free(buf);
+	
 	}
 	return (0);
 }

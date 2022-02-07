@@ -5,16 +5,6 @@
 
 // ok ft_plit NO LEAKS with main
 
-int	ft_strlen(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 {
 	size_t	i;
@@ -131,7 +121,7 @@ char				**ft_split_3(char const *s, char c)
 	ft_free_tab(tab);
 	return (tab);
 }
-
+/*
 // int   main()
 // {
 //    char  **str;
@@ -147,4 +137,7 @@ char				**ft_split_3(char const *s, char c)
 //    }
 //    free(str);
 //    return (0);
-// }
+//
+ }
+
+*/

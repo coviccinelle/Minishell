@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/04 15:31:25 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/04 18:35:22 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,21 @@ typedef enum	e_redirecto
 typedef struct	s_file
 {
 	char			*name;
-	t_redirecto		type_redirecto;
+	t_redirecto		type_of_redir;
 	struct s_file	*next;
 }				t_file;
 
 
+typedef struct	s_heredoc
+{
+	char			*eof;
+	struct s_heredoc	*next;
+}				t_heredoc;
+
 typedef struct	s_cmd
 {
 	char			**av;
+	int				ac;
 	char			*cmd_line;
 	int				n_cmd;
 	int				ret;

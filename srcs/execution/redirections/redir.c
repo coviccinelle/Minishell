@@ -60,6 +60,8 @@ void	handle_heredoc()
 		if (line)
 		{
 			ft_putendl_fd(line, pipe_fd[1]);
+			if (line[0] == '$' && line[1] != '\0')
+				line = ft_getenv(env, line);
 			if (ft_strncmp(line, heredoc->eof, ft_strlen(heredoc->eof)) == 0)
 			{
 				if (heredoc->next)
@@ -77,26 +79,32 @@ void redirections()
 {
 	int j = -1;
 	int fd;
-	int	is_last_file = FONCTION_QUI_RET_LAST_FILE;
 	if (type_of_redir == '<<') // a modif of course car char **
 		handle_heredoc();
 	if (type_of_redir == '<' || type_of_redir == '>>' || type_of_redir == '>')
 	{
 		while (file->next->next) //jusqua avant dernier
 		{
-			open_file(file->type, file->name, &fd);
-			close(fd);
+			if (type_of_redir == '<' || type_of_redir == '>>' || type_of_redir == '>')
+			{	open_file(file->type_of_redir, file->name, &fd);
+				close(fd);
+			
 			file = file->next;
 		}
-		open_file(file->type, file->name, &fd);
-		handle_redirection(file->type, file->name, &fd);
+		open_file(file->type_of_redr, file->name, &fd);
+		handle_redirection(file->type_of_redir, file->name, &fd);
 	}
 }
 
 
 void    pipelines()
 {
-
+	//le in prend le dernier out
+	while (cmd->next)
+	{
+		
+		cmd = cmd->next;
+	}
 }
 
 
