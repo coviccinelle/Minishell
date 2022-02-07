@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/07 12:56:43 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/07 14:51:31 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,27 +136,6 @@ int	parsing(t_mini *mini/*, t_cmd *cmd*/)
 			//return (1);
 		}
 		return (0);
-		// if (mini->line[i] == ' ' || mini->line[i] == '\t')
-		// 	i++;
-		// if (mini->line[i] == '|')
-		// {
-		// 	char **str;
-		// 	str = ft_split_3(mini->line, '|'); //jhgj
-		// 	int j = 0;
-		// 	while (str[++j])
-		// 		  //list = add_cell(list, str[i], i); // deux cellules, dans chaqune on met str[i]
-		// 	printf("%s\n", *str);
-		// 	printf("PIPE alert : Don't know what to do yet\n");
-		// 	return (1);
-		// }
-		// if (detect_cmd(&mini->line[i]))
-		// {
-		// 	i = i + detect_cmd(&mini->line[i]) - 1;
-		// 	printf("i now is %d\n", i);
-		// //	i++;
-		// 	printf("And the rest of the line is : %s \n", &mini->line[i + 1]);
-		// 	return (1);
-		// }
 		// // else
 		// // {
 		// // 	printf("Errr: command not found\n");
@@ -193,14 +172,7 @@ int   ft_piping_2(char *line, t_cmd *list)
    return(i);
 }
 
-
-
-
-
-
 // init
-
-
 int	malloc_node(t_cmd	**one_cmd)
 {
 	t_cmd	*new;
@@ -218,7 +190,6 @@ int	malloc_node(t_cmd	**one_cmd)
 	printf("done node\n");
 	return (1);
 }
-
 
 int	init_one_cmd(t_cmd *one_cmd)
 {
@@ -252,6 +223,103 @@ int	ft_init_each_cmd(t_cmd *one_cmd, int *i, char *line)
 	return (1);
 }
 
+// ft_fill_tabs vs ft_malloc_tabs
+
+
+
+int	ft_paste_tab(t_parsing *param, char **new, char *line)
+{
+	int	i;
+	int	y;
+
+	i = 0;
+	y = 0;
+	while (param->tabs[y])
+	{
+		new[y] = malloc(sizeof(char) * (ft_strlen(param->tabs[y]) + 1));
+		if (!new[y])
+			return (0);
+		while (param->tabs[y][i])
+		{	
+			new[y][i] = param->tabs[y][i];
+			i++;
+		}
+		new[y][i] = '\0';
+		i = 0;
+		y++;
+	}
+	new[y] = malloc(sizeof(char) * (ft_strlen(line) + 1));
+	if (!new[y])
+		return (0);
+	ft_strcpy(new[y], line);
+	new[++y] = NULL;
+	return (1);
+}
+
+void	free_avs(char **tabs)
+{
+	int	i;
+
+	i = 0;
+	if (tabs)
+	{
+		while (tabs[i])
+		{
+			if (tabs[i])
+			{
+				free(tabs[i]);
+				tabs[i] = NULL;
+			}
+			i++;
+		}
+	}
+	free(tabs);
+	tabs = NULL;
+}
+
+char	**ft_malloc_av(t_parsing *param, int len_tab, char *line)
+{
+	char	**new;
+
+	if (len_tab == 0)
+	{
+		new = malloc(sizeof(char *) * 2);
+		if (!new)
+			return (0);
+		new[0] = malloc(sizeof(char) * (ft_strlen(line) + 1));
+		if (!new[0])
+			return (0);
+		ft_strcpy(new[0], line);
+		new[1] = NULL;
+		free(line);
+		return (new);
+	}
+	new = malloc(sizeof(char *) * (len_tab + 2));
+	if (!new)
+		return (0);
+	ft_paste_tab(param, new, line);
+	free(line);
+	free_tabs(param->tabs);
+	return (new);
+}
+
+
+
+int	ft_fill_avs(t_parsing *param, char *line)
+{
+	int	len_tab;
+
+	len_tab = ft_len_tabs(param->tabs);
+	param->tabs = ft_malloc_av(param, len_tab, line);
+	if (!param->tabs)
+		return (0);
+	return (1);
+}
+
+
+
+
+
 // quote checking + moving forward 
 // THINGS TODO : ft_malloc_tabs 
 // 				ft_line = ft_add_line_after
@@ -259,20 +327,15 @@ int	ft_init_each_cmd(t_cmd *one_cmd, int *i, char *line)
 int	ft_check_2rd_quote(char *line, int c)
 {
 	int		i;
-	int		q;
 
 	i = 0;
-	q = 0;
 	while (line[i])
 	{
 		if (line[i + 1] && line[i + 1] == c)
-		{
-			q++;
 			return (1);
-		}
 		i++;
 	}
-	printf("No 2rd quote detected !!! \np final is = %d\n", q);
+	printf("No 2rd quote detected !!!\n\n\n");// \np final is = %d\n", q);
 	return (0);
 }
 
@@ -282,8 +345,7 @@ char	*ft_add_2rd_quote(t_cmd *one_cmd, int *i, char *line, char *line_after)
 	if (!ft_check_2rd_quote(&line[*i], '"'))
 	{
 		printf("ERROR: Double quotes are not safely closed\n");
-		one_cmd->stop = 1;
-		//g_exit_value = ???;
+		one_cmd->stop = 1; //->g_exit_value = ???;
 		return (0);
 	}
 	(*i)++;
@@ -329,15 +391,15 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 	{
 		if (line[i] == ' ')
 		{
-			printf("space detecting\n");
+			//printf("space detecting\n");
 			printf("line before [%s]\n", &line[i]);
 			ft_space_skip(line, &i);
-			printf("line after [%s]\n", &line[i]);
+			//printf("line after [%s]\n", &line[i]);
 			return (1);
 		}
-		else if (line[i] == '\'')
+		else if (line[i] == '"')
 		{
-			printf("Single quote\n\n");
+			printf("Double quote part 1\n\n");
 			line_after = ft_d2_quotes(line_after, &i, line, one_cmd);
 			if (tmp->stop == 1)
 				return (0);
@@ -348,9 +410,9 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 			line_after = NULL;
 			return (1);
 		}
-		else if (line[i] == '"')
+		else if (line[i] == '\'')
 		{
-			printf("double quotes\n\n");
+			printf("signle quotes\n\n");
 			return (1);
 		}
 		else if (line[i] == '$' && !(line[i + 1] == '?'))
