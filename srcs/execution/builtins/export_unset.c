@@ -35,8 +35,8 @@ int		env_realloc_and_append_envvar(char ***env, char *envvar)
 	if (!new_env)
 		return (-1); // voir quelle valeur dans errno
 	while ((*env)[++j])
-		new_env[j] = ft_strdup((*env)[j]);
-	new_env[j] = ft_strdup(envvar);
+		new_env[j] = ft_strndup((*env)[j], ft_strlen((*env)[j]));
+	new_env[j] = ft_strndup(envvar, ft_strlen(envvar));
 	new_env[j + 1] = NULL;
 	free_tab(env);
 	*env = new_env;
@@ -137,28 +137,52 @@ int exec_export(int ac, char **av, char ***env) // liste a faire dans point 4/ex
 	}
 	get_into_export_lst(env, av, name, data);
 
-//	free_tab(&name); //  leaks dans mes init tabs que je free data et name ou pas... a comprendre
-//	free_tab(&data); // idem
+	//free_tab(&name); //  leaks dans mes init tabs que je free data et name ou pas... a comprendre
+	//free_tab(&data); // idem
 	return (EXIT_SUCCESS);
 }
 
+/*
+char	*ft_strdup(char *src)
+{
+	char	*cpy;
+	size_t	i;
+
+	i = 0;
+	cpy = malloc(sizeof(char) * (ft_strlen(src) + 1));
+	if (src == NULL || cpy == NULL)
+		return (NULL);
+	while (src[i] != '\0')
+	{
+		cpy[i] = src[i];
+		i++;
+	}
+	cpy[i] = '\0';
+	return (cpy);
+}
+*/
 
 int	ft_unsetenv(char ***env,char *name)
 {
 	int pos_name;
 	int	j;
-
+	char	*found;
 	//find_in_env(*env, name, &pos_name); //a voir si peux supp cette ligne
-	if (!find_in_env(*env, name, &pos_name)) //comme ca exit si nexiste pas dans environ?a checker
-		return(0); // ret 0 car pas un echec en soi?
+	found = find_in_env(*env, name, &pos_name); //comme ca exit si nexiste pas dans environ?a checker
+	if (!found)
+	{
+	//	free(found); //comme ca exit si nexiste pas dans environ?a checker
+		return(0);
+	}
 	j = pos_name;
 	while((*env)[j])
 	{
 		ft_memdel(&(*env)[j]);
-		(*env)[j] = ft_strdup((*env)[j + 1]);
+		(*env)[j] = ft_strndup((*env)[j + 1], ft_strlen((*env)[j + 1]));
 		ft_memdel(&(*env)[j + 1]);
 		j++;
 	}
+//	free(found);
 	return (0);
 }
 

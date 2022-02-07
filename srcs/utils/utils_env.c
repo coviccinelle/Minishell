@@ -33,7 +33,7 @@ int	chpos(const char *s, int c) // pour trouver indice ou jai mon char.
 	}
 	return (str - s);
 }
-/*
+
 char *ft_strndup(char *s, int n)
 {
 	int len;
@@ -49,7 +49,7 @@ char *ft_strndup(char *s, int n)
 	copy[len] = '\0';
 	return (copy);
 }
-*/
+
 char	*cpy_trim(char *s, char from, char to)
 {
 	int i;

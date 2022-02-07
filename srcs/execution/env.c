@@ -8,6 +8,7 @@
 
 //fonction ok. a mettre dans utils_libft_1.c si jamais
 
+/*
 char	*ft_strxjoin(char *s1, char *s2, char *s3)
 {
 		char *res;
@@ -18,12 +19,12 @@ char	*ft_strxjoin(char *s1, char *s2, char *s3)
 		free(tmp);
 		return (res);
 }
-
+*/
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
-
+/*
 char	**ft_split(char *s, char sep)
 {
 	char	**tab;
@@ -49,6 +50,7 @@ char	**ft_split(char *s, char sep)
 	}
 	return (tab);
 }
+*/
 
 char	*find_cmd_path(char *cmd)
 {

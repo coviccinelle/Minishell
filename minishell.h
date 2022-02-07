@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/04 18:35:22 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/02/07 16:17:51 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@
 # include <readline/history.h>
 # include <string.h>
 # include <signal.h>
-
-
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <errno.h>  
 # define SEPARATORS " '\"|><"
 
 // *** // STRUCTURE  // *** //
@@ -126,12 +127,27 @@ void    	add_to_export_lst(t_export **export_lst, char *export_name, char *expor
 void		printstack(t_mini *env);
 void		ft_memdel(char **s);
 void		ft_free_lst(t_mini **head);
-int			exec_echo(int ac, char **av);
-int			exec_pwd(void);
-int			exec_export(int ac, char **av, char ***env);
-int			exec_unset(int ac, char **av, char ***env);
+/*echo*/
+int		is_option_n(char *av);
+int		echo(int ac, char **av, int option_n);
+int		exec_echo(int ac, char **av);
+/*env, export et unset*/
+char		*ft_strxjoin(char *s1, char *s2, char *s3);
+//char		**ft_split(char *s, char sep);
+//char		*find_cmd_path(char *cmd, char **env);
+int		env_realloc_and_append_envvar(char ***env, char *envvar);
+char		*find_in_env(char **env, char *name, int *pos);
+char		*ft_getenv(char **env, char *name);
+int		ft_setenv(char ***env, char *av, char *name, char *value);
+int		get_into_export_lst(char ***env, char **av, char **name, char **data);
+void		init_tab(char **av, char ***s);
+int		exec_export(int ac, char **av, char ***env);
+int		ft_unsetenv(char ***env, char *name);
+int		exec_unset(int ac, char **av, char ***env);
 void		print_env(char **env);
-char	*ft_getenv(char **env, char *name);
+
+/*pwd et cd*/
+int		exec_pwd(void);
 
 void		ft_bzero(void *b, size_t n);
 void	*ft_memalloc(size_t size);

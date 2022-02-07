@@ -1,7 +1,7 @@
 #include "../../minishell.h"
 
 // 1/ fonction ft_strcmp list of shell builtins.
-int		is_builtin(char *builtin)
+int	is_builtin(char *builtin)
 {
 	if (!(ft_strcmp(builtin, "cd")))
 		return (1);
@@ -61,7 +61,6 @@ char	*ft_strxjoin(char *s1, char *s2, char *s3)
 #include <sys/stat.h>
 #include <unistd.h>
 
-
 char	**ft_split(char *s, char sep)
 {
 	char	**tab;
@@ -94,15 +93,18 @@ char	*find_cmd_path(char *cmd, char **env)
 	char	*absolute_path;
 	int		j;
 	struct stat	s;
+	char	*possible_paths;
 
+	possible_paths = ft_getenv(env, "PATH");
 	j = -1;
 	if (!cmd)
 		return (NULL);
-	path = ft_split(ft_getenv(env, "PATH"), ':'); // mettre a lexterieur car flemme de rajouter env en param // ft_getenv
+	path = ft_split(possible_paths, ':'); // mettre a lexterieur car flemme de rajouter env en param // ft_getenv
+	free(possible_paths);
 	while (path[++j])
 	{
 		absolute_path = ft_strxjoin(path[j], "/", cmd);
-       	if (stat(absolute_path, &s) == 0)
+       		if (stat(absolute_path, &s) == 0)
 		{
 			free_tab(&path);
 			return (absolute_path); // a free pour le dernier ft_strjoin non?
@@ -115,7 +117,6 @@ char	*find_cmd_path(char *cmd, char **env)
 }
 
 #include <errno.h>  
-
 void	exec_cmd(int ac, char **av, char ***env)
 {
 	char	*path;
@@ -134,6 +135,7 @@ void	exec_cmd(int ac, char **av, char ***env)
 	if (ret == -1) // en cas de reussite exceve ne revient pas mais en cas dechec renvoie -1 avec le code derreur dans errno
 		strerror(errno);
 		//perror("");
+	free(path);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -153,6 +155,8 @@ int	main(int ac, char **av, char **envp)
 	env = ft_copy_tab(envp);
 	exec_cmd(ac, av, &env);
 	print_env(env);
+
+	free_tab(&env);
 	return (0);
 }
 

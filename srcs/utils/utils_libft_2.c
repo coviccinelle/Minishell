@@ -30,6 +30,8 @@ void	ft_puterror_fd(char *error, char *s, char *error2)
 	ft_putchar_fd('\n', 2);
 }
 
+//leaks
+/*
 char	*ft_strdup(char *s1)
 {
 	char	*str;
@@ -53,3 +55,4 @@ char	*ft_strdup(char *s1)
 	str[i] = '\0';
 	return (str);
 }
+*/

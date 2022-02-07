@@ -26,24 +26,6 @@ int	ft_strlen(char	*s)
 	return (i);
 }
 
-char	*ft_strndup(char *s, int n)
-{
-	char	*res;
-	int	i;
-
-	i = 0;
-	res = malloc(sizeof(char) * (n + 1));
-	if (res == NULL)
-		return (NULL);
-	while (i < n)
-	{
-		res[i] = s[i];
-		i++;
-	}
-	res[i] = '\0';
-	return (res);
-}
-
 char    *ft_strjoin(char *s1, char *s2)
 {
         int     i;
