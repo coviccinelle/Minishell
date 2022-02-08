@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 21:11:27 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 21:13:17 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,10 +129,10 @@ int	parsing(t_mini *mini/*, t_cmd *cmd*/)
 			if (ft_each_cmd(mini->line, mini))
 			{
 				//mini->cmd = cmd;
-				printf("mini->cmd->av[0] = %s\n", mini->av[0]);
+				printf("OVER HERE :mini->cmd->av[0] = %s\n", mini->av[0]);
 				return (1);
 			}
-			return (1);
+			//return (1);
 		}
 	//	return (0);
 ///	}
@@ -522,7 +522,7 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 	// 	printf("av[%d] = -%s-\n", l, one_cmd->av[l]);
 	// 	l++;
 	// }
-	return (0);
+	return (1);
 }
 
 
