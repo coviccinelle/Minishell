@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 15:43:25 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 16:54:43 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,12 @@ int	parsing(t_mini *mini/*, t_cmd *cmd*/)
 {
 	//while (mini->line)
 //	{
-		t_cmd	cmd;
+		// t_cmd	*cmd;
+
+		// cmd = NULL;
 		if (ft_strchr(mini->line, '|'))
 		{
-			mini->i = ft_piping(mini->line, mini->cmd); // = t_cmd *cmd
+			mini->i = ft_piping(mini->line, mini); // = t_cmd *cmd
 			printf("%d\n", mini->i);
 			return  (1);
 		}
@@ -126,10 +128,10 @@ int	parsing(t_mini *mini/*, t_cmd *cmd*/)
 			printf("There's only one cmd! Simple\n");
 			printf("line = %s\n", mini->line);
 			//init mini->cmd
-			if (ft_each_cmd(mini->line, &cmd))
+			if (ft_each_cmd(mini->line, mini))
 			{
-				mini->cmd = &cmd;
-				printf("mini->cmd->av[0] = %s\n", mini->cmd->av[0]);
+				//mini->cmd = cmd;
+				printf("mini->cmd->av[0] = %s\n", mini->av[0]);
 				return (1);
 			}
 			return (1);
@@ -140,11 +142,11 @@ int	parsing(t_mini *mini/*, t_cmd *cmd*/)
 }
 
 // init
-int	malloc_node(t_cmd	**one_cmd)
+int	malloc_node(t_mini	**one_cmd)
 {
-	t_cmd	*new;
+	t_mini	*new;
 	
-	new = (t_cmd *)malloc(sizeof(t_cmd));
+	new = (t_mini *)malloc(sizeof(t_mini));
 	if (!new)
 		return (0);
 	if (!(*one_cmd))
@@ -156,7 +158,7 @@ int	malloc_node(t_cmd	**one_cmd)
 	return (1);
 }
 
-int	init_one_cmd(t_cmd *one_cmd)
+int	init_one_cmd(t_mini *one_cmd)
 {
 	one_cmd->av = NULL;
 	one_cmd->cmd_line = NULL;
@@ -174,7 +176,7 @@ int	init_one_cmd(t_cmd *one_cmd)
 	return(1);
 }
 
-int	ft_init_each_cmd(t_cmd *one_cmd, int *i, char *line)
+int	ft_init_each_cmd(t_mini *one_cmd, int *i, char *line)
 {
 
 	if (!malloc_node(&one_cmd))
@@ -245,7 +247,7 @@ int	ft_buf(char *argv, int *i, char *buf)
 	return (1);
 }
 
-int	ft_fill_av(t_cmd *one_cmd, char **new, char *line)
+int	ft_fill_av(t_mini *one_cmd, char **new, char *line)
 {
 	int	i;
 	int	y;
@@ -296,7 +298,7 @@ void	free_avs(char **avs)
 	avs = NULL;
 }
 
-char	**ft_malloc_avs(t_cmd *one_cmd, int len_tab, char *line)
+char	**ft_malloc_avs(t_mini *one_cmd, int len_tab, char *line)
 {
 	char	**new;
 
@@ -337,7 +339,7 @@ int	ft_len_avs(char **avs)
 }
 
 
-int	ft_avs(t_cmd *one_cmd, char *line_after)
+int	ft_avs(t_mini *one_cmd, char *line_after)
 {
 	int	len_tab;
 
@@ -369,7 +371,7 @@ int	ft_check_2rd_quote(char *line, int c)
 	return (0);
 }
 
-char	*ft_add_2rd_quote(t_cmd *one_cmd, int *i, char *line, char *line_after)
+char	*ft_add_2rd_quote(t_mini *one_cmd, int *i, char *line, char *line_after)
 {
 	(void)one_cmd;
 	if (!ft_check_2rd_quote(&line[*i], '"'))
@@ -387,7 +389,7 @@ char	*ft_add_2rd_quote(t_cmd *one_cmd, int *i, char *line, char *line_after)
 	return (line_after);
 }
 
-char	*ft_d2_quotes(char *line_after, int *i, char *line, t_cmd *one_cmd)
+char	*ft_d2_quotes(char *line_after, int *i, char *line, t_mini *one_cmd)
 {
 	if (line_after)
 	{
@@ -401,7 +403,7 @@ char	*ft_d2_quotes(char *line_after, int *i, char *line, t_cmd *one_cmd)
 //single quote //
 
 
-int	ft_add_2rd_s_quote(t_cmd *one_cmd, int *i, char *line, char *line_after)
+int	ft_add_2rd_s_quote(t_mini *one_cmd, int *i, char *line, char *line_after)
 {
 	int		start;
 
@@ -423,7 +425,7 @@ int	ft_add_2rd_s_quote(t_cmd *one_cmd, int *i, char *line, char *line_after)
 	return (1);
 }
 
-int	ft_single_quote(char *line_after, int *i, char *line, t_cmd *one_cmd)
+int	ft_single_quote(char *line_after, int *i, char *line, t_mini *one_cmd)
 {
 	if (line_after)
 	{
@@ -436,12 +438,12 @@ int	ft_single_quote(char *line_after, int *i, char *line, t_cmd *one_cmd)
 }
 
 
-int	ft_each_cmd(char *line, t_cmd *one_cmd)
+int	ft_each_cmd(char *line, t_mini *one_cmd)
 {
 	int			i;
 	char		*buf;
 	char		*line_after;
-	t_cmd		*tmp;
+	t_mini		*tmp;
 
 	(void)buf;
 //	(void)one_cmd;
@@ -508,7 +510,7 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 		}
 		else
 		{
-			printf("inside the char section in parsing line 499\n");
+			//printf("inside the char section in parsing line 499\n");
 			buf = malloc(sizeof(char) * 2);
 			ft_buf(line, &i, buf);
 			line_after = ft_add_line_after(line_after, buf[0]);

@@ -145,11 +145,11 @@ char				**ft_split_3(char const *s, char c)
 //    Done split     //
 
 
-t_cmd	*create_cell(char *cmd)
+t_mini	*create_cell(char *cmd)
 {
-  t_cmd	*cell;
+  t_mini	*cell;
 
-  cell = malloc(sizeof(t_cmd));
+  cell = malloc(sizeof(t_mini));
   if (!(cell))
   	return (NULL);
   cell->next = NULL;
@@ -157,11 +157,11 @@ t_cmd	*create_cell(char *cmd)
   return (cell);
 }
 
-t_cmd	*add_cell(t_cmd *list, char *cmd, int pos)
+t_mini	*add_cell(t_mini *list, char *cmd, int pos)
 {
-  t_cmd	*prec;
-  t_cmd	*cur;
-  t_cmd	*cell;
+  t_mini	*prec;
+  t_mini	*cur;
+  t_mini	*cell;
   int		i;
 
   cur = list;
@@ -181,7 +181,7 @@ t_cmd	*add_cell(t_cmd *list, char *cmd, int pos)
 }
 //Imprimer les cellules :
 
-void	print_list(t_cmd *list)
+void	print_list(t_mini *list)
 {
   int		i;
 
@@ -198,7 +198,7 @@ void	print_list(t_cmd *list)
 }
 
 
-int   ft_piping(char *line, t_cmd *list)
+int   ft_piping(char *line, t_mini *list)
 {
    int   i = 0;
    char **str;

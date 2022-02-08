@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 14:37:24 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 16:41:08 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,17 @@ typedef struct	s_heredoc
 	struct s_heredoc	*next;
 }				t_heredoc;
 
-typedef struct	s_cmd
+// typedef struct	s_cmd
+// {
+
+// }				t_mini;
+
+typedef struct s_mini
 {
+	char			**env;
+	char			*line;
+	int				i;
+	int				stop;
 	char			**av;
 	int				ac;
 	char			*cmd_line;
@@ -72,25 +81,15 @@ typedef struct	s_cmd
 	int				quote;
 	int				d_quotes;
 	int				heredoc;
-	int				stop;
 	t_redirecto		type;
 	t_file			*file;
-	struct s_cmd	*next;
-}				t_cmd;
-
-typedef struct s_mini
-{
-	char			**env;
-	char			*line;
-	int				i;
-	int				stop;
-	t_cmd			*cmd;
+	struct s_mini	*next;
 }				t_mini;
 
 extern int		g_nb_exit;
 
 // *** // main  // *** //
-void		ft_init_cmd(t_cmd *cmd);
+//void		ft_init_mini(t_mini *mini);
 
 //*** Utils ***//
 int     	find_me(char c, char *str);
@@ -157,11 +156,11 @@ void		print_export(char **tab);
 
 //*** PARSING ***//
 int			parsing(t_mini *mini/*, t_cmd *cmd*/);
-int 		ft_piping(char *line, t_cmd *list);
-int			ft_each_cmd(char *line, t_cmd *cmd);
+int 		ft_piping(char *line, t_mini *list);
+int			ft_each_cmd(char *line, t_mini *cmd);
 
-t_cmd		*add_cell(t_cmd *list, char *cmd, int pos);
-void		print_list(t_cmd *list);
+t_mini		*add_cell(t_mini *list, char *cmd, int pos);
+void		print_list(t_mini *list);
 
 
 

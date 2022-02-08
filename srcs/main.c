@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 15:43:56 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 16:56:58 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,17 +112,35 @@ void	ft_init_mini(t_mini *mini)
 	mini->line = NULL;
 	mini->i = 0;
 	mini->stop = 0;
-	mini->cmd = NULL;
+	mini->av = NULL;
+	mini->ac = 0;
+	mini->cmd_line = NULL;
+	mini->n_cmd = 0;
+	mini->ret = 0;
+	mini->builtin = 0;
+	mini->pipe = 0;
+	mini->fork = 0;
+	mini->quote = 0;
+	mini->d_quotes = 0;
+	mini->heredoc = 0;
+	mini->type = NOPE;
+	mini->file = NULL;
+	mini->next = NULL;
 	printf("done init mini\n");
 }
 
-void	minishell_exec_cmds(t_mini *mini, t_cmd *cmd)
+void	minishell_exec_cmds(t_mini *mini)
 {
 	(void)mini;
-	
-	cmd = mini->cmd;
+	int		i;
+
+	i = 0;
 	printf("bonjourthao\n");
-	printf("lui av[0] -%s-\n", cmd->av[0]);
+	while(mini->av[i])
+	{
+		printf("lui av[%d] -%s-\n", i, mini->av[i]);
+		i++;
+	}
 	printf("\n\033[1;33m  oopps...	~Minishell$\033[0m  is not defined by now, pls come back later\n");
 	//tous les cmd and exec
 }
@@ -140,9 +158,9 @@ void	free_tab2(char **tab)
 	tab = NULL;
 }
 
-void	ft_free_cmd(t_cmd *cmd)
+void	ft_free_cmd(t_mini *cmd)
 {
-	t_cmd	*tmp;
+	t_mini	*tmp;
 
 	if (!cmd)
 		printf("haha \n");
@@ -155,7 +173,7 @@ void	ft_free_cmd(t_cmd *cmd)
 			free_tab2(cmd->av);
 		cmd = cmd->next;
 		printf("we will we will rock you\n");
-		free(tmp);
+		//free(tmp);
 	}
 }
 
@@ -166,9 +184,7 @@ int	main(int ac, char **av, char **envp)
 //	g_n_exit = 0;
 
 	//mini = NULL;
-	printf("000\n");
 	ft_init_mini(&mini);
-	printf("doudou entre 2 inits\n");
 	mini.env = ft_env_cpy(envp);
 	if (ac != 1)
 		return (printf("Error: Invalid argument\nHint: only ./minishell\n"), 1);
@@ -181,16 +197,18 @@ int	main(int ac, char **av, char **envp)
 		{
 			if (parsing(&mini/*, mini.cmd*/))// uhmmm before = if (mini.line)
 			{
-				//minishell_exec_cmds(&mini, mini.cmd);
-				printf("ici 1\n");
-				ft_free_cmd(mini.cmd);
+				if (mini.av)
+					printf("i exist\n\n");
+				minishell_exec_cmds(&mini);
+				printf("ici 1 done parsing\n");
+				ft_free_cmd(&mini);
 				break ;
 			}
 			else
 			{
-				printf("ici 2\n");
-				ft_free_cmd(mini.cmd);
-				if (mini.cmd)
+				printf("ici 2 parsing return 0 = free\n");
+				ft_free_cmd(&mini);
+				if (mini.av)
 					printf("i'm here\n");
 				//free mini->cmd
 				break ;
