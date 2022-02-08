@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 17:50:50 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 18:10:44 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,9 @@ void	minishell_exec_cmds(t_mini *mini)
 {
 	(void)mini;
 	int		i;
-	char	**av;
+	//char	**av;
 	int		ac;
-	char	**env;
+//	char	**env;
 
 	i = 0;
 	/*while(mini->av[i])
@@ -146,11 +146,18 @@ void	minishell_exec_cmds(t_mini *mini)
 	// i = 0;
 	// if (!detect_cmd(mini->av[0]))
 	// 	return (0);
-	av = mini->av;
-	print_env(mini->av);
-	ac = nb_tabs(av);
-	env = mini->env;
-	exec_cmd(ac, av, &env);
+	//av = mini->av;
+	// 	printf(" PRINT AV \n\n\n");
+	// print_env(av);
+	ac = nb_tabs(mini->av);
+	while (i <= ac)
+	{
+		printf("Print av[%d] = %s\n\n", i, mini->av[i]);
+		i++;
+	}
+//	env = mini->env;
+	exec_cmd(ac, mini->av, &mini->env);
+//	exec_cmd(ac, av, &env);
 	printf("\n\033[1;33m  oopps...	~Minishell$\033[0m  is not defined by now, pls come back later\n");
 	//tous les cmd and exec
 }

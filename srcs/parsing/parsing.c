@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 17:16:21 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 18:00:30 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,7 +270,7 @@ int	ft_fill_av(t_mini *one_cmd, char **new, char *line)
 		return (0);
 	ft_strcpy(new[y], line);
 	new[++y] = NULL;
-	printf("t_fill_av = %s\n\n", one_cmd->av[0]);
+//	printf("t_fill_av = %s\n\n", one_cmd->av[0]);
 	return (1);
 }
 
