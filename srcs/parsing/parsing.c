@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 11:27:46 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 11:43:02 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-int	detect_cmd(char *str)
+int	detect_cmd(char *str, int *i)
 {
-	int	i;
+	// int	i;
 	
-	i = 0;
-	while (str[i])
+	// i = 0;
+	while (str[*i])
 	{
 		if (!ft_strncmp(str, "echo", 5))
 		{
@@ -101,7 +101,7 @@ int	detect_cmd(char *str)
 			printf("UNSET founded\n");
 			return (ft_strlen("unset"));
 		}
-		i++;
+		(*i)++;
 	}
 	return (0);
 }
@@ -454,12 +454,18 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 
 	while (line[i])
 	{
+	
 		if (line[i] == ' ')
 		{
 			ft_space_skip(line, &i);
 			line_after = NULL;
 		}
-		else if (line[i] == '"')
+		if (!detect_cmd(line,&i))
+			{
+				printf("ERROR: cmd not found\n\n");
+				return (0);
+			}
+		if (line[i] == '"')
 		{
 			printf("Double quote part 1\n\n");
 			line_after = ft_d2_quotes(line_after, &i, line, tmp);
