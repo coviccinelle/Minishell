@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 12:30:04 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 13:49:33 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -434,25 +434,35 @@ int	ft_single_quote(char *line_after, int *i, char *line, t_cmd *one_cmd)
 }
 
 
-int	ft_each_cmd_2(char *line, int *i, t_cmd *one_cmd)
+int	ft_each_cmd(char *line, t_cmd *one_cmd)
 {
+	int			i;
 	char		*buf;
 	char		*line_after;
 	t_cmd		*tmp;
 
 	(void)buf;
+//	(void)one_cmd;
+	line_after = NULL;
+	tmp = NULL;
+	if (!ft_init_each_cmd(one_cmd, &i, line))
+		return (0);
 	tmp = one_cmd;
-	while (line[(*i)])
+	
+	printf("Let's start\n");
+	printf("Orgine line is : %s\n", line);
+
+	while (line[i])
 	{
-		if (line[(*i)] == ' ')
+		if (line[i] == ' ')
 		{
-			ft_space_skip(line, i);
+			ft_space_skip(line, &i);
 			line_after = NULL;
 		}
-		else if (line[(*i)] == '"')
+		else if (line[i] == '"')
 		{
 			printf("Double quote part 1\n\n");
-			line_after = ft_d2_quotes(line_after, i, line, tmp);
+			line_after = ft_d2_quotes(line_after, &i, line, tmp);
 			if (tmp->stop == 1)
 				return (0);
 			if (line_after == 0)
@@ -461,16 +471,16 @@ int	ft_each_cmd_2(char *line, int *i, t_cmd *one_cmd)
 			//end of line/quote
 			line_after = NULL;
 		}
-		else if (line[(*i)] == '\'')
+		else if (line[i] == '\'')
 		{
 			printf("signle quotes\n\n");
-			if (!ft_single_quote(line_after, i, line, tmp))
+			if (!ft_single_quote(line_after, &i, line, tmp))
 				return (0);
-			if (line[(*i) + 1] == '\0')
+			if (line[i + 1] == '\0')
 				break ;//pass_quote?
 			line_after = NULL;
 		}
-		else if (line[*i] == '$' && !(line[(*i) + 1] == '?'/*ft_change?*/))
+		else if (line[i] == '$' && !(line[i + 1] == '?'))
 		{
 			//line_after = ft_dollar_1(line, &i, line_after, one_cmd);
 			//line_after = ft_dollar_2(line, &i, line_after, envp);
@@ -478,29 +488,29 @@ int	ft_each_cmd_2(char *line, int *i, t_cmd *one_cmd)
 			ft_avs(tmp, line_after);
 			line_after = NULL;
 		}
-		else if ((line[*i] == '<') || line[*i] == '>')
+		else if ((line[i] == '<') || line[i] == '>')
 		{
 			printf("Redirection\n\n");
-		//	if (!ft_pars_redir(line_after, &i, line, tmp))
+		//	if (!ft_pars_redir(line_after, &i, line, tmp)) //idea only
 		//		return (0);
 		}
 		else
 		{
 			printf("inside the char section in parsing line 499\n");
-			// buf = malloc(sizeof(char) * 2);
-			// ft_buf(line, i, buf);
-			// line_after = ft_add_line_after(line_after, buf[0]);
-			// if (!line[(*i)] && line_after)
-			// 	ft_avs(tmp, line_after);
+			buf = malloc(sizeof(char) * 2);
+			ft_buf(line, &i, buf);
+			line_after = ft_add_line_after(line_after, buf[0]);
+			if (!line[i] && line_after)
+				ft_avs(tmp, line_after);
 		}
-		//free(buf);
+		free(buf);
 	
 	}
 	return (0);
 }
 
 
-int	ft_each_cmd(char *line, t_cmd *one_cmd)
+int	ft_each_cmd_2(char *line, t_cmd *one_cmd)
 {
 	int			i;
 	char		*buf;
@@ -538,7 +548,7 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 			line_after = NULL;
 		}
 	}
-	return (ft_each_cmd_2(line_after, &i, one_cmd));
+	return (1);
 }
 
 
