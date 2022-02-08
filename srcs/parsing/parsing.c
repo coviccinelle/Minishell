@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 18:30:58 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 21:11:27 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ int	parsing(t_mini *mini/*, t_cmd *cmd*/)
 ///	}
 	return (0);
 }
+
 
 // init
 int	malloc_node(t_mini	**one_cmd)
