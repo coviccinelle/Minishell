@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/07 17:04:35 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 11:07:53 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,7 @@ int	ft_init_each_cmd(t_cmd *one_cmd, int *i, char *line)
 	return (1);
 }
 
-// ft_line_after
+// ft_add_line_after
 
 char	*ft_add_line_after(char *line, char buf)
 {
@@ -398,7 +398,7 @@ int	ft_check_2rd_quote(char *line, int c)
 			return (1);
 		i++;
 	}
-	printf("No 2rd quote detected !!!\n\n\n");// \np final is = %d\n", q);
+	//printf("No 2rd quote detected !!!\n\n\n");// \np final is = %d\n", q);
 	return (0);
 }
 
@@ -408,7 +408,7 @@ char	*ft_add_2rd_quote(t_cmd *one_cmd, int *i, char *line, char *line_after)
 	if (!ft_check_2rd_quote(&line[*i], '"'))
 	{
 		printf("ERROR: Double quotes are not safely closed\n");
-		one_cmd->stop = 1; //->g_exit_value = ???;
+		one_cmd->stop = 1; //->g_n_exit = ???;
 		return (0);
 	}
 	(*i)++;
@@ -430,6 +430,43 @@ char	*ft_d2_quotes(char *line_after, int *i, char *line, t_cmd *one_cmd)
 	return (ft_add_2rd_quote(one_cmd, i, line, line_after));
 }
 // done double quote //
+
+//single quote //
+
+
+int	ft_add_2rd_s_quote(t_cmd *one_cmd, int *i, char *line, char *line_after)
+{
+	int		start;
+
+	start = (*i);
+	(*i)++;
+	while (line[(*i)] && line[(*i)] != '\'')
+	{
+		line_after = ft_add_line_after(line_after, line[(*i)]);
+		(*i)++;
+	}
+	if (!ft_check_2rd_quote(&line[start], '\''))
+	{
+		free(line_after);
+		printf("Error: Second single quote not found\n\n"); //g_n_exit = ??
+		return (0);
+	}
+	if (line_after)
+		ft_avs(one_cmd, line_after);
+	return (1);
+}
+
+int	ft_single_quote(char *line_after, int *i, char *line, t_cmd *one_cmd)
+{
+	if (line_after)
+	{
+		ft_avs(one_cmd, line_after);
+		line_after = NULL;
+	}
+	if (!ft_add_2rd_s_quote(one_cmd, i, line, line_after))
+		return (0);
+	return (1);
+}
 
 
 
@@ -472,8 +509,8 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 		else if (line[i] == '\'')
 		{
 			printf("signle quotes\n\n");
-			//if (ft_single_quote(line_after, &i, line, tmp))
-			//	return (0);
+			if (ft_single_quote(line_after, &i, line, tmp))
+				return (0);
 			if (line[i + 1] == '\0')
 				break ;//pass_quote?
 			line_after = NULL;
