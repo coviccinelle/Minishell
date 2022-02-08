@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 11:43:02 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 12:04:26 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-int	detect_cmd(char *str, int *i)
+char	*detect_cmd(char *str, int *i)
 {
 	// int	i;
 	
@@ -69,41 +69,41 @@ int	detect_cmd(char *str, int *i)
 		if (!ft_strncmp(str, "echo", 5))
 		{
 			printf("ECHO founded\n");
-			return (ft_strlen("echo"));
+			return (&str[ft_strlen("echo")]);
 		}
 		if (!ft_strncmp(str, "export", 7))
 		{
 			printf("EXPORT founded\n");
-			return (ft_strlen("export"));
+			return (&str[ft_strlen("export")]);
 		}
 		if (!ft_strncmp(str, "env", 4))
 		{
 			printf("ENV founded\n");
-			return (ft_strlen("env"));
+			return (&str[ft_strlen("env")]);
 		}
 		if (!ft_strncmp(str, "exit", 5))
 		{
 			printf("EXIT founded\n");
-			return (ft_strlen("exit"));
+			return (&str[ft_strlen("exit")]);
 		}
 		if (!ft_strncmp(str, "cd", 3))
 		{
 			printf("CD founded\n");
-			return (ft_strlen("cd"));
+			return (&str[ft_strlen("cd")]);
 		}
 		if (!ft_strncmp(str, "pwd", 4))
 		{
 			printf("PWD founded\n");
-			return (ft_strlen("pwd"));
+			return (&str[ft_strlen("pwd")]);
 		}
 		if (!ft_strncmp(str, "unset", 6))
 		{
 			printf("UNSET founded\n");
-			return (ft_strlen("unset"));
+			return (&str[ft_strlen("unset")]);
 		}
 		(*i)++;
 	}
-	return (0);
+	return (NULL);
 }
 
 // there are 2 choices : put all in la liste chainee or tableau + liste chainee, depends on Marie-Ines
@@ -434,6 +434,71 @@ int	ft_single_quote(char *line_after, int *i, char *line, t_cmd *one_cmd)
 }
 
 
+int	ft_each_cmd_2(char *line, int *i, t_cmd *one_cmd)
+{
+	char		*buf;
+	char		*line_after;
+	t_cmd		*tmp;
+
+	(void)buf;
+	tmp = one_cmd;
+	while (line[(*i)])
+	{
+		if (line[(*i)] == ' ')
+		{
+			ft_space_skip(line, i);
+			line_after = NULL;
+		}
+		else if (line[(*i)] == '"')
+		{
+			printf("Double quote part 1\n\n");
+			line_after = ft_d2_quotes(line_after, i, line, tmp);
+			if (tmp->stop == 1)
+				return (0);
+			if (line_after == 0)
+				break ;
+			//dollar in quote
+			//end of line/quote
+			line_after = NULL;
+		}
+		else if (line[(*i)] == '\'')
+		{
+			printf("signle quotes\n\n");
+			if (ft_single_quote(line_after, i, line, tmp))
+				return (0);
+			if (line[(*i) + 1] == '\0')
+				break ;//pass_quote?
+			line_after = NULL;
+		}
+		else if (line[*i] == '$' && !(line[(*i) + 1] == '?'/*ft_change?*/))
+		{
+			//line_after = ft_dollar_1(line, &i, line_after, one_cmd);
+			//line_after = ft_dollar_2(line, &i, line_after, envp);
+			printf("dollar sign but not $? non plus\n\n");
+			ft_avs(tmp, line_after);
+			line_after = NULL;
+		}
+		else if ((line[*i] == '<') || line[*i] == '>')
+		{
+			printf("Redirection\n\n");
+		//	if (!ft_pars_redir(line_after, &i, line, tmp))
+		//		return (0);
+		}
+		else
+		{
+			printf("inside the char section in parsing line 499\n");
+			buf = malloc(sizeof(char) * 2);
+			ft_buf(line, i, buf);
+			line_after = ft_add_line_after(line_after, buf[0]);
+			if (!line[(*i)] && line_after)
+				ft_avs(tmp, line_after);
+		}
+		free(buf);
+	
+	}
+	return (0);
+}
+
 
 int	ft_each_cmd(char *line, t_cmd *one_cmd)
 {
@@ -443,8 +508,9 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 	t_cmd		*tmp;
 
 	(void)buf;
-
+//	(void)one_cmd;
 	line_after = NULL;
+	tmp = NULL;
 	if (!ft_init_each_cmd(one_cmd, &i, line))
 		return (0);
 	tmp = one_cmd;
@@ -460,62 +526,15 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 			ft_space_skip(line, &i);
 			line_after = NULL;
 		}
-		if (!detect_cmd(line,&i))
-			{
-				printf("ERROR: cmd not found\n\n");
-				return (0);
-			}
-		if (line[i] == '"')
+		line_after = detect_cmd(line, &i);
+		if (detect_cmd(line,&i) == NULL)
 		{
-			printf("Double quote part 1\n\n");
-			line_after = ft_d2_quotes(line_after, &i, line, tmp);
-			if (tmp->stop == 1)
-				return (0);
-			if (line_after == 0)
-				break ;
-			//dollar in quote
-			//end of line/quote
-			line_after = NULL;
+			printf("ERROR: cmd not found\n\n");
+			return (0);
 		}
-		else if (line[i] == '\'')
-		{
-			printf("signle quotes\n\n");
-			if (ft_single_quote(line_after, &i, line, tmp))
-				return (0);
-			if (line[i + 1] == '\0')
-				break ;//pass_quote?
-			line_after = NULL;
-		}
-		else if (line[i] == '$' && !(line[i + 1] == '?'/*ft_change?*/))
-		{
-			//line_after = ft_dollar_1(line, &i, line_after, one_cmd);
-			//line_after = ft_dollar_2(line, &i, line_after, envp);
-			printf("dollar sign but not $? non plus\n\n");
-			ft_avs(tmp, line_after);
-			line_after = NULL;
-		}
-		else if ((line[i] == '<') || line[i] == '>')
-		{
-			printf("Redirection\n\n");
-		//	if (!ft_pars_redir(line_after, &i, line, tmp))
-		//		return (0);
-		}
-		else
-		{
-			printf("inside the char section in parsing line 499\n");
-			buf = malloc(sizeof(char) * 2);
-			ft_buf(line, &i, buf);
-			line_after = ft_add_line_after(line_after, buf[0]);
-			if (!line[i] && line_after)
-				ft_avs(tmp, line_after);
-		}
-		free(buf);
-	
 	}
-	return (0);
+	return (ft_each_cmd_2(line_after, &i, one_cmd));
 }
-
-
 
 
 
