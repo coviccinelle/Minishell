@@ -53,12 +53,16 @@ char	*find_in_env(char **env, char *name, int *pos) //prend tout bonjour=hello e
 	j = -1;
 	printf("JE PASSE DANS FIND ENV\n\n");
 	if (name == NULL || env == NULL)
+	{
+		printf("dans find env, name == NULL or !env\n\n");
 		return (NULL);
-	while (env[++j])
+	}
+	while (env[++j] && j < nb_tabs(env))
 	{
 		if (ft_strncmp(name, env[j], name_len) == 0 && env[j][name_len] ==  '=')
 		{
 			*pos = j;
+			printf("dans find envs, show it\n\n");
 			return (cpy_trim(env[j], '=', '\0'));
 		}
 	}
