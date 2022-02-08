@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 12:04:26 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 12:20:13 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -526,11 +526,15 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 			ft_space_skip(line, &i);
 			line_after = NULL;
 		}
-		line_after = detect_cmd(line, &i);
-		if (detect_cmd(line,&i) == NULL)
+		else if (find_me(line[i], "ecpu"))
 		{
-			printf("ERROR: cmd not found\n\n");
-			return (0);
+			detect_cmd(line, &i);
+			if (detect_cmd(line, &i) == NULL)
+			{
+				printf("ERROR: cmd not found\n\n");
+				return (0);
+			}
+			line_after = NULL;
 		}
 	}
 	return (ft_each_cmd_2(line_after, &i, one_cmd));
