@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 17:37:26 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 18:15:40 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <errno.h>  
+#include<sys/wait.h>
+
+
 # define SEPARATORS " '\"|><"
 
 // *** // STRUCTURE  // *** //

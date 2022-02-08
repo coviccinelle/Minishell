@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 18:10:44 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 18:26:27 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,8 @@ void	minishell_exec_cmds(t_mini *mini)
 {
 	(void)mini;
 	int		i;
-	//char	**av;
 	int		ac;
+	//char	**av;
 //	char	**env;
 
 	i = 0;
@@ -155,8 +155,21 @@ void	minishell_exec_cmds(t_mini *mini)
 		printf("Print av[%d] = %s\n\n", i, mini->av[i]);
 		i++;
 	}
+	
 //	env = mini->env;
-	exec_cmd(ac, mini->av, &mini->env);
+	pid_t   father;
+
+    father = fork();
+    if (father > 0)
+    {
+        wait(NULL);
+		printf("I AM YOUR FATHER\n");
+	}
+	if (father == 0)
+	{
+        sleep(1);
+		exec_cmd(nb_tabs(mini->av), mini->av, &mini->env);
+	}
 //	exec_cmd(ac, av, &env);
 	printf("\n\033[1;33m  oopps...	~Minishell$\033[0m  is not defined by now, pls come back later\n");
 	//tous les cmd and exec
@@ -187,10 +200,10 @@ void	ft_free_cmd(t_mini *cmd)
 		//if (cmd->file)
 		//	ft_free_file(cmd->file)
 		if (*cmd->av)
-			free_tab2(cmd->av);
+			free_tab(&cmd->av);
 		cmd = cmd->next;
 		printf("we will we will rock you\n");
-		//free(tmp);
+		//ft_free_cmd(tmp);
 	}
 }
 
@@ -216,8 +229,10 @@ int	main(int ac, char **av, char **envp)
 			if (parsing(&mini))
 			{
 				if (mini.av)
+				{
 					printf("mini->av exist\n\n");
-				minishell_exec_cmds(&mini);
+					minishell_exec_cmds(&mini);
+				}	
 			
 				printf("ici 1 done parsing\n");
 				ft_free_cmd(&mini);
