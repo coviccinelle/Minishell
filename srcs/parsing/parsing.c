@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 13:49:33 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 14:41:20 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int	parsing(t_mini *mini/*, t_cmd *cmd*/)
 {
 	while (mini->line)
 	{
+		t_cmd	cmd;
 		if (ft_strchr(mini->line, '|'))
 		{
 			mini->i = ft_piping(mini->line, mini->cmd); // = t_cmd *cmd
@@ -124,8 +125,10 @@ int	parsing(t_mini *mini/*, t_cmd *cmd*/)
 		{
 			printf("There's only one cmd! Simple\n");
 			printf("line = %s\n", mini->line);
-			if (ft_each_cmd(mini->line, mini->cmd))
+			//init mini->cmd
+			if (ft_each_cmd(mini->line, &cmd))
 			{
+				mini->cmd = &cmd;
 				printf("mini->cmd->av[0] = %s\n", mini->cmd->av[0]);
 				return (1);
 			}
@@ -161,16 +164,15 @@ int	init_one_cmd(t_cmd *one_cmd)
 	one_cmd->cmd_line = NULL;
 	one_cmd->ret = 0;
 	one_cmd->builtin = 0;
-	one_cmd->pipe = 0;
-	one_cmd->fork = 0;
-	one_cmd->quote = 0;
-	one_cmd->d_quotes = 0;
-	one_cmd->heredoc = 0;
-	one_cmd->stop = 0;
-	one_cmd->type = NOPE;
-	one_cmd->file = NULL;
-	one_cmd->next = NULL;
-	printf("done ft_init_cmd done\n");
+	(one_cmd)->pipe = 0;
+	(one_cmd)->fork = 0;
+	(one_cmd)->quote = 0;
+	(one_cmd)->d_quotes = 0;
+	(one_cmd)->heredoc = 0;
+	(one_cmd)->stop = 0;
+	(one_cmd)->type = NOPE;
+	(one_cmd)->file = NULL;
+	(one_cmd)->next = NULL;
 	return(1);
 }
 
@@ -179,11 +181,10 @@ int	ft_init_each_cmd(t_cmd *one_cmd, int *i, char *line)
 
 	if (!malloc_node(&one_cmd))
 		return (0);
-	if (!init_one_cmd(one_cmd))
-		return (0);
 	one_cmd->next = NULL;
 	(*i) = 0;
 	ft_space_skip(line, i);
+	printf("fin first init\n");
 	return (1);
 }
 
@@ -340,7 +341,10 @@ int	ft_avs(t_cmd *one_cmd, char *line_after)
 {
 	int	len_tab;
 
-	len_tab = ft_len_avs(one_cmd->av);
+	char **av;
+	av = NULL;
+	len_tab = ft_len_avs(av);
+	len_tab = 0;
 	one_cmd->av = ft_malloc_avs(one_cmd, len_tab, line_after);
 	if (!one_cmd->av)
 		return (0);
@@ -447,6 +451,11 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 	tmp = NULL;
 	if (!ft_init_each_cmd(one_cmd, &i, line))
 		return (0);
+	if (!init_one_cmd(one_cmd))
+		return (0);
+	printf("vant segfaut\n");
+	if (!one_cmd->av)
+		printf("im still dead part 2\n");
 	tmp = one_cmd;
 	
 	printf("Let's start\n");
@@ -501,7 +510,10 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 			ft_buf(line, &i, buf);
 			line_after = ft_add_line_after(line_after, buf[0]);
 			if (!line[i] && line_after)
+			{
 				ft_avs(tmp, line_after);
+				printf("av[0] vvaut %s\n", one_cmd->av[0]);
+			}
 		}
 		free(buf);
 	
@@ -510,46 +522,46 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 }
 
 
-int	ft_each_cmd_2(char *line, t_cmd *one_cmd)
-{
-	int			i;
-	char		*buf;
-	char		*line_after;
-	t_cmd		*tmp;
+// int	ft_each_cmd_2(char *line, t_cmd *one_cmd)
+// {
+// 	int			i;
+// 	char		*buf;
+// 	char		*line_after;
+// 	t_cmd		*tmp;
 
-	(void)buf;
-//	(void)one_cmd;
-	line_after = NULL;
-	tmp = NULL;
-	if (!ft_init_each_cmd(one_cmd, &i, line))
-		return (0);
-	tmp = one_cmd;
+// 	(void)buf;
+// //	(void)one_cmd;
+// 	line_after = NULL;
+// 	tmp = NULL;
+// 	if (!ft_init_each_cmd(&one_cmd, &i, line))
+// 		return (0);
+// 	tmp = one_cmd;
 	
-	printf("Let's start\n");
-	printf("Orgine line is : %s\n", line);
+// 	printf("Let's start\n");
+// 	printf("Orgine line is : %s\n", line);
 
-	while (line[i])
-	{
-		printf("inside line[i] = %c\n", line[i]);
-		if (line[i] == ' ')
-		{
-			ft_space_skip(line, &i);
-			line_after = NULL;
-		}
-		if (find_me(line[i], "ecpu"))
-		{
-			printf("before detect\n");
-			detect_cmd(line, &i);
-			if (detect_cmd(line, &i) == NULL)
-			{
-				printf("ERROR: cmd not found\n\n");
-				return (0);
-			}
-			line_after = NULL;
-		}
-	}
-	return (1);
-}
+// 	while (line[i])
+// 	{
+// 		printf("inside line[i] = %c\n", line[i]);
+// 		if (line[i] == ' ')
+// 		{
+// 			ft_space_skip(line, &i);
+// 			line_after = NULL;
+// 		}
+// 		if (find_me(line[i], "ecpu"))
+// 		{
+// 			printf("before detect\n");
+// 			detect_cmd(line, &i);
+// 			if (detect_cmd(line, &i) == NULL)
+// 			{
+// 				printf("ERROR: cmd not found\n\n");
+// 				return (0);
+// 			}
+// 			line_after = NULL;
+// 		}
+// 	}
+// 	return (1);
+// }
 
 
 

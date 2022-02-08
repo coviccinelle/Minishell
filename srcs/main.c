@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/07 16:46:58 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 14:42:24 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,9 +142,13 @@ int	main(int ac, char **av, char **envp)
 	{
 		mini.line = ft_readline_input(mini.line);
 		add_history(mini.line);
-		if (parsing(&mini/*, mini.cmd*/))// uhmmm before = if (mini.line)
-			minishell_exec_cmds(&mini/*, &cmd*/);
-		break ;
+		while (42)
+		{
+			if (parsing(&mini/*, mini.cmd*/))// uhmmm before = if (mini.line)
+				minishell_exec_cmds(&mini/*, &cmd*/);
+			else
+				break ;
+		}
 		//free_tokens_and_structure(&mini);
 	}
 	//free(line);
