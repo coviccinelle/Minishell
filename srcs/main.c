@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 14:42:24 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 15:43:56 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,12 +116,47 @@ void	ft_init_mini(t_mini *mini)
 	printf("done init mini\n");
 }
 
-void	minishell_exec_cmds(t_mini *mini/*, t_cmd *cmd*/)
+void	minishell_exec_cmds(t_mini *mini, t_cmd *cmd)
 {
 	(void)mini;
-	//(void)cmd;
+	
+	cmd = mini->cmd;
+	printf("bonjourthao\n");
+	printf("lui av[0] -%s-\n", cmd->av[0]);
 	printf("\n\033[1;33m  oopps...	~Minishell$\033[0m  is not defined by now, pls come back later\n");
 	//tous les cmd and exec
+}
+
+void	free_tab2(char **tab)
+{
+	int	j;
+	
+	j = 0;
+	while (tab[j])
+	{
+		free(tab[j]);
+		j++;
+	}
+	tab = NULL;
+}
+
+void	ft_free_cmd(t_cmd *cmd)
+{
+	t_cmd	*tmp;
+
+	if (!cmd)
+		printf("haha \n");
+	while (cmd)
+	{
+		tmp = cmd;
+		//if (cmd->file)
+		//	ft_free_file(cmd->file)
+		if (*cmd->av)
+			free_tab2(cmd->av);
+		cmd = cmd->next;
+		printf("we will we will rock you\n");
+		free(tmp);
+	}
 }
 
 int	main(int ac, char **av, char **envp)
@@ -145,9 +180,22 @@ int	main(int ac, char **av, char **envp)
 		while (42)
 		{
 			if (parsing(&mini/*, mini.cmd*/))// uhmmm before = if (mini.line)
-				minishell_exec_cmds(&mini/*, &cmd*/);
-			else
+			{
+				//minishell_exec_cmds(&mini, mini.cmd);
+				printf("ici 1\n");
+				ft_free_cmd(mini.cmd);
 				break ;
+			}
+			else
+			{
+				printf("ici 2\n");
+				ft_free_cmd(mini.cmd);
+				if (mini.cmd)
+					printf("i'm here\n");
+				//free mini->cmd
+				break ;
+			}
+			free(mini.line);
 		}
 		//free_tokens_and_structure(&mini);
 	}

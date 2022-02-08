@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 14:41:20 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 15:43:25 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ char	*detect_cmd(char *str, int *i)
 //  Step 3: tokenizing in liste chainee (2 ways: Balkis (tableau + liste chainee for each cmd) and Eclipse (liste chainee 100%))
 int	parsing(t_mini *mini/*, t_cmd *cmd*/)
 {
-	while (mini->line)
-	{
+	//while (mini->line)
+//	{
 		t_cmd	cmd;
 		if (ft_strchr(mini->line, '|'))
 		{
@@ -132,10 +132,10 @@ int	parsing(t_mini *mini/*, t_cmd *cmd*/)
 				printf("mini->cmd->av[0] = %s\n", mini->cmd->av[0]);
 				return (1);
 			}
-			//return (1);
+			return (1);
 		}
-		return (0);
-	}
+	//	return (0);
+///	}
 	return (0);
 }
 
@@ -144,17 +144,15 @@ int	malloc_node(t_cmd	**one_cmd)
 {
 	t_cmd	*new;
 	
-	new = (t_cmd *)malloc(sizeof(t_cmd) * 2);
+	new = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new)
 		return (0);
-	//new->next = NULL;
 	if (!(*one_cmd))
 	{
+		new->next = NULL;
 		*one_cmd = new;
 		printf("after node\n");
 	}
-	new->next = NULL;
-	printf("done node\n");
 	return (1);
 }
 
@@ -320,6 +318,8 @@ char	**ft_malloc_avs(t_cmd *one_cmd, int len_tab, char *line)
 	ft_fill_av(one_cmd, new, line);
 	free(line);
 	free_avs(one_cmd->av);
+	if (one_cmd->av)
+		printf("av existe\n");
 	return (new);
 }
 
@@ -341,13 +341,11 @@ int	ft_avs(t_cmd *one_cmd, char *line_after)
 {
 	int	len_tab;
 
-	char **av;
-	av = NULL;
-	len_tab = ft_len_avs(av);
-	len_tab = 0;
+	len_tab = ft_len_avs(one_cmd->av);
 	one_cmd->av = ft_malloc_avs(one_cmd, len_tab, line_after);
 	if (!one_cmd->av)
 		return (0);
+	//free(line_after);
 	return (1);
 }
 
@@ -465,7 +463,12 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 	{
 		if (line[i] == ' ')
 		{
+			printf("here in space for -%s-\n", &line[i]);
+			printf("line vaut %s\n", line_after);
+			if (line_after)
+				ft_avs(tmp, line_after);
 			ft_space_skip(line, &i);
+			printf("here in space for -%s-\n", &line[i]);
 			line_after = NULL;
 		}
 		else if (line[i] == '"')
@@ -510,14 +513,22 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 			ft_buf(line, &i, buf);
 			line_after = ft_add_line_after(line_after, buf[0]);
 			if (!line[i] && line_after)
-			{
 				ft_avs(tmp, line_after);
-				printf("av[0] vvaut %s\n", one_cmd->av[0]);
-			}
+			free(buf);
 		}
-		free(buf);
 	
 	}
+
+
+
+
+	int l = 0;
+	while (one_cmd->av[l])
+	{
+		printf("av[%d] = -%s-\n", l, one_cmd->av[l]);
+		l++;
+	}
+	printf("----end of parsing----\n");
 	return (0);
 }
 
