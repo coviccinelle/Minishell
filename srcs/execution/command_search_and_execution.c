@@ -5,19 +5,20 @@
 // 1/ fonction ft_strcmp list of shell builtins.
 int	is_builtin(char *builtin)
 {
-	if (!(ft_strncmp(builtin, "cd", ft_strlen("cd"))))
+	if (!(ft_strcmp(builtin, "cd")))
 		return (1);
-	if (!(ft_strncmp(builtin, "echo", ft_strlen("echo"))))
+	//if (!(ft_strncmp(builtin, "echo", ft_strlen("echo"))))
+	if (!(ft_strcmp(builtin, "echo")))
 		return (1);
-	if (!(ft_strncmp(builtin, "env", ft_strlen("env"))))
+	if (!(ft_strcmp(builtin, "env")))
 		return (1);
-	if (!(ft_strncmp(builtin, "export", ft_strlen("export"))))
+	if (!(ft_strcmp(builtin, "export")))
 		return (1);
-	if (!(ft_strncmp(builtin, "exit", ft_strlen("exit"))))
+	if (!(ft_strcmp(builtin, "exit")))
 		return (1);
-	if (!(ft_strncmp(builtin, "pwd", ft_strlen("pwd"))))
+	if (!(ft_strcmp(builtin, "pwd")))
 		return (1);
-	if (!(ft_strncmp(builtin, "unset", ft_strlen("unset"))))
+	if (!(ft_strcmp(builtin, "unset")))
 		return (1);
 	return (0);
 }
@@ -30,17 +31,18 @@ int exec_builtin(char *builtin, int ac, char **av, char ***env)
 		exit_status =  EXIT_SUCCESS; 
 		if (!(ft_strcmp(builtin, "cd")))
 			exec_cd(ac, av, *env);
-		if (!(ft_strncmp(builtin, "echo", ft_strlen("echo"))))
+		//if (!(ft_strncmp(builtin, "echo", ft_strlen("echo"))))
+		if (!(ft_strcmp(builtin, "echo")))
 			exit_status = exec_echo(ac, av);
 		if (!(ft_strcmp(builtin, "env")))
 			print_env(*env);
-		if (!(ft_strncmp(builtin, "export", ft_strlen("export"))))
+		if (!(ft_strcmp(builtin, "export")))
 			exit_status = exec_export(ac, av, env); // + &export list. de 4/
 		if (!(ft_strcmp(builtin, "exit")))
 			exec_exit(ac, av);
-		if (!(ft_strncmp(builtin, "pwd", ft_strlen("pwd"))))
+		if (!(ft_strcmp(builtin, "pwd")))
 			exit_status = exec_pwd();
-		if (!(ft_strncmp(builtin, "unset", ft_strlen("unset"))))
+		if (!(ft_strcmp(builtin, "unset")))
 			exit_status = exec_unset(ac, av, env); // + &export list. de 4/
 		if (exit_status != 0)
 			exit_status = EXIT_FAILURE; // If a command is found but is not executable, the return status is 126.

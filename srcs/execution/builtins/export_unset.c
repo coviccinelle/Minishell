@@ -193,7 +193,7 @@ int	exec_unset(int ac, char **av, char ***env)
 {
 	(void)ac;
 	int j;
-
+	printf("JE PASSE DANS UNSET !!!!!!!!\n");
 	j = 0; // car a partir de av[1] donc apres unset
 	while (av[++j]) // a tester. ai ajouté if pas found dans l'env dans ft_unsetenv. si ne marche pas, mettre ici
 		ft_unsetenv(env, av[j]);
