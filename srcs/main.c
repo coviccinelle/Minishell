@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 18:26:27 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 18:39:39 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,23 +232,28 @@ int	main(int ac, char **av, char **envp)
 				{
 					printf("mini->av exist\n\n");
 					minishell_exec_cmds(&mini);
+					mini.av = NULL;
+					//free_tab(&mini.av);
 				}	
 			
 				printf("ici 1 done parsing\n");
-				ft_free_cmd(&mini);
+				//free_tab(&mini.av);
+				//ft_free_cmd(&mini);
 				break ;
 			}
 			else
 			{
 				printf("ici 2 parsing return 0 = free\n");
-				ft_free_cmd(&mini);
+				//ft_free_cmd(&mini);
 				if (mini.av)
 					printf("i'm here\n");
+				free_tab(&mini.av);
 				//free mini->cmd
 				break ;
 			}
 			free(mini.line);
 		}
+	//	ft_free_cmd(&mini);
 		//free_tokens_and_structure(&mini);
 	}
 	//free(line);
