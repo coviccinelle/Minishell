@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 18:48:44 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 21:56:16 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_mini
 	int				quote;
 	int				d_quotes;
 	int				heredoc;
+	int				ret_status;
 	t_redirecto		type;
 	t_file			*file;
 	struct s_mini	*next;
