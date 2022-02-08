@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 12:20:13 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 12:30:04 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -464,7 +464,7 @@ int	ft_each_cmd_2(char *line, int *i, t_cmd *one_cmd)
 		else if (line[(*i)] == '\'')
 		{
 			printf("signle quotes\n\n");
-			if (ft_single_quote(line_after, i, line, tmp))
+			if (!ft_single_quote(line_after, i, line, tmp))
 				return (0);
 			if (line[(*i) + 1] == '\0')
 				break ;//pass_quote?
@@ -487,13 +487,13 @@ int	ft_each_cmd_2(char *line, int *i, t_cmd *one_cmd)
 		else
 		{
 			printf("inside the char section in parsing line 499\n");
-			buf = malloc(sizeof(char) * 2);
-			ft_buf(line, i, buf);
-			line_after = ft_add_line_after(line_after, buf[0]);
-			if (!line[(*i)] && line_after)
-				ft_avs(tmp, line_after);
+			// buf = malloc(sizeof(char) * 2);
+			// ft_buf(line, i, buf);
+			// line_after = ft_add_line_after(line_after, buf[0]);
+			// if (!line[(*i)] && line_after)
+			// 	ft_avs(tmp, line_after);
 		}
-		free(buf);
+		//free(buf);
 	
 	}
 	return (0);
@@ -520,14 +520,15 @@ int	ft_each_cmd(char *line, t_cmd *one_cmd)
 
 	while (line[i])
 	{
-	
+		printf("inside line[i] = %c\n", line[i]);
 		if (line[i] == ' ')
 		{
 			ft_space_skip(line, &i);
 			line_after = NULL;
 		}
-		else if (find_me(line[i], "ecpu"))
+		if (find_me(line[i], "ecpu"))
 		{
+			printf("before detect\n");
 			detect_cmd(line, &i);
 			if (detect_cmd(line, &i) == NULL)
 			{
