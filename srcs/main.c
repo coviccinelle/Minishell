@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 16:56:58 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 17:21:07 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ char	*ft_readline_input(char *line)
 
 void	ft_init_mini(t_mini *mini)
 {
-	printf("here\n");
 	mini->env = NULL;
 	mini->line = NULL;
 	mini->i = 0;
@@ -135,12 +134,14 @@ void	minishell_exec_cmds(t_mini *mini)
 	int		i;
 
 	i = 0;
-	printf("bonjourthao\n");
 	while(mini->av[i])
 	{
-		printf("lui av[%d] -%s-\n", i, mini->av[i]);
+		printf("all av[%d] [%s]\n", i, mini->av[i]);
 		i++;
 	}
+	// i = 0;
+	// if (!detect_cmd(mini->av[0]))
+	// 	return (0);
 	printf("\n\033[1;33m  oopps...	~Minishell$\033[0m  is not defined by now, pls come back later\n");
 	//tous les cmd and exec
 }
@@ -195,10 +196,10 @@ int	main(int ac, char **av, char **envp)
 		add_history(mini.line);
 		while (42)
 		{
-			if (parsing(&mini/*, mini.cmd*/))// uhmmm before = if (mini.line)
+			if (parsing(&mini))
 			{
 				if (mini.av)
-					printf("i exist\n\n");
+					printf("mini->av exist\n\n");
 				minishell_exec_cmds(&mini);
 				printf("ici 1 done parsing\n");
 				ft_free_cmd(&mini);

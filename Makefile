@@ -6,7 +6,7 @@
 #    By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 11:32:21 by thi-phng          #+#    #+#              #
-#    Updated: 2022/02/08 15:01:23 by thi-phng         ###   ########.fr        #
+#    Updated: 2022/02/08 17:09:10 by thi-phng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,10 @@ SRC		=	srcs/main.c \
 			srcs/utils/utils_libft_1.c \
 			srcs/utils/dont_mind_me_test.c \
 			srcs/utils/ft_space_skip.c \
+			srcs/utils/utils_libft_2.c \
+			srcs/utils/utils_libft_3.c \
+			srcs/utils/utils_env.c \
+			srcs/utils/utils.c \
 			#srcs/utils/ft_split_3.c 
 				
 OBJ = ${SRC:.c=.o}

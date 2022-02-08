@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 16:54:43 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 17:16:21 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,21 @@ int	is_token(char *str, char *token)
 	return (1);
 }*/
 
-int	ft_strncmp(char *s1, char *s2, unsigned int n)
-{
-	unsigned long	i;
-	unsigned char	*str1;
-	unsigned char	*str2;
+// int	ft_strncmp(char *s1, char *s2, unsigned int n)
+// {
+// 	unsigned long	i;
+// 	unsigned char	*str1;
+// 	unsigned char	*str2;
 
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
-	i = 0;
-	if (!n || str1 == str2)
-		return (0);
-	while (str1[i] && str2[i] && i < (n - 1) && str1[i] == str2[i])
-		i++;
-	return (str1[i] - str2[i]);
-}
+// 	str1 = (unsigned char *)s1;
+// 	str2 = (unsigned char *)s2;
+// 	i = 0;
+// 	if (!n || str1 == str2)
+// 		return (0);
+// 	while (str1[i] && str2[i] && i < (n - 1) && str1[i] == str2[i])
+// 		i++;
+// 	return (str1[i] - str2[i]);
+// }
 
 // int	ft_strlen(char *str)
 // {
@@ -126,8 +126,6 @@ int	parsing(t_mini *mini/*, t_cmd *cmd*/)
 		else
 		{
 			printf("There's only one cmd! Simple\n");
-			printf("line = %s\n", mini->line);
-			//init mini->cmd
 			if (ft_each_cmd(mini->line, mini))
 			{
 				//mini->cmd = cmd;
@@ -158,23 +156,23 @@ int	malloc_node(t_mini	**one_cmd)
 	return (1);
 }
 
-int	init_one_cmd(t_mini *one_cmd)
-{
-	one_cmd->av = NULL;
-	one_cmd->cmd_line = NULL;
-	one_cmd->ret = 0;
-	one_cmd->builtin = 0;
-	(one_cmd)->pipe = 0;
-	(one_cmd)->fork = 0;
-	(one_cmd)->quote = 0;
-	(one_cmd)->d_quotes = 0;
-	(one_cmd)->heredoc = 0;
-	(one_cmd)->stop = 0;
-	(one_cmd)->type = NOPE;
-	(one_cmd)->file = NULL;
-	(one_cmd)->next = NULL;
-	return(1);
-}
+// int	init_one_cmd(t_mini *one_cmd)
+// {
+// 	one_cmd->av = NULL;
+// 	one_cmd->cmd_line = NULL;
+// 	one_cmd->ret = 0;
+// 	one_cmd->builtin = 0;
+// 	(one_cmd)->pipe = 0;
+// 	(one_cmd)->fork = 0;
+// 	(one_cmd)->quote = 0;
+// 	(one_cmd)->d_quotes = 0;
+// 	(one_cmd)->heredoc = 0;
+// 	(one_cmd)->stop = 0;
+// 	(one_cmd)->type = NOPE;
+// 	(one_cmd)->file = NULL;
+// 	(one_cmd)->next = NULL;
+// 	return(1);
+// }
 
 int	ft_init_each_cmd(t_mini *one_cmd, int *i, char *line)
 {
@@ -184,7 +182,6 @@ int	ft_init_each_cmd(t_mini *one_cmd, int *i, char *line)
 	one_cmd->next = NULL;
 	(*i) = 0;
 	ft_space_skip(line, i);
-	printf("fin first init\n");
 	return (1);
 }
 
@@ -451,26 +448,20 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 	tmp = NULL;
 	if (!ft_init_each_cmd(one_cmd, &i, line))
 		return (0);
-	if (!init_one_cmd(one_cmd))
-		return (0);
-	printf("vant segfaut\n");
-	if (!one_cmd->av)
-		printf("im still dead part 2\n");
+	//if (!init_one_cmd(one_cmd))
+	//	return (0);
+	// if (!one_cmd->av)
+	// 	printf("im still dead part 2\n");
 	tmp = one_cmd;
 	
-	printf("Let's start\n");
 	printf("Orgine line is : %s\n", line);
-
 	while (line[i])
 	{
 		if (line[i] == ' ')
 		{
-			printf("here in space for -%s-\n", &line[i]);
-			printf("line vaut %s\n", line_after);
 			if (line_after)
 				ft_avs(tmp, line_after);
 			ft_space_skip(line, &i);
-			printf("here in space for -%s-\n", &line[i]);
 			line_after = NULL;
 		}
 		else if (line[i] == '"')
@@ -524,13 +515,12 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 
 
 
-	int l = 0;
-	while (one_cmd->av[l])
-	{
-		printf("av[%d] = -%s-\n", l, one_cmd->av[l]);
-		l++;
-	}
-	printf("----end of parsing----\n");
+	// int l = 0;
+	// while (one_cmd->av[l])
+	// {
+	// 	printf("av[%d] = -%s-\n", l, one_cmd->av[l]);
+	// 	l++;
+	// }
 	return (0);
 }
 
