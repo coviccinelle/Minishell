@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 22:12:15 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 22:37:59 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ void	minishell_exec_cmds(t_mini *mini)
     if (father == 0)
     {
 		exec_cmd(nb_tabs(mini->av), mini->av, &mini->env);
-		exit(0);
+		//exit(0);
 	}
 	waitpid(father, &stat, 0);
 	if (stat == 4202397)
