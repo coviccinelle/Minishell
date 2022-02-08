@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/07 16:17:51 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/02/08 17:02:51 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,21 @@ typedef struct	s_file
 
 typedef struct	s_heredoc
 {
-	char			*eof;
+	char				*eof;
 	struct s_heredoc	*next;
 }				t_heredoc;
 
-typedef struct	s_cmd
+// typedef struct	s_cmd
+// {
+
+// }				t_mini;
+
+typedef struct s_mini
 {
+	char			**env;
+	char			*line;
+	int				i;
+	int				stop;
 	char			**av;
 	int				ac;
 	char			*cmd_line;
@@ -73,25 +82,15 @@ typedef struct	s_cmd
 	int				quote;
 	int				d_quotes;
 	int				heredoc;
-	int				stop;
 	t_redirecto		type;
 	t_file			*file;
-	struct s_cmd	*next;
-}				t_cmd;
-
-typedef struct s_mini
-{
-	char			**env;
-	char			*line;
-	int				i;
-	int				stop;
-	t_cmd			*cmd;
+	struct s_mini	*next;
 }				t_mini;
 
 extern int		g_nb_exit;
 
 // *** // main  // *** //
-void	ft_init_cmd(t_cmd *cmd);
+//void		ft_init_mini(t_mini *mini);
 
 //*** Utils ***//
 int     	find_me(char c, char *str);
@@ -99,8 +98,8 @@ int     	is_token_char(char c);int	is_digit(char c);
 int 		is_alpha(char c);
 int	    	is_valid_var_name(char *av);
 char		**ft_split_3(char	const *s, char c);
-char	*ft_strchr(const char *s, int c);
-void    ft_space_skip(char *str, int *i);
+char		*ft_strchr(const char *s, int c);
+void   		ft_space_skip(char *str, int *i);
 
 
 //char		*ft_strdup(const char *s1);
@@ -118,7 +117,7 @@ int			ft_count_quotes(const char *str);
 char		*ft_strdup(char *s1);
 char		**ft_copy_tab(char **env);
 int			ft_strcmp(char *s, char *t);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
+void		*ft_memcpy(void *dst, const void *src, size_t n);
 
 //*** Builtins ***//
 t_export	*new_export(char *export_name, char *export_data);
@@ -145,39 +144,37 @@ int		exec_export(int ac, char **av, char ***env);
 int		ft_unsetenv(char ***env, char *name);
 int		exec_unset(int ac, char **av, char ***env);
 void		print_env(char **env);
-
-/*pwd et cd*/
-int		exec_pwd(void);
+char		*ft_getenv(char **env, char *name);
 
 void		ft_bzero(void *b, size_t n);
-void	*ft_memalloc(size_t size);
-void	test_print(char **envp);
-void	free_tab(char ***line);
-void	free_tabs(char **tabs);
-void ft_putchar(int c);
-void ft_putstr(char *s);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
-char	*cpy_trim(char *s, char from, char to);
-int ft_strncmp(char *s1, char *s2, unsigned int n);
+void		*ft_memalloc(size_t size);
+void		test_print(char **envp);
+void		free_tab(char ***line);
+void		free_tabs(char **tabs);
+void 		ft_putchar(int c);
+void 		ft_putstr(char *s);
+void		*ft_memcpy(void *dst, const void *src, size_t n);
+char		*cpy_trim(char *s, char from, char to);
+int 		ft_strncmp(char *s1, char *s2, unsigned int n);
 //char *ft_strcat(char *dest, char *src);
-int		nb_tabs(char **s);
-char	*ft_strdup(char *src);
-char	*ft_strcpy(char *dst, char *src);
-int	ft_alphabetical_order_tab(char **env);
-void	print_tab(char **env);
-char	**ft_copy_tab(char **env);
-int	ft_unsetenv(char ***env,char *name);
-void	print_export(char **tab);
+int			nb_tabs(char **s);
+char		*ft_strdup(char *src);
+char		*ft_strcpy(char *dst, char *src);
+int			ft_alphabetical_order_tab(char **env);
+void		print_tab(char **env);
+char		**ft_copy_tab(char **env);
+int			ft_unsetenv(char ***env,char *name);
+void		print_export(char **tab);
 
 
 
 //*** PARSING ***//
-int	parsing(t_mini *mini/*, t_cmd *cmd*/);
-int ft_piping(char *line, t_cmd *list);
-int	ft_each_cmd(char *line, t_cmd *cmd);
+int			parsing(t_mini *mini/*, t_cmd *cmd*/);
+int 		ft_piping(char *line, t_mini *list);
+int			ft_each_cmd(char *line, t_mini *cmd);
 
-t_cmd	*add_cell(t_cmd *list, char *cmd, int pos);
-void	print_list(t_cmd *list);
+t_mini		*add_cell(t_mini *list, char *cmd, int pos);
+void		print_list(t_mini *list);
 
 
 

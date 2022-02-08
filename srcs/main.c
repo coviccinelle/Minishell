@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/04 15:27:57 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 16:56:58 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,52 +112,69 @@ void	ft_init_mini(t_mini *mini)
 	mini->line = NULL;
 	mini->i = 0;
 	mini->stop = 0;
-	mini->cmd = NULL;
+	mini->av = NULL;
+	mini->ac = 0;
+	mini->cmd_line = NULL;
+	mini->n_cmd = 0;
+	mini->ret = 0;
+	mini->builtin = 0;
+	mini->pipe = 0;
+	mini->fork = 0;
+	mini->quote = 0;
+	mini->d_quotes = 0;
+	mini->heredoc = 0;
+	mini->type = NOPE;
+	mini->file = NULL;
+	mini->next = NULL;
 	printf("done init mini\n");
 }
 
-// void	ft_init_cmd(t_cmd *cmd)
-// {
-// 	printf("coucou first step");
-// 	cmd->each_cmd = NULL;
-// 	//cmd->cmd_line = NULL;
-// 	cmd->ret = 0;
-// 	cmd->builtin = 0;
-// 	cmd->pipe = 0;
-// 	cmd->fork = 0;
-// 	cmd->quote = 0;
-// 	cmd->d_quotes = 0;
-// 	cmd->heredoc = 0;
-// 	cmd->stop = 0;
-// 	cmd->type = NOPE;
-// 	cmd->file = NULL;
-// 	cmd->next = NULL;
-// 	cmd->prev = NULL;
-// 	printf("done ft_init_cmd\n");
-// }
-
-	// char			**each_cmd;
-	// char			*cmd_line;
-	// int				n_cmd;
-	// int				ret;
-	// int				builtin;
-	// int				pipe;
-	// int				fork;
-	// int				quote;
-	// int				d_quotes;
-	// int				heredoc;
-	// int				stop;
-	// t_redirecto		type;
-	// t_file			*file;
-	// struct s_cmd	*next;
-	// struct s_cmd	*prev;
-
-void	minishell_exec_cmds(t_mini *mini/*, t_cmd *cmd*/)
+void	minishell_exec_cmds(t_mini *mini)
 {
 	(void)mini;
-	//(void)cmd;
-	printf("minishell is not defined by now, pls come back later\n");
+	int		i;
+
+	i = 0;
+	printf("bonjourthao\n");
+	while(mini->av[i])
+	{
+		printf("lui av[%d] -%s-\n", i, mini->av[i]);
+		i++;
+	}
+	printf("\n\033[1;33m  oopps...	~Minishell$\033[0m  is not defined by now, pls come back later\n");
 	//tous les cmd and exec
+}
+
+void	free_tab2(char **tab)
+{
+	int	j;
+	
+	j = 0;
+	while (tab[j])
+	{
+		free(tab[j]);
+		j++;
+	}
+	tab = NULL;
+}
+
+void	ft_free_cmd(t_mini *cmd)
+{
+	t_mini	*tmp;
+
+	if (!cmd)
+		printf("haha \n");
+	while (cmd)
+	{
+		tmp = cmd;
+		//if (cmd->file)
+		//	ft_free_file(cmd->file)
+		if (*cmd->av)
+			free_tab2(cmd->av);
+		cmd = cmd->next;
+		printf("we will we will rock you\n");
+		//free(tmp);
+	}
 }
 
 int	main(int ac, char **av, char **envp)
@@ -167,9 +184,7 @@ int	main(int ac, char **av, char **envp)
 //	g_n_exit = 0;
 
 	//mini = NULL;
-	printf("000\n");
 	ft_init_mini(&mini);
-	printf("doudou entre 2 inits\n");
 	mini.env = ft_env_cpy(envp);
 	if (ac != 1)
 		return (printf("Error: Invalid argument\nHint: only ./minishell\n"), 1);
@@ -178,9 +193,28 @@ int	main(int ac, char **av, char **envp)
 	{
 		mini.line = ft_readline_input(mini.line);
 		add_history(mini.line);
-		if (parsing(&mini/*, mini.cmd*/))// uhmmm before = if (mini.line)
-			minishell_exec_cmds(&mini/*, &cmd*/);
-		break ;
+		while (42)
+		{
+			if (parsing(&mini/*, mini.cmd*/))// uhmmm before = if (mini.line)
+			{
+				if (mini.av)
+					printf("i exist\n\n");
+				minishell_exec_cmds(&mini);
+				printf("ici 1 done parsing\n");
+				ft_free_cmd(&mini);
+				break ;
+			}
+			else
+			{
+				printf("ici 2 parsing return 0 = free\n");
+				ft_free_cmd(&mini);
+				if (mini.av)
+					printf("i'm here\n");
+				//free mini->cmd
+				break ;
+			}
+			free(mini.line);
+		}
 		//free_tokens_and_structure(&mini);
 	}
 	//free(line);
