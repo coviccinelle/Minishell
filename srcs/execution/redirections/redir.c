@@ -187,6 +187,42 @@ void redirections(int ac, char **av, char **env)
 	}
 }
 
+#define READ_END 0
+#define WRITE_END 1
+void	run_pipe(char **av)
+{
+	const int READ_END;
+	const int WRITE_END;
+
+	READ_END = 0;
+	WRITE_END = 1;
+	int	pipes[2];
+
+	pipe(pipes);
+	child = fork();
+	if (((int)child) == -1)
+	{
+		close(pipes[READ_END]);
+		close(pipes[WRITE_END]);
+		perror("fork error\n");
+		break;
+	}
+	else if (child == 0)
+	{
+		dup2(pipes[WRITE_END], STDOUT_FILENO);
+		close(pipes[READ_END]);
+		execve(av[0], &av[1], NULL);
+		perror("error\n");
+		break;
+	}
+	/*parent*/
+	dup2(pipes[READ_END], STDIN_FILENO);
+	close(pipes[WRITE_END]);
+	wait(NULL);
+	execve(av[0], &av[1], NULL);
+	return ;
+	
+}
 int	main(int ac, char **av, char **env)
 {
 //	printf("%d\n\n", file_rights('>'));
@@ -198,7 +234,21 @@ int	main(int ac, char **av, char **env)
 */
 
 	//handle_heredoc(ac, av, env);
-	redirections(ac, av, env);
+//	redirections(ac, av, env);
 
-//	return (0);
+	pid_t	child;
+
+	child = -1;
+	child = fork();
+	if (((int)child) == -1)
+		perror("fork error\n");
+	if (child == 0)
+	{
+		run_pipe(av);
+		perror("error");
+		break ;
+	}
+	wait(NULL); 
+		
+	return (0);
 }

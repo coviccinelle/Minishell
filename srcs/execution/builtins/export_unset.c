@@ -136,9 +136,11 @@ int exec_export(int ac, char **av, char ***env) // liste a faire dans point 4/ex
 		data[j] = cpy_trim(av[j], '=', '\0');
 	}
 	get_into_export_lst(env, av, name, data);
-
-	//free_tab(&name); //  leaks dans mes init tabs que je free data et name ou pas... a comprendre
-	//free_tab(&data); // idem
+	j = 1;
+	free(data);
+	free(name);
+//	free_tab(&name); //  leaks dans mes init tabs que je free data et name ou pas... a comprendre
+//	free_tab(&data); // idem
 	return (EXIT_SUCCESS);
 }
 

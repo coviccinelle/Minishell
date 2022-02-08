@@ -1,21 +1,22 @@
 #include "../../minishell.h"
-
+//#include <unistd.h>
+#include<sys/wait.h>
 // 1/ fonction ft_strcmp list of shell builtins.
 int	is_builtin(char *builtin)
 {
-	if (!(ft_strcmp(builtin, "cd")))
+	if (!(ft_strncmp(builtin, "cd", ft_strlen("cd"))))
 		return (1);
-	if (!(ft_strcmp(builtin, "echo")))
+	if (!(ft_strncmp(builtin, "echo", ft_strlen("echo"))))
 		return (1);
-	if (!(ft_strcmp(builtin, "env")))
+	if (!(ft_strncmp(builtin, "env", ft_strlen("env"))))
 		return (1);
-	if (!(ft_strcmp(builtin, "export")))
+	if (!(ft_strncmp(builtin, "export", ft_strlen("export"))))
 		return (1);
-	if (!(ft_strcmp(builtin, "exit")))
+	if (!(ft_strncmp(builtin, "exit", ft_strlen("exit"))))
 		return (1);
-	if (!(ft_strcmp(builtin, "pwd")))
+	if (!(ft_strncmp(builtin, "pwd", ft_strlen("pwd"))))
 		return (1);
-	if (!(ft_strcmp(builtin, "unset")))
+	if (!(ft_strncmp(builtin, "unset", ft_strlen("unset"))))
 		return (1);
 	return (0);
 }
@@ -28,17 +29,17 @@ int exec_builtin(char *builtin, int ac, char **av, char ***env)
 		exit_status =  EXIT_SUCCESS; 
 //		if (!(ft_strcmp(builtin, "cd")))
 //			exit_status = exec_cd(ac, av);
-		if (!(ft_strcmp(builtin, "echo")))
+		if (!(ft_strncmp(builtin, "echo", ft_strlen("echo"))))
 			exit_status = exec_echo(ac, av);
 //		if (!(ft_strcmp(builtin, "env")))
-//			exit_status = exec_env(ac, av);
-		if (!(ft_strcmp(builtin, "export")))
+//			exit_status = exec_env(env);
+		if (!(ft_strncmp(builtin, "export", ft_strlen("export"))))
 			exit_status = exec_export(ac, av, env); // + &export list. de 4/
 //		if (!(ft_strcmp(builtin, "exit")))
 //			exit_status = exec_exit(ac, av);
-		if (!(ft_strcmp(builtin, "pwd")))
+		if (!(ft_strncmp(builtin, "pwd", ft_strlen("pwd"))))
 			exit_status = exec_pwd();
-		if (!(ft_strcmp(builtin, "unset")))
+		if (!(ft_strncmp(builtin, "unset", ft_strlen("unset"))))
 			exit_status = exec_unset(ac, av, env); // + &export list. de 4/
 		if (exit_status != 0)
 			exit_status = EXIT_FAILURE; // If a command is found but is not executable, the return status is 126.
@@ -117,46 +118,68 @@ char	*find_cmd_path(char *cmd, char **env)
 }
 
 #include <errno.h>  
+#include <string.h>
+// TO DO : pq nexec plus mes builtins ? puis revoir videos de lintra pour les premiers forks puis pipes puis redirs`
 void	exec_cmd(int ac, char **av, char ***env)
 {
 	char	*path;
-
-	path = find_cmd_path(av[1], *env); // a remplacer par av[0] apres. je mets c1 pour tester en attendant parsing
+	int	relative;
 	int	ret;
 
 	ret = 0;
+
+	relative = 0;
 	if (is_builtin(av[1])) //a remplacer par av[0] apres.
 		exec_builtin(av[1], ac, &av[1], env); // a remplacer par av[0] et av[1] apres. all builtin return an exit status of 2 to indicate incorrate usage such as invalid option or missing arguments
-	else if (path == NULL)
-		ft_puterror_fd("minishell: ", "command not found", av[0]);// exit status 127. if a command is not foundm the child process to execute it returns a status of 127
-	else if (!is_builtin(av[1]))
-		//printf("path trouve = %s\n\n", path);
-		ret = execve(path, &av[1], *env); // . a remplacer par av apres en attendant parsing. if a command is found but is not executable, the return status is 126
+	else
+	{
+		if ((access(av[1], F_OK)) == 0)
+		{
+			relative = 1;
+			path = strdup(av[1]); // a remplacer par ft_strdup(av[0])
+		}
+		if (relative == 0)
+			path = find_cmd_path(av[1], *env); // a modif avec av[0]
+		if (path == NULL)
+			ft_puterror_fd("minishell: ", "command not found", av[0]);// exit status 127. if a command is not foundm the child process to execute it returns a status of 127
+		if (path != NULL)
+			ret = execve(path, &av[1], *env); // . a remplacer par av apres en attendant parsing. if a command is found but is not executable, the return status is 126
+	}	
 	if (ret == -1) // en cas de reussite exceve ne revient pas mais en cas dechec renvoie -1 avec le code derreur dans errno
 		strerror(errno);
 		//perror("");
-	free(path);
 }
 
 int	main(int ac, char **av, char **envp)
 {
-/*	char	*final;
-
-	final = ft_strxjoin(av[1], av[2], av[3]);
-	printf("%s\n", final);
-*/
-/*	char *s = find_cmd_path(av[1]);
-	printf("%s\n", s);
-	if (s != NULL)
-		free(s); // A FREE DANS LE MAIN PRINCIPAL !!!!!!
-*/
+	//OLD OK
+/*
 	char **env;
 
 	env = ft_copy_tab(envp);
 	exec_cmd(ac, av, &env);
-	print_env(env);
-
+//	print_env(env);
 	free_tab(&env);
+*/
+	char **env;
+
+	env = ft_copy_tab(envp);
+	pid_t	father;
+
+	father = fork();
+	if (father > 0)
+	{
+		wait(NULL);
+		printf("I AM YOUR FATHER\n");
+	}
+	if (father == 0)
+	{
+		sleep(3);
+		exec_cmd(ac, av, &env);
+	}
+	free_tab(&env);
+//	print_env(env);
+
 	return (0);
 }
 

@@ -18,8 +18,8 @@ int exec_pwd(void)
 }
 
 
-/*
-void	exec_cd(int ac, char **av)
+
+void	exec_cd(int ac, char **av, char **env)
 {
 
 	char	*current_path;
@@ -28,27 +28,30 @@ void	exec_cd(int ac, char **av)
 	current_path = getcwd(NULL, 0);
 	if (ac > 2)
 		return (ft_puterror_fd("bash: ", "cd: ", "too many arguments"));
-	if ((ac == 1) || (ac == 2 && !ft_strcmp(av[2][0], "~")))
+	if ((ac == 1) || (ac == 2 && (!ft_strncmp(av[1], "~", ft_strlen("~")))))
 		new_path = ft_getenv(env, "HOME");
-	else if (ac == 2 && !ft_strcmp(av[2], "-"))
+	else if (ac == 2 && (!ft_strncmp(av[1], "-", ft_strlen("-"))))
 	{
 		new_path = ft_getenv(env, "OLDPWD");
 		printf("%s\n", new_path);
 	}
-	else if (ac == 2 && pas trouve dossier (av[1]))
-		ft_puterror_fd("cd: ", "no such file or directory: ", av[1]);
+/*	else if (ac == 2 && pas trouve dossier (av[1]))
+		ft_or_fd("cd: ", "no such file or directory: ", av[1]);
 	else if (ac == 2 && !is_dir(av[1])) // fd=open(av[1], O_WROLNLY); ??
 		ft_puterror_fd("cd: ", "not a directory: ", av[1]);
 	else if (ac == 2 && is_dir(av[1]))
-		new_path = ??
+		new_path = ??;
+*/
+//	a la fin
+	if (chdir(new_path) == -1)
+		return(ft_puterror_fd("cd: ", "no such file or directory: ", av[1]));
 
-	a la fin
-	chdir(new_path);
-	ft_setenv(&env, "PWD", new_path);
-	ft_setenv(&env, "OLDPWD", current_path);
+		//ft_puterror_fd("cd: ", sterror(errno), new_path);
+	ft_setenv(&env, "PWD", new_path, NULL);
+	ft_setenv(&env, "OLDPWD", current_path, NULL);
 
 }
-*/
+
 /*
 #include <unistd.h>
 int	main(int ac, char **av)
@@ -97,5 +100,17 @@ int main()
 
     // after chdir is executed
     return 0;
+}
+*/
+
+/*
+int	main(int ac, char **av, char **env)
+{
+char s[100];
+    printf("before = %s\n", getcwd(s, 100));
+	exec_cd(ac, av, env);
+
+    printf("after cd  = %s\n", getcwd(s, 100));
+	return (0);
 }
 */
