@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 18:15:40 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 18:48:44 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,9 @@ void		printstack(t_mini *env);
 void		ft_memdel(char **s);
 void		ft_free_lst(t_mini **head);
 
+
+void	exec_cd(int ac, char **av, char **env);
+
 //pwd
 int exec_pwd(void) ;
 /*echo*/
@@ -151,7 +154,8 @@ int		ft_unsetenv(char ***env, char *name);
 int		exec_unset(int ac, char **av, char ***env);
 void		print_env(char **env);
 char		*ft_getenv(char **env, char *name);
-
+void	print_env(char **env);
+void	 exec_exit(int ac, char **av);
 void		ft_bzero(void *b, size_t n);
 void		*ft_memalloc(size_t size);
 void		test_print(char **envp);

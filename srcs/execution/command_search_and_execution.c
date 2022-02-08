@@ -28,16 +28,16 @@ int exec_builtin(char *builtin, int ac, char **av, char ***env)
 		int exit_status;
 
 		exit_status =  EXIT_SUCCESS; 
-//		if (!(ft_strcmp(builtin, "cd")))
-//			exit_status = exec_cd(ac, av);
+		if (!(ft_strcmp(builtin, "cd")))
+			exec_cd(ac, av, *env);
 		if (!(ft_strncmp(builtin, "echo", ft_strlen("echo"))))
 			exit_status = exec_echo(ac, av);
-//		if (!(ft_strcmp(builtin, "env")))
-//			exit_status = exec_env(env);
+		if (!(ft_strcmp(builtin, "env")))
+			print_env(*env);
 		if (!(ft_strncmp(builtin, "export", ft_strlen("export"))))
 			exit_status = exec_export(ac, av, env); // + &export list. de 4/
-//		if (!(ft_strcmp(builtin, "exit")))
-//			exit_status = exec_exit(ac, av);
+		if (!(ft_strcmp(builtin, "exit")))
+			exec_exit(ac, av);
 		if (!(ft_strncmp(builtin, "pwd", ft_strlen("pwd"))))
 			exit_status = exec_pwd();
 		if (!(ft_strncmp(builtin, "unset", ft_strlen("unset"))))
