@@ -2,15 +2,15 @@
 
 char	**ft_copy_tab(char **env);
 
-int	ft_strcmp(char *s, char *t)
-{
-	while (*s && (*s == *t))
-	{
-		s++;
-		t++;
-	}
-	return (*s - *t);
-}
+// int	ft_strcmp(char *s, char *t)
+// {
+// 	while (*s && (*s == *t))
+// 	{
+// 		s++;
+// 		t++;
+// 	}
+// 	return (*s - *t);
+// }
 
 void	print_export(char **tab)
 {
@@ -49,7 +49,7 @@ void swap(char **s1, char **s2)
 int	ft_alphabetical_order_tab(char **env)
 {
 	char	**copy;
-	char	*tmp;
+	//char	*tmp;
 	int		i;
 	int		j;
 

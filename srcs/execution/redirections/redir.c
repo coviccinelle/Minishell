@@ -123,6 +123,8 @@ void    pipelines()
 	}
 }
 */
+
+/*
   #include <sys/types.h>
   #include <sys/wait.h>
 #define STDIN 1
@@ -162,6 +164,7 @@ int			open_file(char *type_of_redir, char *filename, int *fd)
 //ft_puterror_fd("minishell: ", filename, "No such file or directory")); //perror(filename);
 	return (0);
 }
+*/
 /*
 int	ft_close(int fd)
 {
@@ -170,7 +173,7 @@ int	ft_close(int fd)
 	fd = 0;
 }
 */
-
+/*
 void redirections(int ac, char **av, char **env)
 {
 	int j = 0;
@@ -215,7 +218,7 @@ void	run_pipe(char **av)
 		perror("error\n");
 		break;
 	}
-	/*parent*/
+	//parent
 	dup2(pipes[READ_END], STDIN_FILENO);
 	close(pipes[WRITE_END]);
 	wait(NULL);
@@ -223,15 +226,13 @@ void	run_pipe(char **av)
 	return ;
 	
 }
+
+
 int	main(int ac, char **av, char **env)
 {
 //	printf("%d\n\n", file_rights('>'));
 //	printf("%d\n\n", file_rights('<'));
 //	printf("%d\n\n", file_rights('a'));
-/*	open_file('>', "outputtrunc", &fd);
-	open_file('<', "readonly", &fd);
-	open_file('a', "outputappend", &fd);
-*/
 
 	//handle_heredoc(ac, av, env);
 //	redirections(ac, av, env);
@@ -252,3 +253,4 @@ int	main(int ac, char **av, char **env)
 		
 	return (0);
 }
+*/

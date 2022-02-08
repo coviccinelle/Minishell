@@ -2,7 +2,6 @@
 
 int	is_option_n(char *av)
 {
-	int	option_n;
 	int	i;
 
 	i = 0;

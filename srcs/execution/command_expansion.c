@@ -1,5 +1,5 @@
 #include "../../minishell.h"
-
+/*
 //revoir en fonction de thao
 char	*expansions(int ac, char **av, char **env)
 {
@@ -19,6 +19,7 @@ char	*expansions(int ac, char **av, char **env)
 	}
 	return(s);
 }
+*/
 
 // + a remplacer dans la liste chainee au bon endroit of course. a 
 

@@ -51,6 +51,7 @@ char	**ft_split(char *s, char sep)
 	return (tab);
 }
 */
+/*
 
 char	*find_cmd_path(char *cmd)
 {
@@ -62,7 +63,7 @@ char	*find_cmd_path(char *cmd)
 	j = -1;
 	if (!cmd)
 		return (NULL);
-	path = ft_split(getenv("PATH"), ':'); // mettre a lexterieur car flemme de rajouter env en param // ft_split et ft_getenv
+	path = ft_split_3(getenv("PATH"), ':'); // mettre a lexterieur car flemme de rajouter env en param // ft_split et ft_getenv
 	while (path[++j])
 	{
 		absolute_path = ft_strxjoin(path[j], "/", cmd);
@@ -80,14 +81,15 @@ char	*find_cmd_path(char *cmd)
 
 int	main(int ac, char **av)
 {
-/*	char	*final;
+//	char	*final;
 
 	final = ft_strxjoin(av[1], av[2], av[3]);
 	printf("%s\n", final);
-*/
+
 	char *s = find_cmd_path(av[1]);
 	printf("%s\n", s);
 	if (s != NULL)
 		free(s); // A FREE DANS LE MAIN PRINCIPAL !!!!!!
 	return (0);
 }
+*/

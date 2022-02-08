@@ -76,6 +76,7 @@ char	*ft_getenv(char **env, char *name)
 
 int	ft_setenv(char ***env, char *av, char *name, char *value)
 {
+	(void)value;
 	int	pos_name;
 	
 	printf("JE PASSE DANS SET ENV\n\n");
@@ -190,6 +191,7 @@ int	ft_unsetenv(char ***env,char *name)
 
 int	exec_unset(int ac, char **av, char ***env)
 {
+	(void)ac;
 	int j;
 
 	j = 0; // car a partir de av[1] donc apres unset

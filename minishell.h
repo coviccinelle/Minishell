@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/08 17:02:51 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/08 17:37:26 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,9 @@ void    	add_to_export_lst(t_export **export_lst, char *export_name, char *expor
 void		printstack(t_mini *env);
 void		ft_memdel(char **s);
 void		ft_free_lst(t_mini **head);
+
+//pwd
+int exec_pwd(void) ;
 /*echo*/
 int		is_option_n(char *av);
 int		echo(int ac, char **av, int option_n);
@@ -165,6 +168,7 @@ void		print_tab(char **env);
 char		**ft_copy_tab(char **env);
 int			ft_unsetenv(char ***env,char *name);
 void		print_export(char **tab);
+void    exec_cmd(int ac, char **av, char ***env);
 
 
 
@@ -176,7 +180,8 @@ int			ft_each_cmd(char *line, t_mini *cmd);
 t_mini		*add_cell(t_mini *list, char *cmd, int pos);
 void		print_list(t_mini *list);
 
-
+//exec
+void    exec_cmd(int ac, char **av, char ***env);
 
 //*** PIPES ***//
 

@@ -149,18 +149,10 @@ void	exec_cmd(int ac, char **av, char ***env)
 		strerror(errno);
 		//perror("");
 }
-
+/*
 int	main(int ac, char **av, char **envp)
 {
 	//OLD OK
-/*
-	char **env;
-
-	env = ft_copy_tab(envp);
-	exec_cmd(ac, av, &env);
-//	print_env(env);
-	free_tab(&env);
-*/
 	char **env;
 
 	env = ft_copy_tab(envp);
@@ -182,4 +174,5 @@ int	main(int ac, char **av, char **envp)
 
 	return (0);
 }
+*/
 
