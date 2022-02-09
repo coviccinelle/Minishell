@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 14:28:25 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/09 14:51:45 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,6 @@ int	is_token(char *str, char *token)
 	return (1);
 }*/
 
-// int	ft_strncmp(char *s1, char *s2, unsigned int n)
-// {
-// 	unsigned long	i;
-// 	unsigned char	*str1;
-// 	unsigned char	*str2;
-
-// 	str1 = (unsigned char *)s1;
-// 	str2 = (unsigned char *)s2;
-// 	i = 0;
-// 	if (!n || str1 == str2)
-// 		return (0);
-// 	while (str1[i] && str2[i] && i < (n - 1) && str1[i] == str2[i])
-// 		i++;
-// 	return (str1[i] - str2[i]);
-// }
-
-// int	ft_strlen(char *str)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (str[i])
-// 		i++;
-// 	return (i);
-// }
-
-
 int	ft_strcmp(char *s1, char *s2)
 {
 	int i;
@@ -57,53 +30,6 @@ int	ft_strcmp(char *s1, char *s2)
 	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
 		i++;
 	return (s1[i] - s2[i]);
-}
-
-char	*detect_cmd(char *str, int *i)
-{
-	// int	i;
-	
-	// i = 0;
-	while (str[*i])
-	{
-		if (!ft_strncmp(str, "echo", 5))
-		{
-			printf("ECHO founded\n");
-			return (&str[ft_strlen("echo")]);
-		}
-		if (!ft_strncmp(str, "export", 7))
-		{
-			printf("EXPORT founded\n");
-			return (&str[ft_strlen("export")]);
-		}
-		if (!ft_strncmp(str, "env", 4))
-		{
-			printf("ENV founded\n");
-			return (&str[ft_strlen("env")]);
-		}
-		if (!ft_strncmp(str, "exit", 5))
-		{
-			printf("EXIT founded\n");
-			return (&str[ft_strlen("exit")]);
-		}
-		if (!ft_strncmp(str, "cd", 3))
-		{
-			printf("CD founded\n");
-			return (&str[ft_strlen("cd")]);
-		}
-		if (!ft_strncmp(str, "pwd", 4))
-		{
-			printf("PWD founded\n");
-			return (&str[ft_strlen("pwd")]);
-		}
-		if (!ft_strncmp(str, "unset", 6))
-		{
-			printf("UNSET founded\n");
-			return (&str[ft_strlen("unset")]);
-		}
-		(*i)++;
-	}
-	return (NULL);
 }
 
 // there are 2 choices : put all in la liste chainee or tableau + liste chainee, depends on Marie-Ines
@@ -135,7 +61,6 @@ int	parsing(t_mini *mini)
 	}
 	return (0);
 }
-
 
 // init
 int	malloc_node(t_mini	**one_cmd)
@@ -422,12 +347,7 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 	tmp = NULL;
 	if (!ft_init_each_cmd(one_cmd, &i, line))
 		return (0);
-	//if (!init_one_cmd(one_cmd))
-	//	return (0);
-	// if (!one_cmd->av)
-	// 	printf("im still dead part 2\n");
 	tmp = one_cmd;
-	
 	printf("Orgine line is : %s\n", line);
 	while (line[i])
 	{
@@ -475,7 +395,6 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 		}
 		else
 		{
-			//printf("inside the char section in parsing line 499\n");
 			buf = malloc(sizeof(char) * 2);
 			ft_buf(line, &i, buf);
 			line_after = ft_add_line_after(line_after, buf[0]);
@@ -487,48 +406,4 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 	}
 	return (1);
 }
-
-
-// int	ft_each_cmd_2(char *line, t_cmd *one_cmd)
-// {
-// 	int			i;
-// 	char		*buf;
-// 	char		*line_after;
-// 	t_cmd		*tmp;
-
-// 	(void)buf;
-// //	(void)one_cmd;
-// 	line_after = NULL;
-// 	tmp = NULL;
-// 	if (!ft_init_each_cmd(&one_cmd, &i, line))
-// 		return (0);
-// 	tmp = one_cmd;
-	
-// 	printf("Let's start\n");
-// 	printf("Orgine line is : %s\n", line);
-
-// 	while (line[i])
-// 	{
-// 		printf("inside line[i] = %c\n", line[i]);
-// 		if (line[i] == ' ')
-// 		{
-// 			ft_space_skip(line, &i);
-// 			line_after = NULL;
-// 		}
-// 		if (find_me(line[i], "ecpu"))
-// 		{
-// 			printf("before detect\n");
-// 			detect_cmd(line, &i);
-// 			if (detect_cmd(line, &i) == NULL)
-// 			{
-// 				printf("ERROR: cmd not found\n\n");
-// 				return (0);
-// 			}
-// 			line_after = NULL;
-// 		}
-// 	}
-// 	return (1);
-// }
-
-
 

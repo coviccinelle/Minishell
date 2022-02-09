@@ -153,7 +153,7 @@ t_mini	*create_cell(char *cmd)
   if (!(cell))
   	return (NULL);
   cell->next = NULL;
-  cell->cmd_line = cmd;
+  cell->line = cmd;
   return (cell);
 }
 
@@ -190,7 +190,7 @@ void	print_list(t_mini *list)
   {
   	printf("-----------------------------------\n");
   	printf("| i = %d                            \n", i);
-  	printf("| list->cmd : %s            \n", list->cmd_line);
+  	printf("| list->line : %s            \n", list->line);
   	printf("-----------------------------------\n");
   	list = list->next;
   	i++;

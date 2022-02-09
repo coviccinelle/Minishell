@@ -6,7 +6,7 @@
 #    By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 11:32:21 by thi-phng          #+#    #+#              #
-#    Updated: 2022/02/08 17:47:34 by thi-phng         ###   ########.fr        #
+#    Updated: 2022/02/09 14:38:06 by thi-phng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,26 +15,30 @@ CC		=	clang
 CFLAGS	=	-Wall -Wextra -Werror -g3
 RM		=	rm -rf
 SRC		=	srcs/main.c \
-			srcs/utils/pars_utils_01.c \
-			srcs/parsing/parsing.c \
+			\
 			srcs/signal/signal.c \
+			\
+			srcs/parsing/parsing.c \
+			\
+			srcs/utils/utils.c \
+			srcs/utils/utils_tab.c \
+			srcs/utils/utils_env.c \
 			srcs/utils/ft_strtrim.c \
+			srcs/utils/pars_utils_01.c \
 			srcs/utils/utils_libft_1.c \
-			srcs/utils/dont_mind_me_test.c \
 			srcs/utils/ft_space_skip.c \
 			srcs/utils/utils_libft_2.c \
 			srcs/utils/utils_libft_3.c \
-			srcs/utils/utils_env.c \
-			srcs/utils/utils.c \
-			srcs/execution/command_search_and_execution.c \
-			srcs/execution/command_expansion.c \
+			srcs/utils/dont_mind_me_test.c \
+			\
 			srcs/execution/env.c \
-			srcs/execution/builtins/echo.c \
-			srcs/execution/builtins/export_unset.c \
 			srcs/execution/builtins/exit.c \
+			srcs/execution/builtins/echo.c \
 			srcs/execution/builtins/pwd_cd.c \
+			srcs/execution/command_expansion.c \
 			srcs/execution/redirections/redir.c \
-			srcs/utils/utils_tab.c \
+			srcs/execution/builtins/export_unset.c \
+			srcs/execution/command_search_and_execution.c \
 			
 			#srcs/utils/ft_split_3.c 
 				
