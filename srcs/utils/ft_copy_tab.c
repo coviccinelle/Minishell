@@ -6,12 +6,23 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 14:30:11 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 16:09:23 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:18:25 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+
+void  ft_free_tab(char **tab)
+{
+   int i = 0;
+
+   while (tab[i])
+   {
+      free(tab[i]);
+      i++;
+   }
+}
 
 char	**ft_copy_tab(char **env)
 {

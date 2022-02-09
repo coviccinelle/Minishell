@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 16:07:51 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:18:56 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,6 @@ typedef struct	s_heredoc
 	struct s_heredoc	*next;
 }				t_heredoc;
 
-// typedef struct	s_cmd
-// {
-
-// }				t_mini;
 
 typedef struct s_mini
 {
@@ -93,7 +89,7 @@ typedef struct s_mini
 extern int		g_nb_exit;
 
 // *** // main  // *** //
-//void		ft_init_mini(t_mini *mini);
+
 
 //*** Utils ***//
 int     	find_me(char c, char *str);
@@ -103,9 +99,10 @@ int	    	is_valid_var_name(char *av);
 char		**ft_split_3(char	const *s, char c);
 char		*ft_strchr(const char *s, int c);
 void   		ft_space_skip(char *str, int *i);
-char	**ft_copy_tab(char **env);
-void ft_putchar(int c);
-void ft_putstr(char *s);
+char		**ft_copy_tab(char **env);
+void 		ft_putchar(int c);
+void 		ft_putstr(char *s);
+void  		ft_free_tab(char **tab);
 
 //char		*ft_strdup(const char *s1);
 char		*ft_strjoin(char *s1, char *s2);

@@ -81,16 +81,6 @@ static void			ft_get_next_str(char **next_str, unsigned int *next_str_len,
 	}
 }
 
-void  ft_free_tab(char **tab)
-{
-   int i = 0;
-
-   while (tab[i])
-   {
-      free(tab[i]);
-      i++;
-   }
-}
 
 char				**ft_split_3(char const *s, char c)
 {
