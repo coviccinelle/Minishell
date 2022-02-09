@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 14:51:45 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/09 15:06:12 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	parsing(t_mini *mini)
 		// cmd = NULL;
 	if (ft_strchr(mini->line, '|'))
 	{
-		mini->i = ft_piping(mini->line, mini); // = t_cmd *cmd
+		mini->i = ft_pars_piping(mini->line, mini); // = t_cmd *cmd
 		printf("%d\n", mini->i);
 		return  (1);
 	}

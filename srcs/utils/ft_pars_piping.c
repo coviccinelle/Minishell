@@ -1,7 +1,4 @@
 #include "../../minishell.h"
-#include <string.h> 
-#include <stdlib.h>
-#include <stdio.h>
 
 // typedef	struct			s_sep
 // {
@@ -10,20 +7,6 @@
 // 	struct s_sep		*next;
 // 	struct s_pip		*pipcell;
 // }						t_sep;
-
-//    ft_slpit    //
-
-// int  ft_strlen(char *str)
-// {
-//     int i = 0;
-
-//     while (str[i])
-//         i++;
-//     return (i);
-// }
-
-
-
 
 t_mini	*create_cell(char *cmd)
 {
@@ -77,8 +60,7 @@ void	print_list(t_mini *list)
   }
 }
 
-
-int   ft_piping(char *line, t_mini *list)
+int   ft_pars_piping(char *line, t_mini *list)
 {
    int   i = 0;
    char **str;
