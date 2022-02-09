@@ -7,6 +7,10 @@ int	is_builtin(char *builtin)
 {
 	if (!(ft_strcmp(builtin, "cd")))
 		return (1);
+<<<<<<< HEAD
+=======
+	//if (!(ft_strncmp(builtin, "echo", ft_strlen("echo"))))
+>>>>>>> main
 	if (!(ft_strcmp(builtin, "echo")))
 		return (1);
 	if (!(ft_strcmp(builtin, "env")))
@@ -30,6 +34,10 @@ int exec_builtin(char *builtin, int ac, char **av, char ***env)
 		exit_status =  EXIT_SUCCESS; 
 		if (!(ft_strcmp(builtin, "cd")))
 			exec_cd(ac, av, *env);
+<<<<<<< HEAD
+=======
+		//if (!(ft_strncmp(builtin, "echo", ft_strlen("echo"))))
+>>>>>>> main
 		if (!(ft_strcmp(builtin, "echo")))
 			exit_status = exec_echo(ac, av);
 		if (!(ft_strcmp(builtin, "env")))
@@ -126,26 +134,33 @@ void	exec_cmd(int ac, char **av, char ***env)
 	char	*path;
 	int	relative;
 	int	ret;
-
+	(void)ac;
 	ret = 0;
 
+	path = NULL;
 	relative = 0;
+<<<<<<< HEAD
 	if (is_builtin(av[0]))
 		exec_builtin(av[0], ac, av, env);
 	else
+=======
+	// if (is_builtin(av[0])) //a remplacer par av[0] apres.
+	// 	exec_builtin(av[0], ac, av, env); // a remplacer par av[0] et av[1] apres. all builtin return an exit status of 2 to indicate incorrate usage such as invalid option or missing arguments
+	// else
+	// {
+	if ((access(av[1], F_OK)) == 0)
+>>>>>>> main
 	{
-		if ((access(av[1], F_OK)) == 0)
-		{
-			relative = 1;
-			path = strdup(av[0]); // a remplacer par ft_strdup(av[0])
-		}
-		if (relative == 0)
-			path = find_cmd_path(av[0], *env); // a modif avec av[0]
-		if (path == NULL)
-			ft_puterror_fd("minishell: ", "command not found", av[0]);// exit status 127. if a command is not foundm the child process to execute it returns a status of 127
-		if (path != NULL)
-			ret = execve(path, av, *env); // . a remplacer par av apres en attendant parsing. if a command is found but is not executable, the return status is 126
-	}	
+		relative = 1;
+		path = strdup(av[0]); // a remplacer par ft_strdup(av[0])
+	}
+	if (relative == 0)
+		path = find_cmd_path(av[0], *env); // a modif avec av[0]
+	if (path == NULL)
+		ft_puterror_fd("minishell: ", "command not found", av[0]);// exit status 127. if a command is not foundm the child process to execute it returns a status of 127
+	if (path != NULL)
+		ret = execve(path, av, *env); // . a remplacer par av apres en attendant parsing. if a command is found but is not executable, the return status is 126
+//	}	
 	if (ret == -1) // en cas de reussite exceve ne revient pas mais en cas dechec renvoie -1 avec le code derreur dans errno
 		strerror(errno);
 		//perror("");

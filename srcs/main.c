@@ -6,7 +6,11 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/02/08 22:37:59 by thi-phng         ###   ########.fr       */
+=======
+/*   Updated: 2022/02/09 11:21:34 by mloubet          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +138,7 @@ void	minishell_exec_cmds(t_mini *mini)
 	(void)mini;
 	int		i;
 	int		ac;
+	int		status;
 	//char	**av;
 //	char	**env;
 
@@ -158,6 +163,7 @@ void	minishell_exec_cmds(t_mini *mini)
 	}
 	
 //	env = mini->env;
+<<<<<<< HEAD
 	pid_t   father;
     father = fork();
 	int stat;
@@ -170,6 +176,30 @@ void	minishell_exec_cmds(t_mini *mini)
 	if (stat == 4202397)
 		stat = 127;
 	printf("ret is: %d\n", stat);
+=======
+	if (is_builtin(mini->av[0])) //a remplacer par av[0] apres.
+		exec_builtin(mini->av[0], nb_tabs(mini->av), mini->av, &mini->env);
+	else
+	{
+		pid_t   father;
+
+		father = fork();
+		if (father > 0)
+		{
+			waitpid(-1, &status, 0);
+			printf("I AM YOUR FATHER\n");
+		}
+		if (father == 0)
+		{
+			sleep(1);
+			exec_cmd(nb_tabs(mini->av), mini->av, &mini->env);
+			exit(0);
+		}
+//	exec_cmd(ac, av, &env);
+	//printf("\n\033[1;33m  oopps...	~Minishell$\033[0m  is not defined by now, pls come back later\n");
+	//tous les cmd and exec
+	}
+>>>>>>> main
 }
 
 void	free_tab2(char **tab)
@@ -233,7 +263,7 @@ int	main(int ac, char **av, char **envp)
 					//free_tab(&mini.av);
 				}	
 			
-				printf("ici 1 done parsing\n");
+			//	printf("ici 1 done parsing\n");
 				//free_tab(&mini.av);
 				//ft_free_cmd(&mini);
 				break ;

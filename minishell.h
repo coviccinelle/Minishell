@@ -6,7 +6,11 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/02/08 21:56:16 by thi-phng         ###   ########.fr       */
+=======
+/*   Updated: 2022/02/08 20:39:03 by thi-phng         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +181,8 @@ char		**ft_copy_tab(char **env);
 int			ft_unsetenv(char ***env,char *name);
 void		print_export(char **tab);
 void    exec_cmd(int ac, char **av, char ***env);
-
+int exec_builtin(char *builtin, int ac, char **av, char ***env);
+int	is_builtin(char *builtin);
 
 
 //*** PARSING ***//
