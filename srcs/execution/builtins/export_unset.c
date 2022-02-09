@@ -29,13 +29,16 @@ int		env_realloc_and_append_envvar(char ***env, char *envvar)
 	char	**new_env;
 	int	new_size;
 
-	j = -1;
+	j = 0;
 	new_size = nb_tabs(*env) + 2;
 	new_env = (char **)malloc(sizeof(char *) * new_size);
 	if (!new_env)
 		return (-1); // voir quelle valeur dans errno
-	while ((*env)[++j] && j < nb_tabs(*env))
+	while ((*env)[j] && j < nb_tabs(*env))
+	{
 		new_env[j] = ft_strndup((*env)[j], ft_strlen((*env)[j]));
+		j++;
+	}
 	new_env[j] = ft_strndup(envvar, ft_strlen(envvar));
 	new_env[j + 1] = NULL;
 	free_tab(env);
@@ -59,7 +62,7 @@ char	*find_in_env(char **env, char *name, int *pos) //prend tout bonjour=hello e
 	}
 	while (env[++j] && j < nb_tabs(env))
 	{
-		if (ft_strncmp(name, env[j], name_len) == 0 && env[j][name_len] ==  '=')
+		if (ft_strncmp(name, env[j], name_len) == 0 /*&& env[j][name_len] ==  '='*/)
 		{
 			*pos = j;
 			printf("dans find envs, show it\n\n");

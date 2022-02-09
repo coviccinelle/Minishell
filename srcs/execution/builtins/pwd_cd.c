@@ -25,6 +25,7 @@ void	exec_cd(int ac, char **av, char **env)
 	char	*current_path;
 	char	*new_path;
 
+	new_path = NULL;
 	current_path = getcwd(NULL, 0);
 	if (ac > 2)
 		return (ft_puterror_fd("bash: ", "cd: ", "too many arguments"));
@@ -33,8 +34,10 @@ void	exec_cd(int ac, char **av, char **env)
 	else if (ac == 2 && (!ft_strncmp(av[1], "-", ft_strlen("-"))))
 	{
 		new_path = ft_getenv(env, "OLDPWD");
-		printf("%s\n", new_path);
+	//	printf("New path = %s\n\n\n\n", new_path);
 	}
+	else
+		new_path = av[1];
 /*	else if (ac == 2 && pas trouve dossier (av[1]))
 		ft_or_fd("cd: ", "no such file or directory: ", av[1]);
 	else if (ac == 2 && !is_dir(av[1])) // fd=open(av[1], O_WROLNLY); ??
@@ -43,13 +46,14 @@ void	exec_cd(int ac, char **av, char **env)
 		new_path = ??;
 */
 //	a la fin
+
+	printf("New path = %s\n\n\n\n", new_path);
 	if (chdir(new_path) == -1)
 		return(ft_puterror_fd("cd: ", "no such file or directory: ", av[1]));
 
 		//ft_puterror_fd("cd: ", sterror(errno), new_path);
-	ft_setenv(&env, "PWD", new_path, NULL);
-	ft_setenv(&env, "OLDPWD", current_path, NULL);
-
+	ft_setenv(&env, NULL, "PWD", new_path);
+	ft_setenv(&env, NULL, "OLDPWD", current_path);
 }
 
 /*
