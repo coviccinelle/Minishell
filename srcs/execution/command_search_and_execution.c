@@ -7,10 +7,7 @@ int	is_builtin(char *builtin)
 {
 	if (!(ft_strcmp(builtin, "cd")))
 		return (1);
-<<<<<<< HEAD
-=======
 	//if (!(ft_strncmp(builtin, "echo", ft_strlen("echo"))))
->>>>>>> main
 	if (!(ft_strcmp(builtin, "echo")))
 		return (1);
 	if (!(ft_strcmp(builtin, "env")))
@@ -34,10 +31,7 @@ int exec_builtin(char *builtin, int ac, char **av, char ***env)
 		exit_status =  EXIT_SUCCESS; 
 		if (!(ft_strcmp(builtin, "cd")))
 			exec_cd(ac, av, *env);
-<<<<<<< HEAD
-=======
 		//if (!(ft_strncmp(builtin, "echo", ft_strlen("echo"))))
->>>>>>> main
 		if (!(ft_strcmp(builtin, "echo")))
 			exit_status = exec_echo(ac, av);
 		if (!(ft_strcmp(builtin, "env")))
@@ -139,17 +133,11 @@ void	exec_cmd(int ac, char **av, char ***env)
 
 	path = NULL;
 	relative = 0;
-<<<<<<< HEAD
-	if (is_builtin(av[0]))
-		exec_builtin(av[0], ac, av, env);
-	else
-=======
 	// if (is_builtin(av[0])) //a remplacer par av[0] apres.
 	// 	exec_builtin(av[0], ac, av, env); // a remplacer par av[0] et av[1] apres. all builtin return an exit status of 2 to indicate incorrate usage such as invalid option or missing arguments
 	// else
 	// {
 	if ((access(av[1], F_OK)) == 0)
->>>>>>> main
 	{
 		relative = 1;
 		path = strdup(av[0]); // a remplacer par ft_strdup(av[0])
