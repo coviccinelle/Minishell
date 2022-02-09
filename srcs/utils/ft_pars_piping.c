@@ -54,7 +54,7 @@ void	print_list(t_mini *list)
   	printf("-----------------------------------\n");
   	printf("| i = %d                            \n", i);
   	printf("| list->line : %s            \n", list->line);
-  	printf("-----------------------------------\n");
+  	printf("-----------------------------------\n\n\n");
   	list = list->next;
   	i++;
   }
@@ -73,9 +73,14 @@ int   ft_pars_piping(char *line, t_mini *list)
    while (str[i])
    {
       list = add_cell(list, str[i], i); // deux cellules, dans chaqune on met str[i]
-      i++;
+      if (ft_each_cmd(list->line, list))
+      {
+        print_list(list);
+        i++;
+        list = list->next;
+      }
    }
-   print_list(list);
+   //print_list(list);
    free(list);
    free(str);
    return(i);
