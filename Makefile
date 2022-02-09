@@ -6,7 +6,7 @@
 #    By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 11:32:21 by thi-phng          #+#    #+#              #
-#    Updated: 2022/02/09 14:38:06 by thi-phng         ###   ########.fr        #
+#    Updated: 2022/02/09 14:59:41 by thi-phng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC		=	srcs/main.c \
 			srcs/utils/utils_libft_2.c \
 			srcs/utils/utils_libft_3.c \
 			srcs/utils/dont_mind_me_test.c \
+			srcs/utils/ft_split_3.c \
 			\
 			srcs/execution/env.c \
 			srcs/execution/builtins/exit.c \

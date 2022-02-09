@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 14:48:46 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/09 14:59:22 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int	    	is_valid_var_name(char *av);
 char		**ft_split_3(char	const *s, char c);
 char		*ft_strchr(const char *s, int c);
 void   		ft_space_skip(char *str, int *i);
+
 
 
 //char		*ft_strdup(const char *s1);

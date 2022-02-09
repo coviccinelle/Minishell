@@ -3,6 +3,41 @@
 
 #include "../../minishell.h"
 
+
+// char				**ft_split_3(char const *s, char c)
+// {
+// 	char			**tab;
+// 	char			*next_str;
+// 	unsigned int	next_str_len;
+// 	unsigned int	nb_strs;
+// 	unsigned int	i;
+
+// 	if (!s)
+// 		return (NULL);
+// 	nb_strs = ft_get_nb_strs(s, c);
+// 	if (!(tab = (char **)malloc(sizeof(char *) * (nb_strs + 1))))
+// 		return (NULL);
+// 	i = 0;
+// 	next_str = (char *)s;
+// 	next_str_len = 0;
+// 	while (i < nb_strs)
+// 	{
+// 		ft_get_next_str(&next_str, &next_str_len, c);
+// 		if (!(tab[i] = (char *)malloc(sizeof(char) * (next_str_len + 1))))
+// 			return (ft_malloc_error(tab));
+// 		ft_strlcpy(tab[i], next_str, next_str_len + 1);
+// 		i++;
+// 	}
+// 	tab[i] = NULL;
+//    //free(tab);
+//    //ft_free_tab(tab);
+// 	return (tab);
+// }
+
+
+//    Done split     //
+
+
 // ok ft_plit NO LEAKS with main
 
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
@@ -118,7 +153,7 @@ char				**ft_split_3(char const *s, char c)
 		i++;
 	}
 	tab[i] = NULL;
-	ft_free_tab(tab);
+	//ft_free_tab(tab);
 	return (tab);
 }
 /*
