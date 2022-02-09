@@ -6,12 +6,24 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 14:30:11 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 16:18:25 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:29:25 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+
+int	ft_len_avs(char **avs)
+{
+	int	i;
+
+	i = 0;
+	if (!avs)
+		return (0);
+	while (avs[i])
+		i++;
+	return (i);
+}
 
 void  ft_free_tab(char **tab)
 {

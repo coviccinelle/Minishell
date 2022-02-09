@@ -75,25 +75,3 @@ char *ft_strstr(char *str, char *to_find)
 	}
 	return (0);
 }
-
-void				ft_bzero(void *b, size_t n)
-{
-	unsigned char	*dest;
-	size_t			i;
-
-	dest = b;
-	i = 0;
-	while (i++ < n)
-		*dest++ = 0;
-}
-
-void	*ft_memalloc(size_t size)
-{
-	void	*mem;
-
-	if (!(mem = malloc(size)))
-		return (NULL);
-	ft_bzero(mem, size);
-	return (mem);
-}
-

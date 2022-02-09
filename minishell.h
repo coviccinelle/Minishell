@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 16:18:56 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:31:02 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ char		**ft_copy_tab(char **env);
 void 		ft_putchar(int c);
 void 		ft_putstr(char *s);
 void  		ft_free_tab(char **tab);
+int			ft_len_avs(char **avs);
 
 //char		*ft_strdup(const char *s1);
 char		*ft_strjoin(char *s1, char *s2);
@@ -182,6 +183,8 @@ int	is_builtin(char *builtin);
 int			parsing(t_mini *mini/*, t_cmd *cmd*/);
 int 		ft_pars_piping(char *line, t_mini *list);
 int			ft_each_cmd(char *line, t_mini *cmd);
+int			ft_avs(t_mini *one_cmd, char *line_after);
+int			ft_buf(char *argv, int *i, char *buf);
 
 t_mini		*add_cell(t_mini *list, char *cmd, int pos);
 void		print_list(t_mini *list);

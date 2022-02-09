@@ -81,7 +81,6 @@ static void			ft_get_next_str(char **next_str, unsigned int *next_str_len,
 	}
 }
 
-
 char				**ft_split_3(char const *s, char c)
 {
 	char			**tab;

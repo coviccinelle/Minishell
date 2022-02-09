@@ -76,16 +76,3 @@ char	*ft_strchr(const char *s, int c)
 }
 
 
-/*
-int	ft_strcmp(char *s, char *t)
-{
-
-	while (*s && (*s == *t))
-	{
-		s++;
-		t++;
-	}
-	return (*s - *t);
-}
-
-*/
