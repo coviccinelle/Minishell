@@ -23,3 +23,4 @@ void	free_tab(char ***line)
 	free((*line)[i]);
 	free(*line);
 }
+

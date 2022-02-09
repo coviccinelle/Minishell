@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 15:34:08 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:07:51 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,9 @@ int	    	is_valid_var_name(char *av);
 char		**ft_split_3(char	const *s, char c);
 char		*ft_strchr(const char *s, int c);
 void   		ft_space_skip(char *str, int *i);
-
-
+char	**ft_copy_tab(char **env);
+void ft_putchar(int c);
+void ft_putstr(char *s);
 
 //char		*ft_strdup(const char *s1);
 char		*ft_strjoin(char *s1, char *s2);
@@ -119,7 +120,6 @@ void		ft_puterror_fd(char *error, char *s, char *error2);
 void		free_tab(char ***line);
 int			ft_count_quotes(const char *str);
 char		*ft_strdup(char *s1);
-char		**ft_copy_tab(char **env);
 int			ft_strcmp(char *s, char *t);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 
@@ -173,7 +173,7 @@ char		*ft_strdup(char *src);
 char		*ft_strcpy(char *dst, char *src);
 int			ft_alphabetical_order_tab(char **env);
 void		print_tab(char **env);
-char		**ft_copy_tab(char **env);
+//char		**ft_copy_tab(char **env);
 int			ft_unsetenv(char ***env,char *name);
 void		print_export(char **tab);
 void    exec_cmd(int ac, char **av, char ***env);

@@ -4,6 +4,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+void ft_putchar(int c)
+{
+	write(1, &c, 1);
+}
+
+void ft_putstr(char *s)
+{
+	int	i;
+
+	i = -1;
+	while(s[++i])
+		write(1, &s[i], 1);
+}
+
+
 // static int  ft_strlen(const char *str)
 // {
 //     int i = 0;

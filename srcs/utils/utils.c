@@ -97,33 +97,3 @@ void	*ft_memalloc(size_t size)
 	return (mem);
 }
 
-char	**ft_copy_tab(char **env)
-{
-	int		i;
-	int		size;
-	char	**envp;
-
-	i = -1;
-	if (!env)
-		return (NULL);
-	size = nb_tabs(env);
-	envp = malloc(sizeof(char *) * (size + 1));
-	while (++i < size)
-		envp[i] = strdup(env[i]); // A REMPLACER ! pourquoi ne repere pas mon ft_strdup ????
-	envp[i] = NULL;
-	return (envp);
-}
-
-void ft_putchar(int c)
-{
-	write(1, &c, 1);
-}
-
-void ft_putstr(char *s)
-{
-	int	i;
-
-	i = -1;
-	while(s[++i])
-		write(1, &s[i], 1);
-}

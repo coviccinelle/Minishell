@@ -1,6 +1,6 @@
 #include "../../minishell.h"
 
-char	**ft_copy_tab(char **env);
+//char	**ft_copy_tab(char **env);
 
 // int	ft_strcmp(char *s, char *t)
 // {
