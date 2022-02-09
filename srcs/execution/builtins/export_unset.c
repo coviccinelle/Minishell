@@ -62,7 +62,7 @@ char	*find_in_env(char **env, char *name, int *pos) //prend tout bonjour=hello e
 	}
 	while (env[++j] && j < nb_tabs(env))
 	{
-		if (ft_strncmp(name, env[j], name_len) == 0 && env[j][name_len] ==  '=')
+		if (ft_strncmp(name, env[j], name_len) == 0 /*&& env[j][name_len] ==  '='*/)
 		{
 			*pos = j;
 			printf("dans find envs, show it\n\n");
