@@ -185,8 +185,11 @@ int	ft_unsetenv(char ***env,char *name)
 	while((*env)[j] && j < nb_tabs(*env))
 	{
 		ft_memdel(&(*env)[j]);
-		(*env)[j] = ft_strndup((*env)[j + 1], ft_strlen((*env)[j + 1]));
-		ft_memdel(&(*env)[j + 1]);
+		if ((*env)[j + 1])
+		{
+			(*env)[j] = ft_strndup((*env)[j + 1], ft_strlen((*env)[j + 1]));
+			ft_memdel(&(*env)[j + 1]);
+		}
 		j++;
 	}
 //	free(found);
