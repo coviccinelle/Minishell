@@ -40,7 +40,7 @@ char *ft_strndup(char *s, int n)
 	char *copy;
 
 	len = 0;
-	while (s[len] && len < n)
+	while (s[len] && len < n) //len < n
 		len++;
 	copy = malloc(len + 1);
 	if (!copy)
@@ -49,7 +49,25 @@ char *ft_strndup(char *s, int n)
 	copy[len] = '\0';
 	return (copy);
 }
+/*
+char	*ft_strndup(char *s, int n)
+{
+	char			*res;
+	int	i;
 
+	i = 0;
+	res = malloc(sizeof(char) * n) + 1;
+	if (res == NULL)
+		return (NULL);
+	while (i < n)
+	{
+		res[i] = s[i];
+		i++;
+	}
+	res[i + 1] = '\0';
+	return (res);
+}
+*/
 char	*cpy_trim(char *s, char from, char to)
 {
 	int i;
