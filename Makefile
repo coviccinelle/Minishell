@@ -6,7 +6,7 @@
 #    By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 11:32:21 by thi-phng          #+#    #+#              #
-#    Updated: 2022/02/09 15:32:02 by thi-phng         ###   ########.fr        #
+#    Updated: 2022/02/09 15:57:14 by thi-phng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,12 +24,12 @@ SRC		=	srcs/main.c \
 			srcs/utils/utils_tab.c \
 			srcs/utils/utils_env.c \
 			srcs/utils/ft_split_3.c \
-			srcs/utils/find_me_vs_token_dir.c \
-			srcs/utils/utils_libft_1.c \
 			srcs/utils/ft_space_skip.c \
+			srcs/utils/utils_libft_1.c \
 			srcs/utils/utils_libft_2.c \
 			srcs/utils/utils_libft_3.c \
 			srcs/utils/ft_pars_piping.c \
+			srcs/utils/find_me_vs_token_dir.c \
 			\
 			srcs/execution/env.c \
 			srcs/execution/builtins/exit.c \

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 15:38:00 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/09 15:58:32 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,7 @@ int	main(int ac, char **av, char **envp)
 					//free_tab(&mini.av);
 				}	
 			
-				printf("ici 1 done parsing\n");
+				//printf("ici 1 done parsing\n"); //mute for now, very helpful
 				//free_tab(&mini.av);
 				//ft_free_cmd(&mini);
 				break ;

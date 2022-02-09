@@ -97,10 +97,6 @@ void	*ft_memalloc(size_t size)
 	return (mem);
 }
 
- 
-
-#include <string.h>
-
 char	**ft_copy_tab(char **env)
 {
 	int		i;
