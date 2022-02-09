@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 13:00:29 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/09 14:28:25 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,32 +110,29 @@ char	*detect_cmd(char *str, int *i)
 //Step 1: parsing espaces and avs
 // step 2: counting (single and doubles) quotes
 //  Step 3: tokenizing in liste chainee (2 ways: Balkis (tableau + liste chainee for each cmd) and Eclipse (liste chainee 100%))
-int	parsing(t_mini *mini/*, t_cmd *cmd*/)
+int	parsing(t_mini *mini)
 {
 	//while (mini->line)
 //	{
 		// t_cmd	*cmd;
 
 		// cmd = NULL;
-		if (ft_strchr(mini->line, '|'))
+	if (ft_strchr(mini->line, '|'))
+	{
+		mini->i = ft_piping(mini->line, mini); // = t_cmd *cmd
+		printf("%d\n", mini->i);
+		return  (1);
+	}
+	else
+	{
+		printf("There's only one cmd! Simple\n");
+		if (ft_each_cmd(mini->line, mini))
 		{
-			mini->i = ft_piping(mini->line, mini); // = t_cmd *cmd
-			printf("%d\n", mini->i);
-			return  (1);
+			//mini->cmd = cmd;
+			printf("OVER HERE : mini->cmd->av[0] = %s\n", mini->av[0]);
+			return (1);
 		}
-		else
-		{
-			printf("There's only one cmd! Simple\n");
-			if (ft_each_cmd(mini->line, mini))
-			{
-				//mini->cmd = cmd;
-				printf("OVER HERE : mini->cmd->av[0] = %s\n", mini->av[0]);
-				return (1);
-			}
-			//return (1);
-		}
-	//	return (0);
-///	}
+	}
 	return (0);
 }
 
@@ -157,24 +154,6 @@ int	malloc_node(t_mini	**one_cmd)
 	return (1);
 }
 
-// int	init_one_cmd(t_mini *one_cmd)
-// {
-// 	one_cmd->av = NULL;
-// 	one_cmd->cmd_line = NULL;
-// 	one_cmd->ret = 0;
-// 	one_cmd->builtin = 0;
-// 	(one_cmd)->pipe = 0;
-// 	(one_cmd)->fork = 0;
-// 	(one_cmd)->quote = 0;
-// 	(one_cmd)->d_quotes = 0;
-// 	(one_cmd)->heredoc = 0;
-// 	(one_cmd)->stop = 0;
-// 	(one_cmd)->type = NOPE;
-// 	(one_cmd)->file = NULL;
-// 	(one_cmd)->next = NULL;
-// 	return(1);
-// }
-
 int	ft_init_each_cmd(t_mini *one_cmd, int *i, char *line)
 {
 
@@ -187,7 +166,6 @@ int	ft_init_each_cmd(t_mini *one_cmd, int *i, char *line)
 }
 
 // ft_add_line_after
-
 char	*ft_add_line_after(char *line, char buf)
 {
 	int		i;
@@ -214,11 +192,7 @@ char	*ft_add_line_after(char *line, char buf)
 	return (new);
 }
 
-
-
-
 // ft_fill_av vs ft_malloc_avs
-
 char *ft_strcpy(char *dest, char *src)
 {
 	int i;
@@ -232,7 +206,6 @@ char *ft_strcpy(char *dest, char *src)
 	dest[i] = '\0';
 	return (dest);
 }
-
 
 int	ft_buf(char *argv, int *i, char *buf)
 {
@@ -271,7 +244,6 @@ int	ft_fill_av(t_mini *one_cmd, char **new, char *line)
 		return (0);
 	ft_strcpy(new[y], line);
 	new[++y] = NULL;
-//	printf("t_fill_av = %s\n\n", one_cmd->av[0]);
 	return (1);
 }
 
@@ -350,9 +322,10 @@ int	ft_avs(t_mini *one_cmd, char *line_after)
 }
 
 
-// quote checking + moving forward 
-// THINGS TODO : ft_malloc_avs 
-// 				ft_line = ft_add_line_after
+// THINGS TODO : 
+//	- quotes
+//	- pipes
+//	- redirections 
 
 int	ft_check_2rd_quote(char *line, int c)
 {
