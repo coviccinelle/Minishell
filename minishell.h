@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 13:01:06 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/09 13:02:09 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@
 #include <errno.h>  
 #include<sys/wait.h>
 
-
 # define SEPARATORS " '\"|><"
 
-// *** // STRUCTURE  // *** //
 
+// *** // STRUCTURE  // *** //
 typedef struct s_export
 {
 	char			*name;
