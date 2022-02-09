@@ -6,7 +6,7 @@
 #    By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 11:32:21 by thi-phng          #+#    #+#              #
-#    Updated: 2022/02/09 16:22:20 by thi-phng         ###   ########.fr        #
+#    Updated: 2022/02/09 16:39:50 by thi-phng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ SRC		=	srcs/main.c \
 			\
 			srcs/signal/signal.c \
 			\
+			srcs/parsing/quotes.c \
 			srcs/parsing/parsing.c \
+			srcs/parsing/ft_each_cmd.c \
 			\
 			srcs/utils/utils.c \
 			srcs/utils/ft_avs.c \
