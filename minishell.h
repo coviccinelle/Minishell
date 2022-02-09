@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 15:05:53 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/09 15:34:08 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,19 @@ typedef struct s_export
 	struct s_export	*next;
 }				t_export;
 
-typedef enum	e_redirecto
+typedef enum	e_redir
 {
 	NOPE,
 	IN,
 	OUT,
 	DOUBLE_IN,
 	DOUBLE_OUT,
-}				t_redirecto;
+}				t_redir;
 
 typedef struct	s_file
 {
 	char			*name;
-	t_redirecto		type_of_redir;
+	t_redir			type_of_redir;
 	struct s_file	*next;
 }				t_file;
 
@@ -83,11 +83,11 @@ typedef struct s_mini
 	int				fork;
 	int				quote;
 	int				d_quotes;
-	int				heredoc;
 	int				ret_status;
-	t_redirecto		type;
+	t_redir			type;
 	t_file			*file;
 	struct s_mini	*next;
+	t_heredoc		*heredoc;
 }				t_mini;
 
 extern int		g_nb_exit;

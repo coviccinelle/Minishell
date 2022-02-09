@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 14:50:04 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/09 15:34:31 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,12 @@ void	ft_init_mini(t_mini *mini)
 	mini->fork = 0;
 	mini->quote = 0;
 	mini->d_quotes = 0;
-	mini->heredoc = 0;
+	//mini->heredoc = 0;
 	mini->type = NOPE;
 	mini->file = NULL;
 	mini->next = NULL;
 	mini->ret_status = 0;
+	mini->heredoc = NULL;
 	printf("done init mini\n");
 }
 
