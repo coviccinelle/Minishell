@@ -34,7 +34,7 @@ int		env_realloc_and_append_envvar(char ***env, char *envvar)
 	new_env = (char **)malloc(sizeof(char *) * new_size);
 	if (!new_env)
 		return (-1); // voir quelle valeur dans errno
-	while ((*env)[++j])
+	while ((*env)[++j] && j < nb_tabs(*env))
 		new_env[j] = ft_strndup((*env)[j], ft_strlen((*env)[j]));
 	new_env[j] = ft_strndup(envvar, ft_strlen(envvar));
 	new_env[j + 1] = NULL;
@@ -182,7 +182,7 @@ int	ft_unsetenv(char ***env,char *name)
 		return(0);
 	}
 	j = pos_name;
-	while((*env)[j])
+	while((*env)[j] && j < nb_tabs(*env))
 	{
 		ft_memdel(&(*env)[j]);
 		(*env)[j] = ft_strndup((*env)[j + 1], ft_strlen((*env)[j + 1]));
