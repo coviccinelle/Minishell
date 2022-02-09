@@ -137,7 +137,7 @@ void	exec_cmd(int ac, char **av, char ***env)
 	// 	exec_builtin(av[0], ac, av, env); // a remplacer par av[0] et av[1] apres. all builtin return an exit status of 2 to indicate incorrate usage such as invalid option or missing arguments
 	// else
 	// {
-	if ((access(av[1], F_OK)) == 0)
+	if ((access(av[0], F_OK)) == 0)
 	{
 		relative = 1;
 		path = strdup(av[0]); // a remplacer par ft_strdup(av[0])
