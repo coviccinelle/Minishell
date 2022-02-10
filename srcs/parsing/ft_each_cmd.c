@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/10 16:43:15 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/10 22:50:33 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,11 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 		free(one_cmd->line);
 	while (line[i])
 	{
-		// if (one_cmd->i > 0)
-		// {
-		// 	printf("pipe is not done\n\n");
-		// 	exit (0);
-		// }
-		//printf("avant segfaut %d\n\n", i);
+		if (one_cmd->i > 0)
+		{
+			printf("pipe is not done\n\n");
+			exit (0);
+		}
 		if (line[i] == ' ')
 		{
 			if (line_after)

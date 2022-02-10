@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/10 16:23:34 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/10 22:36:53 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ int	parsing(t_mini *mini)
 		mini->i = ft_pars_piping(mini->line, mini); // = t_cmd *cmd
 		while (k <= mini->i && mini)
 		{
+			if (mini->i > 0)
+			{
+				printf("Pipe section is not done, please comeback later\n");
+				return (1);
+			}
 			ft_each_cmd(mini->line, mini);
 			k++;
 			mini = mini->next;
