@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/10 22:50:49 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/10 23:03:53 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ void    exec_cmd(int ac, char **av, char ***env);
 //*** PIPES ***//
 
 //*** REDIRECTIONS ***//
+void    ft_set_direct(char *line, int *i, t_mini *mini);
 
 //*** SIGNAUX ***//
 
