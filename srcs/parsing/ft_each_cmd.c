@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/10 16:25:42 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:36:05 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 				ft_avs(tmp, line_after);
 			free(buf);
 		}
-	
 	}
 	return (1);
 }
