@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 15:58:32 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:52:51 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,24 +144,32 @@ void	minishell_exec_cmds(t_mini *mini)
 		printf("Print av[%d] = %s\n\n", i, mini->av[i]);
 		i++;
 	}
-	if (is_builtin(mini->av[0])) //a remplacer par av[0] apres.
-		exec_builtin(mini->av[0], nb_tabs(mini->av), mini->av, &mini->env);
+	if (mini->next == NULL)
+	{
+		if (is_builtin(mini->av[0])) //a remplacer par av[0] apres.
+			exec_builtin(mini->av[0], nb_tabs(mini->av), mini->av, &mini->env);
+		else
+		{
+			pid_t   father;
+
+			father = fork();
+			if (father > 0)
+			{
+				waitpid(-1, &status, 0);
+				printf("I AM YOUR FATHER\n");
+			}
+			if (father == 0)
+			{
+				sleep(1);
+				exec_cmd(nb_tabs(mini->av), mini->av, &mini->env);
+				exit(0);
+			}
+	
+		}
+	}
 	else
 	{
-		pid_t   father;
-
-		father = fork();
-		if (father > 0)
-		{
-			waitpid(-1, &status, 0);
-			printf("I AM YOUR FATHER\n");
-		}
-		if (father == 0)
-		{
-			sleep(1);
-			exec_cmd(nb_tabs(mini->av), mini->av, &mini->env);
-			exit(0);
-		}
+		printf("il y a des pipes!!!\n\n");
 	}
 }
 

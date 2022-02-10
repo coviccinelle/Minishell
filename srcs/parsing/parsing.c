@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/10 16:23:34 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:59:06 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,18 @@ int	is_token(char *str, char *token)
 int	parsing(t_mini *mini)
 {
 	int	k;
-	
+	t_mini	*tmp;
+
+	tmp = mini;
 	k = 0;
 	if (ft_strchr(mini->line, '|'))
 	{
-		mini->i = ft_pars_piping(mini->line, mini); // = t_cmd *cmd
+		mini->i = ft_pars_piping(mini->line, mini);// = t_cmd *cmd
+		while (tmp->next)
+		{
+			printf("printing tmp->line = %s\n\n", tmp->line);
+			tmp = tmp->next;
+		}
 		while (k <= mini->i && mini)
 		{
 			ft_each_cmd(mini->line, mini);
