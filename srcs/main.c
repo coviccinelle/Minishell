@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 15:58:32 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/10 22:38:06 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void	ft_init_mini(t_mini *mini)
 	mini->type = NOPE;
 	mini->file = NULL;
 	mini->next = NULL;
+	mini->prev = NULL;
 	mini->ret_status = 0;
 	mini->heredoc = NULL;
 	printf("done init mini\n");
@@ -225,7 +226,6 @@ int	main(int ac, char **av, char **envp)
 					mini.av = NULL;
 					//free_tab(&mini.av);
 				}	
-			
 				//printf("ici 1 done parsing\n"); //mute for now, very helpful
 				//free_tab(&mini.av);
 				//ft_free_cmd(&mini);

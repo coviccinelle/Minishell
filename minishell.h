@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 16:44:19 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/10 22:18:40 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_mini
 	t_redir			type;
 	t_file			*file;
 	struct s_mini	*next;
+	struct s_mini	*prev;
 	t_heredoc		*heredoc;
 }				t_mini;
 
@@ -184,6 +185,7 @@ int			parsing(t_mini *mini/*, t_cmd *cmd*/);
 int 		ft_pars_piping(char *line, t_mini *list);
 int			ft_each_cmd(char *line, t_mini *cmd);
 int			ft_avs(t_mini *one_cmd, char *line_after);
+char	**ft_avs_2(t_mini *one_cmd, char *line_after);
 int			ft_buf(char *argv, int *i, char *buf);
 int			malloc_node(t_mini	**one_cmd);
 int			ft_check_2rd_quote(char *line, int c);
