@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/10 16:36:05 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:43:15 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,17 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 		return (0);
 	tmp = one_cmd;
 	printf("Orgine line is : %s\n", line);
+	if (one_cmd->av)
+		free_avs(one_cmd->av);
+	if (one_cmd->line)
+		free(one_cmd->line);
 	while (line[i])
 	{
-		if (one_cmd->i > 0)
-		{
-			printf("pipe is not done\n\n");
-			exit (0);
-		}
+		// if (one_cmd->i > 0)
+		// {
+		// 	printf("pipe is not done\n\n");
+		// 	exit (0);
+		// }
 		//printf("avant segfaut %d\n\n", i);
 		if (line[i] == ' ')
 		{

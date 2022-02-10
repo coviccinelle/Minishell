@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 16:44:19 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:43:02 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ int			malloc_node(t_mini	**one_cmd);
 int			ft_check_2rd_quote(char *line, int c);
 char		*ft_d2_quotes(char *line_after, int *i, char *line, t_mini *one_cmd);
 int			ft_single_quote(char *line_after, int *i, char *line, t_mini *one_cmd);
+void		free_avs(char **avs);
 
 char		*ft_add_line_after(char *line, char buf);
 

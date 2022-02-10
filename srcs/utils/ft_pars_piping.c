@@ -108,7 +108,7 @@ int   ft_pars_piping(char *line, t_mini *mini)
       // }
    }
    //print_list(list);
-   free(mini);
+   //free(mini);
    free(str);
    return(i);
 }
