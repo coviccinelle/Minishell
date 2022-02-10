@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 16:45:35 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:25:42 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 	printf("Orgine line is : %s\n", line);
 	while (line[i])
 	{
+		if (one_cmd->i > 0)
+		{
+			printf("pipe is not done\n\n");
+			exit (0);
+		}
+		//printf("avant segfaut %d\n\n", i);
 		if (line[i] == ' ')
 		{
 			if (line_after)
@@ -57,6 +63,7 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 			ft_space_skip(line, &i);
 			line_after = NULL;
 		}
+
 		else if (line[i] == '"')
 		{
 			printf("Double quote part 1\n\n");
@@ -94,6 +101,7 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 		}
 		else
 		{
+			//printf("a letter ");
 			buf = malloc(sizeof(char) * 2);
 			ft_buf(line, &i, buf);
 			line_after = ft_add_line_after(line_after, buf[0]);

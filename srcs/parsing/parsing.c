@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 16:50:33 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:23:34 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,18 @@ int	is_token(char *str, char *token)
 //  Step 3: tokenizing in liste chainee (2 ways: Balkis (tableau + liste chainee for each cmd) and Eclipse (liste chainee 100%))
 int	parsing(t_mini *mini)
 {
+	int	k;
+	
+	k = 0;
 	if (ft_strchr(mini->line, '|'))
 	{
 		mini->i = ft_pars_piping(mini->line, mini); // = t_cmd *cmd
+		while (k <= mini->i && mini)
+		{
+			ft_each_cmd(mini->line, mini);
+			k++;
+			mini = mini->next;
+		}
 		printf("%d\n", mini->i);
 		return  (1);
 	}
