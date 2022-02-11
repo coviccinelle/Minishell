@@ -95,7 +95,6 @@ t_mini	*add_cell(t_mini *mini, char *cmd, int pos)
   	tmp = prev->next;
   	tmp = tmp->next;
     tmp->next = NULL;
-
   }
   prev->next = new;
   new->next = NULL;
@@ -110,7 +109,7 @@ int	ft_new_element(t_mini	**mini, char *line, int i)
 
   j = 0;
   new = add_cell(*mini, line, i);
-  printf("done add _cell\n\n");
+  //printf("done add _cell\n\n");
   //prev = NULL;
 	if ((*mini) == NULL)
   {
@@ -182,7 +181,7 @@ int   ft_pars_piping(char *line, t_mini *mini)
   // t_mini *prev;
 
   //prev = NULL;
-  printf("Let's start\n");
+ // printf("Let's start\n");
   mini = NULL;
   printf("origine big line is : %s\n", line);
   line_2 = ft_split_3(line, '|');
@@ -193,16 +192,15 @@ int   ft_pars_piping(char *line, t_mini *mini)
     if (!ft_new_element(&mini, line_2[i], i))
       return (0);
     printf("done ft_new_element\n");
-    //ft_each_cmd(mini->line, mini);
+    printf("each mini->line = %s\n\n", mini->line);
+    if (ft_each_cmd(mini->line, mini))
+      printf("Ok ft_each_cmd\n");
     print_list(&mini);
     i++;
    // prev = mini;
     mini = mini->next;
     //mini->next = NULL;
-    printf("done mini=mini->next\n");
-    //mini->next = NULL;
   }
-  //mini->next = NULL;
   free(mini);
   free(line_2);
   return(i);

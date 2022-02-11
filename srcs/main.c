@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/11 17:29:05 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/11 18:26:22 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,13 +220,21 @@ int	main(int ac, char **av, char **envp)
 		{
 			if (parsing(&mini, line))
 			{
-				if (mini.av)
+				//if (mini.av)
+				if (mini.next == NULL && mini.av)
 				{
 					printf("mini->av exist\n\n");
 					minishell_exec_cmds(&mini);
 					mini.av = NULL;
 					//free_tab(&mini.av);
-				}	
+				}
+				else while (mini.next)
+				{
+					printf("there's pipes and lots of cmds\n");
+				//	mini.av = //une cmd qui gere ca -> ft_pars_piping.c for sure
+					minishell_exec_cmds(&mini);
+					mini = *mini.next;
+				}
 				//printf("ici 1 done parsing\n"); //mute for now, very helpful
 				//free_tab(&mini.av);
 				//ft_free_cmd(&mini);

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/11 17:44:48 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/11 18:14:15 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,22 @@ int	parsing(t_mini *mini, char *line)
 		tmp = mini;
 		printf("tmp->i = %d\n", tmp->i);
 
-		
-		if (tmp->i <= 1)
+		if (mini->i <= 1)
 			return (0);
-		while (k <= tmp->i && tmp)
-		{
-			// if (tmp->i > 0)
-			// {
-			// 	printf("Pipe section is not done, please comeback later\n");
-			// 	return (1);
-			// }
-			ft_each_cmd(tmp->line, mini);
-			k++;
-			tmp = tmp->next;
-			tmp->next = NULL;
-		}
+		return (1);
+		// while (k <= mini->i && mini)
+		// {
+		// 	// if (tmp->i > 0)
+		// 	// {
+		// 	// 	printf("Pipe section is not done, please comeback later\n");
+		// 	// 	return (1);
+		// 	// }
+		// 	printf("Hello to segfaut land, number of node is %d, and the mini->line is %s\n", k, mini->line);
+		// 	ft_each_cmd(mini->line, mini);
+		// 	k++;
+		// 	mini = mini->next;
+		// 	mini->next = NULL;
+		// }
 		printf("%d\n", mini->i);
 		return  (1);
 	}
