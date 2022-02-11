@@ -119,15 +119,15 @@ int	ft_new_element(t_mini	**mini, char *line, int i)
     printf("the first node is NULL\n\n");
 		(*mini) = new;
   }
-	else while (j <= i)
-	{
-    printf("in boucle while, j <= i\n\n");
-		//tmp = *mini;
-		while ((*mini)->next)
-			*mini = (*mini)->next;
-		(*mini)->next = new;
-    prev->next = new;
-	}
+	// else while (j <= i)
+	// {
+  //   printf("in boucle while, j <= i\n\n");
+	// 	//tmp = *mini;
+	// 	while ((*mini)->next)
+	// 		*mini = (*mini)->next;
+	// 	(*mini)->next = new;
+  //   prev->next = new;
+	// }
 	new->next = NULL;
 	//new->line = line;
 	ft_init_elem(new);
@@ -156,23 +156,23 @@ void  ft_print_av(t_mini *mini)
 
 void	print_list(t_mini **mini)
 {
-  int		i;
+//  int		i;
   t_mini  *tmp;
 
   tmp = *mini;
-  i = 0;
-  printf("inside printf list\n");
+  //i = 0;
+  //printf("inside printf list\n");
   while (tmp)
   {
   	printf("-----------------------------------\n");
-  	printf("| i = %d                            \n", i);
+  //	printf("| i = %d                            \n", i);
   	printf("| mini->line : %s            \n", tmp->line);
   	printf("-----------------------------------\n\n");
 
     //printf("Now is time to print every av\n\n");
     //ft_print_av(mini);
   	tmp = tmp->next;
-  	i++;
+  	//i++;
   }
 }
 
