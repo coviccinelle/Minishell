@@ -165,7 +165,7 @@ void	print_list(t_mini **mini)
   while (tmp)
   {
   	printf("-----------------------------------\n");
-  //	printf("| i = %d                            \n", i);
+  	//printf("| i = %d                            \n", i);
   	printf("| mini->line : %s            \n", tmp->line);
   	printf("-----------------------------------\n\n");
 
@@ -181,9 +181,9 @@ int   ft_pars_piping(char *line, t_mini *mini)
 {
    int   i = 0;
    char **line_2;
-   //t_mini *tmp;
+   t_mini *prev;
 
-  //tmp = mini;
+  prev = NULL;
    printf("Let's start\n");
    mini = NULL;
    printf("origine big line is : %s\n", line);
@@ -198,6 +198,7 @@ int   ft_pars_piping(char *line, t_mini *mini)
       //ft_each_cmd(mini->line, mini);
       print_list(&mini);
       i++;
+      prev = mini;
       mini = mini->next;
    }
    //mini->next = NULL;
