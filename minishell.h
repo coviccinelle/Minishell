@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/10 23:03:53 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/11 12:12:44 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ int	is_builtin(char *builtin);
 
 //*** PARSING ***//
 int			parsing(t_mini *mini/*, t_cmd *cmd*/);
-int 		ft_pars_piping(char *line, t_mini *list);
+int 		ft_pars_piping(char *line, t_mini *mini);
 int			ft_each_cmd(char *line, t_mini *cmd);
 int			ft_avs(t_mini *one_cmd, char *line_after);
 char	**ft_avs_2(t_mini *one_cmd, char *line_after);
@@ -195,8 +195,8 @@ void		free_avs(char **avs);
 
 char		*ft_add_line_after(char *line, char buf);
 
-t_mini		*add_cell(t_mini *list, char *cmd, int pos);
-void		print_list(t_mini *list);
+t_mini		*add_cell(t_mini *mini, char *cmd, int pos);
+void		print_list(t_mini **mini);
 
 //exec
 void    exec_cmd(int ac, char **av, char ***env);
