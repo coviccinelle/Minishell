@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/10 22:50:33 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/11 11:17:15 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,6 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 		return (0);
 	tmp = one_cmd;
 	printf("Orgine line is : %s\n", line);
-	if (one_cmd->av)
-		free_avs(one_cmd->av);
-	if (one_cmd->line)
-		free(one_cmd->line);
 	while (line[i])
 	{
 		if (one_cmd->i > 0)
