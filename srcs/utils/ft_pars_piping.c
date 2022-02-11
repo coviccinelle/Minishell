@@ -181,9 +181,9 @@ int   ft_pars_piping(char *line, t_mini *mini)
 {
    int   i = 0;
    char **line_2;
-   t_mini *tmp;
+   //t_mini *tmp;
 
-  tmp = mini;
+  //tmp = mini;
    printf("Let's start\n");
    mini = NULL;
    printf("origine big line is : %s\n", line);
@@ -196,15 +196,11 @@ int   ft_pars_piping(char *line, t_mini *mini)
         return (0);
       printf("done ft_new_element\n");
       //ft_each_cmd(mini->line, mini);
-      //print_list(mini);
+      print_list(&mini);
       i++;
-      //mini = prev->next;
       mini = mini->next;
    }
-  // printf("cocuou\n\n");
-   //mini = mini->prev;
-   //printf("mini->line= %s\n", mini->line);
-   print_list(&mini);
+   //mini->next = NULL;
    free(mini);
    free(line_2);
    return(i);
