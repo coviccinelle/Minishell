@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/11 17:41:04 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/11 17:44:48 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,15 @@ int	parsing(t_mini *mini, char *line)
 			return (0);
 		while (k <= tmp->i && tmp)
 		{
-			if (tmp->i > 0)
-			{
-				printf("Pipe section is not done, please comeback later\n");
-				return (1);
-			}
+			// if (tmp->i > 0)
+			// {
+			// 	printf("Pipe section is not done, please comeback later\n");
+			// 	return (1);
+			// }
 			ft_each_cmd(tmp->line, mini);
 			k++;
-			mini = mini->next;
+			tmp = tmp->next;
+			tmp->next = NULL;
 		}
 		printf("%d\n", mini->i);
 		return  (1);
