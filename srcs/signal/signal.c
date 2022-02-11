@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:38:11 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/02 17:07:48 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/11 12:59:54 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void    ft_sigint_ctr_c(int sig)
 {
     (void)sig;
     write(1, "\n", 1);
-	//rl_replace_line("", 0); 
+	rl_replace_line("", 0); 
     //rl_replace_line NOT VALIDE IN C99
 	rl_on_new_line();
 	rl_redisplay();

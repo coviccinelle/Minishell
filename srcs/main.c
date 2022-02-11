@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/10 23:31:35 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/02/11 15:10:26 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,33 +130,7 @@ void	ft_init_mini(t_mini *mini)
 	printf("done init mini\n");
 }
 
-/*
-void pipex(char **av, int *fdd)
-{
-}
-*/
 
-/*
-//OK POUR UNE CMD
-void exec_cmds(t_mini *mini)
-{
-	pid_t   pid;
-	int	status;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		sleep(1);
-		exec_cmd(nb_tabs(mini->av), mini->av, &mini->env);
-		exit(0);
-	}
-	else
-	{
-		waitpid(-1, &status, 0);
-		printf("I AM YOUR FATHER\n");
-	}
-}
-*/
 /*
 void exec_cmds(t_mini *cmd)
 {
@@ -197,58 +171,77 @@ void exec_cmds(t_mini *cmd)
 	}
 }
 i*/
+
+void	pipex_1(t_mini *cmd, t_mini *previous_cmd)
+{
+	if (previous_cmd && cmd->pipe==1)
+	{
+		dup2(previous_cmd->pipe_fd([STDIN], STDIN));
+		close(previous_cmd->pipe_fd[STDIN]);
+	}
+	if(cmd->next && cmd->next->pipe == 1)
+	{
+		dup2(cmd->pipe_fd[STDOUT], STDOUT);
+		close(cmd->pipe_fd[STDIN]);
+	}
+}
+
+void	pipex_2(t_mini *cmd, t_mini *previous_cmd)
+{
+	if (previous_cmd && cmd->pipe == 1)
+		close(previous_cmd->pipe_fd[STDIN]);
+	if (previous_cmd && previous_cmd->pipe == 1)
+		close(previous_cmd->pipe_fd[STDOUT]);
+	//if (cmd->next && cmd->next->pipe == 1)
+		//	close(cmd->pipe_fd[STDIN]);
+	if(cmd->pipe == 1 && cmd->next == NULL)
+	{
+		dup2(cmd->ft_stdin, STDIN);
+		dup2(cmd->ft_stdout, STDOUT);
+		if(cmd->pipe_fd[STDOUT] && cmd->pipe_fd[STDOUT] != 0)
+			close(cmd->pipe_fd[STDOUT]);
+		if(cmd->pipe_fd[STDIN] && cmd->pipe_fd[STDIN] != 0)
+			close(cmd->pipe_fd[STDIN]);
+	}
+}
+
+void exec_bin()
+{
+	if (cmd->pipe == 1 && cmd->next->pipe == 1) // et pas un builtin
+	{
+		pid = fork();
+		if (pid == 0) // process enfant
+		{
+			pipex_1(cmd, previous_cmd)
+			exec_cmd(nb_tab(cmd->av), cmd->av, &cmd->env);
+		}
+		else // process parent
+			pipex_2(cmd, previous_cmd);
+	}
+}
+
+
+
 void	minishell_exec_cmds(t_mini *mini)
 {
-	(void)mini;
-	int		i;
-	int		ac;
-//	int		status;
+	t_mini *cmd;
+	t_mini *previous_cmd;
 
-	i = 0;
-	ac = nb_tabs(mini->av);
-	while (i <= ac)
-	{
-		printf("Print av[%d] = %s\n\n", i, mini->av[i]);
-		i++;
-	}
-//	int fdd = dup(0);
-/*
-//OK POUR UNE CMD
-	if (mini->next == NULL)
-	{
-//OK POUR UNE CMD
-		if (is_builtin(mini->av[0])) //a remplacer par av[0] apres.
-			exec_builtin(mini->av[0], nb_tabs(mini->av), mini->av, &mini->env);
+	previous_cmd = NULL:
+	cmd = mini;
+	while (cmd)
+	{	
+		if (cmd->next && cmd->next->pipe == 1)
+			pipe(cmd>pipe_fd);
+		if (is_builtin(cmd->av[0]))
+			exec_builtin(cmd->av[0], nb_tabs(cmd->av), mini->av, &mini->env);
 		else
-			exec_cmds(mini);
-	}
-*/
-/*	else
-	{
-		printf("il y a des pipes!!!!!!!!!\n");
-		//while (mini)
-	//	{
-	//		if (mini->next)
-	//			pipex(mini, &fd);
-			
-			
-	//		mini = mini->next;
-	//	}
-	}
-*/
+			exec_bin();
 
-	t_mini *tmp;
-
-	tmp = mini;
-	while (tmp)
-	{
-		if (is_builtin(mini->av[0])) //a remplacer par av[0] apres.
-			exec_builtin(mini->av[0], nb_tabs(mini->av), mini->av, &mini->env);
-		else
-			exec_cmds(mini);
-		tmp = tmp->next;
+		previous_cmd = cmd;
+		cmd = cmd->next;
 	}
-
+	wait_pid();
 }
 
 void	free_tab2(char **tab)
