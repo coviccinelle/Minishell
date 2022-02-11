@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:21:52 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/10 21:50:25 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/11 11:18:47 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	**ft_malloc_avs(t_mini *one_cmd, int len_tab, char *line)
 
 
 
-
+// to malloc and fill all avs in each structure mini
 int	ft_avs(t_mini *one_cmd, char *line_after)
 {
 	int	len_tab;
