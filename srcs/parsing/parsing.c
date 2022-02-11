@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/10 22:36:53 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/11 17:41:04 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,31 @@ int	is_token(char *str, char *token)
 //Step 1: parsing espaces and avs
 // step 2: counting (single and doubles) quotes
 //  Step 3: tokenizing in liste chainee (2 ways: Balkis (tableau + liste chainee for each cmd) and Eclipse (liste chainee 100%))
-int	parsing(t_mini *mini)
+int	parsing(t_mini *mini, char *line)
 {
 	int	k;
+	t_mini *tmp;
 	
 	k = 0;
-	if (ft_strchr(mini->line, '|'))
+	tmp = NULL;
+	if (ft_strchr(line, '|'))
 	{
-		mini->i = ft_pars_piping(mini->line, mini); // = t_cmd *cmd
-		while (k <= mini->i && mini)
+		mini->i = ft_pars_piping(line, mini);
+		printf("mini->i = %d\n", mini->i);
+		tmp = mini;
+		printf("tmp->i = %d\n", tmp->i);
+
+		
+		if (tmp->i <= 1)
+			return (0);
+		while (k <= tmp->i && tmp)
 		{
-			if (mini->i > 0)
+			if (tmp->i > 0)
 			{
 				printf("Pipe section is not done, please comeback later\n");
 				return (1);
 			}
-			ft_each_cmd(mini->line, mini);
+			ft_each_cmd(tmp->line, mini);
 			k++;
 			mini = mini->next;
 		}
@@ -50,6 +59,7 @@ int	parsing(t_mini *mini)
 	}
 	else
 	{
+		mini->line = line;
 		printf("There's only one cmd! Simple\n");
 		if (ft_each_cmd(mini->line, mini))
 		{

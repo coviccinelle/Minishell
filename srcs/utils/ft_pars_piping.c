@@ -104,16 +104,14 @@ t_mini	*add_cell(t_mini *mini, char *cmd, int pos)
 
 int	ft_new_element(t_mini	**mini, char *line, int i)
 {
-	//t_mini	*tmp;
 	t_mini	*new;
-  t_mini  *prev;
+  //t_mini  *prev;
   int     j;
 
   j = 0;
-  //new = (t_mini *)malloc(sizeof(t_mini))
   new = add_cell(*mini, line, i);
   printf("done add _cell\n\n");
-  prev = NULL;
+  //prev = NULL;
 	if ((*mini) == NULL)
   {
     printf("the first node is NULL\n\n");
@@ -181,30 +179,33 @@ int   ft_pars_piping(char *line, t_mini *mini)
 {
    int   i = 0;
    char **line_2;
-   t_mini *prev;
+  // t_mini *prev;
 
-  prev = NULL;
-   printf("Let's start\n");
-   mini = NULL;
-   printf("origine big line is : %s\n", line);
-   line_2 = ft_split_3(line, '|');
-   printf("done splitting\n");
-   while (line_2[i] && i <= ft_len_avs(line_2))
-   {
-      //mini = add_cell(mini, line_2[i], i); // deux cellules, dans chaqune on met str[i]
-      if (!ft_new_element(&mini, line_2[i], i))
-        return (0);
-      printf("done ft_new_element\n");
-      //ft_each_cmd(mini->line, mini);
-      print_list(&mini);
-      i++;
-      prev = mini;
-      mini = mini->next;
-   }
-   //mini->next = NULL;
-   free(mini);
-   free(line_2);
-   return(i);
+  //prev = NULL;
+  printf("Let's start\n");
+  mini = NULL;
+  printf("origine big line is : %s\n", line);
+  line_2 = ft_split_3(line, '|');
+  printf("done splitting\n");
+  while (line_2[i] && i <= ft_len_avs(line_2))
+  {
+     //mini = add_cell(mini, line_2[i], i); // deux cellules, dans chaqune on met str[i]
+    if (!ft_new_element(&mini, line_2[i], i))
+      return (0);
+    printf("done ft_new_element\n");
+    //ft_each_cmd(mini->line, mini);
+    print_list(&mini);
+    i++;
+   // prev = mini;
+    mini = mini->next;
+    //mini->next = NULL;
+    printf("done mini=mini->next\n");
+    //mini->next = NULL;
+  }
+  //mini->next = NULL;
+  free(mini);
+  free(line_2);
+  return(i);
 }
 
 

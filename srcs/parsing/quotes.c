@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 16:44:05 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/11 17:13:19 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,25 @@
 int	ft_check_2rd_quote(char *line, int c)
 {
 	int		i;
+	//int		q;
 
 	i = 0;
+	//q = 0;
 	while (line[i])
 	{
 		if (line[i + 1] && line[i + 1] == c)
-			return (1);
+		{
+		//	q++;
+		//	i++;
+			//return (1);
+		}
 		i++;
 	}
+	// if (q % 2 == 0)
+	// 	return (1);
+	// else if (q % 2 != 0)
+	// 	return (0);
+	
 	//printf("No 2rd quote detected !!!\n\n\n");// \np final is = %d\n", q);
 	return (0);
 }
@@ -39,6 +50,7 @@ char	*ft_add_2rd_quote(t_mini *one_cmd, int *i, char *line, char *line_after)
 		one_cmd->stop = 1; //->g_n_exit = ???;
 		return (0);
 	}
+	printf("ok check quote\n\n");
 	(*i)++;
 	while (line[*i] && line[*i] != '"')
 	{

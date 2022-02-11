@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/10 22:38:06 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/11 17:29:05 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,7 @@ void	ft_free_cmd(t_mini *cmd)
 int	main(int ac, char **av, char **envp)
 {
 	t_mini		mini;
+	char		*line;
 	(void)av;
 
 //	g_n_exit = 0;
@@ -213,11 +214,11 @@ int	main(int ac, char **av, char **envp)
 	init_shell();
 	while (mini.stop == 0)
 	{
-		mini.line = ft_readline_input(mini.line);
-		add_history(mini.line);
+		line = ft_readline_input(mini.line);
+		add_history(line);
 		while (42)
 		{
-			if (parsing(&mini))
+			if (parsing(&mini, line))
 			{
 				if (mini.av)
 				{
@@ -236,12 +237,14 @@ int	main(int ac, char **av, char **envp)
 				printf("ici 2 parsing return 0 = free\n");
 				//ft_free_cmd(&mini);
 				if (mini.av)
-					printf("i'm here\n");
-				free_tab(&mini.av);
+				{
+					printf("i'm here mini.av exist and need to be freed\n");
+					free_tab(&mini.av);
+				}
 				//free mini->cmd
 				break ;
 			}
-			free(mini.line);
+			free(line);
 		}
 	//	ft_free_cmd(&mini);
 		//free_tokens_and_structure(&mini);
