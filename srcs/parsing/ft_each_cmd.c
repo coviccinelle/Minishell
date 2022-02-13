@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/13 22:25:36 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/13 22:26:00 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,12 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 			printf("pipe is not done\n\n");
 			exit (0);
 		}
+		//euhhhh ...
 		if (line[i] == ' ')
 		{
-			//if (line_after)
+			if (line_after)
 				ft_avs(tmp, line_after);
-			//ft_space_skip(line, &i);
+			ft_space_skip(line, &i);
 			line_after = NULL;
 		}
 
