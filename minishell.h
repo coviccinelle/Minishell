@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/11 17:30:47 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/13 22:19:12 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,8 @@ int			ft_check_2rd_quote(char *line, int c);
 char		*ft_d2_quotes(char *line_after, int *i, char *line, t_mini *one_cmd);
 int			ft_single_quote(char *line_after, int *i, char *line, t_mini *one_cmd);
 void		free_avs(char **avs);
+
+void	ft_pass_squote(char *argv, int *i);
 
 char		*ft_add_line_after(char *line, char buf);
 

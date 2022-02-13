@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/11 17:00:43 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/13 22:21:36 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 		else if (line[i] == '"')
 		{
 			printf("Double quote part 1\n\n");
+			printf("where am i ? line[i] = %c\n", line[i]);
 			line_after = ft_d2_quotes(line_after, &i, line, tmp);
+			printf("line_after in ft_each_cmd = %s\n", line_after);
 			if (tmp->stop == 1)
 				return (0);
 			if (line_after == 0)
@@ -82,6 +84,7 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 				return (0);
 			if (line[i + 1] == '\0')
 				break ;//pass_quote?
+			ft_pass_squote(line, &i);
 			line_after = NULL;
 		}
 		else if (line[i] == '$' && !(line[i + 1] == '?'))

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/11 17:13:19 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/13 22:18:51 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,27 @@ int	ft_check_2rd_quote(char *line, int c)
 	return (0);
 }
 
+
+void	ft_pass_squote(char *argv, int *i)
+{
+	if (argv[(*i) + 1] == 34)
+		(*i)++;
+	else if (argv[(*i) + 1] == ' ')
+	{
+		(*i)++;
+		while (argv[(*i)] == ' ')
+			(*i)++;
+	}
+	else if (argv[(*i)] == 39 && argv[(*i) + 1] && argv[(*i) + 1] != ' ')
+		(*i)++;
+}
+
+
 char	*ft_add_2rd_quote(t_mini *one_cmd, int *i, char *line, char *line_after)
 {
 	(void)one_cmd;
+	printf("line_after in 3rd layer os %s\n", line_after);
+	
 	if (!ft_check_2rd_quote(&line[*i], '"'))
 	{
 		printf("ERROR: Double quotes are not safely closed\n");
@@ -64,8 +82,9 @@ char	*ft_d2_quotes(char *line_after, int *i, char *line, t_mini *one_cmd)
 {
 	if (line_after)
 	{
+		printf("line_after in 2nd layer os %s\n", line_after);
 		ft_avs(one_cmd, line_after);
-		line_after = NULL;
+		//line_after = NULL;
 	}
 	return (ft_add_2rd_quote(one_cmd, i, line, line_after));
 }
