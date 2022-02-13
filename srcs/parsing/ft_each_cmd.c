@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/13 22:21:36 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/13 22:25:36 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 		}
 		if (line[i] == ' ')
 		{
-			if (line_after)
+			//if (line_after)
 				ft_avs(tmp, line_after);
-			ft_space_skip(line, &i);
+			//ft_space_skip(line, &i);
 			line_after = NULL;
 		}
 
@@ -80,6 +80,7 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 		else if (line[i] == '\'')
 		{
 			printf("signle quotes\n\n");
+			printf("line_after = %s\n", line_after);
 			if (!ft_single_quote(line_after, &i, line, tmp))
 				return (0);
 			if (line[i + 1] == '\0')
