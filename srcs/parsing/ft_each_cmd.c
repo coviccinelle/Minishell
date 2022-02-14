@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/14 16:51:39 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:54:04 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 	t_mini		*tmp;
 
 	(void)buf;
-//	(void)one_cmd;
 	line_after = NULL;
 	//tmp = NULL;
 	if (!ft_init_each_cmd(one_cmd, &i, line))
@@ -95,11 +94,7 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 			printf("where am i ? line[i] = double quote found : %c\n", line[i]);
 			if (!ft_d2_quotes(line_after, &i, line, tmp))
 				return (0);
-			//line_after = ft_d2_quotes(line_after, &i, line, tmp);
 			printf("tmp->av[0] = %s\ntmp->av[1] = %s\n", tmp->av[0], tmp->av[1]);
-			//if (tmp->stop == 1)
-			//	return (0);
-			//if (line_after == 0)
 			if (line[i + 1] == '\0')
 				break ;
 			//dollar in quote
@@ -114,7 +109,7 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 			if (!ft_single_quote(line_after, &i, line, tmp))
 				return (0);
 			if (line[i + 1] == '\0')
-				break ;//pass_quote?
+				break ;
 			ft_pass_squote(line, &i);
 			line_after = NULL;
 		}
