@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/13 22:18:51 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/14 12:48:21 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,34 @@
 #include "../../minishell.h"
 
 
-int	ft_check_2rd_quote(char *line, int c)
+int	ft_check_2rd_quote(char *argv, int a)
+{
+	char	c;
+	int		i;
+	int		p;
+
+	i = 0;
+	c = a;
+	p = 0;
+	while (argv[i])
+	{
+		if (i != 0 && argv[i + 1] && argv[i + 1] == c)
+		{
+			p++;
+			break ;
+		}
+		if (argv[i] == c)
+			p++;
+		i++;
+	}
+	if (p % 2)
+		return (0);
+	else
+		return (1);
+}
+
+
+int	ft_check_2rd_quote_2(char *line, int c)
 {
 	int		i;
 	//int		q;
@@ -60,7 +87,6 @@ void	ft_pass_squote(char *argv, int *i)
 char	*ft_add_2rd_quote(t_mini *one_cmd, int *i, char *line, char *line_after)
 {
 	(void)one_cmd;
-	printf("line_after in 3rd layer os %s\n", line_after);
 	
 	if (!ft_check_2rd_quote(&line[*i], '"'))
 	{
@@ -73,21 +99,37 @@ char	*ft_add_2rd_quote(t_mini *one_cmd, int *i, char *line, char *line_after)
 	while (line[*i] && line[*i] != '"')
 	{
 		line_after = ft_add_line_after(line_after, line[(*i)]);
+	//	printf("3.0 line_after = %s\n", line_after);
 		(*i)++;
 	}
+	printf("3. line_after in 3rd layer is: _%s_\n", line_after);
+	if (line_after)
+		ft_avs(one_cmd, line_after);
 	return (line_after);
 }
 
+
+
 char	*ft_d2_quotes(char *line_after, int *i, char *line, t_mini *one_cmd)
 {
-	if (line_after)
-	{
-		printf("line_after in 2nd layer os %s\n", line_after);
-		ft_avs(one_cmd, line_after);
-		//line_after = NULL;
-	}
-	return (ft_add_2rd_quote(one_cmd, i, line, line_after));
+	char *str;
+	// useless
+	// if (line_after)
+	// {
+	// 	printf("2. line_after in 2nd layer is %s\n", line_after);
+	// 	ft_avs(one_cmd, line_after);
+	// 	line_after = NULL;
+	// }
+	// // done useless
+	str = ft_add_2rd_quote(one_cmd, i, line, line_after);
+	if (str == NULL)
+		return (NULL);
+	return (str);
 }
+
+
+
+
 
 int	ft_add_2rd_s_quote(t_mini *one_cmd, int *i, char *line, char *line_after)
 {
