@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/14 16:31:42 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:51:39 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,14 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 		{
 			printf("1_Double quote found\n\n");
 			printf("where am i ? line[i] = double quote found : %c\n", line[i]);
-			line_after = ft_d2_quotes(line_after, &i, line, tmp);
-			printf("tmp->av[0] = %s\ntmp->av[1] = %s\n", tmp->av[0], tmp->av[1]);
-			if (tmp->stop == 1)
+			if (!ft_d2_quotes(line_after, &i, line, tmp))
 				return (0);
-			if (line_after == 0)
+			//line_after = ft_d2_quotes(line_after, &i, line, tmp);
+			printf("tmp->av[0] = %s\ntmp->av[1] = %s\n", tmp->av[0], tmp->av[1]);
+			//if (tmp->stop == 1)
+			//	return (0);
+			//if (line_after == 0)
+			if (line[i + 1] == '\0')
 				break ;
 			//dollar in quote
 			if (!mdquote3(line, &i))

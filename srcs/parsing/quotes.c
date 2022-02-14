@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/14 16:28:54 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:51:07 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,10 @@ void	ft_pass_squote(char *str, int *i)
 }
 
 
+
 char	*ft_add_2rd_quote(t_mini *one_cmd, int *i, char *line, char *str)
 {
-	(void)one_cmd;
+	//(void)one_cmd;
 	
 	if (!ft_check_2rd_quote(&line[*i], '"'))
 	{
@@ -109,8 +110,43 @@ char	*ft_add_2rd_quote(t_mini *one_cmd, int *i, char *line, char *str)
 }
 
 
+
+int	ft_d2_quotes(char *str, int *i, char *line, t_mini *one_cmd)
+{
+	//(void)one_cmd;
+
+	if (!ft_check_2rd_quote(&line[*i], '"'))
+	{
+		printf("ERROR: Double quotes are not safely closed\n");
+	//	one_cmd->stop = 1; //->g_n_exit = ???;
+		return (0);
+	}
+	printf("ok check quote\n\n");
+	(*i)++;
+	while (line[*i] && line[*i] != '"')
+	{
+		str = ft_add_line_after(str, line[(*i)]);
+	//	printf("3.0 line_after = %s\n", line_after);
+		(*i)++;
+	}
+	printf("3. line_after in 3rd layer is: _%s_\n", str);
+	if (str)
+	{
+		printf("Inside str exist, adding in ft_avs\n");
+		ft_avs(one_cmd, str);
+		return (1);
+	}
+	free(str);
+	return (0);
+	// str = ft_add_2rd_quote(one_cmd, i, line, str);
+	// if (str == NULL)
+	// 	return (0);
+	// return (1);
+}
+
+
 //ft _   DOUBLE  _quotes
-char	*ft_d2_quotes(char *str, int *i, char *line, t_mini *one_cmd)
+char	*ft_d2_quotes_2(char *str, int *i, char *line, t_mini *one_cmd)
 {
 	// useless
 	// if (line_after)
