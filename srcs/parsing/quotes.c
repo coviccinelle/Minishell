@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/14 13:12:16 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:28:54 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int	ft_check_2rd_quote_2(char *line, int c)
 		if (line[i + 1] && line[i + 1] == c)
 		{
 		//	q++;
-		//	i++;
-			//return (1);
+			i++;
+			return (1);
 		}
 		i++;
 	}
@@ -109,7 +109,7 @@ char	*ft_add_2rd_quote(t_mini *one_cmd, int *i, char *line, char *str)
 }
 
 
-
+//ft _   DOUBLE  _quotes
 char	*ft_d2_quotes(char *str, int *i, char *line, t_mini *one_cmd)
 {
 	// useless
@@ -126,36 +126,28 @@ char	*ft_d2_quotes(char *str, int *i, char *line, t_mini *one_cmd)
 	return (str);
 }
 
-int	ft_add_2rd_s_quote(t_mini *one_cmd, int *i, char *line, char *str)
+
+//add_2rd single quote
+//int	ft_add_2rd_s_quote(t_mini *one_cmd, int *i, char *line, char *str)
+int	ft_single_quote(char *str, int *i, char *line, t_mini *one_cmd)
 {
 	int		start;
 
 	start = (*i);
 	(*i)++;
+	if (!ft_check_2rd_quote(&line[start], '\''))
+	{
+		free(str);
+		printf("Error: Second single quote not found\n\n");
+		//g_n_exit = ??
+		return (0);
+	}
 	while (line[(*i)] && line[(*i)] != '\'')
 	{
 		str = ft_add_line_after(str, line[(*i)]);
 		(*i)++;
 	}
-	if (!ft_check_2rd_quote(&line[start], '\''))
-	{
-		free(str);
-		printf("Error: Second single quote not found\n\n"); //g_n_exit = ??
-		return (0);
-	}
 	if (str)
 		ft_avs(one_cmd, str);
-	return (1);
-}
-
-int	ft_single_quote(char *str, int *i, char *line, t_mini *one_cmd)
-{
-	if (str)
-	{
-		ft_avs(one_cmd, str);
-		str = NULL;
-	}
-	if (!ft_add_2rd_s_quote(one_cmd, i, line, str))
-		return (0);
 	return (1);
 }
