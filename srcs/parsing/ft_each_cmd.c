@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/14 16:54:04 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/14 17:15:52 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	mdquote3(char *argv, int *i)
 	return (1);
 }
 
-
 int	ft_each_cmd(char *line, t_mini *one_cmd)
 {
 	int			i;
@@ -87,7 +86,6 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 			ft_space_skip(line, &i);
 			line_after = NULL;
 		}
-
 		else if (line[i] == '"')
 		{
 			printf("1_Double quote found\n\n");
