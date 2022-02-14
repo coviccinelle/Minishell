@@ -6,14 +6,11 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/14 17:09:06 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/14 17:11:37 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "../../minishell.h"
-
 
 int	ft_check_2rd_quote(char *str, int a)
 {
@@ -55,7 +52,6 @@ void	ft_pass_squote(char *str, int *i)
 		(*i)++;
 }
 
-
 char	*ft_add_line_after_2(char *line, char buf)
 {
 	int		i;
@@ -96,7 +92,6 @@ int	ft_d2_quotes(char *str, int *i, char *line, t_mini *one_cmd)
 	while (line[*i] && line[*i] != '"')
 	{
 		str = ft_add_line_after(str, line[(*i)]);
-	//	printf("3.0 line_after = %s\n", line_after);
 		(*i)++;
 	}
 	printf("3. line_after in 3rd layer is: _%s_\n", str);
