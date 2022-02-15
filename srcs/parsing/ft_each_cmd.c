@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/14 17:15:52 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/15 10:52:44 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,9 @@ int	ft_init_each_cmd(t_mini *one_cmd, int *i, char *line)
 
 
 // THINGS TODO : 
-//	- quotes
 //	- pipes
 //	- redirections 
 
-// done double quote //
-//single quote //
 
 void	ft_pass_dquote(char *argv, int *i)
 {
@@ -83,7 +80,8 @@ int	ft_each_cmd(char *line, t_mini *one_cmd)
 		{
 			if (line_after)
 				ft_avs(tmp, line_after);
-			ft_space_skip(line, &i);
+			i++;
+			//ft_space_skip(line, &i);
 			line_after = NULL;
 		}
 		else if (line[i] == '"')
