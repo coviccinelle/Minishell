@@ -1,7 +1,7 @@
 
 #include "../../minishell.h"
 
-char	*expansions(int ac, char **av, char **env)
+char	*dollar_sign(int ac, char **av, char **env)
 {
 	int j;
 	char	*s;

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/14 16:46:15 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/15 12:29:29 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ int			ft_check_2rd_quote(char *line, int c);
 int		ft_d2_quotes(char *line_after, int *i, char *line, t_mini *one_cmd);
 int			ft_single_quote(char *line_after, int *i, char *line, t_mini *one_cmd);
 void		free_avs(char **avs);
+char	*dollar_sign(int ac, char **av, char **env);
 
 void	ft_pass_squote(char *argv, int *i);
 
