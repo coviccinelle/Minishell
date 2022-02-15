@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/14 15:29:15 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/15 19:15:01 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,10 @@ void	minishell_exec_cmds(t_mini *mini)
 			exec_cmd(nb_tabs(mini->av), mini->av, &mini->env);
 			exit(0);
 		}
+		else
+			ft_puterror_fd("minishell: ", "COOOOommand not found : ", mini->av[0]);
 	}
+	
 }
 
 void	free_tab2(char **tab)

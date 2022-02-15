@@ -145,11 +145,11 @@ void	exec_cmd(int ac, char **av, char ***env)
 	if (relative == 0)
 		path = find_cmd_path(av[0], *env); // a modif avec av[0]
 	if (path == NULL)
-		ft_puterror_fd("minishell: ", "command not found\n", av[0]);// exit status 127. if a command is not foundm the child process to execute it returns a status of 127
-	if (path != NULL)
+		ft_puterror_fd("minishell: ", "command not found: ", av[0]);// exit status 127. if a command is not foundm the child process to execute it returns a status of 127
+	else if (path != NULL)
 		ret = execve(path, av, *env); // . a remplacer par av apres en attendant parsing. if a command is found but is not executable, the return status is 126
 //	}	
-	if (ret == -1) // en cas de reussite exceve ne revient pas mais en cas dechec renvoie -1 avec le code derreur dans errno
+	else if (ret == -1) // en cas de reussite exceve ne revient pas mais en cas dechec renvoie -1 avec le code derreur dans errno
 		strerror(errno);
 		//perror("");
 }
