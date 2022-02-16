@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/15 12:29:29 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/16 20:18:12 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,32 @@ typedef struct	s_heredoc
 	char				*eof;
 	struct s_heredoc	*next;
 }				t_heredoc;
+
+
+// *** NEW STRUCTURE *** //
+
+// typedef struct	s_cmd
+// {
+// 	char	*line;
+// 	char	**av;
+// 	t_redir	type;
+// 	t_file	*file;
+// 	struct s_cmd	*next;
+// 	struct s_cmd	*prev;
+// }				t_cmd;
+
+// typedef struct s_mini
+// {
+// 	char			**env;
+// 	char			*line;
+// 	int				stop;
+// 	int				n_cmd;
+// 	int				pipe;
+// 	int				fork;
+// 	int				ret_status;
+// 	t_cmd			*cmd;
+// 	t_heredoc		*heredoc;
+// }				t_mini;
 
 
 typedef struct s_mini
