@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/16 20:18:56 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/16 20:19:13 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct	s_heredoc
 }				t_heredoc;
 
 
-// *** NEW STRUCTURE *** //
+//	 *** NEW STRUCTURE *** 	//
 
 // typedef struct	s_cmd
 // {
