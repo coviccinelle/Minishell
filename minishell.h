@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/16 20:19:13 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/16 20:27:15 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct	s_heredoc
 // }				t_mini;
 
 
+
 typedef struct s_mini
 {
 	char			**env;
@@ -96,11 +97,7 @@ typedef struct s_mini
 	int				i;
 	int				stop;
 	char			**av;
-	//int				ac;
-	//char			*cmd_line;
 	int				n_cmd;
-	//int				ret;
-	//int				builtin;
 	int				pipe;
 	int				fork;
 	int				quote;
