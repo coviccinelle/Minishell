@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:21:52 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/15 12:27:07 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/17 16:08:40 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_buf(char *argv, int *i, char *buf)
 	return (1);
 }
 
-int	ft_fill_av(t_mini *one_cmd, char **new, char *line)
+int	ft_fill_av(t_cmd *one_cmd, char **new, char *line)
 {
 	int	i;
 	int	y;
@@ -75,7 +75,7 @@ void	free_avs(char **avs)
 	avs = NULL;
 }
 
-char	**ft_malloc_avs(t_mini *one_cmd, int len_tab, char *line)
+char	**ft_malloc_avs(t_cmd *one_cmd, int len_tab, char *line)
 {
 	char	**new;
 
@@ -105,20 +105,31 @@ char	**ft_malloc_avs(t_mini *one_cmd, int len_tab, char *line)
 
 
 // to malloc and fill all avs in each structure mini
-int	ft_avs(t_mini *one_cmd, char *line_after)
+int	ft_avs(t_cmd *one_cmd, char *line_after)
 {
 	int	len_tab;
+	int i = 0;
 
+
+	printf("Inside ft_avs\n");
 	len_tab = ft_len_avs(one_cmd->av);
-	//printf("ATTENTION : ft_len_avs is %d\n", ft_len_avs(one_cmd->av));
+	printf("Start adding avs\n");
 	one_cmd->av = ft_malloc_avs(one_cmd, len_tab, line_after);
+	printf("Done add more av ft_avs\n");
 	if (!one_cmd->av)
 		return (0);
-	//free(line_after);
+	printf("Done add av ft_avs\n");
+	
+	
+	while (i <= len_tab)
+	{
+		printf("\n			cmd->av[%d] = %s\n", i, one_cmd->av[i]);
+		i++;
+	}
 	return (1);
 }
 
-char	**ft_avs_2(t_mini *one_cmd, char *line_after)
+char	**ft_avs_2(t_cmd *one_cmd, char *line_after)
 {
 	int	len_tab;
 

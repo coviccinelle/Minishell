@@ -56,14 +56,65 @@ int	ft_check_2rd_quote(char *argv, int c)
 	return (0);
 }
 
-
-int main()
+int	is_redir(int c)
 {
-    char *str = "echo coucou con chim cu";
-    int c = '\"';
-  //  char *types = "hellp";
+	if (c == '<' || c == '>')
+		return (1);
+	return (0);
+}
 
-    //printf("%i\n", ft_strchr(str, c));
-    printf("%d\n", ft_check_quote(str, c));
+
+int	check_quote(char *str, int pos)
+{
+	int	quote_type;
+
+	if (str[pos] != '\'' && str[pos] != '"')
+		return (0);
+	quote_type = str[pos++];
+	while (str[pos])
+	{
+		if (str[pos] == quote_type)
+			return (1);
+		pos++;
+	}
+	return (0);
+}
+
+void	set_line(char *line, int *pos)
+{
+	while (line[*pos] && !is_redir(line[*pos]) && line[*pos] != '|')
+	{
+		if (line[*pos] == '$')
+			//dollarsign
+			printf("dollar sign! DO it please\n");
+		else if (check_quote(line, *pos))
+		{
+			printf("check quote done, pos = %ls\n", pos);
+			// quote_type = mini->line[*pos];
+			// cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
+			// while (mini->line[*pos] && mini->line[*pos] != quote_type)
+			// 	cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
+			// if (mini->line[*pos] == quote_type)
+			// 	cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
+		}
+		else
+			//cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
+			printf("line[*pos] = %c\n", line[*pos]);
+	}
+}
+
+
+int main(int ac, char **av)
+{
+	char *str = "hello coouou \"baby\" hihi";
+	(void)av;
+
+	if (ac != 1)
+		printf("errrr: wrong number of argument\n");
+	if (!check_quote(str, 1))
+		printf("Hehe quote ok, all closed\n");
+	
+	// set_line(av[1], 0);
+	// printf("done hihi\n");
     return (0);
 }

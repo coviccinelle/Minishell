@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/14 11:29:14 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/16 16:47:26 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,61 +26,61 @@ int	is_token(char *str, char *token)
 //Step 1: parsing espaces and avs
 // step 2: counting (single and doubles) quotes
 //  Step 3: tokenizing in liste chainee (2 ways: Balkis (tableau + liste chainee for each cmd) and Eclipse (liste chainee 100%))
-int	parsing(t_mini *mini, char *line)
-{
-	int	k;
-	t_mini *tmp;
+// int	parsing(t_mini *mini, char *line)
+// {
+// 	int	k;
+// 	t_mini *tmp;
 	
-	k = 0;
-	tmp = NULL;
-	if (ft_strchr(line, '|'))
-	{
-		mini->i = ft_pars_piping(line, mini);
-		printf("mini->i = %d\n", mini->i);
-		tmp = mini;
-		printf("tmp->i = %d\n", tmp->i);
+// 	k = 0;
+// 	tmp = NULL;
+// 	if (ft_strchr(line, '|'))
+// 	{
+// 		//mini->i = ft_pars_piping(line, mini);
+// 		//printf("mini->i = %d\n", mini->i);
+// 		tmp = mini;
+// 	//	printf("tmp->i = %d\n", tmp->i);
 
-		if (mini->i <= 1)
-			return (0);
-		return (1);
-		// while (k <= mini->i && mini)
-		// {
-		// 	// if (tmp->i > 0)
-		// 	// {
-		// 	// 	printf("Pipe section is not done, please comeback later\n");
-		// 	// 	return (1);
-		// 	// }
-		// 	printf("Hello to segfaut land, number of node is %d, and the mini->line is %s\n", k, mini->line);
-		// 	ft_each_cmd(mini->line, mini);
-		// 	k++;
-		// 	mini = mini->next;
-		// 	mini->next = NULL;
-		// }
-		printf("%d\n", mini->i);
-		return  (1);
-	}
-	else
-	{
-		mini->line = line;
-		printf("There's only one cmd! Simple\n");
-		if (ft_each_cmd(mini->line, mini))
-		{
-			//mini->cmd = cmd;
-			printf("OVER HERE : mini->av[0] = %s\n", mini->av[0]);
-			if (mini->av[1])
-				printf("mini->av[1] = %s\n", mini->av[1]);
-			return (1);
-		}
-	}
-	return (0);
-}
+// 		if (mini->i <= 1)
+// 			return (0);
+// 		return (1);
+// 		// while (k <= mini->i && mini)
+// 		// {
+// 		// 	// if (tmp->i > 0)
+// 		// 	// {
+// 		// 	// 	printf("Pipe section is not done, please comeback later\n");
+// 		// 	// 	return (1);
+// 		// 	// }
+// 		// 	printf("Hello to segfaut land, number of node is %d, and the mini->line is %s\n", k, mini->line);
+// 		// 	ft_each_cmd(mini->line, mini);
+// 		// 	k++;
+// 		// 	mini = mini->next;
+// 		// 	mini->next = NULL;
+// 		// }
+// 		printf("%d\n", mini->i);
+// 		return  (1);
+// 	}
+// 	else
+// 	{
+// 		mini->line = line;
+// 		printf("There's only one cmd! Simple\n");
+// 		if (ft_each_cmd(mini->line, mini))
+// 		{
+// 			//mini->cmd = cmd;
+// 			printf("OVER HERE : mini->av[0] = %s\n", mini->av[0]);
+// 			if (mini->av[1])
+// 				printf("mini->av[1] = %s\n", mini->av[1]);
+// 			return (1);
+// 		}
+// 	}
+// 	return (0);
+// }
 
 // init
-int	malloc_node(t_mini	**one_cmd)
+int	malloc_node(t_cmd	**one_cmd)
 {
-	t_mini	*new;
+	t_cmd	*new;
 	
-	new = (t_mini *)malloc(sizeof(t_mini));
+	new = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new)
 		return (0);
 	if (!(*one_cmd))

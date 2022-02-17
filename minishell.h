@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/16 20:27:15 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/17 15:26:31 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,23 @@
 # include <readline/history.h>
 # include <string.h>
 # include <signal.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <errno.h>  
-#include<sys/wait.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <errno.h>  
+# include<sys/wait.h>
+
+// redirection type
+# define RDR_IN 1
+# define RDR_DOUBLE_IN 2
+# define RDR_OUT 3
+# define RDR_HEREDOC 4
+
+// others
+# define ERROR -1
+# define SUCCESS 0
+# define CHILD 0
+# define REDIR 1
+# define PIPE 2
 
 # define SEPARATORS " '\"|><"
 
@@ -62,51 +75,26 @@ typedef struct	s_heredoc
 	struct s_heredoc	*next;
 }				t_heredoc;
 
-
-//	 *** NEW STRUCTURE *** 	//
-
-// typedef struct	s_cmd
-// {
-// 	char	*line;
-// 	char	**av;
-// 	t_redir	type;
-// 	t_file	*file;
-// 	struct s_cmd	*next;
-// 	struct s_cmd	*prev;
-// }				t_cmd;
-
-// typedef struct s_mini
-// {
-// 	char			**env;
-// 	char			*line;
-// 	int				stop;
-// 	int				n_cmd;
-// 	int				pipe;
-// 	int				fork;
-// 	int				ret_status;
-// 	t_cmd			*cmd;
-// 	t_heredoc		*heredoc;
-// }				t_mini;
-
-
+typedef struct	s_cmd
+{
+	char	*line;
+	char	**av;
+	t_redir	type;
+	t_file	*file;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
+}				t_cmd;
 
 typedef struct s_mini
 {
 	char			**env;
 	char			*line;
-	int				i;
 	int				stop;
-	char			**av;
 	int				n_cmd;
 	int				pipe;
 	int				fork;
-	int				quote;
-	int				d_quotes;
 	int				ret_status;
-	t_redir			type;
-	t_file			*file;
-	struct s_mini	*next;
-	struct s_mini	*prev;
+	t_cmd			*cmd;
 	t_heredoc		*heredoc;
 }				t_mini;
 
@@ -128,6 +116,10 @@ void 		ft_putchar(int c);
 void 		ft_putstr(char *s);
 void  		ft_free_tab(char **tab);
 int			ft_len_avs(char **avs);
+int	ft_syntax_error(t_cmd *mini);
+int	skip_blank(char *str);
+
+
 
 //char		*ft_strdup(const char *s1);
 char		*ft_strjoin(char *s1, char *s2);
@@ -201,19 +193,20 @@ void		print_export(char **tab);
 void    exec_cmd(int ac, char **av, char ***env);
 int exec_builtin(char *builtin, int ac, char **av, char ***env);
 int	is_builtin(char *builtin);
-
+int	is_builtin_2(t_mini *mini, t_cmd *cmd);
 
 //*** PARSING ***//
-int			parsing(t_mini *mini, char *line/*, t_cmd *cmd*/);
-int 		ft_pars_piping(char *line, t_mini *mini);
-int			ft_each_cmd(char *line, t_mini *cmd);
-int			ft_avs(t_mini *one_cmd, char *line_after);
-char	**ft_avs_2(t_mini *one_cmd, char *line_after);
+int			parsing(t_cmd *mini, char *line/*, t_cmd *cmd*/);
+int 		ft_pars_piping(char *line, t_cmd *mini);
+void			ft_each_cmd_2(t_mini *mini, int *i, t_cmd *cmd);
+int		ft_each_cmd(char *line, int *i, t_cmd *cmd);
+int			ft_avs(t_cmd *one_cmd, char *line_after);
+char	**ft_avs_2(t_cmd *one_cmd, char *line_after);
 int			ft_buf(char *argv, int *i, char *buf);
-int			malloc_node(t_mini	**one_cmd);
+int			malloc_node(t_cmd	**one_cmd);
 int			ft_check_2rd_quote(char *line, int c);
-int		ft_d2_quotes(char *line_after, int *i, char *line, t_mini *one_cmd);
-int			ft_single_quote(char *line_after, int *i, char *line, t_mini *one_cmd);
+int		ft_d2_quotes(char *line_after, int *i, char *line, t_cmd *one_cmd);
+int			ft_single_quote(char *line_after, int *i, char *line, t_cmd *one_cmd);
 void		free_avs(char **avs);
 char	*dollar_sign(int ac, char **av, char **env);
 
@@ -221,8 +214,13 @@ void	ft_pass_squote(char *argv, int *i);
 
 char		*ft_add_line_after(char *line, char buf);
 
-t_mini		*add_cell(t_mini *mini, char *cmd, int pos);
-void		print_list(t_mini **mini);
+t_cmd		*add_cell(t_cmd *mini, char *cmd, int pos);
+void		print_list(t_cmd **mini);
+int	is_blank(int c);
+int	is_redir(int c);
+void	set_line(t_mini *mini, int *pos, t_cmd *cmd);
+t_cmd	*stock_cmds(t_mini *mini);
+
 
 //exec
 void    exec_cmd(int ac, char **av, char ***env);
@@ -230,7 +228,7 @@ void    exec_cmd(int ac, char **av, char ***env);
 //*** PIPES ***//
 
 //*** REDIRECTIONS ***//
-void    ft_set_direct(char *line, int *i, t_mini *mini);
+void    ft_set_direct(char *line, int *i, t_cmd *mini);
 
 //*** SIGNAUX ***//
 

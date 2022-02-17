@@ -9,9 +9,9 @@
 // }						t_sep;
 
 
-void	simple_free(t_mini **st)
+void	simple_free(t_cmd **st)
 {
-	t_mini	*tmp;
+	t_cmd	*tmp;
 
 	while ((*st))
 	{
@@ -21,7 +21,7 @@ void	simple_free(t_mini **st)
 	}
 }
 
-void	ft_free_1st(t_mini **st, int n)
+void	ft_free_1st(t_cmd **st, int n)
 {
 	if (n == 1)
 	{
@@ -34,11 +34,8 @@ void	ft_free_1st(t_mini **st, int n)
 
 
 
-void	ft_init_elem(t_mini *mini)
+void	ft_init_elem(t_cmd *mini)
 {
-	mini->env = NULL;
-//	mini->i = 0;
-	mini->stop = 0;
 	mini->av = NULL;
 	//mini->ac = 0;
 	//mini->cmd_line = NULL;
@@ -47,24 +44,22 @@ void	ft_init_elem(t_mini *mini)
 	//mini->builtin = 0;
 	//mini->pipe = 0;
 	//mini->fork = 0;
-	mini->quote = 0;
-	mini->d_quotes = 0;
 	//mini->heredoc = 0;
 	mini->type = NOPE;
 	mini->file = NULL;
 	mini->next = NULL;
   mini->prev = NULL;
-	mini->ret_status = 0;
-	mini->heredoc = NULL;
+//	mini->ret_status = 0;
+	//mini->heredoc = NULL;
 }
 
-t_mini	*create_cell(char *cmd, t_mini *cell)
+t_cmd	*create_cell(char *cmd, t_cmd *cell)
 {
 //  t_mini	*prev;
 
 //  prev = NULL;
   printf("start inside of creat cell\n\n");
-  cell = malloc(sizeof(t_mini));
+  cell = malloc(sizeof(t_cmd));
   if (!(cell))
   	return (NULL);
   cell->line = cmd;
@@ -75,11 +70,11 @@ t_mini	*create_cell(char *cmd, t_mini *cell)
 }
 
 
-t_mini	*add_cell(t_mini *mini, char *cmd, int pos)
+t_cmd	*add_cell(t_cmd *mini, char *cmd, int pos)
 {
-  t_mini	*tmp;
-  t_mini	*new;
-  t_mini  *prev;
+  t_cmd	*tmp;
+  t_cmd	*new;
+  t_cmd  *prev;
   int		  i;
 
   prev = NULL;
@@ -101,10 +96,10 @@ t_mini	*add_cell(t_mini *mini, char *cmd, int pos)
   return (new);
 }
 
-int	ft_new_element(t_mini	**mini, char *line, int i)
+int	ft_new_element(t_cmd	**mini, char *line, int i)
 {
-	t_mini	*new;
-  //t_mini  *prev;
+	t_cmd	*new;
+  //t_cmd  *prev;
   int     j;
 
   j = 0;
@@ -138,7 +133,7 @@ int	ft_new_element(t_mini	**mini, char *line, int i)
 // faut mettre ft_piping inside of 
 
 
-void  ft_print_av(t_mini *mini)
+void  ft_print_av(t_cmd *mini)
 {
   int i = 0;
 
@@ -151,10 +146,10 @@ void  ft_print_av(t_mini *mini)
   printf("done printing av \n\n\n");
 }
 
-void	print_list(t_mini **mini)
+void	print_list(t_cmd **mini)
 {
 //  int		i;
-  t_mini  *tmp;
+  t_cmd  *tmp;
 
   tmp = *mini;
   //i = 0;
@@ -174,37 +169,37 @@ void	print_list(t_mini **mini)
 }
 
 // deviding into each cell and add things into **av
-int   ft_pars_piping(char *line, t_mini *mini)
-{
-   int   i = 0;
-   char **line_2;
-  // t_mini *prev;
+// int   ft_pars_piping(char *line, t_cmd *mini)
+// {
+//    int   i = 0;
+//    char **line_2;
+//   // t_mini *prev;
 
-  //prev = NULL;
- // printf("Let's start\n");
-  mini = NULL;
-  printf("origine big line is : %s\n", line);
-  line_2 = ft_split_3(line, '|');
-  printf("done splitting\n");
-  while (line_2[i] && i <= ft_len_avs(line_2))
-  {
-     //mini = add_cell(mini, line_2[i], i); // deux cellules, dans chaqune on met str[i]
-    if (!ft_new_element(&mini, line_2[i], i))
-      return (0);
-    printf("done ft_new_element\n");
-    printf("each mini->line = %s\n\n", mini->line);
-    if (ft_each_cmd(mini->line, mini))
-      printf("Ok ft_each_cmd\n");
-    print_list(&mini);
-    i++;
-   // prev = mini;
-    mini = mini->next;
-    //mini->next = NULL;
-  }
-  free(mini);
-  free(line_2);
-  return(i);
-}
+//   //prev = NULL;
+//  // printf("Let's start\n");
+//   mini = NULL;
+//   printf("origine big line is : %s\n", line);
+//   line_2 = ft_split_3(line, '|');
+//   printf("done splitting\n");
+//   while (line_2[i] && i <= ft_len_avs(line_2))
+//   {
+//      //mini = add_cell(mini, line_2[i], i); // deux cellules, dans chaqune on met str[i]
+//     if (!ft_new_element(&mini, line_2[i], i))
+//       return (0);
+//     printf("done ft_new_element\n");
+//     printf("each mini->line = %s\n\n", mini->line);
+//     if (ft_each_cmd(mini->line, mini))
+//       printf("Ok ft_each_cmd\n");
+//     print_list(&mini);
+//     i++;
+//    // prev = mini;
+//     mini = mini->next;
+//     //mini->next = NULL;
+//   }
+//   free(mini);
+//   free(line_2);
+//   return(i);
+// }
 
 
 
