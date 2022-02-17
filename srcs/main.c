@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/17 16:38:40 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/17 17:48:57 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -645,35 +645,6 @@ t_cmd	*stock_cmds(t_mini *mini)
 	
 	return (cmd_lst);
 }
-
-	//while (mini->line[i])
-	//{
-		// cmd = new_elem_cmd(mini);
-		// add_cmd(&cmd_lst, cmd);
-		// while (mini->line[i])
-		// {
-		// 	if (mini->line[i] == '|')
-		// 	{
-		// 		i++;
-		// 		printf("OOOOO mini->lin[i] = %c\n", mini->line[i]);
-		// 		cmd = new_elem_cmd(mini);
-		// 		add_cmd(&cmd_lst, cmd);
-		// 		//should add av the lastest in here => ready to be executed
-		// 		printf("done adding one cmd, cmd->line = %s\n", cmd->line);
-		// 	}
-		// 	else
-		// 	{
-		// 		i += skip_blank(&mini->line[i]);
-		// 		if (is_redir(mini->line[i]))
-		// 		//set_redir(mini, &i, cmd);
-		// 			printf("parsing just for redirection\n");
-		// 		else
-		// 			ft_each_cmd_2(mini, &i, cmd);
-		// 	}
-		// }
-	//}
-//}
-
 
 
 int	is_builtin_2(t_mini *mini, t_cmd *cmd)
