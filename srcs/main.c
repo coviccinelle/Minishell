@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/17 17:48:57 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/17 17:51:41 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -750,7 +750,7 @@ void print_mini_avs(t_mini *mini)
 	cmd = mini->cmd;
 	while(cmd)
 	{
-		printf("%d commande = \n", i);
+		printf("		%d commande = \n", i);
 		print_tab(cmd->av);
 		i++;
 		cmd = cmd->next;
