@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:21:52 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/17 17:49:49 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/17 17:50:04 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ char	**ft_malloc_avs(t_cmd *one_cmd, int len_tab, char *line)
 int	ft_avs(t_cmd *one_cmd, char *line_after)
 {
 	int	len_tab;
-	int i = 0;
 
 	len_tab = ft_len_avs(one_cmd->av);
 	printf("Start adding avs\n");
