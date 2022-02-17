@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/17 16:38:40 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/17 20:43:18 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,7 +261,7 @@ void	ft_init_mini(t_mini **mini)
 	(*mini)->heredoc = NULL;
 	printf("done init mini\n");
 }
-
+/*
 void	minishell_exec_cmds(t_cmd *cmd, t_mini *mini)
 {
 	// (void)cmd;
@@ -276,30 +276,30 @@ void	minishell_exec_cmds(t_cmd *cmd, t_mini *mini)
 	// 	printf("Print av[%d] = %s\n\n", i, cmd->av[i]);
 	// 	i++;
 	// }
-	// if (is_builtin(cmd->av[0])) //a remplacer par av[0] apres.
+	if (is_builtin(cmd->av[0])) //a remplacer par av[0] apres.
 		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
-	// else
-	// {
-	// 	pid_t   father;
+	else
+	{
+	 	pid_t   father;
 
-	// 	father = fork();
-	// 	if (father > 0)
-	// 	{
-	// 		waitpid(-1, &status, 0);
-	// 		printf("I AM YOUR FATHER\n");
-	// 	}
-	// 	if (father == 0)
-	// 	{
-	// 		sleep(1);
-	// 		exec_cmd(nb_tabs(cmd->av), cmd->av, mini->env);
-	// 		exit(0);
-	// 	}
-	// 	else
-	// 		ft_puterror_fd("minishell: ", "COOOOommand not found : ", cmd->av[0]);
-	// }
+	 	father = fork();
+	 	if (father > 0)
+		{
+	 		waitpid(-1, &status, 0);
+	 		printf("I AM YOUR FATHER\n");
+	 	}
+	 	if (father == 0)
+	 	{
+	 		sleep(1);
+	 		exec_cmd(nb_tabs(cmd->av), cmd->av, mini->env);
+	 		exit(0);
+	 	}
+	 	else
+	 		ft_puterror_fd("minishell: ", "COOOOommand not found : ", cmd->av[0]);
+	 }
 	
 }
-
+*/
 void	free_tab2(char **tab)
 {
 	int	j;
@@ -785,6 +785,200 @@ void print_mini_avs(t_mini *mini)
 		cmd = cmd->next;
 	}
 }
+
+int  nb_cmds(t_cmd *cmd)
+{
+	int j;
+
+	j = 0;
+	while(cmd)
+	{
+		cmd = cmd->next;
+		j++;
+	}
+	return (j);
+}
+
+
+void exec_cmd_with_no_pipe(t_mini *mini)
+{
+	t_cmd *cmd;
+	int status;
+
+	cmd = mini->cmd;
+	printf("LA commande a exec est = %s\n\n", cmd->av[0]);
+	if (is_builtin(cmd->av[0])) //a remplacer par av[0] apres.
+		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
+	else
+	{
+	 	pid_t   father;
+
+	 	father = fork();
+	 	if (father > 0)
+		{
+	 		waitpid(-1, &status, 0);
+	 		printf("I AM YOUR FATHER\n");
+	 	}
+	 	if (father == 0)
+	 	{
+	 		sleep(1);
+
+	printf("RESULTAT DE LEXECUTION\n\n\n\n\n");
+	 		exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
+	 		exit(0);
+	 	}
+	 	else
+	 		ft_puterror_fd("minishell: ", "COOOOommand not found : ", cmd->av[0]);
+	 }
+	
+	
+}
+
+
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/wait.h>
+
+#define WRITE_END 1
+#define STDOUT 1
+#define READ_END 0
+#define STDIN 0
+void waiting_for_all_children_to_finish_execution(int cmd_len)
+{
+	int i;
+	int status;
+
+	i = 0;
+	while (i < cmd_len)
+	{
+		waitpid(-1, &status, 0);
+		//if (WIFEXITED(status))
+		//g_exit = WEXITSTATUS(status);
+		i++;
+	}
+}
+
+void child_process(int fd[], t_cmd *cmd)
+{
+	printf("child process\n");
+	close(fd[READ_END]);
+	if (cmd->next != NULL)
+		dup2(fd[WRITE_END], STDOUT);
+       //   printf("je vais exec %s\n", cmd->av[0]);
+	close(fd[WRITE_END]);
+//    printf("je vais exec %s\n", cmd->av[0]);
+	if (is_builtin(cmd->av[0]))
+	{
+    		printf("je vais exec un builtin: %s\n", cmd->av[0]);
+		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, NULL); //a remplacer par &mini->env
+	}
+	else
+	{
+		printf("char ** du bin suivant a executer : %s\n", cmd->av[0]);
+		print_tab(cmd->av);
+		exec_cmd(nb_tabs(cmd->av), cmd->av, NULL);
+	}
+  //  execve(cmd->av[0], cmd->av, NULL); // ou exec builtin si builtin
+	 	exit(0); //attention car du coup exit quand pas dinput mais juste touche entree
+	printf("FIN DE LEXECUTION\n\n\n\n\n");
+}
+
+void parent_process(int fd[], t_cmd *cmd)
+{
+    close(fd[WRITE_END]);
+    if (cmd->next != NULL)
+           dup2(fd[READ_END], STDIN);
+    close(fd[READ_END]);
+    
+}
+
+void finish(t_mini *mini)
+{
+    dup2(STDOUT, STDIN);
+    waiting_for_all_children_to_finish_execution(nb_cmds(mini->cmd)); //3 etant le nb de commandes
+}
+
+
+void safely_fork_process(int *pid)
+{
+	*pid = fork();
+	if (pid  < 0)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+}
+
+void safely_pipe(int *fd)
+{
+	if ((pipe(fd)) < 0)
+	{
+		perror("pipe");
+		exit(EXIT_FAILURE);
+	}
+}
+
+void pipex_1(t_cmd *cmd, int previous_fd[], int fd[])
+{
+	if (previous_fd != -1) //si ce nest pas la premiere commande
+	{
+		dup2(previous_fd([STDIN], STDIN));
+		close(previous_fd[STDIN]);
+	}
+	if(cmd->next)
+	{
+		dup2(fd[STDOUT], STDOUT);
+		close(fd[STDIN]);
+	}
+}
+
+void pipex_2(t_mini *cmd, int previous_fd[], int fd[])
+{
+	//if (previous_cmd && cmd->pipe == 1)
+	//		close(previous_cmd->pipe_fd[STDIN]);
+	if (input != -1) //sil y a bien une cmd precedente
+		close(previous_fd[STDIN]);
+	if (cmd->next)
+		close(fd[STDIN]);
+	if(cmd->next == NULL)
+	{
+		dup2(cmd->ft_stdin, STDIN);
+		dup2(cmd->ft_stdout, STDOUT);
+		if(cmd->pipe_fd[STDOUT] && cmd->pipe_fd[STDOUT] != 0)
+			close(cmd->pipe_fd[STDOUT]);
+		if(cmd->pipe_fd[STDIN] && cmd->pipe_fd[STDIN] != 0)
+			close(cmd->pipe_fd[STDIN]);
+	}
+}
+
+void run_piped_cmds(t_mini *mini)
+{
+	printf("!!!il y a des pipes!!!\n\n");
+	int fd[2];
+	pid_t pid;
+	t_cmd *cmd;	
+	int previous_fd[2];
+
+	previous_fd = -1
+	cmd = mini->cmd;
+//	previous_cmd = NULL;
+	while(cmd)
+	{
+        	safely_pipe(fd);
+		safely_fork_process(&pid);
+		if(pid == 0)
+			pipex_1(cmd, previous_cmd);
+		//	child_process(fd, cmd);
+		else
+			pipex_2(cmd, previous_cmd);
+	//		parent_process(fd, cmd);
+		input = fd[0];
+		cmd = cmd->next;
+	}
+	finish(mini);
+}
+
 void	mini_run(t_mini *mini)
 {
 	t_cmd	*cmd;
@@ -796,10 +990,17 @@ void	mini_run(t_mini *mini)
 	// }
 	printf("1. Start minishell\n");
 	mini->cmd = stock_cmds(mini);
+	if(!mini->cmd)
+		return ;
 	printf("3. Done stocking cmds\n");
 	cmd = mini->cmd;
 	printf("4. done cmd = mini->cmd\n");
-	while (cmd->next)
+	printf("!!!!nb_cmds = %d\n\n", nb_cmds(mini->cmd));
+	if (nb_cmds(mini->cmd) == 1)
+		exec_cmd_with_no_pipe(mini);
+	else
+		run_piped_cmds(mini);
+/*	while (cmd->next)
 	{
 		if (cmd->av)
 		{
@@ -820,7 +1021,7 @@ void	mini_run(t_mini *mini)
 		}
 		cmd = cmd->next;
 	}
-	//ft_free_cmds(mini);
+*/	//ft_free_cmds(mini);
 	printf("Idk, free tout : in main/mini_run\n");
 	free(cmd->line);
 }
@@ -859,61 +1060,3 @@ int	main(int ac, char **av, char **env)
 	minishell(env);
 	return (0);
 }
-
-
-// int	main_2(int ac, char **av, char **envp)
-// {
-// 	t_mini		mini;
-// 	char		*line;
-// 	(void)av;
-
-// //	g_n_exit = 0;
-
-// 	//mini = NULL;
-// 	ft_init_mini(&mini, envp);
-// 	//mini.env = ft_env_cpy(envp);
-// 	if (ac != 1)
-// 		return (printf("Error: Invalid argument\nHint: only ./minishell\n"), 1);
-// 	init_shell();
-// 	while (mini.stop == 0)
-// 	{
-// 		line = ft_readline_input(mini.line);
-// 		add_history(line);
-// 		while (42)
-// 		{
-// 			if (parsing(&mini, line))
-// 			{
-// 				//if (mini.av)
-// 				if (mini.next == NULL && mini.av)
-// 				{
-// 					printf("mini->av exist\n\n");
-// 					minishell_exec_cmds(&mini);
-// 					mini.av = NULL;
-// 					//free_tab(&mini.av);
-// 				}
-// 				else while (mini.next)
-// 				{
-// 					printf("there's pipes and lots of cmds\n");
-// 				//	mini.av = //une cmd qui gere ca -> ft_pars_piping.c for sure
-// 					minishell_exec_cmds(&mini);
-// 					mini = *mini.next;
-// 				}
-// 				break ;
-// 			}
-// 			else
-// 			{
-// 				printf("ici 2 parsing return 0 = free\n");
-// 				//ft_free_cmd(&mini);
-// 				if (mini.av)
-// 				{
-// 					printf("i'm here mini.av exist and need to be freed\n");
-// 					free_tab(&mini.av);
-// 				}
-// 				//free mini->cmd
-// 				break ;
-// 			}
-// 			free(line);
-// 		}
-// 	}
-// 	return(0);
-// }
