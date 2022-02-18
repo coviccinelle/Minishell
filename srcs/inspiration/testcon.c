@@ -208,8 +208,6 @@ int main(int ac, char **av)
 
 	int 	a;
 
-	// char **str_2;
-
 	if (ac != 1)
 		printf("errrr: wrong number of argument\n");
 	//str_2 = ft_split_3(str, ' ');
@@ -219,17 +217,5 @@ int main(int ac, char **av)
         printf("Quote ok -> no quote error\n");
     else if (a == 0)
         printf("Quote ERROR : no second quote found\n");
-
-	// a = address_quote(str, '"');
-	// if (check_quote(str, a))
-	// {
-	// 	printf("\nadrress of the second quote is %d\n", check_quote(str, a));
-	// 	printf("check quote ok, found the second one\n");
-	// }
-	// else
-	// 	printf("ERROR: not found the second quote\n");
-
-	// set_line(av[1], 0);
-	// printf("done hihi\n");
     return (0);
 }
