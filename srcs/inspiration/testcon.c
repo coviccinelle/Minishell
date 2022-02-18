@@ -185,8 +185,6 @@ int is_quote_err(char *str)
     while (str[i])
     {
         k = address_1st_quote(&str[i]);
-		//printf("adrress of the first quote is %d\n", k);
-		//printf("current i is %d\n", i);
         if (k == -1)
             return (42); //not found any quote
         j = check_quote(&str[i], k);
