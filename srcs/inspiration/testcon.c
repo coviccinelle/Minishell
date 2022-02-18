@@ -200,7 +200,7 @@ int is_quote_err(char *str)
 }
 
 
-
+// check_quote_err = check the each cmd?
 int main(int ac, char **av)
 {
 	char *str = "hello' co\"ou'ou \"hihi\" ba b\"ya h\'ihi";
