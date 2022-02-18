@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/17 17:51:41 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/18 11:17:29 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -683,7 +683,7 @@ void	run_builtin(t_mini *mini, t_cmd *cmd)
 {
 	(void)mini;
 	(void)cmd;
-	printf("coucou please call Marie-Ines to call her super power builtins and solve this mess\n");
+	printf("coucou please call Marie-Ines to call her super power builtins and solve this mess\n\n");
 }
 
 void	run_execve_2(t_mini *mini, t_cmd *cmd)
@@ -778,13 +778,13 @@ void	mini_run(t_mini *mini)
 		}
 		if (is_builtin_2(mini, cmd))
 		{
-			printf("Buitins\n");
+			printf("\nBuitins\n");
 			//minishell_exec_cmds(cmd, mini);
-			//run_builtin(mini, cmd);
+			run_builtin(mini, cmd);
 		}
 		else
 		{
-			printf("Not buitins\n");
+			printf("\nNot buitins\n");
 			run_execve_2(mini, cmd);
 		//if (mini->ret_status == 130)
 		//	break ;
