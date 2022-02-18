@@ -220,8 +220,6 @@ int main(int ac, char **av)
     else if (a == 0)
         printf("Quote ERROR : no second quote found\n");
 
-
-
 	// a = address_quote(str, '"');
 	// if (check_quote(str, a))
 	// {
