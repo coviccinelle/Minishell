@@ -179,44 +179,44 @@ int	is_redir(int c)
 }
 
 
-int	check_quote(char *str, int pos)
-{
-	int	quote_type;
+// int	check_quote(char *str, int pos)
+// {
+// 	int	quote_type;
 
-	if (str[pos] != '\'' && str[pos] != '"')
-		return (0);
-	quote_type = str[pos++];
-	while (str[pos])
-	{
-		if (str[pos] == quote_type)
-			return (1);
-		pos++;
-	}
-	return (0);
-}
+// 	if (str[pos] != '\'' && str[pos] != '"')
+// 		return (0);
+// 	quote_type = str[pos++];
+// 	while (str[pos])
+// 	{
+// 		if (str[pos] == quote_type)
+// 			return (1);
+// 		pos++;
+// 	}
+// 	return (0);
+// }
 
-void	set_line(char *line, int *pos)
-{
-	while (line[*pos] && !is_redir(line[*pos]) && line[*pos] != '|')
-	{
-		if (line[*pos] == '$')
-			//dollarsign
-			printf("dollar sign! DO it please\n");
-		else if (check_quote(line, *pos))
-		{
-			printf("check quote done, pos = %ls\n", pos);
-			// quote_type = mini->line[*pos];
-			// cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
-			// while (mini->line[*pos] && mini->line[*pos] != quote_type)
-			// 	cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
-			// if (mini->line[*pos] == quote_type)
-			// 	cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
-		}
-		else
-			//cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
-			printf("line[*pos] = %c\n", line[*pos]);
-	}
-}
+// void	set_line(char *line, int *pos)
+// {
+// 	while (line[*pos] && !is_redir(line[*pos]) && line[*pos] != '|')
+// 	{
+// 		if (line[*pos] == '$')
+// 			//dollarsign
+// 			printf("dollar sign! DO it please\n");
+// 		else if (check_quote(line, *pos))
+// 		{
+// 			printf("check quote done, pos = %ls\n", pos);
+// 			// quote_type = mini->line[*pos];
+// 			// cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
+// 			// while (mini->line[*pos] && mini->line[*pos] != quote_type)
+// 			// 	cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
+// 			// if (mini->line[*pos] == quote_type)
+// 			// 	cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
+// 		}
+// 		else
+// 			//cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
+// 			printf("line[*pos] = %c\n", line[*pos]);
+// 	}
+// }
 
 
 
@@ -246,17 +246,181 @@ void print_tab(char **av)
 }
 
 
+// int	address_quote(char *str, int c)
+// {
+// 	int	i = 0;
+// 	while (str[i])
+// 	{
+// 		if (str[i] == c)
+// 			return (i);
+// 		i++;
+// 	}
+// 	return (-1);
+// }
+
+
+// int	check_quote(char *str, int i)
+// {
+// 	int	quote;
+
+// 	printf("\nchar ici est : str[i] %c\n", str[i]); 
+// 	if (str[i] != '\'' && str[i] != '\"')
+// 		return (0);
+// 	quote = str[i++];
+// 	printf("place of i in quote = %d\n", i);
+// 	printf("quote = %c\n", quote);
+// 	while (str[i])
+// 	{
+// 		//printf("not quote is %c\n", str[i]);
+// 		if (str[i] == quote)
+// 			return (i);
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
+
+// int main(int ac, char **av)
+// {
+// 	char *str = "hello coouou \"hihi\"babya hihi";
+// 	(void)av;
+
+// 	int 	a;
+
+// 	// char **str_2;
+
+// 	if (ac != 1)
+// 		printf("errrr: wrong number of argument\n");
+// 	//str_2 = ft_split_3(str, ' ');
+
+// 	a = address_quote(str, '"');
+// 	if (check_quote(str, a))
+// 	{
+// 		printf("\nadrress of the second quote is %d\n", check_quote(str, a));
+// 		printf("check quote ok, found the second one\n");
+// 	}
+// 	else
+// 		printf("ERROR: not found the second quote\n");
+
+// 	// set_line(av[1], 0);
+// 	// printf("done hihi\n");
+//     return (0);
+// }
+
+
+
+
+
+
+
+int	address_quote(char *str, int c)
+{
+	int	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+
+int	check_quote(char *str, int i)
+{
+	int	quote;
+
+	//printf("\nchar ici est : str[i] %c\n", str[i]); 
+	if (str[i] != '\'' && str[i] != '\"')
+		return (0);
+	quote = str[i++];
+	//printf("place of i in quote = %d\n", i);
+	//printf("quote = %c\n", quote);
+	while (str[i])
+	{
+		if (str[i] == quote)
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+int address_1st_quote(char *str)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+    {
+        if ((str[i] == '\'') || (str[i] == '"'))
+            return (i);
+        i++;
+    }
+    return (-1);
+}
+
+
+// int	every_couple_quote(char *str, int i)
+// {
+
+// }
+
+int is_quote_err(char *str)
+{
+    int i;
+    int k;
+	int j;
+
+    i = 0;
+    while (str[i])
+    {
+        k = address_1st_quote(&str[i]);
+		printf("adrress of the first quote is %d\n", k);
+		//printf("current i is %d\n", i);
+        if (k == -1)
+            return (42); //not found any quote
+        j = check_quote(&str[i], k);
+		if (j != 0)
+			i += j;
+		else if (j == 0)
+			return (0);
+	   	i++;
+    }
+    return (0);
+}
+
+
+
 int main(int ac, char **av)
 {
-	char *str = "hello coouou baby hihi";
+	char *str = "hello' co\"ou'ou \"hihi\" ba b'ya hihi";
 	(void)av;
-	char **str_2;
+
+	int 	a;
+
+	// char **str_2;
 
 	if (ac != 1)
 		printf("errrr: wrong number of argument\n");
-	str_2 = ft_split_3(str, ' ');
-	printf("numer of str = %d\n", ft_len_cmd(str_2));
-	print_tab(str_2);
+	//str_2 = ft_split_3(str, ' ');
+	a = is_quote_err(str);
+	printf("is_quote_err return %d\n", a);
+    if (a != 0)
+        printf("Quote ok -> no quote error\n");
+    else if (a == 0)
+        printf("Quote ERROR : no second quote found\n");
+
+
+
+	// a = address_quote(str, '"');
+	// if (check_quote(str, a))
+	// {
+	// 	printf("\nadrress of the second quote is %d\n", check_quote(str, a));
+	// 	printf("check quote ok, found the second one\n");
+	// }
+	// else
+	// 	printf("ERROR: not found the second quote\n");
+
 	// set_line(av[1], 0);
 	// printf("done hihi\n");
     return (0);
