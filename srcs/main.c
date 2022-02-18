@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/18 13:46:14 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/18 14:55:32 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -741,13 +741,8 @@ t_cmd	*stock_cmds(t_mini *mini)
 			 	printf("parsing just for redirection\n");
 			 else
 				ft_each_cmd_3(mini, str[k], cmd);
-			k++;
+			break ;
 		}
-		// if (mini->line[i] == '|')
-		// {
-		// 	printf("	O____O : PIPE detected:	 mini->lin[i] = %c\n", mini->line[i]);
-		// 	i++;
-		// }
 		k++;
 	}
 	
