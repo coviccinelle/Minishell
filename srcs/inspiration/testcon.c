@@ -196,14 +196,14 @@ int is_quote_err(char *str)
 			return (0);
 	   	i++;
     }
-    return (0);
+    return (42);
 }
 
 
 // check_quote_err = check the each cmd?
 int main(int ac, char **av)
 {
-	char *str = "hello' co\"ou'ou \"hihi\" ba b\"ya h\'ihi";
+	char *str = "hello' co\"ou'ou \"hihi\" ba bya hihi";
 	(void)av;
 	int 	a;
 
