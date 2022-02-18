@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/18 11:21:47 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/18 11:59:20 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -563,31 +563,31 @@ void	ft_each_cmd_2(t_mini *mini, int *i, t_cmd *cmd)
 			//ft_space_skip(line, i);
 			line_after = NULL;
 		}
-		// else if (line[*i] == '"')
-		// {
-		// 	printf("1_Double quote found\n\n");
-		// 	printf("where am i ? line[*i] = double quote found : %c\n", line[*i]);
-		// 	if (!ft_d2_quotes(line_after, i, line, tmp))
-		// 		exit(0) ;
-		// 	printf("tmp->av[0] = %s\ntmp->av[1] = %s\n", tmp->av[0], tmp->av[1]);
-		// 	if (line[(*i) + 1] == '\0')
-		// 		break ;
-		// 	//dollar in quote
-		// 	// if (!mdquote3(line, &i))
-		// 	// 	break ;
-		// 	line_after = NULL;
-		// }
-		// else if (line[*i] == '\'')
-		// {
-		// 	printf("single quotes\n\n");
-		// 	printf("line_after = %s\n", line_after);
-		// 	if (!ft_single_quote(line_after, i, line, tmp))
-		// 		exit(0);
-		// 	if (line[*i + 1] == '\0')
-		// 		break ;
-		// 	ft_pass_squote(line, i);
-		// 	line_after = NULL;
-		// }
+		else if (line[*i] == '"')
+		{
+			printf("1_Double quote found\n\n");
+			printf("where am i ? line[*i] = double quote found : %c\n", line[*i]);
+			if (!ft_d2_quotes(line_after, i, line, tmp))
+				exit(0) ;
+			//printf("tmp->av[0] = %s\ntmp->av[1] = %s\n", tmp->av[0], tmp->av[1]);
+			//if (line[(*i) + 1] == '\0')
+			//	break ;
+			//dollar in quote
+			// if (!mdquote3(line, &i))
+			// 	break ;
+			line_after = NULL;
+		}
+		else if (line[*i] == '\'')
+		{
+			printf("single quotes\n\n");
+			printf("line_after = %s\n", line_after);
+			if (!ft_single_quote(line_after, i, line, tmp))
+				exit(0);
+			if (line[*i + 1] == '\0')
+				break ;
+			ft_pass_squote(line, i);
+			line_after = NULL;
+		}
 		else
 		{
 			//printf("char = %c\n", line[*i]);
@@ -601,17 +601,24 @@ void	ft_each_cmd_2(t_mini *mini, int *i, t_cmd *cmd)
 	}
 }
 
-// void	ft_1_cmd(char c)
-// {
-	
-// }
+int	ft_len_cmd(char **str)
+{
+	int i;
+
+	i = 0;
+	while(*str[i])
+		i++;
+	return (i);
+}
 
 // stock cmd_list in data
 t_cmd	*stock_cmds(t_mini *mini)
 {
 	t_cmd	*cmd_lst;
 	t_cmd	*cmd;
+	char	**str;
 	int		i;
+	int 	k;
 
 	char		*buf;
 	char		*line_after;
@@ -620,27 +627,32 @@ t_cmd	*stock_cmds(t_mini *mini)
 	line_after = NULL;
 	cmd_lst = NULL;
 	i = 0;
+	k = 0;
 	printf("2. Stocking cmds\n");
-	while (mini->line[i])
+	str = ft_split_3(mini->line, '|');
+	printf("Done split mini->line into **str\n");
+	while (str && k <= ft_len_cmd(str))
 	{
 		cmd = new_elem_cmd(mini);
 		add_cmd(&cmd_lst, cmd);
 		//should add av the lastest in here => ready to be executed
 		printf("done adding one cmd into the chained list\n");
-		while (mini->line[i] && mini->line[i] != '|')
+		while (str[k][i] && str[k][i] != '|')
 		{
-			i += skip_blank(&mini->line[i]);
-			if (is_redir(mini->line[i]))
+			i += skip_blank(&str[k][i]);
+			if (is_redir(str[k][i]))
 				//set_redir(mini, &i, cmd);
 				printf("parsing just for redirection\n");
 			else
 				ft_each_cmd_2(mini, &i, cmd);
 		}
-		if (mini->line[i] == '|')
-		{
-			printf("	O____O : PIPE detected:	 mini->lin[i] = %c\n", mini->line[i]);
-			i++;
-		}
+		// if (mini->line[i] == '|')
+		// {
+		// 	printf("	O____O : PIPE detected:	 mini->lin[i] = %c\n", mini->line[i]);
+		// 	i++;
+		// }
+		i++;
+		k++;
 	}
 	
 	return (cmd_lst);
