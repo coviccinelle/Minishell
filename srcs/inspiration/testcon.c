@@ -205,12 +205,10 @@ int main(int ac, char **av)
 {
 	char *str = "hello' co\"ou'ou \"hihi\" ba b\"ya h\'ihi";
 	(void)av;
-
 	int 	a;
 
 	if (ac != 1)
 		printf("errrr: wrong number of argument\n");
-	//str_2 = ft_split_3(str, ' ');
 	a = is_quote_err(str);
 	printf("is_quote_err return %d\n", a);
     if (a != 0)
