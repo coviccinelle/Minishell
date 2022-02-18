@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/18 11:17:29 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/18 11:21:47 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -626,7 +626,7 @@ t_cmd	*stock_cmds(t_mini *mini)
 		cmd = new_elem_cmd(mini);
 		add_cmd(&cmd_lst, cmd);
 		//should add av the lastest in here => ready to be executed
-		printf("done adding one cmd, cmd->line = %s\n", cmd->line);
+		printf("done adding one cmd into the chained list\n");
 		while (mini->line[i] && mini->line[i] != '|')
 		{
 			i += skip_blank(&mini->line[i]);
@@ -638,7 +638,7 @@ t_cmd	*stock_cmds(t_mini *mini)
 		}
 		if (mini->line[i] == '|')
 		{
-			printf("OOOOO mini->lin[i] = %c\n", mini->line[i]);
+			printf("	O____O : PIPE detected:	 mini->lin[i] = %c\n", mini->line[i]);
 			i++;
 		}
 	}
@@ -774,7 +774,7 @@ void	mini_run(t_mini *mini)
 	{
 		if (cmd->av)
 		{
-			printf("cmd->line = %s\ncmd->av[0] =%s, cmd->line[1] = %s\n", cmd->line, cmd->av[0], cmd->av[1]);
+			printf("cmd->av EXISTE, mini->line = %s \n", cmd->line);
 		}
 		if (is_builtin_2(mini, cmd))
 		{
