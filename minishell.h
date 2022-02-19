@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/17 15:26:31 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/19 18:58:20 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define MINISHELL_H
 
 #define EXIT_SUCCESS 0
+#define EXIT_FAILURE 1
+
+#define READ_END fd[0]
+#define WRITE_END fd[1]
+#define STDIN 0
+#define STDOUT 1
 #define EXIT_FAILURE 1
 
 # include <stdio.h>
@@ -226,6 +232,21 @@ t_cmd	*stock_cmds(t_mini *mini);
 void    exec_cmd(int ac, char **av, char ***env);
 
 //*** PIPES ***//
+char	*ft_strndup(char *s, int n);
+char	**ft_split(char *s, char sep);
+void print_tab(char **av);
+void print_cmds(t_cmd *cmd);
+int  nb_cmds(t_cmd *cmd);
+
+void safely_exec_bin(char **cmd);
+void safely_pipe_me(int new_pipe_fd[]);
+void safely_fork(int *pid);
+
+void	child_process(t_cmd *cmd, int *fd);
+void waiting_for_all_children_to_finish_execution(pid_t	pid_lst[]);
+void run_piped_cmds(t_mini *mini, int nb_cmd);
+
+void exec_cmd_with_no_pipe(t_mini *mini);
 
 //*** REDIRECTIONS ***//
 void    ft_set_direct(char *line, int *i, t_cmd *mini);

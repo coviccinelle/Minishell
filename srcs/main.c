@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/18 11:21:47 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/19 18:52:20 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -729,6 +729,21 @@ int	ft_syntax_error(t_cmd *mini)
 	}
 	return (SUCCESS);
 }
+/*
+
+int  nb_cmds(t_cmd *cmd)
+{
+	int j;
+
+	j = 0;
+	while(cmd)
+	{
+		cmd = cmd->next;
+		j++;
+	}
+	return (j);
+}
+
 
 void print_tab(char **av)
 {
@@ -741,6 +756,186 @@ void print_tab(char **av)
 		j++;
 	}
 }
+
+
+void exec_cmd_with_no_pipe(t_mini *mini)
+{
+	t_cmd *cmd;
+	int status;
+
+	cmd = mini->cmd;
+	printf("LA commande a exec est = %s\n\n", cmd->av[0]);
+	if (is_builtin(cmd->av[0])) //a remplacer par av[0] apres.
+		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
+	else
+	{
+	 	pid_t   father;
+
+	 	father = fork();
+	 	if (father > 0)
+		{
+	 		waitpid(-1, &status, 0);
+	 		printf("I AM YOUR FATHER\n");
+	 	}
+	 	if (father == 0)
+	 	{
+	 		sleep(1);
+
+	printf("RESULTAT DE LEXECUTION\n\n\n\n\n");
+	 		exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
+	 		exit(0);
+	 	}
+	 	else
+	 		ft_puterror_fd("minishell: ", "COOOOommand not found : ", cmd->av[0]);
+	 }
+	
+	
+}
+
+#define READ_END fd[0]
+#define WRITE_END fd[1]
+#define STDIN 0
+#define STDOUT 1
+#define EXIT_FAILURE 1
+
+
+void safely_exec_bin(char **cmd) //le moment venu,  ajouter ***env en param
+{
+	if (execve(cmd[0], cmd, NULL) < 0) //le moment venu, remplacer NULL par *env
+	{
+		perror((cmd)[0]);
+		exit(EXIT_FAILURE);
+	}
+}
+
+void	child_process(t_cmd *cmd, int *fd)
+{
+   // printf("child process\n");
+	close(READ_END);
+    //if (cmd->infile)
+    //  dup2(infile, STDIN);
+    //  close(infile);
+    // unline tmp stdin
+	if (cmd->next)
+		dup2(WRITE_END, STDOUT);
+    //if (cmd->outfile)
+    //  get_oufile
+	close(WRITE_END);
+    //if (is_builtin(cmd->av[0]))
+    //  g_exit = exec_builtin(cmd->av[0]);
+    //else
+    {
+         safely_exec_bin(cmd->av);
+         exit(0);
+    }
+    //exit 127 si error?
+    //juste inserer parent process ici. tenter de forker en haut comme ça je peux separer des builtins
+    close(WRITE_END);
+	if (cmd->next)
+		dup2(READ_END, STDIN);
+	close(READ_END);
+    
+    
+}
+
+
+
+void safely_pipe_me(int new_pipe_fd[])
+{
+	if ((pipe(new_pipe_fd)) < 0)
+	{
+		perror("pipe");
+		exit(EXIT_FAILURE);
+	}
+}
+
+void safely_fork(int *pid)
+{
+	*pid = fork();
+	if (pid  < 0)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+}
+
+void waiting_for_all_children_to_finish_execution(pid_t	pid_lst[])
+{
+	int i;
+	int status;
+
+	i = -1;
+   // printf("finish exxec");
+	dup2(STDOUT, STDIN);
+    if (!pid_lst)
+		return ;
+    //http://manpagesfr.free.fr/man/man2/wait.2.html
+    
+    WIFEXITED(status)
+renvoie vrai si le fils s'est terminé normalement, c'est-à-dire par un appel à exit(3) ou _exit(2), ou bien par un retour de main().
+WEXITSTATUS(status)
+renvoie le code de sortie du fils. Ce code est constitué par les 8 bits de poids faibles de l'argument status que le fils a fourni à exit(3) ou à _exit(2) ou l'argument d'une commande de retour dans main(). Cette macro ne peut être évaluée que si WIFEXITED a renvoyé vrai.
+
+
+	while (pid_lst[++i] && (!WIFSIGNALED(status)))
+	{
+        
+		if (waitpid(pid_lst[i], &status, 0) < -1)
+      //  if (waitpid(pid_lst[i], &status, WUNTRACED | WCONTINUED) < -1)
+        {
+            perror("waitpid");
+            exit(EXIT_FAILURE);
+        }    
+		if (WIFEXITED(status))
+		    g_exit = WEXITSTATUS(status); //renvoie le code de sortie du fils
+        if (WIFSIGNALED(status)) //ici amyplant: if gstatus !=131 gstatus +=128 <= voir pq
+            g_exit = WTERMSIG(status); //renvoie signal qui a causé fin du fils
+        if (WIFSTOPPED(status) //arrêté par le signal WSTOPSIG
+            g_exit = WSTOPSIG(status);
+	
+	}
+}
+
+
+
+
+void run_piped_cmds(t_mini *mini, int nb_cmd)
+{
+	int		fd[2];
+	pid_t	new_pid;
+    pid_t	pid_lst[nb_cmd];
+    int j = 0;
+    t_cmd	*cmd;
+
+	cmd = mini->cmd;
+	while (cmd)
+	{
+		safely_pipe_me(fd);
+    /   if (is_builtin(&cmd->av[0]))
+        {
+            child_process2(cmd, fd);
+            exec_builtin(cmd->av);
+        }    
+        else
+        {
+          safely_fork(&new_pid);
+            pid_lst[j] = new_pid;
+	    	if (new_pid == 0)
+            {
+                child_process(cmd, fd);
+            }    
+            
+      //  }
+		close(READ_END);
+		close(WRITE_END);
+		cmd = cmd->next;
+        j++;
+	}
+    waiting_for_all_children_to_finish_execution(pid_lst);
+}
+
+*/
+
 void print_mini_avs(t_mini *mini)
 {
 	t_cmd *cmd;
@@ -756,6 +951,8 @@ void print_mini_avs(t_mini *mini)
 		cmd = cmd->next;
 	}
 }
+
+
 void	mini_run(t_mini *mini)
 {
 	t_cmd	*cmd;
@@ -767,31 +964,38 @@ void	mini_run(t_mini *mini)
 	// }
 	printf("1. Start minishell\n");
 	mini->cmd = stock_cmds(mini);
+	if(!mini->cmd)
+		return ;
 	printf("3. Done stocking cmds\n");
 	cmd = mini->cmd;
 	printf("4. done cmd = mini->cmd\n");
-	while (cmd->next)
+	printf("!!!!nb_cmds = %d\n\n", nb_cmds(mini->cmd));
+	if (nb_cmds(mini->cmd) == 1)
+		exec_cmd_with_no_pipe(mini);
+	else
+		run_piped_cmds(mini,  nb_cmds(mini->cmd));
+/*	while (cmd->next)
 	{
 		if (cmd->av)
 		{
-			printf("cmd->av EXISTE, mini->line = %s \n", cmd->line);
+			printf("cmd->line = %s\ncmd->av[0] =%s, cmd->line[1] = %s\n", cmd->line, cmd->av[0], cmd->av[1]);
 		}
 		if (is_builtin_2(mini, cmd))
 		{
-			printf("\nBuitins\n");
+			printf("Buitins\n");
 			//minishell_exec_cmds(cmd, mini);
-			run_builtin(mini, cmd);
+			//run_builtin(mini, cmd);
 		}
 		else
 		{
-			printf("\nNot buitins\n");
+			printf("Not buitins\n");
 			run_execve_2(mini, cmd);
 		//if (mini->ret_status == 130)
 		//	break ;
 		}
 		cmd = cmd->next;
 	}
-	//ft_free_cmds(mini);
+*/	//ft_free_cmds(mini);
 	printf("Idk, free tout : in main/mini_run\n");
 	free(cmd->line);
 }

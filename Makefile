@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+         #
+#    By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 11:32:21 by thi-phng          #+#    #+#              #
-#    Updated: 2022/02/10 23:04:33 by thi-phng         ###   ########.fr        #
+#    Updated: 2022/02/19 18:58:35 by mloubet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,8 @@ SRC		=	srcs/main.c \
 			srcs/execution/redirections/redir.c \
 			srcs/execution/builtins/export_unset.c \
 			srcs/execution/command_search_and_execution.c \
+			srcs/execution/pipes.c \
+			srcs/execution/pipes_utils.c \
 			
 			#srcs/utils/ft_split_3.c 
 				
