@@ -375,8 +375,6 @@ int is_quote_err(char *str)
     while (str[i])
     {
         k = address_1st_quote(&str[i]);
-		printf("adrress of the first quote is %d\n", k);
-		//printf("current i is %d\n", i);
         if (k == -1)
             return (42); //not found any quote
         j = check_quote(&str[i], k);
@@ -386,42 +384,24 @@ int is_quote_err(char *str)
 			return (0);
 	   	i++;
     }
-    return (0);
+    return (42);
 }
 
 
-
+// check_quote_err = check the each cmd?
 int main(int ac, char **av)
 {
-	char *str = "hello' co\"ou'ou \"hihi\" ba b'ya hihi";
+	char *str = "hello' co\"ou'o'u \"hihi\" ba bya hihi";
 	(void)av;
-
 	int 	a;
-
-	// char **str_2;
 
 	if (ac != 1)
 		printf("errrr: wrong number of argument\n");
-	//str_2 = ft_split_3(str, ' ');
 	a = is_quote_err(str);
 	printf("is_quote_err return %d\n", a);
     if (a != 0)
         printf("Quote ok -> no quote error\n");
     else if (a == 0)
         printf("Quote ERROR : no second quote found\n");
-
-
-
-	// a = address_quote(str, '"');
-	// if (check_quote(str, a))
-	// {
-	// 	printf("\nadrress of the second quote is %d\n", check_quote(str, a));
-	// 	printf("check quote ok, found the second one\n");
-	// }
-	// else
-	// 	printf("ERROR: not found the second quote\n");
-
-	// set_line(av[1], 0);
-	// printf("done hihi\n");
     return (0);
 }
