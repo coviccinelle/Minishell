@@ -6,11 +6,66 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/18 15:04:40 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/20 19:41:36 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+
+
+int	check_quote(char *str, int i)
+{
+	int	quote;
+
+	if (str[i] != '\'' && str[i] != '\"')
+		return (0);
+	quote = str[i++];
+	while (str[i])
+	{
+		if (str[i] == quote)
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+int address_1st_quote(char *str)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+    {
+        if ((str[i] == '\'') || (str[i] == '"'))
+            return (i);
+        i++;
+    }
+    return (-1);
+}
+
+int is_quote_err(char *str)
+{
+    int i;
+    int k;
+	int j;
+
+    i = 0;
+    while (str[i])
+    {
+        k = address_1st_quote(&str[i]);
+        if (k == -1)
+            return (0); //not found any quote
+        j = check_quote(&str[i], k);
+		if (j != 0)
+			i += j;
+		else if (j == 0)
+			return (42);
+	   	i++;
+    }
+    return (0);
+}
+// done check quote
 
 int	ft_check_2rd_quote(char *str, int a)
 {
@@ -81,13 +136,13 @@ char	*ft_add_line_after_2(char *line, char buf)
 // DOUBLE QUOTES principales //
 int	ft_d2_quotes(char *str, int *i, char *line, t_cmd *one_cmd)
 {
-	if (!ft_check_2rd_quote(&line[*i], '"'))
-	{
-		printf("ERROR: Double quotes are not safely closed\n");
-	//	one_cmd->stop = 1; //->g_n_exit = ???;
-		return (0);
-	}
-	printf("ok check quote\n\n");
+	// if (!ft_check_2rd_quote(&line[*i], '"'))
+	// {
+	// 	printf("ERROR: Double quotes are not safely closed\n");
+	// //	one_cmd->stop = 1; //->g_n_exit = ???;
+	// 	return (0);
+	// }
+	// printf("ok check quote\n\n");
 	(*i)++;
 	while (line[*i] && line[*i] != '"')
 	{

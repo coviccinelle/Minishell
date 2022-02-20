@@ -313,21 +313,48 @@ int is_quote_err(char *str)
     return (0);
 }
 
+// is not working at all !!!
+int	check_quote_all_cmds(char *line)
+{
+	int	i;
+	char **str;
+
+	i = 0;
+	printf("hihi coucu\n");
+	str = ft_split_3(line, '|');
+	while (**str)
+	{
+		if (is_quote_err(*str) != 0)
+		{
+			printf("str = %s\n", *str);
+			return (1); //ERROR !!!
+		}
+		(*str)++;
+	}
+	return (0); //it's fine
+}
 
 // check_quote_err = check the each cmd?
 int main(int ac, char **av)
 {
-	char *str = "hello' co\"ou'ou \"hihi\" ba bya hihi";
+	char *str = "hello' coouou | \"hihi\" ba' bya hihi";
 	(void)av;
 	int 	a;
 
 	if (ac != 1)
 		printf("errrr: wrong number of argument\n");
-	a = is_quote_err(str);
-	printf("is_quote_err return %d\n", a);
-    if (a == 0)
-        printf("Quote ok -> no quote error\n");
-    else if (a != 0)
-        printf("Quote ERROR : no second quote found\n");
+
+	a = check_quote_all_cmds(str);
+	printf("a = %d\n", a);
+	if (a == 0)
+		printf("It's all fine\n");
+	if (a != 0)
+		printf("It's not fine at all, quote ERROR\n");
+	// a = is_quote_err(str);
+	// printf("is_quote_err return %d\n", a);
+    // if (a == 0)
+    //     printf("Quote ok -> no quote error\n");
+    // else if (a != 0)
+    //     printf("Quote ERROR : no second quote found\n");
     return (0);
 }

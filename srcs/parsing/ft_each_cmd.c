@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/17 14:36:45 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/20 19:48:32 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,14 @@ int	ft_each_cmd(char *str, int *i, t_cmd *one_cmd)
 	// printf("mini->line = %s\n", mini->line);
 	line_after = NULL;
 	//tmp = NULL;
-	// if (!ft_init_each_cmd(one_cmd, &i, line))
-	// 	return (0);
 	tmp = one_cmd;
 	
 	printf("3. Inside each_cmd ^^ Orgine line is : %s\n", line);
+	if (is_quote_err(&line[*i]) != 0)
+	{
+		printf("\n\nEHHHH: Get out little rascal\n");
+		return (0);
+	}
 	while (line[*i])
 	{
 		
@@ -83,10 +86,9 @@ int	ft_each_cmd(char *str, int *i, t_cmd *one_cmd)
 			//one_cmd->line = line_after;
 			line_after = NULL;
 		}
-		if (line[*i] == '"')
+		else if (line[*i] == '"')
 		{
 			printf("1_Double quote found\n\n");
-			printf("where am i ? line[*i] = double quote found : %c\n", line[*i]);
 			if (!ft_d2_quotes(line_after, i, line, tmp))
 				return (0);
 			printf("tmp->av[0] = %s\ntmp->av[1] = %s\n", tmp->av[0], tmp->av[1]);

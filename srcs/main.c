@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/18 14:55:32 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:18:44 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -410,21 +410,21 @@ void	set_redir(t_mini *mini, int *pos, t_cmd *cmd)
 // }
 
 
-int	check_quote(char *str, int pos)
-{
-	int	quote_type;
+// int	check_quote(char *str, int pos)
+// {
+// 	int	quote_type;
 
-	if (str[pos] != '\'' && str[pos] != '\"')
-		return (0);
-	quote_type = str[pos++];
-	while (str[pos])
-	{
-		if (str[pos] == quote_type)
-			return (1);
-		pos++;
-	}
-	return (0);
-}
+// 	if (str[pos] != '\'' && str[pos] != '\"')
+// 		return (0);
+// 	quote_type = str[pos++];
+// 	while (str[pos])
+// 	{
+// 		if (str[pos] == quote_type)
+// 			return (1);
+// 		pos++;
+// 	}
+// 	return (0);
+// }
 
 
 char	*add_char(t_mini *mini, char *str, int c)
@@ -566,7 +566,11 @@ int	ft_each_cmd_3(t_mini *mini, char *line, t_cmd *one_cmd)
 	printf("Orgine line is : %s\n", line);
 	while (line[i])
 	{
-
+		// if (is_quote_err(&line[i]) != 0)
+		// {
+		// 	printf("\n\nEHHHH: Get out little rascal\n");
+		// 	return (0);
+		// }
 		if (line[i] == ' ')
 		{
 			if (line_after)
@@ -627,78 +631,6 @@ int	ft_each_cmd_3(t_mini *mini, char *line, t_cmd *one_cmd)
 	return (1);
 }
 
-
-
-
-// To pars + stocker every thing in av
-//int	ft_init_each_cmd(char c, //)
-void	ft_each_cmd_2(t_mini *mini, int *i, t_cmd *cmd)
-{
-	char		*buf;
-	char		*line_after;
-	t_cmd		*tmp;
-	char		*line;
-
-	(void)buf;
-	(void)mini;//mini will be used for $ in env
-	line_after = NULL;
-	cmd->line = mini->line;
-
-	tmp = cmd;
-	printf("Orgine line is : %s\n", cmd->line);
-	line = cmd->line;
-	while (line[*i] && line[*i] != '|')
-	{
-		if (line[*i] == ' ')
-		{
-			if (line_after)
-				ft_avs(tmp, line_after);
-			(*i)++;
-			//ft_space_skip(line, i);
-			line_after = NULL;
-		}
-		// else if (line[*i] == '"')
-		// {
-		// 	printf("1_Double quote found\n\n");
-		// 	printf("where am i ? line[*i] = double quote found : %c\n", line[*i]);
-		// 	if (!ft_d2_quotes(line_after, i, line, tmp))
-		// 		exit(0) ;
-		// 	printf("tmp->av[0] = %s\ntmp->av[1] = %s\n", tmp->av[0], tmp->av[1]);
-		// 	if (line[(*i) + 1] == '\0')
-		// 		break ;
-		// 	//dollar in quote
-		// 	// if (!mdquote3(line, &i))
-		// 	// 	break ;
-		// 	line_after = NULL;
-		// }
-		// else if (line[*i] == '\'')
-		// {
-		// 	printf("single quotes\n\n");
-		// 	printf("line_after = %s\n", line_after);
-		// 	if (!ft_single_quote(line_after, i, line, tmp))
-		// 		exit(0);
-		// 	if (line[*i + 1] == '\0')
-		// 		break ;
-		// 	ft_pass_squote(line, i);
-		// 	line_after = NULL;
-		// }
-		else
-		{
-			//printf("char = %c\n", line[*i]);
-			buf = malloc(sizeof(char) * 2);
-			ft_buf(line, i, buf);
-			line_after = ft_add_line_after(line_after, buf[0]);
-			if (!line[*i] && line_after)
-				ft_avs(tmp, line_after);
-			free(buf);
-		}
-	}
-}
-
-// void	ft_1_cmd(char c)
-// {
-	
-// }
 
 // stock cmd_list in data
 t_cmd	*stock_cmds(t_mini *mini)
@@ -761,11 +693,6 @@ int	is_builtin_2(t_mini *mini, t_cmd *cmd)
 	
 	if (!av)
 		ft_free_tab(av);
-	// while(*av)
-	// {
-	// 	cmd->av = &(*av);
-	// 	(*av)++;
-	// }
 	if (!ft_strncmp("echo", av[0], 5) || \
 	!ft_strncmp("cd", av[0], 3) || \
 	!ft_strncmp("pwd", av[0], 4) || \
@@ -796,22 +723,6 @@ void	run_execve_2(t_mini *mini, t_cmd *cmd)
 	(void)mini;
 	printf("Please call the super man execve and solve this mess\n");
 	printf("Don't forget to fork hihi\n");
-		// pid_t   father;
-
-		// father = fork();
-		// if (father > 0)
-		// {
-		// 	waitpid(-1, &status, 0);
-		// 	printf("I AM YOUR FATHER\n");
-		// }
-		// if (father == 0)
-		// {
-		// 	sleep(1);
-		// 	exec_cmd(nb_tabs(cmd->av), cmd->av, mini->env);
-		// 	exit(0);
-		// }
-		// else
-		// 	ft_puterror_fd("minishell: ", "COOOOommand not found : ", cmd->av[0]);
 }
 
 
@@ -824,6 +735,12 @@ int	ft_syntax_error(t_cmd *mini)
 	str = mini->line;
 	while (str[i])
 	{
+		if (is_quote_err(&str[i]) != 0)
+		{
+			printf("\n\nEHHHH: Quote error Get out little rascal\n");
+			//return (1);
+			return (syntax_error(mini/*, REDIR*/));
+		}
 		if (is_redir(str[i]) && is_redir_error(&str[i]))
 			return (syntax_error(mini/*, REDIR*/));
 		else if (str[i] == '|' && is_pipe_error(&str[i]))
@@ -863,11 +780,12 @@ void	mini_run(t_mini *mini)
 {
 	t_cmd	*cmd;
 
-	//if (ft_syntax_error(mini->cmd) == ERROR)
+	// if (ft_syntax_error(mini->cmd) == ERROR)
 	// {
 	// 	printf("Free tout in mini->line and things you malloc stp!\n");
 	// 	return ;
 	// }
+	//if (is_quote_err())
 	printf("1. Start minishell\n");
 	mini->cmd = stock_cmds(mini);
 	printf("3. Done stocking cmds\n");
