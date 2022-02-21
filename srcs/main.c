@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/21 17:03:42 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/21 18:49:28 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -664,9 +664,11 @@ t_cmd	*stock_cmds(t_mini *mini)
 			i += skip_blank(&str[k][i]);
 			// if (find_me('<', str[k]) || find_me('>', str[k]))
 			// {
-			// 	pars_redir(mini, cmd, str[k]);
+			// 	line_after = pars_redir(mini, cmd, str[k]);
+			// 	ft_each_cmd_3(mini, line_after, cmd);
 			//  	printf("parsing just for redirection\n");
-			// 	break ;
+			// 	line_after = NULL;
+			// 	//break ;
 			// }	
 			if (!ft_each_cmd_3(mini, str[k], cmd))
 			{

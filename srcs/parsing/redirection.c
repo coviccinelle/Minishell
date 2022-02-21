@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 12:53:32 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/21 16:48:45 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/21 17:22:01 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,13 @@ void    ft_heredoc(char *str)
 
 
 
-void	pars_redir(t_mini *mini, t_cmd *cmd, char *s)
+char	*pars_redir(t_mini *mini, t_cmd *cmd, char *s)
 {
 	int     i;
     t_file  *file_lst;
     t_file  *file;
     char    *heredoc;
+    char    *line;
 
     heredoc = NULL;
     file_lst = NULL;
@@ -143,6 +144,12 @@ void	pars_redir(t_mini *mini, t_cmd *cmd, char *s)
             heredoc = cpy_n_char(&s[i], cpy_fname(&s[i]));
             ft_heredoc(heredoc);
         }
+        else
+        {
+            line = ft_add_line_after(line, s[i]);
+        }
+        i++;
     }
+    return (line);
     
 }

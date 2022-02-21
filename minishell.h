@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/21 16:37:16 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/21 18:43:44 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ int			ft_single_quote(char *line_after, int *i, char *line, t_cmd *one_cmd);
 void		free_avs(char **avs);
 char	*dollar_sign(int ac, char **av, char **env);
 int is_quote_err(char *str);
-void	pars_redir(t_mini *mini, t_cmd *cmd, char *s);
+char	*pars_redir(t_mini *mini, t_cmd *cmd, char *s);
 
 void	ft_pass_squote(char *argv, int *i);
 
@@ -219,6 +219,7 @@ int	is_blank(int c);
 int	is_redir(int c);
 void	set_line(t_mini *mini, int *pos, t_cmd *cmd);
 t_cmd	*stock_cmds(t_mini *mini);
+int	check_redir(char *str, int i);
 
 
 //exec
