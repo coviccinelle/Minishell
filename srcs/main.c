@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/20 20:18:44 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/21 09:25:04 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ int	syntax_error(t_cmd *mini)
 {
 	(void)mini;
 	printf("ERROR : Syntax error\n");
+	free_mini(mini);
 	// mini->ret_status = 2;
 	// if (return == REDIR)
 	// 	ft_putstr_fd("minishell: REDIR syntax error\n", STDERR_FILENO);
@@ -235,6 +236,7 @@ void	init_cmd(t_cmd *cmd)
 {
 	cmd->line = NULL;
 	cmd->av = NULL;
+	cmd->stop = 0;
 	cmd->type = NOPE;
 	cmd->file = NULL;
 	cmd->next = NULL;
@@ -662,17 +664,21 @@ t_cmd	*stock_cmds(t_mini *mini)
 		printf("str[%d] = %s\n", k, str[k]);
 		cmd = new_elem_cmd(mini);
 		add_cmd(&cmd_lst, cmd);
-		//should add av the lastest in here => ready to be executed
 		printf("done adding one cmd into the chained list\n");
-		//while (mini->line[i] && mini->line[i] != '|')
 		while (str[k][i])
 		{
 			i += skip_blank(&str[k][i]);
 			 if (is_redir(str[k][i]))
 				//set_redir(mini, &i, cmd);
 			 	printf("parsing just for redirection\n");
-			 else
-				ft_each_cmd_3(mini, str[k], cmd);
+			else if (!ft_each_cmd_3(mini, str[k], cmd))
+			{
+				printf("ERROR : syntax error : free tout please \n");
+				//break ;
+				//exit (0);
+				ft_syntax_error(cmd);
+				//break ;
+			}	
 			break ;
 		}
 		k++;
@@ -780,12 +786,6 @@ void	mini_run(t_mini *mini)
 {
 	t_cmd	*cmd;
 
-	// if (ft_syntax_error(mini->cmd) == ERROR)
-	// {
-	// 	printf("Free tout in mini->line and things you malloc stp!\n");
-	// 	return ;
-	// }
-	//if (is_quote_err())
 	printf("1. Start minishell\n");
 	mini->cmd = stock_cmds(mini);
 	printf("3. Done stocking cmds\n");
@@ -817,8 +817,6 @@ void	mini_run(t_mini *mini)
 	free(cmd->line);
 }
 
-
-
 // my_new_version :
 void	minishell(char **env)
 {
@@ -841,7 +839,6 @@ void	minishell(char **env)
 	}
 }
 
-
 int	main(int ac, char **av, char **env)
 {
 	(void)ac;
@@ -851,61 +848,3 @@ int	main(int ac, char **av, char **env)
 	minishell(env);
 	return (0);
 }
-
-
-// int	main_2(int ac, char **av, char **envp)
-// {
-// 	t_mini		mini;
-// 	char		*line;
-// 	(void)av;
-
-// //	g_n_exit = 0;
-
-// 	//mini = NULL;
-// 	ft_init_mini(&mini, envp);
-// 	//mini.env = ft_env_cpy(envp);
-// 	if (ac != 1)
-// 		return (printf("Error: Invalid argument\nHint: only ./minishell\n"), 1);
-// 	init_shell();
-// 	while (mini.stop == 0)
-// 	{
-// 		line = ft_readline_input(mini.line);
-// 		add_history(line);
-// 		while (42)
-// 		{
-// 			if (parsing(&mini, line))
-// 			{
-// 				//if (mini.av)
-// 				if (mini.next == NULL && mini.av)
-// 				{
-// 					printf("mini->av exist\n\n");
-// 					minishell_exec_cmds(&mini);
-// 					mini.av = NULL;
-// 					//free_tab(&mini.av);
-// 				}
-// 				else while (mini.next)
-// 				{
-// 					printf("there's pipes and lots of cmds\n");
-// 				//	mini.av = //une cmd qui gere ca -> ft_pars_piping.c for sure
-// 					minishell_exec_cmds(&mini);
-// 					mini = *mini.next;
-// 				}
-// 				break ;
-// 			}
-// 			else
-// 			{
-// 				printf("ici 2 parsing return 0 = free\n");
-// 				//ft_free_cmd(&mini);
-// 				if (mini.av)
-// 				{
-// 					printf("i'm here mini.av exist and need to be freed\n");
-// 					free_tab(&mini.av);
-// 				}
-// 				//free mini->cmd
-// 				break ;
-// 			}
-// 			free(line);
-// 		}
-// 	}
-// 	return(0);
-// }

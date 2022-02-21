@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/20 19:42:01 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/21 09:08:47 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct	s_cmd
 {
 	char	*line;
 	char	**av;
+	int		stop;
 	t_redir	type;
 	t_file	*file;
 	struct s_cmd	*next;

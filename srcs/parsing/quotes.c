@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/20 19:41:36 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/21 09:09:44 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,13 +136,13 @@ char	*ft_add_line_after_2(char *line, char buf)
 // DOUBLE QUOTES principales //
 int	ft_d2_quotes(char *str, int *i, char *line, t_cmd *one_cmd)
 {
-	// if (!ft_check_2rd_quote(&line[*i], '"'))
-	// {
-	// 	printf("ERROR: Double quotes are not safely closed\n");
-	// //	one_cmd->stop = 1; //->g_n_exit = ???;
-	// 	return (0);
-	// }
-	// printf("ok check quote\n\n");
+	if (!ft_check_2rd_quote(&line[*i], '"'))
+	{
+		printf("ERROR: Double quotes are not safely closed\n");
+		one_cmd->stop = 1; //->g_n_exit = ???;
+		return (0);
+	}
+	printf("ok check quote\n\n");
 	(*i)++;
 	while (line[*i] && line[*i] != '"')
 	{
