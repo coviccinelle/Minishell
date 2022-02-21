@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/21 09:08:47 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/21 16:37:16 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,25 +55,19 @@ typedef struct s_export
 typedef enum	e_redir
 {
 	NOPE,
-	IN,
-	OUT,
-	DOUBLE_IN,
-	DOUBLE_OUT,
+	right, //>
+	right_2, // >>
+	left, // <
+	heredoc,
 }				t_redir;
 
 typedef struct	s_file
 {
 	char			*name;
-	t_redir			type_of_redir;
+	t_redir			type; 
 	struct s_file	*next;
 }				t_file;
 
-
-typedef struct	s_heredoc
-{
-	char				*eof;
-	struct s_heredoc	*next;
-}				t_heredoc;
 
 typedef struct	s_cmd
 {
@@ -96,7 +90,7 @@ typedef struct s_mini
 	int				fork;
 	int				ret_status;
 	t_cmd			*cmd;
-	t_heredoc		*heredoc;
+	//t_heredoc		*heredoc;
 }				t_mini;
 
 extern int		g_nb_exit;
@@ -117,8 +111,10 @@ void 		ft_putchar(int c);
 void 		ft_putstr(char *s);
 void  		ft_free_tab(char **tab);
 int			ft_len_avs(char **avs);
-int	ft_syntax_error(t_cmd *mini);
+int	ft_syntax_error(t_cmd *mini, t_mini *mini_1);
 int	skip_blank(char *str);
+void    ft_free_mini(t_mini *mini);
+void    ft_free_all_cmds(t_cmd *cmd);
 
 
 
@@ -211,6 +207,7 @@ int			ft_single_quote(char *line_after, int *i, char *line, t_cmd *one_cmd);
 void		free_avs(char **avs);
 char	*dollar_sign(int ac, char **av, char **env);
 int is_quote_err(char *str);
+void	pars_redir(t_mini *mini, t_cmd *cmd, char *s);
 
 void	ft_pass_squote(char *argv, int *i);
 
@@ -230,7 +227,7 @@ void    exec_cmd(int ac, char **av, char ***env);
 //*** PIPES ***//
 
 //*** REDIRECTIONS ***//
-void    ft_set_direct(char *line, int *i, t_cmd *mini);
+void    ft_set_direct(char *line, int *i, t_file *file);
 
 //*** SIGNAUX ***//
 

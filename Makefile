@@ -6,7 +6,7 @@
 #    By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 11:32:21 by thi-phng          #+#    #+#              #
-#    Updated: 2022/02/10 23:04:33 by thi-phng         ###   ########.fr        #
+#    Updated: 2022/02/21 16:38:31 by thi-phng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC		=	srcs/main.c \
 			srcs/parsing/quotes.c \
 			srcs/parsing/parsing.c \
 			srcs/parsing/ft_each_cmd.c \
+			srcs/parsing/redirection.c \
 			\
 			srcs/utils/utils.c \
 			srcs/utils/ft_avs.c \
@@ -45,6 +46,7 @@ SRC		=	srcs/main.c \
 			srcs/execution/builtins/export_unset.c \
 			srcs/execution/command_search_and_execution.c \
 			
+			#srcs/utils/ft_free_mini.c 
 			#srcs/utils/ft_split_3.c 
 				
 OBJ = ${SRC:.c=.o}

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/21 09:09:44 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/21 11:19:49 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,27 +133,59 @@ char	*ft_add_line_after_2(char *line, char buf)
 	return (new);
 }
 
+
+int		is_dollar(char *str, int *i)
+{
+	if (str[*i] == '$' && str[*i + 1] && str[*i + 1] != ' ')
+		return (1);
+	return (0);
+}
+
+//replacing dollar_sign by 
+char	*ft_dollar_sign(char *str)
+{
+	// int i;
+	// char	*line_2;
+
+	// i = 0;
+	// line_2 = NULL;
+	// while (str[i])
+	// {
+	// 	line_2 = 
+	// }
+	printf("dollar_sign later, return a char *, str = %s\n", str);	
+	return (NULL);
+}
+
 // DOUBLE QUOTES principales //
 int	ft_d2_quotes(char *str, int *i, char *line, t_cmd *one_cmd)
 {
+	char	*line_2;
+	
+	line_2 = NULL;
 	if (!ft_check_2rd_quote(&line[*i], '"'))
 	{
 		printf("ERROR: Double quotes are not safely closed\n");
-		one_cmd->stop = 1; //->g_n_exit = ???;
+	//	one_cmd->stop = 1; //->g_n_exit = ???;
 		return (0);
 	}
 	printf("ok check quote\n\n");
 	(*i)++;
 	while (line[*i] && line[*i] != '"')
 	{
-		str = ft_add_line_after(str, line[(*i)]);
+		if (find_me('$', &line[*i]))
+			line_2 = ft_dollar_sign(&line[*i]);
+		else
+			line_2 = str;
+	//	if (line[*i] == '$' && line[*i + 1] && line[*i + 1] != ' ')
+		line_2 = ft_add_line_after(line_2, line[(*i)]);
 		(*i)++;
 	}
-	printf("3. line_after in 3rd layer is: _%s_\n", str);
-	if (str)
+	printf("3. line_after in 3rd layer is: _%s_\n", line_2);
+	if (line_2)
 	{
 		printf("Inside str exist, adding in ft_avs\n");
-		ft_avs(one_cmd, str);
+		ft_avs(one_cmd, line_2);
 		return (1);
 	}
 	free(str);

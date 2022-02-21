@@ -43,9 +43,9 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
+int	ft_strlcpy_2(char *dst, char *src, int dstsize)
 {
-	size_t	i;
+	int	i;
 
 	if (!src)
 		return (0);
@@ -141,7 +141,7 @@ char				**ft_split_3(char const *s, char c)
 		ft_get_next_str(&next_str, &next_str_len, c);
 		if (!(tab[i] = (char *)malloc(sizeof(char) * (next_str_len + 1))))
 			return (ft_malloc_error(tab));
-		ft_strlcpy(tab[i], next_str, next_str_len + 1);
+		ft_strlcpy_2(tab[i], next_str, next_str_len + 1);
 		i++;
 	}
 	tab[i] = NULL;
@@ -335,26 +335,58 @@ int	check_quote_all_cmds(char *line)
 }
 
 // check_quote_err = check the each cmd?
-int main(int ac, char **av)
+// int main(int ac, char **av)
+// {
+// 	char *str = "hello' coouou | \"hihi\" ba' bya hihi";
+// 	(void)av;
+// 	int 	a;
+
+// 	if (ac != 1)
+// 		printf("errrr: wrong number of argument\n");
+
+// 	a = check_quote_all_cmds(str);
+// 	printf("a = %d\n", a);
+// 	if (a == 0)
+// 		printf("It's all fine\n");
+// 	if (a != 0)
+// 		printf("It's not fine at all, quote ERROR\n");
+// 	// a = is_quote_err(str);
+// 	// printf("is_quote_err return %d\n", a);
+//     // if (a == 0)
+//     //     printf("Quote ok -> no quote error\n");
+//     // else if (a != 0)
+//     //     printf("Quote ERROR : no second quote found\n");
+//     return (0);
+// }
+
+
+
+int	ft_strlcpy(char *dst, char * src, int dstsize)
 {
-	char *str = "hello' coouou | \"hihi\" ba' bya hihi";
-	(void)av;
-	int 	a;
+	int	i;
 
-	if (ac != 1)
-		printf("errrr: wrong number of argument\n");
+	if (!src)
+		return (0);
+	i = 0;
+	while ((src[i]) && i < dstsize - 1 && dstsize != 0)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	if (dstsize != 0)
+		dst[i] = '\0';
+	return (ft_strlen(src));
+}
 
-	a = check_quote_all_cmds(str);
-	printf("a = %d\n", a);
-	if (a == 0)
-		printf("It's all fine\n");
-	if (a != 0)
-		printf("It's not fine at all, quote ERROR\n");
-	// a = is_quote_err(str);
-	// printf("is_quote_err return %d\n", a);
-    // if (a == 0)
-    //     printf("Quote ok -> no quote error\n");
-    // else if (a != 0)
-    //     printf("Quote ERROR : no second quote found\n");
-    return (0);
+
+int	main()
+{
+	char *str = "hello coucou 123456";
+	char *h1 = NULL;
+
+	printf("The strig is : %s\n", str);
+	//ft_strlcpy(h1, str, 8);
+	//printf("The result is : %s\n", h1);
+	printf("The result is : %d\n", ft_strlcpy(str, h1, 2));
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/21 09:25:04 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/21 17:03:42 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,11 +149,44 @@ int	is_redir_error(char *str)
 }
 // done redir error
 
-int	syntax_error(t_cmd *mini)
+
+void    ft_free_all_cmds(t_cmd *cmd)
+{
+    t_cmd   *tmp;
+    
+    while (cmd)
+    {
+		tmp = cmd;
+        if (cmd->av)
+            ft_free_tab(cmd->av);
+        if (cmd->file)
+           // ft_free_file_red(cmd->file);
+		   printf("Free all files in redirection structure\n");
+        cmd = cmd->next;
+        free(tmp);
+    }
+    
+}
+
+void    ft_free_mini(t_mini *mini)
+{
+    t_mini  *tmp;
+
+    if (mini)
+    {
+        tmp = mini;
+        if (mini)
+            ft_free_all_cmds(mini->cmd);
+        free(tmp);
+    }
+}
+
+
+int	syntax_error(t_mini *mini)
 {
 	(void)mini;
 	printf("ERROR : Syntax error\n");
-	free_mini(mini);
+	ft_free_mini(mini);
 	// mini->ret_status = 2;
 	// if (return == REDIR)
 	// 	ft_putstr_fd("minishell: REDIR syntax error\n", STDERR_FILENO);
@@ -260,7 +293,7 @@ void	ft_init_mini(t_mini **mini)
 	printf("5\n");
 	(*mini)->ret_status = 0;
 	printf("6\n");
-	(*mini)->heredoc = NULL;
+	//(*mini)->heredoc = NULL;
 	printf("done init mini\n");
 }
 
@@ -383,34 +416,6 @@ void	set_redir(t_mini *mini, int *pos, t_cmd *cmd)
 		//set_redir_out(data, pos, cmd);
 }
 
-// char	*concat_str(t_data *data, char *s1, char *s2)
-// {
-// 	char	*new_str;
-// 	int		i;
-// 	int		j;
-
-// 	new_str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-// 	i = 0;
-// 	j = 0;
-// 	if (!new_str)
-// 		exit_custom(data, NULL, AUTO);
-// 	while (s1 && s1[i])
-// 	{
-// 		new_str[i] = s1[i];
-// 		i++;
-// 	}
-// 	while (s2 && s2[j])
-// 	{
-// 		new_str[i] = s2[j];
-// 		i++;
-// 		j++;
-// 	}
-// 	new_str[i] = '\0';
-// 	free_null((void **)&s1);
-// 	free_null((void **)&s2);
-// 	return (new_str);
-// }
-
 
 // int	check_quote(char *str, int pos)
 // {
@@ -461,7 +466,7 @@ char	*add_char(t_mini *mini, char *str, int c)
 // 	data->str[*pos] != '|')
 // 	{
 // 		if (data->str[*pos] == '$')
-// 			cmd->args = concat_str(data, cmd->args, \
+// 			cmd->args = cocnat_str(data, cmd->args, \
 // 			get_var(data, data->str, pos));
 // 		else if (check_quote(data->str, *pos))
 // 		{
@@ -560,19 +565,11 @@ int	ft_each_cmd_3(t_mini *mini, char *line, t_cmd *one_cmd)
 	(void)mini;
 	(void)buf;
 	line_after = NULL;
-	//tmp = NULL;
-	// if (!ft_init_each_cmd(one_cmd, &i, line))
-	// 	return (0);
 	i = 0;
 	tmp = one_cmd;
 	printf("Orgine line is : %s\n", line);
 	while (line[i])
 	{
-		// if (is_quote_err(&line[i]) != 0)
-		// {
-		// 	printf("\n\nEHHHH: Get out little rascal\n");
-		// 	return (0);
-		// }
 		if (line[i] == ' ')
 		{
 			if (line_after)
@@ -583,11 +580,9 @@ int	ft_each_cmd_3(t_mini *mini, char *line, t_cmd *one_cmd)
 		}
 		else if (line[i] == '"')
 		{
-			printf("1_Double quote found\n\n");
-			printf("where am i ? line[i] = double quote found : %c\n", line[i]);
 			if (!ft_d2_quotes(line_after, &i, line, tmp))
 				return (0);
-			printf("tmp->av[0] = %s\ntmp->av[1] = %s\n", tmp->av[0], tmp->av[1]);
+		//	printf("tmp->av[0] = %s\ntmp->av[1] = %s\n", tmp->av[0], tmp->av[1]);
 			if (line[i + 1] == '\0')
 				break ;
 			//dollar in quote
@@ -597,8 +592,7 @@ int	ft_each_cmd_3(t_mini *mini, char *line, t_cmd *one_cmd)
 		}
 		else if (line[i] == '\'')
 		{
-			printf("single quotes\n\n");
-			printf("line_after = %s\n", line_after);
+			printf("Single QUOTES : line_after = %s\n", line_after);
 			if (!ft_single_quote(line_after, &i, line, tmp))
 				return (0);
 			if (line[i + 1] == '\0')
@@ -634,6 +628,8 @@ int	ft_each_cmd_3(t_mini *mini, char *line, t_cmd *one_cmd)
 }
 
 
+
+
 // stock cmd_list in data
 t_cmd	*stock_cmds(t_mini *mini)
 {
@@ -657,8 +653,6 @@ t_cmd	*stock_cmds(t_mini *mini)
 		str = ft_split_3(mini->line, '|');
 		printf("done split_3, str[0] = %s\n", str[0]);
 	}
-	printf("coucouc len_cmd = %d\n", ft_len_cmd(str));
-	
 	while (str[k] && k < ft_len_cmd(str))
 	{
 		printf("str[%d] = %s\n", k, str[k]);
@@ -668,17 +662,18 @@ t_cmd	*stock_cmds(t_mini *mini)
 		while (str[k][i])
 		{
 			i += skip_blank(&str[k][i]);
-			 if (is_redir(str[k][i]))
-				//set_redir(mini, &i, cmd);
-			 	printf("parsing just for redirection\n");
-			else if (!ft_each_cmd_3(mini, str[k], cmd))
+			// if (find_me('<', str[k]) || find_me('>', str[k]))
+			// {
+			// 	pars_redir(mini, cmd, str[k]);
+			//  	printf("parsing just for redirection\n");
+			// 	break ;
+			// }	
+			if (!ft_each_cmd_3(mini, str[k], cmd))
 			{
 				printf("ERROR : syntax error : free tout please \n");
-				//break ;
 				//exit (0);
-				ft_syntax_error(cmd);
-				//break ;
-			}	
+				ft_syntax_error(cmd, mini);
+			}
 			break ;
 		}
 		k++;
@@ -732,7 +727,7 @@ void	run_execve_2(t_mini *mini, t_cmd *cmd)
 }
 
 
-int	ft_syntax_error(t_cmd *mini)
+int	ft_syntax_error(t_cmd *mini, t_mini *mini_1)
 {
 	int	i;
 	char	*str;
@@ -745,12 +740,12 @@ int	ft_syntax_error(t_cmd *mini)
 		{
 			printf("\n\nEHHHH: Quote error Get out little rascal\n");
 			//return (1);
-			return (syntax_error(mini/*, REDIR*/));
+			return (syntax_error(mini_1/*, REDIR*/));
 		}
 		if (is_redir(str[i]) && is_redir_error(&str[i]))
-			return (syntax_error(mini/*, REDIR*/));
+			return (syntax_error(mini_1/*, REDIR*/));
 		else if (str[i] == '|' && is_pipe_error(&str[i]))
-			return (syntax_error(mini/*, PIPE*/));
+			return (syntax_error(mini_1/*, PIPE*/));
 		i++;
 	}
 	return (SUCCESS);
