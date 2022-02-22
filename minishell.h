@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/22 19:00:14 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/22 22:51:08 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,19 @@ typedef struct s_export
 	struct s_export	*next;
 }				t_export;
 
-typedef enum	e_redir
-{
-	NOPE,
-	LEFT,
-	HEREDOC,
-	RIGHT,
-	D_RIGHT,
-}				t_redir;
+// typedef enum	e_redir
+// {
+// 	NOPE, 0
+// 	LEFT, 1
+// 	HEREDOC, 2
+// 	RIGHT, 3 
+// 	D_RIGHT, 4
+// }				t_redir;
 
 typedef struct	s_file
 {
 	char			*name;
-	t_redir			type;
+	int				type;
 	struct s_file	*next;
 }				t_file;
 
@@ -79,7 +79,8 @@ typedef struct	s_cmd
 {
 	char	*line;
 	char	**av;
-	t_redir	type;
+	//t_redir	type;
+	int		type;
 	t_file	*file;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
@@ -232,6 +233,7 @@ void	ft_each_cmd_3(t_mini *mini, char *str, int *i, t_cmd *cmd);
 t_cmd	*stock_cmds_2(t_mini *mini);
 int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd *one_cmd);
 void	get_redir(t_mini *mini, int *i, t_cmd *cmd);
+char	*add_char(t_mini *mini, char *str, int c);
 
 //exec
 void    exec_cmd(int ac, char **av, char ***env);
@@ -240,7 +242,7 @@ void    exec_cmd(int ac, char **av, char ***env);
 
 //*** REDIRECTIONS ***//
 void    ft_set_direct(char *line, int *i, t_cmd *mini);
-void    get_redir_in(t_mini *mini, int i, t_cmd *cmd);
+void    get_redir_in(t_mini *mini, int i, t_cmd *cmd, char *line);
 void    get_redir_out(t_mini *mini, int i, t_cmd *cmd);
 void  ft_print_av(t_cmd *mini);
 

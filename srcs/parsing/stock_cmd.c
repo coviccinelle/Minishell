@@ -98,7 +98,8 @@ t_cmd	*new_elem_cmd(t_mini *mini)
 		printf("Exist and Free mini\n");
 	elem->line = NULL;
 	elem->av = NULL;
-	elem->type = NOPE;
+	//elem->type = NOPE;
+	elem->type = 0;
 	elem->file = NULL;
 	elem->prev = NULL;
 	elem->next = NULL;
@@ -129,7 +130,7 @@ void	get_redir(t_mini *mini, int *i, t_cmd *cmd)
 	if (mini->line[*i] == '<')
 	{
 		printf("redirection IN\n");
-		get_redir_in(mini, *i, cmd);
+		get_redir_in(mini, *i, cmd, mini->line);
 	}
 	else
 	{

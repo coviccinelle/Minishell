@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/22 19:16:52 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/22 22:50:38 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,27 @@ int	ft_init_each_cmd(t_cmd *cmd, int *i, char *line)
 //	- redirections 
 
 
-void	ft_pass_dquote(char *argv, int *i)
+void	ft_pass_dquote(char *str, int *i)
 {
-	if (argv[(*i) + 1] && (argv[(*i) + 1] == 34 || argv[(*i) + 1] == 39))
+	if (str[(*i) + 1] && (str[(*i) + 1] == 34 || str[(*i) + 1] == 39))
 		(*i)++;
-	else if (argv[(*i) + 1] && argv[(*i) + 1] == ' ')
+	else if (str[(*i) + 1] && str[(*i) + 1] == ' ')
 	{
 		(*i)++;
-		while (argv[(*i)] == ' ')
+		while (str[(*i)] == ' ')
 			(*i)++;
 	}
-	else if (argv[(*i) + 1] && (argv[(*i) + 1] == '<' || argv[(*i) + 1] == '>'))
+	else if (str[(*i) + 1] && (str[(*i) + 1] == '<' || str[(*i) + 1] == '>'))
 		(*i)++;
-	else if (argv[(*i)] == 34 && argv[(*i) + 1] && argv[(*i) + 1] != ' ')
+	else if (str[(*i)] == 34 && str[(*i) + 1] && str[(*i) + 1] != ' ')
 		(*i)++;
 }
 
-int	quote_pass_2(char *argv, int *i)
+int	quote_pass_2(char *str, int *i)
 {
-	if (argv[(*i) + 1] == '\0')
+	if (str[(*i) + 1] == '\0')
 		return (0);
-	ft_pass_dquote(argv, i);
+	ft_pass_dquote(str, i);
 	return (1);
 }
 
@@ -137,26 +137,136 @@ int	quote_pass_2(char *argv, int *i)
 // 	return (1);
 // }
 
-int	ft_mredoc(char *line, int *i, char *argv, t_parsing *tmp)
+
+void	ft_add_to_fstack2(t_file *tmp, char *new_name, t_file *new, \
+	t_cmd *cmd)
 {
-	if (!ft_check_redoc(argv, (*i)))
+	while (tmp->next)
+		tmp = tmp->next;
+	new->next = NULL;
+	new->name = new_name;
+	new->type = cmd->type;
+	tmp->next = new;
+}
+
+
+int	ft_add_to_fstack(t_cmd *cmd, char *line)
+{
+	t_file		*tmp;
+	t_file		*new;
+	t_cmd	*prm;
+	char		*new_name;
+
+	tmp = cmd->file;
+	prm = cmd;
+	new = (t_file *)malloc(sizeof(t_file));
+	new_name = malloc(sizeof(char) * (ft_strlen(line) + 1));
+	if (!new || !new_name)
+		return (0);
+	if (!cmd->file)
 	{
-		printf("Minishell: syntax error near \
-		unexpected token `newline'\n");
+		new->next = NULL;
+		ft_strcpy(new_name, line);
+		new->name = new_name;
+		new->type = cmd->type;
+		cmd->file = new;
+	}
+	else if (cmd->file)
+	{
+		ft_strcpy(new_name, line);
+		ft_add_to_fstack2(tmp, new_name, new, cmd);
+	}
+	return (1);
+}
+
+
+
+
+int	check_redir(char *str, int *i)
+{
+	//int	i;
+
+	*i += 1;
+	if (str[*i] == str[*i - 1])
+		(*i)++;
+	(*i) += skip_blank(&str[*i]);
+	if (!str[*i] || is_redir(str[*i]) || str[*i] == '|')
+		return (1);
+	return (0);
+}
+
+
+
+int	ft_add_file(t_cmd *cmd, int *i, char *str, char *line)
+{
+	while (is_redir(str[*i]) || is_blank(str[*i]))
+		(*i)++;
+	while (is_blank(str[*i]) && str[(*i)])
+	{
+		line = ft_add_line_after(line, str[(*i)]);
+		if (!line)
+			return (0);
+		(*i)++;
+	}
+	//add_cmd(t_cmd **cmd_lst, t_cmd *cmd)
+	if (!line || !ft_add_to_fstack(cmd, line))
+	{
+		printf("Minishell: syntax error\n");
 		return (0);
 	}
-	if (line)
+	free(line);
+	return (1);
+}
+
+
+//str = line_after
+// line = line;
+//int	ft_add_file(t_cmd *cmd, int *i, char *str, char *line)
+int	ft_redirec(char *line, int *i, char *str, t_cmd *tmp)
+{
+	t_mini *mini;
+	mini = NULL;
+	printf("Start mdredoc \n");
+	// if (!check_redir(str, &(*i)))
+	// {
+	// 	printf("Minishell: syntax error\n");
+	// 	return (0);
+	// }
+	printf(" Done check_redir  \n");
+	if (str)
 	{
-		ft_tabs(tmp, line);
-		line = NULL;
+		ft_avs(tmp, str);
+		str = NULL;
 	}
-	ft_define_redicretcion(argv, i, tmp);
-	ft_add_file(tmp, i, argv, line);
+	printf(" Done ft_avs the rest  \n");
+	//ft_define_redicretcion(str, i, tmp);
+	
+	
+	ft_set_direct(line, i, tmp);
+	ft_add_file(tmp, i, line, str);
+	
+	
+	//new->type = get_type_left(mini, &i);
+   // new->name = get_fname(mini, &i);
+	
+	//printf("  Start add file \n");
+	
+	
+	//get_redir_in(mini, *i, tmp, line);
+	printf("done_add_file\n");
 	if (!tmp->file)
 		return (0);
-	while (argv[(*i)] == ' ')
+	while (str[(*i)] == ' ')
 		(*i)++;
 	line = NULL;
+	return (1);
+}
+
+int	mdquote3(char *argv, int *i)
+{
+	if (argv[(*i) + 1] == '\0')
+		return (0);
+	ft_pass_dquote(argv, i);
 	return (1);
 }
 
@@ -199,8 +309,8 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd *cmd)
 			if (line[(*i) + 1] == '\0')
 				break ;
 			//dollar in quote
-			// if (!mdquote3(line, i))
-			// 	break ;
+			 if (!mdquote3(line, i))
+				break ;
 			line_after = NULL;
 		}
 		else if (line[*i] == '\'')
@@ -225,11 +335,14 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd *cmd)
 		else if (is_redir(line[*i]))
 		{
 			printf("Redirection\n\n");
-			get_redir(mini, i, cmd);
+			
+			if (ft_redirec(line, i, line_after, tmp))
+				return (0);
+			//get_redir(mini, i, cmd);
 			printf("done get_redir\n");
-			if (cmd->type == HEREDOC || cmd->type == D_RIGHT)
-				(*i)++;
-			(*i)++;
+			// if (cmd->type == HEREDOC || cmd->type == D_RIGHT)
+			// 	(*i)++;
+			// (*i)++;
 			// if (!ft_pars_redir(line_after, i, line, tmp)) //idea only
 			// 	return (0);
 		}
