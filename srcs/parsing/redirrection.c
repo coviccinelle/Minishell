@@ -108,11 +108,14 @@ char    *get_fname(t_mini *mini, int *i)
     return (ret);
 }
 
-void    get_redir_in(t_mini *mini, int i, t_cmd *cmd)
+void    get_redir_in(t_mini *mini, int i, t_cmd *cmd, char *line)
 {
 	t_file	*current;
 	t_file	*new;
 
+	if (line)
+		ft_avs(cmd, line);
+	line = NULL;
 	current = cmd->file;
 	new = malloc(sizeof(t_file));
 	if (!new)

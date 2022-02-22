@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/22 18:25:57 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/22 19:00:14 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,8 @@ void	get_line(t_mini *mini, int *pos, t_cmd *cmd);
 t_cmd	*stock_cmds(t_mini *mini);
 void	ft_each_cmd_3(t_mini *mini, char *str, int *i, t_cmd *cmd);
 t_cmd	*stock_cmds_2(t_mini *mini);
-
+int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd *one_cmd);
+void	get_redir(t_mini *mini, int *i, t_cmd *cmd);
 
 //exec
 void    exec_cmd(int ac, char **av, char ***env);

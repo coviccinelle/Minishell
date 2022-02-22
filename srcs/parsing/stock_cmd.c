@@ -128,8 +128,8 @@ void	get_redir(t_mini *mini, int *i, t_cmd *cmd)
 	(void)cmd;//will be used later in redirection
 	if (mini->line[*i] == '<')
 	{
-		get_redir_in(mini, *i, cmd);
 		printf("redirection IN\n");
+		get_redir_in(mini, *i, cmd);
 	}
 	else
 	{
@@ -293,10 +293,10 @@ t_cmd	*stock_cmds_2(t_mini *mini)
 
 		while (mini->line[i] && mini->line[i] != '|')
 		{
-			ft_each_cmd_3(mini, mini->line, &i, cmd);
+			ft_each_cmd_4(mini, mini->line, &i, cmd);
 
-
-			/*printf("2.4.0 loop, s[i] = %c\n", mini->line[i]);
+/*
+			printf("2.4.0 loop, s[i] = %c\n", mini->line[i]);
 			//i += skip_blank(&mini->line[i]);
 			if (mini->line[i] == ' ')
 			{
@@ -323,7 +323,8 @@ t_cmd	*stock_cmds_2(t_mini *mini)
 			}
 		}
 		//ft_avs(cmd, cmd->line);
-	*/}
+*/
+		}
 		printf("2.5 Done stocking data in first cmd\n");
 		if (mini->line[i] == '|')
 			i++;
