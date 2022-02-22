@@ -6,7 +6,7 @@
 #    By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 11:32:21 by thi-phng          #+#    #+#              #
-#    Updated: 2022/02/10 23:04:33 by thi-phng         ###   ########.fr        #
+#    Updated: 2022/02/22 09:28:11 by thi-phng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC		=	srcs/main.c \
 			srcs/parsing/parsing.c \
 			srcs/parsing/ft_each_cmd.c \
 			\
+			srcs/utils/free.c \
 			srcs/utils/utils.c \
 			srcs/utils/ft_avs.c \
 			srcs/utils/utils_tab.c \
