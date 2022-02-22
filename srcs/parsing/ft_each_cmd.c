@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/22 09:12:04 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/22 13:38:21 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_pass_dquote(char *argv, int *i)
 		(*i)++;
 }
 
-int	mdquote3(char *argv, int *i)
+int	quote_pass_2(char *argv, int *i)
 {
 	if (argv[(*i) + 1] == '\0')
 		return (0);
@@ -93,7 +93,7 @@ int	ft_each_cmd(char *str, int *i, t_cmd *one_cmd)
 			if (line[(*i) + 1] == '\0')
 				break ;
 			//dollar in quote
-			if (!mdquote3(line, i))
+			if (quote_pass_2(line, i))
 				break ;
 			line_after = NULL;
 		}

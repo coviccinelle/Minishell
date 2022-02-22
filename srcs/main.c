@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/22 09:43:58 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/22 12:40:03 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	mini_run(t_mini *mini)
 	t_cmd	*cmd;
 
 	printf("1. Start minishell\n");
-	mini->cmd = stock_cmds(mini);
+	mini->cmd = stock_cmds_2(mini);
 	printf("3. Done stocking cmds\n");
 	cmd = mini->cmd;
 	printf("4. done cmd = mini->cmd\n");

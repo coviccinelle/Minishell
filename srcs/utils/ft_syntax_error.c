@@ -28,25 +28,6 @@
 
 
 
-
-
-// // int	skip_blank(char *str)
-// // {
-// // 	int	i;
-
-// // 	i = 0;
-// // 	while (fis_blank(str[i]))
-// // 		i++;
-// // 	return (i);
-// // }
-
-// // int	is_redir(int c)
-// // {
-// // 	if (c == '<' || c == '>')
-// // 		return (1);
-// // 	return (0);
-// // }
-
 // int	is_pipe_error(char *str)
 // {
 // 	int	i;

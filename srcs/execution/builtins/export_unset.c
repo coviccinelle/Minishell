@@ -78,7 +78,6 @@ char	*ft_getenv(char **env, char *name)
 
 	pos = 0;
 	return (find_in_env(env, name, &pos));
-	
 }
 
 int	ft_setenv(char ***env, char *av, char *name, char *value)

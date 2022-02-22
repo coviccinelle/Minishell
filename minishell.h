@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/22 10:09:52 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/22 14:12:42 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ typedef struct s_export
 typedef enum	e_redir
 {
 	NOPE,
-	IN,
-	OUT,
-	DOUBLE_IN,
-	DOUBLE_OUT,
+	LEFT,
+	HEREDOC,
+	RIGHT,
+	D_RIGHT,
 }				t_redir;
 
 typedef struct	s_file
 {
 	char			*name;
-	t_redir			type_of_redir;
+	t_redir			type;
 	struct s_file	*next;
 }				t_file;
 
@@ -218,6 +218,7 @@ void		free_avs(char **avs);
 char	*dollar_sign(int ac, char **av, char **env);
 
 void	ft_pass_squote(char *argv, int *i);
+int	quote_pass_2(char *argv, int *i);
 
 char		*ft_add_line_after(char *line, char buf);
 
@@ -238,6 +239,8 @@ void    exec_cmd(int ac, char **av, char ***env);
 
 //*** REDIRECTIONS ***//
 void    ft_set_direct(char *line, int *i, t_cmd *mini);
+void    get_redir_in(t_mini *mini, int i, t_cmd *cmd);
+void    get_redir_out(t_mini *mini, int i, t_cmd *cmd);
 
 //*** SIGNAUX ***//
 
@@ -252,6 +255,11 @@ void    ft_ignore(int sig);
 void    ft_disable_if_fork(int pid);
 void    ft_start_signal(void);
 
+
+
+
+// simple utils
+int	is_alnum(int c);
 //
 
 void	ft_free_cmds(t_mini *mini);
