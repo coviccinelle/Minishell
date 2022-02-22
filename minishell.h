@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/22 20:38:03 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/02/22 21:58:54 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int	    	chpos(const char *s, int c);
 void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
-void		ft_puterror_fd(char *error, char *s, char *error2);
+int		ft_puterror_fd(char *error, char *s, char *error2);
 void		free_tab(char ***line);
 int			ft_count_quotes(const char *str);
 char		*ft_strdup(char *s1);
@@ -152,7 +152,7 @@ void		ft_memdel(char **s);
 void		ft_free_lst(t_mini **head);
 
 
-void	exec_cd(int ac, char **av, char **env);
+int	exec_cd(int ac, char **av, char **env);
 
 //pwd
 int exec_pwd(void) ;

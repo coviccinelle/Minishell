@@ -28,8 +28,8 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	 		exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
 	 		exit(0);
 	 	}
-	 	else
-	 		ft_puterror_fd("minishell: ", "COOOOommand not found : ", cmd->av[0]);
+	 //	else
+	 //		ft_puterror_fd("minishell: ", "COOOOommand not found :", cmd->av[0]); //et ret 127!!
 	 }
 	
 	
@@ -51,29 +51,30 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
     //if (cmd->outfile)
     //  get_oufile
 	close(WRITE_END);
-    if (is_builtin(cmd->av[0]))
+    	if (is_builtin(cmd->av[0]))
 	{
 		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env); //mettre un g_exit
 		exit(0);
 	}
-
-else
-
-    {
-         safely_exec_bin(cmd->av);
-         exit(0);
-    }
+    	else if (is_builtin(cmd->av[0]))
+	{
+		safely_exec_bin(cmd->av);
+		exit(0);
+	}
+	else
+	{
+		ft_puterror_fd("minishell:", cmd->av[0], " not found"); //et ret 127!!!
+		exit(1);
+	}
     //exit 127 si error?
     //juste inserer parent process ici. tenter de forker en haut comme ça je peux separer des builtins
-    close(WRITE_END);
+	close(WRITE_END);
 	if (cmd->next)
 		dup2(READ_END, STDIN);
 	close(READ_END);
-    
-    
 }
 
-void waiting_for_all_children_to_finish_execution(pid_t	pid_lst[])
+void	waiting_for_all_children_to_finish_execution(pid_t	pid_lst[])
 {
 	int i;
 	int status;
@@ -110,9 +111,6 @@ renvoie le code de sortie du fils. Ce code est constitué par les 8 bits de poid
 	}
 }
 
-
-
-
 void run_piped_cmds(t_mini *mini, int nb_cmd)
 {
 	int		fd[2];
@@ -125,22 +123,14 @@ void run_piped_cmds(t_mini *mini, int nb_cmd)
 	while (cmd)
 	{
 		safely_pipe_me(fd);
-    	/*	if (is_builtin(cmd->av[0]))
-			exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env); //mettre un g_exit
-          	else 
-*/	{
 		safely_fork(&new_pid);
-            pid_lst[j] = new_pid;
-	    	if (new_pid == 0)
-            {
-                child_process(cmd, fd, mini);
-            }    
+		pid_lst[j] = new_pid;
+		if (new_pid == 0)
+                	child_process(cmd, fd, mini);
 		close(READ_END);
 		close(WRITE_END);
-	}
 		cmd = cmd->next;
-        j++;
+		j++;
 	}
-    waiting_for_all_children_to_finish_execution(pid_lst);
+	waiting_for_all_children_to_finish_execution(pid_lst);
 }
-//}

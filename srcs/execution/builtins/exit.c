@@ -1,6 +1,5 @@
 #include "../../../minishell.h"
 
-
 void	exec_exit(int ac, char **av)
 {
 (void)ac;
