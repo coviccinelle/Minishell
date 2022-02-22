@@ -240,8 +240,10 @@ void	get_avs(t_mini *mini, int *i, t_cmd *cmd)
 
 	line = NULL;
 	s = mini->line;
+	printf("get_avs : 1.0");
 	while (s[*i] && !is_redir(s[*i]) && s[*i] != '|')
 	{
+		printf("get_avs : 1.2: in loop\n");
 		if (s[*i] == '$')
 			get_var_dollar(mini, cmd, s, i);//a fuction to check if variable after $ exist in env + stock avs
 		else if (s[*i] == '"' || s[*i] == '\'')
@@ -255,6 +257,9 @@ void	get_avs(t_mini *mini, int *i, t_cmd *cmd)
 		}
 		else
 		{
+			printf("get_avs : 1.3\n");
+			printf("mini->line[i] = %c\n", mini->line[*i]);
+
 			buf = malloc(sizeof(char) * 2);
 			ft_buf(line, i, buf);
 			line = ft_add_line_after(line, buf[0]);
@@ -284,17 +289,24 @@ t_cmd	*stock_cmds_2(t_mini *mini)
 		printf("2.3 Done add cmd in cmd_list\n");
 		while (mini->line[i] && mini->line[i] != '|')
 		{
+			printf("2.4.0 loop, s[i] = %c\n", mini->line[i]);
 			i += skip_blank(&mini->line[i]);
 			if (is_redir(mini->line[i]))
+			{
 				get_redir(mini, &i, cmd);
+				printf("2.4.3 is redir\n");
+			}
 			else
+			{
+				printf("2.4.4 get_avs\n");
 				get_avs(mini, &i, cmd);
               //  printf("Need to invent new ft_each_cmd_2 with a *i for each char\n");
+			}
 		}
-		printf("2.4 Done stocking data in first cmd\n");
+		printf("2.5 Done stocking data in first cmd\n");
 		if (mini->line[i] == '|')
 			i++;
-		printf("2.5 Found a pipe -> new cmd\n\n");
+		printf("2.6 Found a pipe -> new cmd\n\n");
 	}
 	return (cmd_lst);
 }
