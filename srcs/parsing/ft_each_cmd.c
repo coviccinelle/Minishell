@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/22 13:38:21 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/22 18:27:27 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,7 @@ int	ft_each_cmd(char *str, int *i, t_cmd *one_cmd)
 			printf("Lettre is : %c\n", line[*i]);
 			buf = malloc(sizeof(char) * 2);
 			ft_buf(line, i, buf);
-			//line_after = ft_add_line_after(line_after, buf[0]);
 			line_after = ft_add_line_after(line_after, buf[0]);
-			//one_cmd->line = line_after;
 			if (!line[*i] && line_after)
 				ft_avs(one_cmd, line_after);
 			free(buf);
@@ -140,26 +138,26 @@ int	ft_each_cmd(char *str, int *i, t_cmd *one_cmd)
 }
 
 
-void	ft_each_cmd_3(t_mini *mini, char *str, t_cmd *cmd)
+void	ft_each_cmd_3(t_mini *mini, char *str, int *i, t_cmd *cmd)
 {
 	char		*buf;
 	char		*line_after;
 	t_cmd		*tmp;
 	char		*line;
-	int			i;
+//	int			i;
 
 	(void)buf;
 	(void)mini;//mini will be used for $ in env
-	i = 0;
+//	i = 0;
 	line_after = NULL;
 	cmd->line = str;
 
 	tmp = cmd;
 	printf("Orgine line is : %s\n", cmd->line);
 	line = cmd->line;
-	while (line[i] && line[i] != '|')
+	while (line[*i] && line[*i] != '|')
 	{
-		if (line[i] == ' ')
+		if (line[*i] == ' ')
 		{
 			if (line_after)
 				ft_avs(tmp, line_after);
@@ -167,11 +165,11 @@ void	ft_each_cmd_3(t_mini *mini, char *str, t_cmd *cmd)
 			//ft_space_skip(line, i);
 			line_after = NULL;
 		}
-		else if (line[i] == '"')
+		else if (line[*i] == '"')
 		{
 			printf("1_Double quote found\n\n");
-			printf("where am i ? line[i] = double quote found : %c\n", line[i]);
-			if (!ft_d2_quotes(line_after, &i, line, tmp))
+			printf("where am i ? line[*i] = double quote found : %c\n", line[*i]);
+			if (!ft_d2_quotes(line_after, i, line, tmp))
 				exit(0) ;
 			//printf("tmp->av[0] = %s\ntmp->av[1] = %s\n", tmp->av[0], tmp->av[1]);
 			//if (line[(i) + 1] == '\0')
@@ -181,24 +179,24 @@ void	ft_each_cmd_3(t_mini *mini, char *str, t_cmd *cmd)
 			// 	break ;
 			line_after = NULL;
 		}
-		else if (line[i] == '\'')
+		else if (line[*i] == '\'')
 		{
 			printf("single quotes\n\n");
 			printf("line_after = %s\n", line_after);
-			if (!ft_single_quote(line_after, &i, line, tmp))
+			if (!ft_single_quote(line_after, i, line, tmp))
 				exit(0);
-			if (line[i + 1] == '\0')
+			if (line[*i + 1] == '\0')
 				break ;
-			ft_pass_squote(line, &i);
+			ft_pass_squote(line, i);
 			line_after = NULL;
 		}
 		else
 		{
-			printf("char = %c\n", line[i]);
+			printf("char = %c\n", line[*i]);
 			buf = malloc(sizeof(char) * 2);
-			ft_buf(line, &i, buf);
+			ft_buf(line, i, buf);
 			line_after = ft_add_line_after(line_after, buf[0]);
-			if (!line[i] && line_after)
+			if (!line[*i] && line_after)
 				ft_avs(tmp, line_after);
 			free(buf);
 		}

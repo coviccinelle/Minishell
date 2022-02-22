@@ -6,14 +6,14 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:21:52 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/17 17:50:56 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/22 17:33:32 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 
-
+//stuff buf + \0
 int	ft_buf(char *argv, int *i, char *buf)
 {
 	if (!argv[(*i)])

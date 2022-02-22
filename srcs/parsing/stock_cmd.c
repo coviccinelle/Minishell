@@ -241,9 +241,9 @@ void	get_avs(t_mini *mini, int *i, t_cmd *cmd)
 	line = NULL;
 	s = mini->line;
 	printf("get_avs : 1.0");
-	while (s[*i] && !is_redir(s[*i]) && s[*i] != '|')
+	while (s[*i] && !is_redir(s[*i]) && s[*i] != '|' && s[*i] != ' ')
 	{
-		printf("get_avs : 1.2: in loop\n");
+		//printf("get_avs : 1.2: in loop\n");
 		if (s[*i] == '$')
 			get_var_dollar(mini, cmd, s, i);//a fuction to check if variable after $ exist in env + stock avs
 		else if (s[*i] == '"' || s[*i] == '\'')
@@ -257,13 +257,16 @@ void	get_avs(t_mini *mini, int *i, t_cmd *cmd)
 		}
 		else
 		{
-			printf("get_avs : 1.3\n");
+			//printf("get_avs : 1.3\n");
 			printf("mini->line[i] = %c\n", mini->line[*i]);
-
 			buf = malloc(sizeof(char) * 2);
-			ft_buf(line, i, buf);
+			//printf("get_avs : 1.4\n");
+			ft_buf(s, i, buf);
+
+			//printf("get_avs : 1.5\n");
 			line = ft_add_line_after(line, buf[0]);
-			if (!line[*i] && line)
+			printf("cmd->line = %s\n", line);
+			if (!s[*i] && line)
 				ft_avs(cmd, line);
 			free(buf);
 		}
@@ -287,23 +290,40 @@ t_cmd	*stock_cmds_2(t_mini *mini)
 		printf("2.2 Done add new_elem_cmd\n");
 		add_cmd(&cmd_lst, cmd);
 		printf("2.3 Done add cmd in cmd_list\n");
+
 		while (mini->line[i] && mini->line[i] != '|')
 		{
-			printf("2.4.0 loop, s[i] = %c\n", mini->line[i]);
-			i += skip_blank(&mini->line[i]);
+			ft_each_cmd_3(mini, mini->line, &i, cmd);
+
+
+			/*printf("2.4.0 loop, s[i] = %c\n", mini->line[i]);
+			//i += skip_blank(&mini->line[i]);
+			if (mini->line[i] == ' ')
+			{
+				printf("cmd->line = %s\n", cmd->line);
+				if (cmd->line)
+					ft_avs(cmd, cmd->line);
+				i++;
+				ft_space_skip(mini->line, &i);
+				cmd->line = NULL;
+			}
 			if (is_redir(mini->line[i]))
 			{
+				if (cmd->line)
+					ft_avs(cmd, cmd->line);
 				get_redir(mini, &i, cmd);
 				printf("2.4.3 is redir\n");
 			}
 			else
 			{
 				printf("2.4.4 get_avs\n");
-				cmd->line = get_avs(mini, &i, cmd);
+				get_avs(mini, &i, cmd);
+				//ft_print_av(cmd);
               //  printf("Need to invent new ft_each_cmd_2 with a *i for each char\n");
 			}
 		}
-		ft_avs(cmd, cmd->line);
+		//ft_avs(cmd, cmd->line);
+	*/}
 		printf("2.5 Done stocking data in first cmd\n");
 		if (mini->line[i] == '|')
 			i++;
