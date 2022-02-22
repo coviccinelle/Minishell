@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/19 18:58:20 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/02/22 20:38:03 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,7 @@ void safely_exec_bin(char **cmd);
 void safely_pipe_me(int new_pipe_fd[]);
 void safely_fork(int *pid);
 
-void	child_process(t_cmd *cmd, int *fd);
+void	child_process(t_cmd *cmd, int *fd, t_mini *mini);
 void waiting_for_all_children_to_finish_execution(pid_t	pid_lst[]);
 void run_piped_cmds(t_mini *mini, int nb_cmd);
 

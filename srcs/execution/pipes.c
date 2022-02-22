@@ -37,8 +37,9 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 
 
 
-void	child_process(t_cmd *cmd, int *fd)
+void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 {
+(void)mini;
    // printf("child process\n");
 	close(READ_END);
     //if (cmd->infile)
@@ -50,9 +51,14 @@ void	child_process(t_cmd *cmd, int *fd)
     //if (cmd->outfile)
     //  get_oufile
 	close(WRITE_END);
-    //if (is_builtin(cmd->av[0]))
-    //  g_exit = exec_builtin(cmd->av[0]);
-    //else
+    if (is_builtin(cmd->av[0]))
+	{
+		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env); //mettre un g_exit
+		exit(0);
+	}
+
+else
+
     {
          safely_exec_bin(cmd->av);
          exit(0);
@@ -119,25 +125,22 @@ void run_piped_cmds(t_mini *mini, int nb_cmd)
 	while (cmd)
 	{
 		safely_pipe_me(fd);
-    /*    if (is_builtin(&cmd->av[0]))
-        {
-            child_process2(cmd, fd);
-            exec_builtin(cmd->av);
-        }    
-        else
-        {
-     */     safely_fork(&new_pid);
+    	/*	if (is_builtin(cmd->av[0]))
+			exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env); //mettre un g_exit
+          	else 
+*/	{
+		safely_fork(&new_pid);
             pid_lst[j] = new_pid;
 	    	if (new_pid == 0)
             {
-                child_process(cmd, fd);
+                child_process(cmd, fd, mini);
             }    
-            
-      //  }
 		close(READ_END);
 		close(WRITE_END);
+	}
 		cmd = cmd->next;
         j++;
 	}
     waiting_for_all_children_to_finish_execution(pid_lst);
 }
+//}
