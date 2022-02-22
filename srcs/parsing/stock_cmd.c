@@ -28,19 +28,19 @@
 // }
 
 // should be main parsing
-void	set_line(t_mini *mini, int *pos, t_cmd *cmd)
+void	get_line(t_mini *mini, int *i, t_cmd *cmd)
 {
 	//char	*var_val;
 	//int		quote_type;
 
 	//var_val = NULL;
-	while (mini->line[*pos] && !is_redir(mini->line[*pos]) && mini->line[*pos] != '|')
+	while (mini->line[*i] && !is_redir(mini->line[*i]) && mini->line[*i] != '|')
 	{
 		//while (cmd->line)
 		
 		//	ft_each_cmd(mini, pos, cmd);
 		
-		cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
+		cmd->line = ft_add_line_after(cmd->line, mini->line[(*i)++]);
 		
 		// if (mini->line[*pos] == '$')
 		// 	//dollarsign
@@ -136,7 +136,7 @@ void	get_redir(t_mini *mini, int *i, t_cmd *cmd)
 
 
 //stock cmd
-t_cmd	*get_cmd_lst(t_mini *mini)
+t_cmd	*stock_cmds_2(t_mini *mini)
 {
 	t_cmd	*cmd_lst;
 	t_cmd	*cmd;
@@ -150,11 +150,12 @@ t_cmd	*get_cmd_lst(t_mini *mini)
 		add_cmd(&cmd_lst, cmd);
 		while (mini->line[i] && mini->line[i] != '|')
 		{
-			i += skip_ws(&mini->line[i]);
+			i += skip_blank(&mini->line[i]);
 			if (is_redir(mini->line[i]))
 				get_redir(mini, &i, cmd);
 			else
-				ft_each_cmd_2(mini, &i, cmd);
+				//ft_each_cmd_2(mini, &i, cmd);
+                printf("Need to invent newft_each_cmd_2 with a *i for each char\n");
 		}
 		if (mini->line[i] == '|')
 			i++;
@@ -188,7 +189,7 @@ t_cmd	*stock_cmds(t_mini *mini)
 		while (str[k] && k <= ft_len_avs(str))
 		{
 			printf("hello inside looopp\n");
-			cmd = new_elem_cmd(mini, str[k]);
+			cmd = new_elem_cmd(mini);
 			add_cmd(&cmd_lst, cmd);
 			//should add av the lastest in here => ready to be executed
 			printf("done adding one cmd into the chained list\n");

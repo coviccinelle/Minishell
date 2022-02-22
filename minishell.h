@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/22 09:29:20 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:09:52 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ extern int		g_nb_exit;
 
 // *** // main  // *** //
 
+void	ft_init_mini(t_mini **mini);
+void	init_shell();
+
 
 //*** Utils ***//
 int     	find_me(char c, char *str);
@@ -118,6 +121,8 @@ void  		ft_free_tab(char **tab);
 int			ft_len_avs(char **avs);
 int	ft_syntax_error(t_cmd *mini);
 int	skip_blank(char *str);
+char	**ft_env_cpy(char **envp);
+void print_mini_avs(t_mini *mini);
 
 
 
@@ -144,6 +149,8 @@ void    	add_to_export_lst(t_export **export_lst, char *export_name, char *expor
 void		printstack(t_mini *env);
 void		ft_memdel(char **s);
 void		ft_free_lst(t_mini **head);
+void	run_builtin(t_mini *mini, t_cmd *cmd);
+void	run_execve_2(t_mini *mini, t_cmd *cmd);
 
 
 void	exec_cd(int ac, char **av, char **env);
@@ -218,8 +225,10 @@ t_cmd		*add_cell(t_cmd *mini, char *cmd, int pos);
 void		print_list(t_cmd **mini);
 int	is_blank(int c);
 int	is_redir(int c);
-void	set_line(t_mini *mini, int *pos, t_cmd *cmd);
+void	get_line(t_mini *mini, int *pos, t_cmd *cmd);
 t_cmd	*stock_cmds(t_mini *mini);
+void	ft_each_cmd_3(t_mini *mini, char *str, t_cmd *cmd);
+t_cmd	*stock_cmds_2(t_mini *mini);
 
 
 //exec
