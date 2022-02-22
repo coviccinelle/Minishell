@@ -299,10 +299,11 @@ t_cmd	*stock_cmds_2(t_mini *mini)
 			else
 			{
 				printf("2.4.4 get_avs\n");
-				get_avs(mini, &i, cmd);
+				cmd->line = get_avs(mini, &i, cmd);
               //  printf("Need to invent new ft_each_cmd_2 with a *i for each char\n");
 			}
 		}
+		ft_avs(cmd, cmd->line);
 		printf("2.5 Done stocking data in first cmd\n");
 		if (mini->line[i] == '|')
 			i++;
