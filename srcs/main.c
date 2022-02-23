@@ -41,7 +41,7 @@ void	mini_run(t_mini *mini)
 	cmd = mini->cmd;
 	printf("!!!!nb_cmds = %d\n\n", nb_cmds(mini->cmd));
 	if (nb_cmds(mini->cmd) == 1)
-		exec_cmd_with_no_pipe(mini);
+		exec_cmd_with_no_pipe(mini); //je mets ca car sinon le builtin env ne marche pas avec les forks de la piped cmd fonction
 	else
 		run_piped_cmds(mini,  nb_cmds(mini->cmd));
 	printf("Idk, free tout : in main/mini_run\n");
