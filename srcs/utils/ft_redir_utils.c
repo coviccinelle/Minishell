@@ -7,25 +7,25 @@ void    ft_set_direct(char *line, int *i, t_cmd *cmd)
     if (line[*i + 1] == '<' && line[*i] == '<')
     {
         printf("2\n");
-        cmd->type = 2;
+        cmd->type = HEREDOC;
         return ;
     }
     else if (line[*i] == '>' && line[(*i) + 1] == '>')
     {   
         printf("4\n");
-        cmd->type = 4; //d_right
+        cmd->type = APPEND; //d_right
         return ;
     }
     else if (line[*i] == '<' && line[(*i) + 1] != '<')
     {
         printf("1\n");
-        cmd->type = 1;//LEFT;
+        cmd->type = READONLY;//LEFT;
         return ;
     }
     else if (line[*i] == '>' && line[(*i) + 1] != '>')
     {
         printf("3\n");
-       cmd->type = 3; //RIGHT;
+       cmd->type = TRUNC; //RIGHT;
         return ;
     }
 }

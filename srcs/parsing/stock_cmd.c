@@ -100,7 +100,8 @@ t_cmd	*new_elem_cmd(t_mini *mini)
 	elem->av = NULL;
 	//elem->type = NOPE;
 	elem->type = 0;
-	elem->file = NULL;
+	elem->file_in = NULL;
+	elem->file_out = NULL;
 	elem->prev = NULL;
 	elem->next = NULL;
 	return (elem);
@@ -124,20 +125,20 @@ void	add_cmd(t_cmd **cmd_lst, t_cmd *cmd)
 }
 
 
-void	get_redir(t_mini *mini, int *i, t_cmd *cmd)
-{
-	(void)cmd;//will be used later in redirection
-	if (mini->line[*i] == '<')
-	{
-		printf("redirection IN\n");
-		get_redir_in(mini, *i, cmd, mini->line);
-	}
-	else
-	{
-		printf("Redirection OUT\n");
-		get_redir_out(mini, *i, cmd);
-	}
-}
+// void	get_redir(t_mini *mini, int *i, t_cmd *cmd)
+// {
+// 	(void)cmd;//will be used later in redirection
+// 	if (mini->line[*i] == '<')
+// 	{
+// 		printf("redirection IN\n");
+// 		get_redir_in(mini, *i, cmd, mini->line);
+// 	}
+// 	else
+// 	{
+// 		printf("Redirection OUT\n");
+// 		get_redir_out(mini, *i, cmd);
+// 	}
+// }
 
 
 // void	set_args(t_data *data, int *pos, t_cmd *cmd)

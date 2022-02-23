@@ -9,9 +9,10 @@ void	init_cmd(t_cmd *cmd)
 	cmd->av = NULL;
 	//cmd->type = NOPE;
 	//cmd->type = 0;
-	cmd->file = NULL;
+	cmd->file_in = NULL;
+	cmd->file_out = NULL;
 	cmd->next = NULL;
-	cmd->prev = NULL;
+	//cmd->prev = NULL;
 }
 
 

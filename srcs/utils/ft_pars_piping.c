@@ -47,7 +47,8 @@ void	ft_init_elem(t_cmd *mini)
 	//mini->heredoc = 0;
 	//mini->type = NOPE;
   mini->type = 0;
-	mini->file = NULL;
+	mini->file_in = NULL;
+	mini->file_out = NULL;
 	mini->next = NULL;
   mini->prev = NULL;
 //	mini->ret_status = 0;

@@ -25,8 +25,10 @@ void print_mini_avs(t_mini *mini)
 	{
 		printf("		%d commande = \n", i);
 		print_tab(cmd->av);
-		if (cmd->file)
-			printf("cmd->file exist\n");
+		if (cmd->file_in)
+			printf("cmd->file_in exist\n");
+		if (cmd->file_out)
+			printf("cmd->file_out exist\n");
 		//printf("cmd->file doesn't exist\n");
 		//print_tab(cmd->file);
 		i++;

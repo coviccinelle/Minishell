@@ -142,62 +142,62 @@ char    *get_fname(t_mini *mini, int *i)
     return (ret);
 }
 
-void    get_redir_in(t_mini *mini, int i, t_cmd *cmd, char *line)
-{
-	t_file	*current;
-	t_file	*new;
+// void    get_redir_in(t_mini *mini, int i, t_cmd *cmd, char *line)
+// {
+// 	t_file	*current;
+// 	t_file	*new;
 
-	if (line)
-		ft_avs(cmd, line);
-	printf("start get_redir_in\n");
-	line = NULL;
-	current = cmd->file;
-	printf("0.1 get_redir_in\n");
-	new = malloc(sizeof(t_file));
-	if (!new)
-		//exit_custom(mini, NULL, AUTO);
-        printf("Malloc failed (creating a new file node\n");
-	printf("0.2 gdone malloc new\n");
-	new->next = NULL;
-	printf("new-> next = NULL");
-	//ft_set_direct(mini->line, &i, new);
-	new->type = get_ftype_left(mini, &i);
-	printf("0.3 done get_ftype_left_in\n");
-    new->name = get_fname(mini, &i);
-	printf("0.4 done get_fname_in\n");
-	// if (new->type == HEREDOC)
-	// 	printf("euhhhh here doc\n");
-	// else
-	// 	new->word = get_file_word(mini, i);
-	if (!cmd->file)
-		cmd->file = new;
-	else
-	{
-		while (current->next)
-			current = current->next;
-		current->next = new;
-	}
-}
+// 	if (line)
+// 		ft_avs(cmd, line);
+// 	printf("start get_redir_in\n");
+// 	line = NULL;
+// 	current = cmd->file_in;
+// 	printf("0.1 get_redir_in\n");
+// 	new = malloc(sizeof(t_file));
+// 	if (!new)
+// 		//exit_custom(mini, NULL, AUTO);
+//         printf("Malloc failed (creating a new file node\n");
+// 	printf("0.2 gdone malloc new\n");
+// 	new->next = NULL;
+// 	printf("new-> next = NULL");
+// 	//ft_set_direct(mini->line, &i, new);
+// 	new->type = get_ftype_left(mini, &i);
+// 	printf("0.3 done get_ftype_left_in\n");
+//     new->name = get_fname(mini, &i);
+// 	printf("0.4 done get_fname_in\n");
+// 	// if (new->type == HEREDOC)
+// 	// 	printf("euhhhh here doc\n");
+// 	// else
+// 	// 	new->word = get_file_word(mini, i);
+// 	if (!cmd->file)
+// 		cmd->file = new;
+// 	else
+// 	{
+// 		while (current->next)
+// 			current = current->next;
+// 		current->next = new;
+// 	}
+// }
 
-void    get_redir_out(t_mini *mini, int i, t_cmd *cmd)
-{
-    t_file	*current;
-	t_file	*new;
+// void    get_redir_out(t_mini *mini, int i, t_cmd *cmd)
+// {
+//     t_file	*current;
+// 	t_file	*new;
 
-	current = cmd->file;
-	new = malloc(sizeof(t_file));
-	if (!new)
-		//exit_custom(mini, NULL, AUTO);
-        printf("Malloc failed (creating a new file node\n");
-	new->next = NULL;
-	new->type = get_ftype_right(mini, &i);
-    new->name = get_fname(mini, &i);
-	if (!cmd->file)
-		cmd->file = new;
-	else
-	{
-		while (current->next)
-			current = current->next;
-		current->next = new;
-	}
-}
+// 	current = cmd->file;
+// 	new = malloc(sizeof(t_file));
+// 	if (!new)
+// 		//exit_custom(mini, NULL, AUTO);
+//         printf("Malloc failed (creating a new file node\n");
+// 	new->next = NULL;
+// 	new->type = get_ftype_right(mini, &i);
+//     new->name = get_fname(mini, &i);
+// 	if (!cmd->file)
+// 		cmd->file = new;
+// 	else
+// 	{
+// 		while (current->next)
+// 			current = current->next;
+// 		current->next = new;
+// 	}
+// }
