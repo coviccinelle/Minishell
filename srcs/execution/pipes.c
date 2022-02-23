@@ -56,9 +56,10 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env); //mettre un g_exit
 		exit(0);
 	}
-    	else if (is_builtin(cmd->av[0]))
+    	else if (!is_builtin(cmd->av[0]))
 	{
-		safely_exec_bin(cmd->av);
+	//	safely_exec_bin(cmd->av);
+	 	exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
 		exit(0);
 	}
 	else
@@ -66,6 +67,7 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 		ft_puterror_fd("minishell:", cmd->av[0], " not found"); //et ret 127!!!
 		exit(1);
 	}
+
     //exit 127 si error?
     //juste inserer parent process ici. tenter de forker en haut comme ça je peux separer des builtins
 	close(WRITE_END);
