@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/23 12:29:17 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/23 18:24:07 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,14 +310,14 @@ void	add_files(t_file **file_lst, t_file *file)
 // line = line;
 //int	ft_add_file(t_cmd *cmd, int *i, char *str, char *line)
 //stock file in list files
-int	ft_redirec(char *line, int *i, char *str, t_cmd *tmp)
+int	ft_redirec(char *line, int *i, char *str, t_cmd *cmd)
 {
 //	t_file	*file_lst;
-	t_file	*file;
-	t_mini *mini;
+	//t_file	*file;
+///	t_mini *mini;
 
-	file = NULL;
-	mini = NULL;
+//	file = NULL;
+//	mini = NULL;
 	//printf("Start redir \n");
 	// if (!check_redir(str, &(*i)))
 	// {
@@ -327,26 +327,26 @@ int	ft_redirec(char *line, int *i, char *str, t_cmd *tmp)
 	//printf(" Done check_redir  \n");
 	if (str)
 	{
-		ft_avs(tmp, str);
+		ft_avs(cmd, str);
 		str = NULL;
 	}
-	ft_set_direct(line, i, tmp);
+	ft_set_direct(line, i, cmd);
 	if (line[*i] == '<')
-		ft_add_file_in(tmp, i, line, str);
+		ft_add_file_in(cmd, i, line, str);
 	else if (line[*i] == '>')
-		ft_add_file_out(tmp, i, line, str);
+		ft_add_file_out(cmd, i, line, str);
 	//printf("done_add_file\n");
-	while (tmp->file_in)
+	while (cmd->file_in)
 	{
-		printf("\033[0;31m \nprint file_lst🌈🌻$\033[0m FILE ADDED : tmp->file_in = %s\n", tmp->file_in->name);
-		tmp->file_in = tmp->file_in->next;
+		printf("\033[0;31m \nprint file_lst🌈🌻$\033[0m FILE ADDED : cmd->file_in = %s\n", cmd->file_in->name);
+		cmd->file_in = cmd->file_in->next;
 	}
-	while (tmp->file_out)
+	while (cmd->file_out)
 	{
-		printf("\033[0;31m \nprint file_lst🌈🌻$\033[0m FILE ADDED : tmp->file_out = %s\n", tmp->file_out->name);
-		tmp->file_out = tmp->file_out->next;
+		printf("\033[0;31m \nprint file_lst🌈🌻$\033[0m FILE ADDED : cmd->file_out = %s\n", cmd->file_out->name);
+		cmd->file_out = cmd->file_out->next;
 	}
-	if (!tmp->file_in || !tmp->file_out)
+	if (!cmd->file_in || !cmd->file_out)
 		return (0);
 	// while (str[(*i)] == ' ')
 	// 	(*i)++;
@@ -368,12 +368,12 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd *cmd)
 {
 	char		*buf;
 	char		*line_after;
-	t_cmd		*tmp;
+	//t_cmd		*tmp;
 
 	(void)buf;
 	(void)mini;
 	line_after = NULL;
-	tmp = cmd;
+	//tmp = cmd;
 	
 	printf("3. Inside each_cmd ^^ Orgine line is : %s\n", line);
 	while (line[*i] && line[*i] != '|')
@@ -396,9 +396,9 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd *cmd)
 		{
 			printf("1_Double quote found\n\n");
 			printf("where am i ? line[*i] = double quote found : %c\n", line[*i]);
-			if (!ft_d2_quotes(line_after, i, line, tmp))
+			if (!ft_d2_quotes(line_after, i, line, cmd))
 				return (0);
-			printf("tmp->av[0] = %s\ntmp->av[1] = %s\n", tmp->av[0], tmp->av[1]);
+			printf("cmd->av[0] = %s\ncmd->av[1] = %s\n", cmd->av[0], cmd->av[1]);
 			if (line[(*i) + 1] == '\0')
 				break ;
 			//dollar in quote
@@ -410,7 +410,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd *cmd)
 		{
 			printf("single quotes\n\n");
 			printf("line_after = %s\n", line_after);
-			if (!ft_single_quote(line_after, i, line, tmp))
+			if (!ft_single_quote(line_after, i, line, cmd))
 				return (0);
 			if (line[(*i) + 1] == '\0')
 				break ;
@@ -422,14 +422,14 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd *cmd)
 			//line_after = ft_dollar_1(line, i, line_after, cmd);
 			//line_after = ft_dollar_2(line, i, line_after, envp);
 			printf("dollar sign but not $? non plus\n\n");
-			ft_avs(tmp, line_after);
+			ft_avs(cmd, line_after);
 			line_after = NULL;
 		}
 		else if (is_redir(line[*i]))
 		{
 			//printf("Redirection\n\n");
 			
-			if (!ft_redirec(line, i, line_after, tmp))
+			if (!ft_redirec(line, i, line_after, cmd))
 				return (0);
 			//get_redir(mini, i, cmd);
 		//	printf("done get_redir\n");
