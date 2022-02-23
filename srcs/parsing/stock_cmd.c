@@ -2,31 +2,6 @@
 #include "../../minishell.h"
 
 
-
-// void	set_args(t_data *data, int *pos, t_cmd *cmd)
-// {
-// 	char	*var_val;
-	
-// 	while (data->str[*pos] && !is_redir(data->str[*pos]) && \
-// 	data->str[*pos] != '|')
-// 	{
-// 		if (data->str[*pos] == '$')
-// 			cmd->args = concat_str(data, cmd->args, \
-// 			get_var(data, data->str, pos));
-// 		else if (check_quote(data->str, *pos))
-// 		{
-// 			quote_type = data->str[*pos];
-// 			cmd->args = add_char(data, cmd->args, data->str[(*pos)++]);
-// 			while (data->str[*pos] && data->str[*pos] != quote_type)
-// 				cmd->args = add_char(data, cmd->args, data->str[(*pos)++]);
-// 			if (data->str[*pos] == quote_type)
-// 				cmd->args = add_char(data, cmd->args, data->str[(*pos)++]);
-// 		}
-// 		else
-// 			cmd->args = add_char(data, cmd->args, data->str[(*pos)++]);
-// 	}
-// }
-
 // should be main parsing
 void	get_line(t_mini *mini, int *i, t_cmd *cmd)
 {
@@ -36,55 +11,10 @@ void	get_line(t_mini *mini, int *i, t_cmd *cmd)
 	//var_val = NULL;
 	while (mini->line[*i] && !is_redir(mini->line[*i]) && mini->line[*i] != '|')
 	{
-		//while (cmd->line)
-		
-		//	ft_each_cmd(mini, pos, cmd);
 		
 		cmd->line = ft_add_line_after(cmd->line, mini->line[(*i)++]);
-		
-		// if (mini->line[*pos] == '$')
-		// 	//dollarsign
-		// 	printf("dollar sign! DO it please\n");
-		// else if (check_quote(mini->line, *pos))
-		// {
-		// 	// quote_type = mini->line[*pos];
-		// 	// cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
-		// 	// while (mini->line[*pos] && mini->line[*pos] != quote_type)
-		// 	// 	cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
-		// 	// if (mini->line[*pos] == quote_type)
-		// 	// 	cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
-		// }
-		// else
-		// 	cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
 	}
 }
-
-// void	set_line(t_mini *mini, int *pos, t_cmd *cmd)
-// {
-// 	char	*var_val;
-// 	int		quote_type;
-
-// 	var_val = NULL;
-// 	while (mini->line[*pos] && !is_redir(mini->line[*pos]) && \
-// 	mini->line[*pos] != '|')
-// 	{
-// 		if (mini->line[*pos] == '$')
-// 			cmd->line = concat_line(mini, cmd->line, \
-// 			get_var(mini, mini->line, pos));
-// 		else if (check_quote(mini->line, *pos))
-// 		{
-// 			quote_type = mini->line[*pos];
-// 			cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
-// 			while (mini->line[*pos] && mini->line[*pos] != quote_type)
-// 				cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
-// 			if (mini->line[*pos] == quote_type)
-// 				cmd->line = add_char(mini, cmd->line, mini->line[(*pos)++]);
-// 		}
-// 		else
-// 			cmd->line = add_char(data, cmd->line, data->line[(*pos)++]);
-// 	}
-// }
-
 
 
 t_cmd	*new_elem_cmd(t_mini *mini)
@@ -140,30 +70,6 @@ void	add_cmd(t_cmd **cmd_lst, t_cmd *cmd)
 // 	}
 // }
 
-
-// void	set_args(t_data *data, int *pos, t_cmd *cmd)
-// {
-// 	int		quote_type;
-
-// 	while (data->str[*pos] && !is_redir(data->str[*pos]) && \
-// 	data->str[*pos] != '|')
-// 	{
-// 		if (data->str[*pos] == '$')
-// 			cmd->args = concat_str(data, cmd->args, \
-// 			get_var(data, data->str, pos));
-// 		else if (check_quote(data->str, *pos))
-// 		{
-// 			quote_type = data->str[*pos];
-// 			cmd->args = add_char(data, cmd->args, data->str[(*pos)++]);
-// 			while (data->str[*pos] && data->str[*pos] != quote_type)
-// 				cmd->args = add_char(data, cmd->args, data->str[(*pos)++]);
-// 			if (data->str[*pos] == quote_type)
-// 				cmd->args = add_char(data, cmd->args, data->str[(*pos)++]);
-// 		}
-// 		else
-// 			cmd->args = add_char(data, cmd->args, data->str[(*pos)++]);
-// 	}
-// }
 
 char	*get_var_name(char *s, int *i)
 {
@@ -275,6 +181,29 @@ void	get_avs(t_mini *mini, int *i, t_cmd *cmd)
 	}
 }
 
+
+int			create_files(t_redir type, char *filename)
+{
+    int fd;
+
+    fd = -1;
+	if (type == TRUNC)
+	    fd = open (filename, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+//pour recuperer le filename faire attention au niveau du parsing car >filename
+// et > filename sont possibles
+	else if (type == APPEND)
+        fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
+   	else if (type == READONLY)
+		fd = open(filename, O_RDONLY);
+	if (fd == -1)
+	{
+        perror(filename);
+        return(1);
+    }
+    close(fd);
+	return (0);
+}
+
 //stock cmd
 t_cmd	*stock_cmds_2(t_mini *mini)
 {
@@ -296,36 +225,11 @@ t_cmd	*stock_cmds_2(t_mini *mini)
 		while (mini->line[i] && mini->line[i] != '|')
 		{
 			ft_each_cmd_4(mini, mini->line, &i, cmd);
-
-/*
-			printf("2.4.0 loop, s[i] = %c\n", mini->line[i]);
-			//i += skip_blank(&mini->line[i]);
-			if (mini->line[i] == ' ')
+			while (cmd->file_in)
 			{
-				printf("cmd->line = %s\n", cmd->line);
-				if (cmd->line)
-					ft_avs(cmd, cmd->line);
-				i++;
-				ft_space_skip(mini->line, &i);
-				cmd->line = NULL;
+				create_files(*cmd->file_in->type, cmd->file_in->name);
+				cmd->file_in = cmd->file_in->next;
 			}
-			if (is_redir(mini->line[i]))
-			{
-				if (cmd->line)
-					ft_avs(cmd, cmd->line);
-				get_redir(mini, &i, cmd);
-				printf("2.4.3 is redir\n");
-			}
-			else
-			{
-				printf("2.4.4 get_avs\n");
-				get_avs(mini, &i, cmd);
-				//ft_print_av(cmd);
-              //  printf("Need to invent new ft_each_cmd_2 with a *i for each char\n");
-			}
-		}
-		//ft_avs(cmd, cmd->line);
-*/
 		}
 		printf("2.5 Done stocking data in first cmd\n");
 		if (mini->line[i] == '|')

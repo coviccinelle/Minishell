@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/23 11:31:10 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/23 11:51:00 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <sys/stat.h>
 # include <errno.h>  
 # include<sys/wait.h>
+# include <fcntl.h>
 
 // redirection type
 # define RDR_IN 1

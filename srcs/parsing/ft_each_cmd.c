@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/23 11:35:04 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/23 11:38:58 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -432,7 +432,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd *cmd)
 			if (!ft_redirec(line, i, line_after, tmp))
 				return (0);
 			//get_redir(mini, i, cmd);
-			printf("done get_redir\n");
+		//	printf("done get_redir\n");
 			// if (cmd->type == HEREDOC || cmd->type == D_RIGHT)
 			// 	(*i)++;
 			// (*i)++;
