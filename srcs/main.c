@@ -21,7 +21,11 @@ char	*ft_readline_input(char *line)
 	return (line);
 }
 
-
+//Faire une fonction qui affiche le resultat du parsing de Thao 
+//Faire en sorte d'afficher dans tous les cas le PATH utilise dans execve
+//Verifier que je reconstruie correctement le PATH quand j ai une commande sans chemin
+//Verifier que je gere les pipes de la meme facon que j ai un chemin ou pas de chemin
+//verifier que je reconstruit correctement le path en gardant le premier dossier ok trouve
 void	mini_run(t_mini *mini)
 {
 	t_cmd	*cmd;

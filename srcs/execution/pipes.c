@@ -40,15 +40,18 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 {
 (void)mini;
-   // printf("child process\n");
+   //	printf("child process for cmd->av[0] = %s\n", cmd->av[0]);
 	close(READ_END);
     //if (cmd->infile)
     //  dup2(infile, STDIN);
     //  close(infile);
     // unline tmp stdin
+
 	if (cmd->next)
 		dup2(WRITE_END, STDOUT);
-    //if (cmd->outfile)
+
+   	//printf("just before exec, child process for cmd->av[0] = %s\n", cmd->av[0]);
+    //	if (cmd->outfile)
     //  get_oufile
 	close(WRITE_END);
     	if (is_builtin(cmd->av[0]))
@@ -59,6 +62,7 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
     	else if (!is_builtin(cmd->av[0]))
 	{
 	//	safely_exec_bin(cmd->av);
+	//	printf("!!je vais exec un bin!!!!\n");
 	 	exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
 		exit(0);
 	}
@@ -70,10 +74,6 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 
     //exit 127 si error?
     //juste inserer parent process ici. tenter de forker en haut comme ça je peux separer des builtins
-	close(WRITE_END);
-	if (cmd->next)
-		dup2(READ_END, STDIN);
-	close(READ_END);
 }
 
 void	waiting_for_all_children_to_finish_execution(pid_t	pid_lst[])
@@ -129,6 +129,14 @@ void run_piped_cmds(t_mini *mini, int nb_cmd)
 		pid_lst[j] = new_pid;
 		if (new_pid == 0)
                 	child_process(cmd, fd, mini);
+		else
+		{
+			
+			close(WRITE_END);
+			if (cmd->next)
+				dup2(READ_END, STDIN);
+			close(READ_END);
+		}
 		close(READ_END);
 		close(WRITE_END);
 		cmd = cmd->next;

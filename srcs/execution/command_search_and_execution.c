@@ -107,9 +107,11 @@ char	*find_cmd_path(char *cmd, char **env)
 	while (path[++j])
 	{
 		absolute_path = ft_strxjoin(path[j], "/", cmd);
-       		if (stat(absolute_path, &s) == 0)
+	//	printf("absolute_path[%d] = %s\n", j, absolute_path);
+		if (stat(absolute_path, &s) == 0)
 		{
 			free_tab(&path);
+	//		printf("last absolute path = %s\n", absolute_path);
 			return (absolute_path); // a free pour le dernier ft_strjoin non?
 		}
 		ft_memdel(&absolute_path);
@@ -139,14 +141,18 @@ void	exec_cmd(int ac, char **av, char ***env)
 	if ((access(av[0], F_OK)) == 0)
 	{
 		relative = 1;
-		path = strdup(av[0]); // a remplacer par ft_strdup(av[0])
+		path = strdup(av[0]); // remplacer par ft_strdup
 	}
 	if (relative == 0)
-		path = find_cmd_path(av[0], *env); // a modif avec av[0]
+		path = find_cmd_path(av[0], *env);
 	if (path == NULL)
 		ft_puterror_fd("minishell: ", "command not found: ", av[0]);// exit status 127. if a command is not foundm the child process to execute it returns a status of 127
 	else if (path != NULL)
-		ret = execve(path, av, *env); // . a remplacer par av apres en attendant parsing. if a command is found but is not executable, the return status is 126
+	{
+		//printf("PATH before execve is %s\n", path);
+		ret = execve(path, av, *env);
+	}
+		 // . a remplacer par av apres en attendant parsing. if a command is found but is not executable, the return status is 126
 //	}	
 	else if (ret == -1) // en cas de reussite exceve ne revient pas mais en cas dechec renvoie -1 avec le code derreur dans errno
 		strerror(errno);
