@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/23 21:25:47 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/23 21:48:14 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,6 +323,8 @@ void	add_files(t_file **file_lst, t_file *file)
 //stock file in list files
 int	ft_redirec(char *line, int *i, char *str, t_cmd *cmd)
 {
+	t_mini	*mini;
+	mini = NULL;
 //	t_file	*file_lst;
 	//t_file	*file;
 ///	t_mini *mini;
@@ -342,12 +344,13 @@ int	ft_redirec(char *line, int *i, char *str, t_cmd *cmd)
 		str = NULL;
 	}
 	ft_set_direct(line, i, cmd);
+	printf("adress of cmd is %p\n", cmd);
+	//get_redir(mini, i, cmd);
 	if (line[*i] == '<')
 		ft_add_file_in(cmd, i, line, str);
 	else if (line[*i] == '>')
 		ft_add_file_out(cmd, i, line, str);
-	printf("adress of cmd is %p\n", cmd);
-	//printf("done_add_file\n");
+	printf("done_add_file\n");
 	printf("adress of cmd->file_in is %p\n", cmd->file_in);
 	while (cmd->file_in)
 	{

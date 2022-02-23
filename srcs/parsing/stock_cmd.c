@@ -55,20 +55,21 @@ void	add_cmd(t_cmd **cmd_lst, t_cmd *cmd)
 }
 
 // REDIRECTION
-// void	get_redir(t_mini *mini, int *i, t_cmd *cmd)
-// {
-// 	(void)cmd;//will be used later in redirection
-// 	if (mini->line[*i] == '<')
-// 	{
-// 		printf("redirection IN\n");
-// 		get_redir_in(mini, *i, cmd, mini->line);
-// 	}
-// 	else
-// 	{
-// 		printf("Redirection OUT\n");
-// 		get_redir_out(mini, *i, cmd);
-// 	}
-// }
+void	get_redir(t_mini *mini, int *i, t_cmd *cmd)
+{
+	(void)cmd;//will be used later in redirection
+	printf("Inside get_redir, str[*i] = %c\n", mini->line[*i]);
+	if (mini->line[*i] == '<')
+	{
+		printf("redirection IN\n");
+		get_redir_in(mini, *i, cmd, mini->line);
+	}
+	else
+	{
+		printf("Redirection OUT\n");
+		get_redir_out(mini, *i, cmd);
+	}
+}
 
 
 char	*get_var_name(char *s, int *i)
