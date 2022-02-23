@@ -27,7 +27,7 @@ void print_mini_avs(t_mini *mini)
 		print_tab(cmd->av);
 		if (cmd->file)
 			printf("cmd->file exist\n");
-		printf("cmd->file doesn't exist\n");
+		//printf("cmd->file doesn't exist\n");
 		//print_tab(cmd->file);
 		i++;
 		cmd = cmd->next;

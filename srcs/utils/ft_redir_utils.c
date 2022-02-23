@@ -4,9 +4,6 @@
 
 void    ft_set_direct(char *line, int *i, t_cmd *cmd)
 {
-    printf("1\n");
-    printf("line = %s\n, i = %d\n", line, *i);
-    printf("line[*i + 1] = %c, line[*i] =  %c\n", line[*i + 1], line[*i]);
     if (line[*i + 1] == '<' && line[*i] == '<')
     {
         printf("2\n");

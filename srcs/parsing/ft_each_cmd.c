@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/23 10:04:49 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/23 10:34:06 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ int	ft_add_to_fstack(t_cmd *cmd, char *line)
 //	prm = cmd;
 	new = (t_file *)malloc(sizeof(t_file));
 	new_name = malloc(sizeof(char) * (ft_strlen(line) + 1));
-	printf("\n\n\nINSIDE fd add _ to _fstack\n");
+	//printf("\n\n\nINSIDE fd add _ to _fstack\n");
 
 	if (!new || !new_name)
 		return (0);
@@ -172,11 +172,11 @@ int	ft_add_to_fstack(t_cmd *cmd, char *line)
 		new->name = new_name;
 		new->type = cmd->type;
 		cmd->file = new;
-		printf("  --- 1---- first node, new->name = %s\n", new->name);
+		//printf("  --- 1---- first node, new->name = %s\n", new->name);
 	}
 	else if (cmd->file)
 	{
-		printf("    --- 2---- cmd->file ezist :first node, new->name = %s\n", new->name);
+		//printf("    --- 2---- cmd->file ezist : NOT first node, new->name = %s\n", new->name);
 		ft_strcpy(new_name, line);
 		ft_add_to_fstack2(tmp, new_name, new, cmd);
 	}
@@ -213,7 +213,7 @@ int	ft_add_file(t_cmd *cmd, int *i, char *str, char *line)
 			return (0);
 		(*i)++;
 	}
-	printf("line in ft_add_file = NULL???? !!! %s\n", line);
+	//printf("line in ft_add_file = NULL???? !!! %s\n", line);
 	if (!line || !ft_add_to_fstack(cmd, line))
 	{
 		printf("Minishell: syntax error\n");
@@ -267,29 +267,32 @@ int	ft_redirec(char *line, int *i, char *str, t_cmd *tmp)
 
 	file = NULL;
 	mini = NULL;
-	printf("Start mdredoc \n");
+	//printf("Start redir \n");
 	// if (!check_redir(str, &(*i)))
 	// {
 	// 	printf("Minishell: syntax error\n");
 	// 	return (0);
 	// }
-	printf(" Done check_redir  \n");
+	//printf(" Done check_redir  \n");
 	if (str)
 	{
 		ft_avs(tmp, str);
 		str = NULL;
 	}
 	ft_set_direct(line, i, tmp);
-	
 	ft_add_file(tmp, i, line, str);
-	printf("done_add_file\n");
+	//printf("done_add_file\n");
+	while (tmp->file)
+	{
+		printf("\033[0;31m \nprint file_lst🌈🌻$\033[0m FILE ADDED : tmp->file = %s\n", tmp->file->name);
+		tmp->file = tmp->file->next;
+	}
 	if (!tmp->file)
+		//printf("tmp->file DOESN'T EXISTE\n");
 		return (0);
-	while (str[(*i)] == ' ')
-		(*i)++;
+	// while (str[(*i)] == ' ')
+	// 	(*i)++;
 	line = NULL;
-	if (tmp->file)
-		printf("tmp->file = %s\n", tmp->file->name);
 	printf("DONE done done_add_file\n");
 	return (1);
 }
@@ -324,7 +327,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd *cmd)
 			{
 				printf("line_after = %s\n", line_after);
 				ft_avs(cmd, line_after);
-				ft_print_av(cmd);
+				//ft_print_av(cmd);
 			}
 			(*i)++;
 			//ft_space_skip(line, i);
@@ -366,7 +369,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd *cmd)
 		}
 		else if (is_redir(line[*i]))
 		{
-			printf("Redirection\n\n");
+			//printf("Redirection\n\n");
 			
 			if (!ft_redirec(line, i, line_after, tmp))
 				return (0);

@@ -57,7 +57,7 @@ void	run_execve_2(t_mini *mini, t_cmd *cmd)
 	(void)cmd;
 	(void)mini;
 	printf("Please call the super man execve and solve this mess\n");
-	printf("Don't forget to fork hihi\n");
+	//printf("Don't forget to fork hihi\n");
 		// pid_t   father;
 
 		// father = fork();

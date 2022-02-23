@@ -281,16 +281,16 @@ t_cmd	*stock_cmds_2(t_mini *mini)
 	t_cmd	*cmd;
 	int		i;
 
-	printf("2.0 Start\n");
+	//printf("2.0 Start\n");
 	cmd_lst = NULL;
 	i = 0;
 	while (mini->line[i])
 	{
-		printf("2.1 Inside mini->line\n");
+	//	printf("2.1 Inside mini->line\n");
 		cmd = new_elem_cmd(mini);
-		printf("2.2 Done add new_elem_cmd\n");
+		//printf("2.2 Done add new_elem_cmd\n");
 		add_cmd(&cmd_lst, cmd);
-		printf("2.3 Done add cmd in cmd_list\n");
+	//	printf("2.3 Done add cmd in cmd_list\n");
 
 		while (mini->line[i] && mini->line[i] != '|')
 		{
