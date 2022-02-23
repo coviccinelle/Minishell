@@ -40,7 +40,7 @@ void	mini_run(t_mini *mini)
 		exec_cmd_with_no_pipe(mini);
 	else
 		run_piped_cmds(mini,  nb_cmds(mini->cmd));
-	printf("Idk, free tout : in main/mini_run\n");
+	//printf("Idk, free tout : in main/mini_run\n");
 	free(cmd->line);
 }
 

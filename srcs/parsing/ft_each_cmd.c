@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/23 18:24:07 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/23 21:25:47 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,17 @@ void	ft_add_to_fstack2_in(t_file *tmp, char *new_name, t_file *new, \
 	tmp->next = new;
 }
 
+void	ft_add_to_fstack2_out(t_file *tmp, char *new_name, t_file *new, \
+	t_cmd *cmd)
+{
+	while (tmp->next)
+		tmp = tmp->next;
+	new->next = NULL;
+	new->name = new_name;
+	new->type = &cmd->type;
+	tmp->next = new;
+}
+
 int	ft_add_to_fstack_out(t_cmd *cmd, char *line)
 {
 	t_file		*tmp;
@@ -157,7 +168,7 @@ int	ft_add_to_fstack_out(t_cmd *cmd, char *line)
 	char		*new_name;
 
 	tmp = cmd->file_out;
-//	prm = cmd;
+	//prm = cmd;
 	new = (t_file *)malloc(sizeof(t_file));
 	new_name = malloc(sizeof(char) * (ft_strlen(line) + 1));
 	//printf("\n\n\nINSIDE fd add _ to _fstack\n");
@@ -171,13 +182,13 @@ int	ft_add_to_fstack_out(t_cmd *cmd, char *line)
 		new->name = new_name;
 		new->type = &cmd->type;
 		cmd->file_out = new;
-		//printf("  --- 1---- first node, new->name = %s\n", new->name);
+		printf("  --- 1---- first node, new->name = %s\n", new->name);
 	}
 	else if (cmd->file_out)
 	{
-		//printf("    --- 2---- cmd->file_in ezist : NOT first node, new->name = %s\n", new->name);
+		printf("    --- 2---- cmd->file_in ezist : NOT first node, new->name = %s\n", new->name);
 		ft_strcpy(new_name, line);
-		ft_add_to_fstack2_in(tmp, new_name, new, cmd);
+		ft_add_to_fstack2_out(tmp, new_name, new, cmd);
 	}
 	return (1);
 }
@@ -187,7 +198,7 @@ int	ft_add_to_fstack_in(t_cmd *cmd, char *line)
 {
 	t_file		*tmp;
 	t_file		*new;
-	//t_cmd	*prm;
+//	t_cmd	*prm;
 	char		*new_name;
 
 	tmp = cmd->file_in;
@@ -205,11 +216,11 @@ int	ft_add_to_fstack_in(t_cmd *cmd, char *line)
 		new->name = new_name;
 		new->type = &cmd->type;
 		cmd->file_in = new;
-		//printf("  --- 1---- first node, new->name = %s\n", new->name);
+		printf("  --- 1---- first node, new->name = %s\n", new->name);
 	}
 	else if (cmd->file_in)
 	{
-		//printf("    --- 2---- cmd->file_in ezist : NOT first node, new->name = %s\n", new->name);
+		printf("    --- 2---- cmd->file_in ezist : NOT first node, new->name = %s\n", new->name);
 		ft_strcpy(new_name, line);
 		ft_add_to_fstack2_in(tmp, new_name, new, cmd);
 	}
@@ -335,15 +346,17 @@ int	ft_redirec(char *line, int *i, char *str, t_cmd *cmd)
 		ft_add_file_in(cmd, i, line, str);
 	else if (line[*i] == '>')
 		ft_add_file_out(cmd, i, line, str);
+	printf("adress of cmd is %p\n", cmd);
 	//printf("done_add_file\n");
+	printf("adress of cmd->file_in is %p\n", cmd->file_in);
 	while (cmd->file_in)
 	{
-		printf("\033[0;31m \nprint file_lst🌈🌻$\033[0m FILE ADDED : cmd->file_in = %s\n", cmd->file_in->name);
+		printf("\033[0;31m \n🌈 print file_lst🌻$\033[0m FILE ADDED : cmd->file_in = %s\n", cmd->file_in->name);
 		cmd->file_in = cmd->file_in->next;
 	}
 	while (cmd->file_out)
 	{
-		printf("\033[0;31m \nprint file_lst🌈🌻$\033[0m FILE ADDED : cmd->file_out = %s\n", cmd->file_out->name);
+		printf("\033[0;31m \n🌈 print file_lst🌻$\033[0m FILE ADDED : cmd->file_out = %s\n", cmd->file_out->name);
 		cmd->file_out = cmd->file_out->next;
 	}
 	if (!cmd->file_in || !cmd->file_out)
@@ -457,5 +470,6 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd *cmd)
 		}
 		//printf("cmd->av[0] = %s\n",cmd->av[0]);
 	}
+	printf("adress of cmd->file_in is %p\n", cmd->file_in);
 	return (1);
 }

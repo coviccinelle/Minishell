@@ -216,6 +216,7 @@ t_cmd	*stock_cmds(t_mini *mini)
 		while (mini->line[i] && mini->line[i] != '|')
 		{
 			ft_each_cmd_4(mini, mini->line, &i, cmd);
+			printf("adress of cmd->file_in is %p\n", cmd->file_in);
 			if (!cmd->file_in)
 				printf("invisible file_in\n");
 			if (!cmd->file_out)
