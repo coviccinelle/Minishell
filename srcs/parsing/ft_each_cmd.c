@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/23 10:34:06 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/23 11:02:01 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,11 +284,10 @@ int	ft_redirec(char *line, int *i, char *str, t_cmd *tmp)
 	//printf("done_add_file\n");
 	while (tmp->file)
 	{
-		printf("\033[0;31m \nprint file_lst🌈🌻$\033[0m FILE ADDED : tmp->file = %s\n", tmp->file->name);
+		printf("\033[0;31m \nprint file_lst🌈🌻$\033[0m FILE ADDED : tmp->file = %s, file->type = %d\n", tmp->file->name, tmp->file->type);
 		tmp->file = tmp->file->next;
 	}
 	if (!tmp->file)
-		//printf("tmp->file DOESN'T EXISTE\n");
 		return (0);
 	// while (str[(*i)] == ' ')
 	// 	(*i)++;

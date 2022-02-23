@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/23 09:26:44 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/23 11:04:06 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ typedef struct s_export
 // typedef enum	e_redir
 // {
 // 	NOPE, 0
-// 	LEFT, 1
-// 	HEREDOC, 2
-// 	RIGHT, 3 
-// 	D_RIGHT, 4
+// 	LEFT, 1 IN_FILE = Readonly
+// 	HEREDOC, 2 //
+// 	RIGHT, 3 //trunc
+// 	D_RIGHT, 4 // append
 // }				t_redir;
 
 typedef struct	s_file
