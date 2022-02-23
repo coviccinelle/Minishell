@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/23 10:26:07 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/23 12:10:02 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,40 +33,30 @@ char	*ft_readline_input(char *line)
 	return (line);
 }
 
+
 void	mini_run(t_mini *mini)
 {
 	t_cmd	*cmd;
 
-	//printf("1. Start minishell\n");
-	mini->cmd = stock_cmds_2(mini);
-	//printf("3. Done stocking cmds\n");
+	//if (ft_syntax_error(mini->cmd) == ERROR)
+	// {
+	// 	printf("Free tout in mini->line and things you malloc stp!\n");
+	// 	return ;
+	// }
+	mini->cmd = stock_cmds(mini);
+	if(!mini->cmd)
+		return ;
 	cmd = mini->cmd;
-	//printf("4. done cmd = mini->cmd\n");
-	while (cmd->next)
-	{
-		if (cmd->av)
-		{
-			printf("cmd->av EXISTE, mini->line = %s \n", cmd->line);
-		}
-		if (is_builtin_2(mini, cmd))
-		{
-			printf("\nBuitins\n");
-			//minishell_exec_cmds(cmd, mini);
-			run_builtin(mini, cmd);
-		}
-		else
-		{
-			printf("\nNot buitins\n");
-			run_execve_2(mini, cmd);
-		//if (mini->ret_status == 130)
-		//	break ;
-		}
-		cmd = cmd->next;
-	}
-	//ft_free_cmds(mini);
+	printf("!!!!nb_cmds = %d\n\n", nb_cmds(mini->cmd));
+	if (nb_cmds(mini->cmd) == 1)
+		exec_cmd_with_no_pipe(mini);
+	else
+		run_piped_cmds(mini,  nb_cmds(mini->cmd));
+
 	printf("Idk, free tout : in main/mini_run\n");
 	free(cmd->line);
 }
+
 
 // my_new_version :
 void	minishell(char **env)
