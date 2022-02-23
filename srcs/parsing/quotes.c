@@ -6,11 +6,16 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/16 16:52:06 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/22 09:36:55 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+
+
+
+
 
 int	ft_check_2rd_quote(char *str, int a)
 {
@@ -52,36 +57,11 @@ void	ft_pass_squote(char *str, int *i)
 		(*i)++;
 }
 
-char	*ft_add_line_after_2(char *line, char buf)
-{
-	int		i;
-	char	*new;
-
-	if (line == NULL)
-	{
-		new = malloc(sizeof(char) * 2);
-		new[0] = buf;
-		new[1] = '\0';
-		return (new);
-	}
-	i = ft_strlen(line);
-	new = malloc(sizeof(char) * (i + 2));
-	i = 0;
-	while (line[i])
-	{
-		new[i] = line[i];
-		i++;
-	}
-	new[i] = buf;
-	new[++i] = '\0';
-	free(line);
-	return (new);
-}
 
 // DOUBLE QUOTES principales //
 int	ft_d2_quotes(char *str, int *i, char *line, t_cmd *one_cmd)
 {
-	if (!ft_check_2rd_quote(&line[*i], '"'))
+	if (ft_check_2rd_quote(&line[*i], '"'))
 	{
 		printf("ERROR: Double quotes are not safely closed\n");
 	//	one_cmd->stop = 1; //->g_n_exit = ???;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pwd_cd.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/22 21:25:53 by mloubet           #+#    #+#             */
+/*   Updated: 2022/02/22 22:14:19 by mloubet          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../minishell.h"
 
 int exec_pwd(void) 
@@ -17,9 +29,7 @@ int exec_pwd(void)
 	return (EXIT_SUCCESS);
 }
 
-
-
-void	exec_cd(int ac, char **av, char **env)
+int	exec_cd(int ac, char **av, char **env)
 {
 
 	char	*current_path;
@@ -28,7 +38,7 @@ void	exec_cd(int ac, char **av, char **env)
 	new_path = NULL;
 	current_path = getcwd(NULL, 0);
 	if (ac > 2)
-		return (ft_puterror_fd("bash: ", "cd: ", "too many arguments"));
+		return (ft_puterror_fd("bash: ", "cd: ", "too many arguments")); //donc ret EXIT a 1 aka exit failure
 	if ((ac == 1) || (ac == 2 && (!ft_strncmp(av[1], "~", ft_strlen("~")))))
 		new_path = ft_getenv(env, "HOME");
 	else if (ac == 2 && (!ft_strncmp(av[1], "-", ft_strlen("-"))))
@@ -49,11 +59,13 @@ void	exec_cd(int ac, char **av, char **env)
 
 	printf("New path = %s\n\n\n\n", new_path);
 	if (chdir(new_path) == -1)
-		return(ft_puterror_fd("cd: ", "no such file or directory: ", av[1]));
+		return(ft_puterror_fd("cd: ", "no such file or directory: ", av[1])); //ret a 1 aka exit failure
 
 		//ft_puterror_fd("cd: ", sterror(errno), new_path);
 	ft_setenv(&env, NULL, "PWD", new_path);
 	ft_setenv(&env, NULL, "OLDPWD", current_path);
+
+	return(EXIT_SUCCESS);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/17 15:26:31 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/23 12:11:09 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define MINISHELL_H
 
 #define EXIT_SUCCESS 0
+#define EXIT_FAILURE 1
+
+#define READ_END fd[0]
+#define WRITE_END fd[1]
+#define STDIN 0
+#define STDOUT 1
 #define EXIT_FAILURE 1
 
 # include <stdio.h>
@@ -27,6 +33,7 @@
 # include <sys/stat.h>
 # include <errno.h>  
 # include<sys/wait.h>
+# include <fcntl.h>
 
 // redirection type
 # define RDR_IN 1
@@ -54,17 +61,17 @@ typedef struct s_export
 
 typedef enum	e_redir
 {
-	NOPE,
-	IN,
-	OUT,
-	DOUBLE_IN,
-	DOUBLE_OUT,
+	NOPE,// 0
+	READONLY,// 1 <
+	HEREDOC,// 2 // <<
+	TRUNC,// 3 //>
+	APPEND,// 4 // >>
 }				t_redir;
 
 typedef struct	s_file
 {
 	char			*name;
-	t_redir			type_of_redir;
+	t_redir			*type;
 	struct s_file	*next;
 }				t_file;
 
@@ -79,8 +86,10 @@ typedef struct	s_cmd
 {
 	char	*line;
 	char	**av;
-	t_redir	type;
-	t_file	*file;
+	//t_redir	type;
+	t_redir		type;
+	t_file		*file_in;
+	t_file		*file_out;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }				t_cmd;
@@ -102,6 +111,9 @@ extern int		g_nb_exit;
 
 // *** // main  // *** //
 
+void	ft_init_mini(t_mini **mini);
+void	init_shell();
+
 
 //*** Utils ***//
 int     	find_me(char c, char *str);
@@ -118,6 +130,8 @@ void  		ft_free_tab(char **tab);
 int			ft_len_avs(char **avs);
 int	ft_syntax_error(t_cmd *mini);
 int	skip_blank(char *str);
+char	**ft_env_cpy(char **envp);
+void print_mini_avs(t_mini *mini);
 
 
 
@@ -130,7 +144,7 @@ int	    	chpos(const char *s, int c);
 void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
-void		ft_puterror_fd(char *error, char *s, char *error2);
+int		ft_puterror_fd(char *error, char *s, char *error2);
 void		free_tab(char ***line);
 int			ft_count_quotes(const char *str);
 char		*ft_strdup(char *s1);
@@ -144,9 +158,11 @@ void    	add_to_export_lst(t_export **export_lst, char *export_name, char *expor
 void		printstack(t_mini *env);
 void		ft_memdel(char **s);
 void		ft_free_lst(t_mini **head);
+void	run_builtin(t_mini *mini, t_cmd *cmd);
+void	run_execve_2(t_mini *mini, t_cmd *cmd);
 
 
-void	exec_cd(int ac, char **av, char **env);
+int	exec_cd(int ac, char **av, char **env);
 
 //pwd
 int exec_pwd(void) ;
@@ -211,6 +227,7 @@ void		free_avs(char **avs);
 char	*dollar_sign(int ac, char **av, char **env);
 
 void	ft_pass_squote(char *argv, int *i);
+int	quote_pass_2(char *argv, int *i);
 
 char		*ft_add_line_after(char *line, char buf);
 
@@ -218,17 +235,39 @@ t_cmd		*add_cell(t_cmd *mini, char *cmd, int pos);
 void		print_list(t_cmd **mini);
 int	is_blank(int c);
 int	is_redir(int c);
-void	set_line(t_mini *mini, int *pos, t_cmd *cmd);
+void	get_line(t_mini *mini, int *pos, t_cmd *cmd);
 t_cmd	*stock_cmds(t_mini *mini);
-
+void	ft_each_cmd_3(t_mini *mini, char *str, int *i, t_cmd *cmd);
+t_cmd	*stock_cmds_2(t_mini *mini);
+int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd *one_cmd);
+void	get_redir(t_mini *mini, int *i, t_cmd *cmd);
+char	*add_char(t_mini *mini, char *str, int c);
 
 //exec
 void    exec_cmd(int ac, char **av, char ***env);
 
 //*** PIPES ***//
+char	*ft_strndup(char *s, int n);
+char	**ft_split(char *s, char sep);
+void print_tab(char **av);
+void print_cmds(t_cmd *cmd);
+int  nb_cmds(t_cmd *cmd);
+
+void safely_exec_bin(char **cmd);
+void safely_pipe_me(int new_pipe_fd[]);
+void safely_fork(int *pid);
+
+void	child_process(t_cmd *cmd, int *fd, t_mini *mini);
+void waiting_for_all_children_to_finish_execution(pid_t	pid_lst[]);
+void run_piped_cmds(t_mini *mini, int nb_cmd);
+
+void exec_cmd_with_no_pipe(t_mini *mini);
 
 //*** REDIRECTIONS ***//
 void    ft_set_direct(char *line, int *i, t_cmd *mini);
+void    get_redir_in(t_mini *mini, int i, t_cmd *cmd, char *line);
+void    get_redir_out(t_mini *mini, int i, t_cmd *cmd);
+void  ft_print_av(t_cmd *mini);
 
 //*** SIGNAUX ***//
 
@@ -243,5 +282,14 @@ void    ft_ignore(int sig);
 void    ft_disable_if_fork(int pid);
 void    ft_start_signal(void);
 
+
+
+
+// simple utils
+int	is_alnum(int c);
+//
+
+void	ft_free_cmds(t_mini *mini);
+int	ft_len_cmd(char **str);
 
 #endif

@@ -7,7 +7,6 @@ int	is_builtin(char *builtin)
 {
 	if (!(ft_strcmp(builtin, "cd")))
 		return (1);
-	//if (!(ft_strncmp(builtin, "echo", ft_strlen("echo"))))
 	if (!(ft_strcmp(builtin, "echo")))
 		return (1);
 	if (!(ft_strcmp(builtin, "env")))

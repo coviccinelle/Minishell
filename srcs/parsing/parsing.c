@@ -6,76 +6,12 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/16 16:47:26 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:02:08 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-/*
-int	is_token(char *str, char *token)
-{
-	char	*res;
 
-	res = strstr(str, token);
-	if (res == NULL)
-		return (0);
-	return (1);
-}*/
-
-// there are 2 choices : put all in la liste chainee or tableau + liste chainee, depends on Marie-Ines
-//Step 1: parsing espaces and avs
-// step 2: counting (single and doubles) quotes
-//  Step 3: tokenizing in liste chainee (2 ways: Balkis (tableau + liste chainee for each cmd) and Eclipse (liste chainee 100%))
-// int	parsing(t_mini *mini, char *line)
-// {
-// 	int	k;
-// 	t_mini *tmp;
-	
-// 	k = 0;
-// 	tmp = NULL;
-// 	if (ft_strchr(line, '|'))
-// 	{
-// 		//mini->i = ft_pars_piping(line, mini);
-// 		//printf("mini->i = %d\n", mini->i);
-// 		tmp = mini;
-// 	//	printf("tmp->i = %d\n", tmp->i);
-
-// 		if (mini->i <= 1)
-// 			return (0);
-// 		return (1);
-// 		// while (k <= mini->i && mini)
-// 		// {
-// 		// 	// if (tmp->i > 0)
-// 		// 	// {
-// 		// 	// 	printf("Pipe section is not done, please comeback later\n");
-// 		// 	// 	return (1);
-// 		// 	// }
-// 		// 	printf("Hello to segfaut land, number of node is %d, and the mini->line is %s\n", k, mini->line);
-// 		// 	ft_each_cmd(mini->line, mini);
-// 		// 	k++;
-// 		// 	mini = mini->next;
-// 		// 	mini->next = NULL;
-// 		// }
-// 		printf("%d\n", mini->i);
-// 		return  (1);
-// 	}
-// 	else
-// 	{
-// 		mini->line = line;
-// 		printf("There's only one cmd! Simple\n");
-// 		if (ft_each_cmd(mini->line, mini))
-// 		{
-// 			//mini->cmd = cmd;
-// 			printf("OVER HERE : mini->av[0] = %s\n", mini->av[0]);
-// 			if (mini->av[1])
-// 				printf("mini->av[1] = %s\n", mini->av[1]);
-// 			return (1);
-// 		}
-// 	}
-// 	return (0);
-// }
-
-// init
 int	malloc_node(t_cmd	**one_cmd)
 {
 	t_cmd	*new;
@@ -119,7 +55,7 @@ char	*ft_add_line_after(char *line, char buf)
 	return (new);
 }
 
-// ft_fill_av vs ft_malloc_avs
+//ft_fill_av vs ft_malloc_avs
 char *ft_strcpy(char *dest, char *src)
 {
 	int i;

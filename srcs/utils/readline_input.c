@@ -6,11 +6,11 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 17:52:11 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 15:58:54 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/22 09:59:35 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 // int readline_input(char *str)
 // {
