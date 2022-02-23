@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 11:33:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/23 12:10:02 by thi-phng         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../minishell.h"
 
 void	get_pwd()
@@ -52,7 +40,6 @@ void	mini_run(t_mini *mini)
 		exec_cmd_with_no_pipe(mini);
 	else
 		run_piped_cmds(mini,  nb_cmds(mini->cmd));
-
 	printf("Idk, free tout : in main/mini_run\n");
 	free(cmd->line);
 }

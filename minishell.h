@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/23 11:51:00 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/23 12:11:09 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define MINISHELL_H
 
 #define EXIT_SUCCESS 0
+#define EXIT_FAILURE 1
+
+#define READ_END fd[0]
+#define WRITE_END fd[1]
+#define STDIN 0
+#define STDOUT 1
 #define EXIT_FAILURE 1
 
 # include <stdio.h>
@@ -138,7 +144,7 @@ int	    	chpos(const char *s, int c);
 void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
-void		ft_puterror_fd(char *error, char *s, char *error2);
+int		ft_puterror_fd(char *error, char *s, char *error2);
 void		free_tab(char ***line);
 int			ft_count_quotes(const char *str);
 char		*ft_strdup(char *s1);
@@ -156,7 +162,7 @@ void	run_builtin(t_mini *mini, t_cmd *cmd);
 void	run_execve_2(t_mini *mini, t_cmd *cmd);
 
 
-void	exec_cd(int ac, char **av, char **env);
+int	exec_cd(int ac, char **av, char **env);
 
 //pwd
 int exec_pwd(void) ;
@@ -241,6 +247,21 @@ char	*add_char(t_mini *mini, char *str, int c);
 void    exec_cmd(int ac, char **av, char ***env);
 
 //*** PIPES ***//
+char	*ft_strndup(char *s, int n);
+char	**ft_split(char *s, char sep);
+void print_tab(char **av);
+void print_cmds(t_cmd *cmd);
+int  nb_cmds(t_cmd *cmd);
+
+void safely_exec_bin(char **cmd);
+void safely_pipe_me(int new_pipe_fd[]);
+void safely_fork(int *pid);
+
+void	child_process(t_cmd *cmd, int *fd, t_mini *mini);
+void waiting_for_all_children_to_finish_execution(pid_t	pid_lst[]);
+void run_piped_cmds(t_mini *mini, int nb_cmd);
+
+void exec_cmd_with_no_pipe(t_mini *mini);
 
 //*** REDIRECTIONS ***//
 void    ft_set_direct(char *line, int *i, t_cmd *mini);

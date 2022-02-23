@@ -112,16 +112,6 @@ void redirections()
 	}
 }
 
-
-void    pipelines()
-{
-	//le in prend le dernier out
-	while (cmd->next)
-	{
-		
-		cmd = cmd->next;
-	}
-}
 */
 
 /*
@@ -188,43 +178,6 @@ void redirections(int ac, char **av, char **env)
 		if (j == ac)
 			handle_redirection(av[j], av[j + 1], &fd);
 	}
-}
-
-#define READ_END 0
-#define WRITE_END 1
-void	run_pipe(char **av)
-{
-	const int READ_END;
-	const int WRITE_END;
-
-	READ_END = 0;
-	WRITE_END = 1;
-	int	pipes[2];
-
-	pipe(pipes);
-	child = fork();
-	if (((int)child) == -1)
-	{
-		close(pipes[READ_END]);
-		close(pipes[WRITE_END]);
-		perror("fork error\n");
-		break;
-	}
-	else if (child == 0)
-	{
-		dup2(pipes[WRITE_END], STDOUT_FILENO);
-		close(pipes[READ_END]);
-		execve(av[0], &av[1], NULL);
-		perror("error\n");
-		break;
-	}
-	//parent
-	dup2(pipes[READ_END], STDIN_FILENO);
-	close(pipes[WRITE_END]);
-	wait(NULL);
-	execve(av[0], &av[1], NULL);
-	return ;
-	
 }
 
 

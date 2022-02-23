@@ -47,10 +47,3 @@ int	exec_echo(int ac, char **av)
 	echo(ac, av, n);
 	return (EXIT_SUCCESS);
 }
-
-/*
-int	main(int ac, char **av)
-{
-	exec_echo(ac, av); 
-}
-*/
