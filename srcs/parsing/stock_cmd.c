@@ -54,7 +54,7 @@ void	add_cmd(t_cmd **cmd_lst, t_cmd *cmd)
 	cmd->prev = current;
 }
 
-
+// REDIRECTION
 // void	get_redir(t_mini *mini, int *i, t_cmd *cmd)
 // {
 // 	(void)cmd;//will be used later in redirection
@@ -151,7 +151,6 @@ void	get_avs(t_mini *mini, int *i, t_cmd *cmd)
 	printf("get_avs : 1.0");
 	while (s[*i] && !is_redir(s[*i]) && s[*i] != '|' && s[*i] != ' ')
 	{
-		//printf("get_avs : 1.2: in loop\n");
 		if (s[*i] == '$')
 			get_var_dollar(mini, cmd, s, i);//a fuction to check if variable after $ exist in env + stock avs
 		else if (s[*i] == '"' || s[*i] == '\'')
@@ -165,13 +164,9 @@ void	get_avs(t_mini *mini, int *i, t_cmd *cmd)
 		}
 		else
 		{
-			//printf("get_avs : 1.3\n");
 			printf("mini->line[i] = %c\n", mini->line[*i]);
 			buf = malloc(sizeof(char) * 2);
-			//printf("get_avs : 1.4\n");
 			ft_buf(s, i, buf);
-
-			//printf("get_avs : 1.5\n");
 			line = ft_add_line_after(line, buf[0]);
 			printf("cmd->line = %s\n", line);
 			if (!s[*i] && line)
@@ -189,8 +184,6 @@ int			create_files(t_redir type, char *filename)
     fd = -1;
 	if (type == TRUNC)
 	    fd = open (filename, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
-//pour recuperer le filename faire attention au niveau du parsing car >filename
-// et > filename sont possibles
 	else if (type == APPEND)
         fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
    	else if (type == READONLY)
@@ -216,11 +209,8 @@ t_cmd	*stock_cmds_2(t_mini *mini)
 	i = 0;
 	while (mini->line[i])
 	{
-	//	printf("2.1 Inside mini->line\n");
 		cmd = new_elem_cmd(mini);
-		//printf("2.2 Done add new_elem_cmd\n");
 		add_cmd(&cmd_lst, cmd);
-	//	printf("2.3 Done add cmd in cmd_list\n");
 
 		while (mini->line[i] && mini->line[i] != '|')
 		{
