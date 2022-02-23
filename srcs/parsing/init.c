@@ -8,7 +8,7 @@ void	init_cmd(t_cmd *cmd)
 	cmd->line = NULL;
 	cmd->av = NULL;
 	//cmd->type = NOPE;
-	cmd->type = 0;
+	//cmd->type = 0;
 	cmd->file = NULL;
 	cmd->next = NULL;
 	cmd->prev = NULL;

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/22 22:50:38 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/23 10:04:49 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,13 +154,15 @@ int	ft_add_to_fstack(t_cmd *cmd, char *line)
 {
 	t_file		*tmp;
 	t_file		*new;
-	t_cmd	*prm;
+	//t_cmd	*prm;
 	char		*new_name;
 
 	tmp = cmd->file;
-	prm = cmd;
+//	prm = cmd;
 	new = (t_file *)malloc(sizeof(t_file));
 	new_name = malloc(sizeof(char) * (ft_strlen(line) + 1));
+	printf("\n\n\nINSIDE fd add _ to _fstack\n");
+
 	if (!new || !new_name)
 		return (0);
 	if (!cmd->file)
@@ -170,9 +172,11 @@ int	ft_add_to_fstack(t_cmd *cmd, char *line)
 		new->name = new_name;
 		new->type = cmd->type;
 		cmd->file = new;
+		printf("  --- 1---- first node, new->name = %s\n", new->name);
 	}
 	else if (cmd->file)
 	{
+		printf("    --- 2---- cmd->file ezist :first node, new->name = %s\n", new->name);
 		ft_strcpy(new_name, line);
 		ft_add_to_fstack2(tmp, new_name, new, cmd);
 	}
@@ -196,19 +200,20 @@ int	check_redir(char *str, int *i)
 }
 
 
-
+//str = line[*i];
+//line = line_after
 int	ft_add_file(t_cmd *cmd, int *i, char *str, char *line)
 {
 	while (is_redir(str[*i]) || is_blank(str[*i]))
 		(*i)++;
-	while (is_blank(str[*i]) && str[(*i)])
+	while (!is_blank(str[*i]) && str[(*i)])
 	{
 		line = ft_add_line_after(line, str[(*i)]);
 		if (!line)
 			return (0);
 		(*i)++;
 	}
-	//add_cmd(t_cmd **cmd_lst, t_cmd *cmd)
+	printf("line in ft_add_file = NULL???? !!! %s\n", line);
 	if (!line || !ft_add_to_fstack(cmd, line))
 	{
 		printf("Minishell: syntax error\n");
@@ -219,12 +224,48 @@ int	ft_add_file(t_cmd *cmd, int *i, char *str, char *line)
 }
 
 
+t_file	*new_elem_file(t_cmd *cmd)
+{
+	t_file	*elem;
+
+	(void)cmd;//to free after only
+	elem = malloc(sizeof(t_file));
+	if (!elem)
+		//exit_custom(mini, NULL, AUTO);
+		printf("Exist and Free mini\n");
+	elem->type = 0;
+	elem->name = NULL;
+	return (elem);
+}
+
+
+void	add_files(t_file **file_lst, t_file *file)
+{
+	t_file	*current;
+
+	if (!(*file_lst))
+	{
+		*file_lst = file;
+		return ;
+	}
+	current = *file_lst;
+	while (current->next)
+		current = current->next;
+	current->next = file;
+	//cmd->prev = current;
+}
+
 //str = line_after
 // line = line;
 //int	ft_add_file(t_cmd *cmd, int *i, char *str, char *line)
+//stock file in list files
 int	ft_redirec(char *line, int *i, char *str, t_cmd *tmp)
 {
+//	t_file	*file_lst;
+	t_file	*file;
 	t_mini *mini;
+
+	file = NULL;
 	mini = NULL;
 	printf("Start mdredoc \n");
 	// if (!check_redir(str, &(*i)))
@@ -238,27 +279,18 @@ int	ft_redirec(char *line, int *i, char *str, t_cmd *tmp)
 		ft_avs(tmp, str);
 		str = NULL;
 	}
-	printf(" Done ft_avs the rest  \n");
-	//ft_define_redicretcion(str, i, tmp);
-	
-	
 	ft_set_direct(line, i, tmp);
+	
 	ft_add_file(tmp, i, line, str);
-	
-	
-	//new->type = get_type_left(mini, &i);
-   // new->name = get_fname(mini, &i);
-	
-	//printf("  Start add file \n");
-	
-	
-	//get_redir_in(mini, *i, tmp, line);
 	printf("done_add_file\n");
 	if (!tmp->file)
 		return (0);
 	while (str[(*i)] == ' ')
 		(*i)++;
 	line = NULL;
+	if (tmp->file)
+		printf("tmp->file = %s\n", tmp->file->name);
+	printf("DONE done done_add_file\n");
 	return (1);
 }
 
@@ -336,7 +368,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd *cmd)
 		{
 			printf("Redirection\n\n");
 			
-			if (ft_redirec(line, i, line_after, tmp))
+			if (!ft_redirec(line, i, line_after, tmp))
 				return (0);
 			//get_redir(mini, i, cmd);
 			printf("done get_redir\n");
@@ -366,69 +398,3 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd *cmd)
 	}
 	return (1);
 }
-
-// void	ft_each_cmd_3(t_mini *mini, char *line, int *i, t_cmd *cmd)
-// {
-// 	char		*buf;
-// 	char		*line_after;
-// 	t_cmd		*tmp;
-// //	char		*line;
-// //	int			i;
-
-// 	(void)buf;
-// 	(void)mini;//mini will be used for $ in env
-// //	i = 0;
-// 	line_after = NULL;
-// 	//cmd->line = str;
-
-// 	tmp = cmd;
-// 	printf("Orgine line is : %s\n", cmd->line);
-// 	//line = cmd->line;
-// 	while (line[*i] && line[*i] != '|')
-// 	{
-// 		if (line[*i] == ' ')
-// 		{
-// 			if (line_after)
-// 				ft_avs(tmp, line_after);
-// 			(i)++;
-// 			//ft_space_skip(line, i);
-// 			line_after = NULL;
-// 		}
-// 		else if (line[*i] == '"')
-// 		{
-// 			printf("1_Double quote found\n\n");
-// 			printf("where am i ? line[*i] = double quote found : %c\n", line[*i]);
-// 			if (!ft_d2_quotes(line_after, i, line, tmp))
-// 				exit(0) ;
-// 			printf("tmp->av[0] = %s\ntmp->av[1] = %s\n", tmp->av[0], tmp->av[1]);
-// 			if (line[(*i) + 1] == '\0')
-// 				break ;
-// 			//dollar in quote
-// 			// if (!mdquote3(line, &i))
-// 			// 	break ;
-// 			line_after = NULL;
-// 		}
-// 		else if (line[*i] == '\'')
-// 		{
-// 			printf("single quotes\n\n");
-// 			printf("line_after = %s\n", line_after);
-// 			if (!ft_single_quote(line_after, i, line, tmp))
-// 				exit(0);
-// 			if (line[*i + 1] == '\0')
-// 				break ;
-// 			ft_pass_squote(line, i);
-// 			line_after = NULL;
-// 		}
-// 		else
-// 		{
-// 			printf("char = %c\n", line[*i]);
-// 			buf = malloc(sizeof(char) * 2);
-// 			ft_buf(line, i, buf);
-// 			line_after = ft_add_line_after(line_after, buf[0]);
-// 			if (!line[*i] && line_after)
-// 				ft_avs(tmp, line_after);
-// 			free(buf);
-// 		}
-// 	}
-// }
-
