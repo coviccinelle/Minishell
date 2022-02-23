@@ -182,6 +182,7 @@ int			create_files(t_redir type, char *filename)
     int fd;
 
     fd = -1;
+	printf("type de ficher = %d\n", type);
 	if (type == TRUNC)
 	    fd = open (filename, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	else if (type == APPEND)
@@ -198,7 +199,7 @@ int			create_files(t_redir type, char *filename)
 }
 
 //stock cmd
-t_cmd	*stock_cmds_2(t_mini *mini)
+t_cmd	*stock_cmds(t_mini *mini)
 {
 	t_cmd	*cmd_lst;
 	t_cmd	*cmd;
@@ -215,8 +216,11 @@ t_cmd	*stock_cmds_2(t_mini *mini)
 		while (mini->line[i] && mini->line[i] != '|')
 		{
 			ft_each_cmd_4(mini, mini->line, &i, cmd);
+			if (!cmd->file_in)
+				printf("invisible\n");
 			while (cmd->file_in)
 			{
+				printf("file _name = %s\n", cmd->file_in->name);
 				create_files(*cmd->file_in->type, cmd->file_in->name);
 				cmd->file_in = cmd->file_in->next;
 			}

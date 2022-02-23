@@ -15,17 +15,17 @@ int  nb_cmds(t_cmd *cmd)
 }
 
 
-void print_tab(char **av)
-{
-	int j;
+// void print_tab(char **av)
+// {
+// 	int j;
 
-	j = 0;
-	while(av[j])
-	{
-		printf("%s\n", av[j]);
-		j++;
-	}
-}
+// 	j = 0;
+// 	while(av[j])
+// 	{
+// 		printf("%s\n", av[j]);
+// 		j++;
+// 	}
+// }
 
 
 void safely_exec_bin(char **cmd) //le moment venu,  ajouter ***env en param
