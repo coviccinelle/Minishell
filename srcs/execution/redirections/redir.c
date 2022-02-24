@@ -67,8 +67,6 @@ void	handle_heredoc(int ac, char **av, char **env)
 		if (line)
 		{
 			ft_putendl_fd(line, pipe_fd[1]);
-			if (line[0] == '$' && line[1] != '\0')
-				line = ft_getenv(env, line);
 		//	if (ft_strncmp(line, heredoc->eof, ft_strlen(heredoc->eof)) == 0)
 		//	{
 		//		if (heredoc->next)

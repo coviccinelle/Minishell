@@ -1,5 +1,7 @@
-#include "../../minishell.h"
+#include "../../../minishell.h"
 
+
+// ajouter ce fichier dans le makefile principal le moment venu + ajouter les includes necessaires au .h
 #include <stddef.h>
 #include <stdlib.h>
 #include <fcntl.h>

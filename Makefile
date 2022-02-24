@@ -35,16 +35,14 @@ SRC		=	srcs/main.c \
 			srcs/utils/ft_pars_piping.c \
 			srcs/utils/find_me_vs_token_dir.c \
 			\
-			srcs/execution/env.c \
-			srcs/execution/builtins/exit.c \
-			srcs/execution/builtins/echo.c \
-			srcs/execution/builtins/pwd_cd.c \
-			srcs/execution/command_expansion.c \
+			srcs/execution/builtins_and_bin_exec/command_search_and_execution.c \
+			srcs/execution/builtins_and_bin_exec/exit.c \
+			srcs/execution/builtins_and_bin_exec/echo.c \
+			srcs/execution/builtins_and_bin_exec/export_unset.c \
+			srcs/execution/builtins_and_bin_exec/pwd_cd.c \
 			srcs/execution/redirections/redir.c \
-			srcs/execution/builtins/export_unset.c \
-			srcs/execution/command_search_and_execution.c \
-			srcs/execution/pipes.c \
-			srcs/execution/pipes_utils.c \
+			srcs/execution/pipes/pipes.c \
+			srcs/execution/pipes/pipes_utils.c \
 			
 			#srcs/utils/ft_split_3.c 
 				

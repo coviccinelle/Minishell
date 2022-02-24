@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:42 by mloubet           #+#    #+#             */
-/*   Updated: 2022/02/24 18:25:03 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/02/24 19:55:00 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,19 @@ char	*ft_getenv(char **env, char *name)
 int	ft_setenv(char ***env, char *av, char *name, char *value)
 {
 	int	pos_name;
-//	(void)value; //pourquoi jai mis void value deja?
-	if (av == NULL)
-		av = ft_strxjoin(name, "=", value);
+	int	free_me;
 
+	free_me = 0;
+	if (av == NULL)
+	{
+		free_me = 1;
+		av = ft_strxjoin(name, "=", value);
+	}
 	if (find_in_env(*env, name, &pos_name) != NULL)
 		ft_unsetenv(env, name);
 	env_realloc_and_append_envvar(env, av);
+	if (free_me == 1)
+		free(av);
 	return (0);
 }
 

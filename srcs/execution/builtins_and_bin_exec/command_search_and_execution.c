@@ -1,4 +1,4 @@
-#include "../../minishell.h"
+#include "../../../minishell.h"
 //#include <unistd.h>
 #include<sys/wait.h>
 
@@ -22,7 +22,6 @@ int	is_builtin(char *builtin)
 	return (0);
 }
 
-// 2/ if == 1. exec builtin.else print error msg command not found
 int exec_builtin(char *builtin, int ac, char **av, char ***env)
 {
 		int exit_status;
@@ -30,21 +29,18 @@ int exec_builtin(char *builtin, int ac, char **av, char ***env)
 		exit_status =  EXIT_SUCCESS; 
 		if (!(ft_strcmp(builtin, "cd")))
 			exec_cd(ac, av, *env);
-		//if (!(ft_strncmp(builtin, "echo", ft_strlen("echo"))))
 		if (!(ft_strcmp(builtin, "echo")))
 			exit_status = exec_echo(ac, av);
 		if (!(ft_strcmp(builtin, "env")))
 			print_env(*env);
 		if (!(ft_strcmp(builtin, "export")))
-			exit_status = exec_export(ac, av, env); // + &export list. de 4/
+			exit_status = exec_export(ac, av, env);
 		if (!(ft_strcmp(builtin, "exit")))
 			exec_exit(ac, av);
 		if (!(ft_strcmp(builtin, "pwd")))
 			exit_status = exec_pwd();
 		if (!(ft_strcmp(builtin, "unset")))
-			exit_status = exec_unset(ac, av, env); // + &export list. de 4/
-		if (exit_status != 0)
-			exit_status = EXIT_FAILURE; // If a command is found but is not executable, the return status is 126.
+			exit_status = exec_unset(ac, av, env);
 		return (exit_status);
 }
 
@@ -59,10 +55,6 @@ char	*ft_strxjoin(char *s1, char *s2, char *s3)
 		free(tmp);
 		return (res);
 }
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
 
 char	**ft_split(char *s, char sep)
 {
@@ -102,16 +94,14 @@ char	*find_cmd_path(char *cmd, char **env)
 	j = -1;
 	if (!cmd)
 		return (NULL);
-	path = ft_split(possible_paths, ':'); // mettre a lexterieur car flemme de rajouter env en param // ft_getenv
+	path = ft_split(possible_paths, ':');
 	free(possible_paths);
 	while (path[++j])
 	{
 		absolute_path = ft_strxjoin(path[j], "/", cmd);
-	//	printf("absolute_path[%d] = %s\n", j, absolute_path);
 		if (stat(absolute_path, &s) == 0)
 		{
 			free_tab(&path);
-	//		printf("last absolute path = %s\n", absolute_path);
 			return (absolute_path); // a free pour le dernier ft_strjoin non?
 		}
 		ft_memdel(&absolute_path);
@@ -121,12 +111,9 @@ char	*find_cmd_path(char *cmd, char **env)
 	return (NULL);
 }
 
-#include <errno.h>  
-#include <string.h>
-
-void safely_exec_bin_cmds(char *path, char **av, char **env, int *exit_status) //le moment venu,  ajouter ***env en param
+void safely_exec_bin_cmds(char *path, char **av, char **env, int *exit_status)
 {
-	if (execve(path, av, env) < 0) //le moment venu, remplacer NULL par *env
+	if (execve(path, av, env) < 0)
 	{
 		perror(path);
 		*exit_status = 1; // a remplacer par g_exit ? anyway faire attention car de base je voulais ret tout en meme temps a la fin de exec_cmd mais la jai un exit donc cet exit_status ne sera pas pris en compte
@@ -147,7 +134,7 @@ int	exec_cmd(int ac, char **av, char ***env)
 	if ((access(av[0], F_OK)) == 0)
 	{
 		relative = 1;
-		path = strdup(av[0]); // remplacer par ft_strdup
+		path = ft_strdup(av[0]);
 	}
 	if (relative == 0)
 		path = find_cmd_path(av[0], *env);
@@ -160,30 +147,3 @@ int	exec_cmd(int ac, char **av, char ***env)
 		safely_exec_bin_cmds(path, av, *env, &exit_status);
 	return (exit_status);
 }
-/*
-int	main(int ac, char **av, char **envp)
-{
-	//OLD OK
-	char **env;
-
-	env = ft_copy_tab(envp);
-	pid_t	father;
-
-	father = fork();
-	if (father > 0)
-	{
-		wait(NULL);
-		printf("I AM YOUR FATHER\n");
-	}
-	if (father == 0)
-	{
-		sleep(3);
-		exec_cmd(ac, av, &env);
-	}
-	free_tab(&env);
-//	print_env(env);
-
-	return (0);
-}
-*/
-
