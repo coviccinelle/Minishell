@@ -27,7 +27,9 @@ void	ft_putendl_fd(char *s, int fd)
 	write(fd, "\n", 1);
 }
 
-//fonctionne en local. checker avec le parsing de thao.
+
+//fonctionne en local. checker avec le parsing de thao. 
+//checker que le control d et c marche bien depuis le heredoc
 void	call_heredoc(char *eof)
 {
 	int fd;

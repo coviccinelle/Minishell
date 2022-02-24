@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:53 by mloubet           #+#    #+#             */
-/*   Updated: 2022/02/22 22:14:19 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/02/24 18:36:48 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	exec_cd(int ac, char **av, char **env)
 	new_path = NULL;
 	current_path = getcwd(NULL, 0);
 	if (ac > 2)
-		return (ft_puterror_fd("bash: ", "cd: ", "too many arguments")); //donc ret EXIT a 1 aka exit failure
+		return (ft_puterror_fd("minishell: ", "cd: ", "too many arguments")); //donc ret EXIT a 1 aka exit failure
 	if ((ac == 1) || (ac == 2 && (!ft_strncmp(av[1], "~", ft_strlen("~")))))
 		new_path = ft_getenv(env, "HOME");
 	else if (ac == 2 && (!ft_strncmp(av[1], "-", ft_strlen("-"))))
@@ -48,85 +48,14 @@ int	exec_cd(int ac, char **av, char **env)
 	}
 	else
 		new_path = av[1];
-/*	else if (ac == 2 && pas trouve dossier (av[1]))
-		ft_or_fd("cd: ", "no such file or directory: ", av[1]);
-	else if (ac == 2 && !is_dir(av[1])) // fd=open(av[1], O_WROLNLY); ??
-		ft_puterror_fd("cd: ", "not a directory: ", av[1]);
-	else if (ac == 2 && is_dir(av[1]))
-		new_path = ??;
-*/
-//	a la fin
-
 	printf("New path = %s\n\n\n\n", new_path);
 	if (chdir(new_path) == -1)
-		return(ft_puterror_fd("cd: ", "no such file or directory: ", av[1])); //ret a 1 aka exit failure
-
-		//ft_puterror_fd("cd: ", sterror(errno), new_path);
+	{
+		ft_putstr_fd("minishell: cd: ", 2);
+		perror(av[1]); // no such file or directory, not a directory...
+		return (EXIT_FAILURE);
+	}
 	ft_setenv(&env, NULL, "PWD", new_path);
 	ft_setenv(&env, NULL, "OLDPWD", current_path);
-
 	return(EXIT_SUCCESS);
 }
-
-/*
-#include <unistd.h>
-int	main(int ac, char **av)
-{
-//	exec_pwd();
-	chdir(av[1]); // pourquoi ne fonctionne pas ??
-	return (0);
-}
-*/
-/*
-#include<unistd.h> 
-
-int main(int ac, char **av) 
-{
-
-  // changing the current
-  // working directory(cwd)
-  // to /usr
-  //if (chdir("/usr") != 0)
-   // perror("chdir() to /usr failed");
-
-  // changing the cwd to /tmp
-  //if (chdir("/tmp") != 0)
-    //perror("chdir() to /temp failed");
-
-  if (chdir(av[1]) != 0)
-	  perror(av[1]);
-
-  return 0;
-}
-*/
-/*
-#include<unistd.h>
-int main()
-{
-    char s[100];
-
-    // printing current working directory
-    printf("%s\n", getcwd(s, 100));
-
-    // using the command
-    chdir("..");
-
-    // printing current working directory
-    printf("%s\n", getcwd(s, 100));
-
-    // after chdir is executed
-    return 0;
-}
-*/
-
-/*
-int	main(int ac, char **av, char **env)
-{
-char s[100];
-    printf("before = %s\n", getcwd(s, 100));
-	exec_cd(ac, av, env);
-
-    printf("after cd  = %s\n", getcwd(s, 100));
-	return (0);
-}
-*/

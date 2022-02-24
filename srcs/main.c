@@ -60,6 +60,7 @@ void	minishell(char **env)
 	init_shell();
 	while (42)
 	{
+		line = NULL;
 		line = ft_readline_input(mini->line);
 		add_history(line);
 		mini->line = line;

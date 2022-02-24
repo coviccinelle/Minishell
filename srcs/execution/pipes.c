@@ -63,14 +63,15 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 	{
 	//	safely_exec_bin(cmd->av);
 	//	printf("!!je vais exec un bin!!!!\n");
-	 	exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
+	 	exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env); //mettre un gexit
 		exit(0);
 	}
 	else
 	{
-		ft_puterror_fd("minishell:", cmd->av[0], " not found"); //et ret 127!!!
+		ft_puterror_fd("minishell:", cmd->av[0], " not foundPIPES"); //et ret 127!!!
 		exit(1);
 	}
+
 
     //exit 127 si error?
     //juste inserer parent process ici. tenter de forker en haut comme ça je peux separer des builtins

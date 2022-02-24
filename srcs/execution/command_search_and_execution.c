@@ -124,20 +124,26 @@ char	*find_cmd_path(char *cmd, char **env)
 #include <errno.h>  
 #include <string.h>
 
-void	exec_cmd(int ac, char **av, char ***env)
+void safely_exec_bin_cmds(char *path, char **av, char **env, int *exit_status) //le moment venu,  ajouter ***env en param
+{
+	if (execve(path, av, env) < 0) //le moment venu, remplacer NULL par *env
+	{
+		perror(path);
+		*exit_status = 1; // a remplacer par g_exit ? anyway faire attention car de base je voulais ret tout en meme temps a la fin de exec_cmd mais la jai un exit donc cet exit_status ne sera pas pris en compte
+		//si bug dans mes pipes, remettre exit(EXIT_FAILURE);
+	}
+}
+
+int	exec_cmd(int ac, char **av, char ***env)
 {
 	char	*path;
 	int	relative;
-	int	ret;
+	int 	exit_status;
 	(void)ac;
-	ret = 0;
 
 	path = NULL;
 	relative = 0;
-	// if (is_builtin(av[0])) //a remplacer par av[0] apres.
-	// 	exec_builtin(av[0], ac, av, env); // a remplacer par av[0] et av[1] apres. all builtin return an exit status of 2 to indicate incorrate usage such as invalid option or missing arguments
-	// else
-	// {
+	exit_status = 0;
 	if ((access(av[0], F_OK)) == 0)
 	{
 		relative = 1;
@@ -146,17 +152,13 @@ void	exec_cmd(int ac, char **av, char ***env)
 	if (relative == 0)
 		path = find_cmd_path(av[0], *env);
 	if (path == NULL)
-		ft_puterror_fd("minishell: ", "command not found: ", av[0]);// exit status 127. if a command is not foundm the child process to execute it returns a status of 127
-	else if (path != NULL)
 	{
-		//printf("PATH before execve is %s\n", path);
-		ret = execve(path, av, *env);
+		ft_puterror_fd("minishell: ", "command not found: ", av[0]);
+		exit_status = 127; // if a command is not found the child process to execute it returns a status of 127
 	}
-		 // . a remplacer par av apres en attendant parsing. if a command is found but is not executable, the return status is 126
-//	}	
-	else if (ret == -1) // en cas de reussite exceve ne revient pas mais en cas dechec renvoie -1 avec le code derreur dans errno
-		strerror(errno);
-		//perror("");
+	else if (path != NULL)
+		safely_exec_bin_cmds(path, av, *env, &exit_status);
+	return (exit_status);
 }
 /*
 int	main(int ac, char **av, char **envp)
