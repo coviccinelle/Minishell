@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/23 12:11:09 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/24 15:20:14 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ char	**ft_env_cpy(char **envp);
 void print_mini_avs(t_mini *mini);
 
 
-
+char	*ft_strxjoin(char *s1, char *s2, char *s3);
 //char		*ft_strdup(const char *s1);
 char		*ft_strjoin(char *s1, char *s2);
 int	    	ft_strlen(char *s);

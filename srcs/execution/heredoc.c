@@ -1,16 +1,5 @@
 #include "../../minishell.h"
 
-
-
-
-
-
-
-
-
-
-
-
 #include <stddef.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -35,18 +24,21 @@ void	ft_putendl_fd(char *s, int fd)
 		write(fd, s, 1);
 		s++;
 	}
-//	write(fd, "\n", 1);
+	write(fd, "\n", 1);
 }
 
-
-void call_heredoc(char *eof)
+//fonctionne en local. checker avec le parsing de thao.
+void	call_heredoc(char *eof)
 {
 	int fd;
 	char *input;
 
 
 	input = NULL;
-	fd = open("/tmp/.heredoc",  O_CREAT | O_WRONLY | O_RDONLY | O_TRUNC, 0777);
+//pour mieux cacher le fichier eof avant un eventuel cat,  char *filename = ft_strxjoin("/tmp/", eof, "/.heredoc")??
+	if (eof == NULL)
+		return ;
+	fd = open(eof,  O_CREAT | O_WRONLY | O_RDONLY | O_TRUNC, 0777);
 	if (fd == -1)
 		perror(eof);
 	while (1)
@@ -54,10 +46,9 @@ void call_heredoc(char *eof)
 		input = readline("> ");
 		if (input)
 		{
-		//	ft_putendl_fd(input, 1);
-			if (input[0] == '$' && input[1] != '\0')
-					input = getenv(input); //getenv(env, input)ou get expansion de thao. a checker pour "" case avec $
-			if (strncmp(input, eof, strlen(eof + 1)) == 0) //plus 1 pour le \n
+			if(strncmp(input, eof, strlen(eof)) != 0) // a remplacer par ft_strncmp 
+				ft_putendl_fd(input, fd);
+			if (strncmp(input, eof, strlen(eof)) == 0) //idem
 					break;
 			free(input);
 		}
@@ -73,17 +64,18 @@ int main(int ac, char **av)
 
 
 	(void)ac;
-	j = 1;
-/*	while(av[j])
+	j = 0;
+	while(av[++j]) //attention a bien appeler par pipe quand on mixera la fonction avec thao
 	{
-		ft_putendl_fd(av[j], 2);
 		call_heredoc(av[j]);
-		j++;	
 	}
-*/
 
-		call_heredoc(av[1]);
-		call_heredoc(av[2]);
+	j = 0;
+	while(av[++j])
+	{
+		unlink(av[j]);
+	}
+		
 	return (0);
 }
 
