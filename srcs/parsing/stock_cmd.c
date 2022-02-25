@@ -217,7 +217,7 @@ t_cmd	*stock_cmds(t_mini *mini)
 		{
 			ft_each_cmd_4(mini, mini->line, &i, cmd);
 			if (!cmd->file_in)
-				printf("invisible\n");
+				printf("file_in invisible\n");
 			while (cmd->file_in)
 			{
 				printf("file _name = %s\n", cmd->file_in->name);
