@@ -224,6 +224,14 @@ t_cmd	*stock_cmds(t_mini *mini)
 				create_files(*cmd->file_in->type, cmd->file_in->name);
 				cmd->file_in = cmd->file_in->next;
 			}
+			if (!cmd->file_out)
+				printf("file_out invisible\n");
+			while (cmd->file_out)
+			{
+				printf("file _name = %s\n", cmd->file_out->name);
+				create_files(*cmd->file_out->type, cmd->file_out->name);
+				cmd->file_out = cmd->file_out->next;
+			}
 		}
 		printf("2.5 Done stocking data in first cmd\n");
 		if (mini->line[i] == '|')

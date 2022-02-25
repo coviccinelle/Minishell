@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/25 17:28:39 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/02/25 17:34:07 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,7 @@ int	ft_add_to_fstack_out(t_cmd *cmd, char *line)
 }
 
 
-
-
-int	ft_add_to_fstack_in(t_cmd *cmd, t_file **file_in, char *line)
+int	ft_add_to_fstack_in(t_cmd *cmd, char *line)
 {
 	t_file		*tmp;
 	t_file		*new;
@@ -102,36 +100,71 @@ int	ft_add_to_fstack_in(t_cmd *cmd, t_file **file_in, char *line)
 	char		*new_name;
 
 	tmp = cmd->file_in;
-//	prm = (*file_in);
+//	prm = cmd;
 	new = (t_file *)malloc(sizeof(t_file));
 	new_name = malloc(sizeof(char) * (ft_strlen(line) + 1));
 	//printf("\n\n\nINSIDE fd add _ to _fstack\n");
 
 	if (!new || !new_name)
 		return (0);
-	if (!(*file_in))
+	if (!cmd->file_in)
 	{
 		new->next = NULL;
 		ft_strcpy(new_name, line);
 		new->name = new_name;
-		new->type = &(*cmd).type;
-		(*file_in) = new;
-		printf("  --- 1---- first node, new->name = %s\n", new->name);
-		return(1);
-	}
-//	else if ((*file_in))
-//	{
-		printf("    --- 2---- (*file_in)->file_in ezist : NOT first node, new->name = %s\n", new->name);
-		ft_strcpy(new_name, line);
-		new->next = NULL;
-		new->name = new_name;
 		new->type = &cmd->type;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-//	}
+		cmd->file_in = new;
+		printf("  --- 1---- first node, new->name = %s\n", new->name);
+	}
+	else if (cmd->file_in)
+	{
+		printf("    --- 2---- cmd->file_in ezist : NOT first node, new->name = %s\n", new->name);
+		ft_strcpy(new_name, line);
+		ft_add_to_fstack2_in(tmp, new_name, new, cmd);
+	}
 	return (1);
 }
+
+
+
+// int	ft_add_to_fstack_in(t_cmd *cmd, t_file **file_in, char *line)
+// {
+// 	t_file		*tmp;
+// 	t_file		*new;
+// 	//t_cmd	*prm;
+// 	char		*new_name;
+
+// 	tmp = cmd->file_in;
+// //	prm = (*file_in);
+// 	new = (t_file *)malloc(sizeof(t_file));
+// 	new_name = malloc(sizeof(char) * (ft_strlen(line) + 1));
+// 	//printf("\n\n\nINSIDE fd add _ to _fstack\n");
+
+// 	if (!new || !new_name)
+// 		return (0);
+// 	if (!(*file_in))
+// 	{
+// 		new->next = NULL;
+// 		ft_strcpy(new_name, line);
+// 		new->name = new_name;
+// 		new->type = &(*cmd).type;
+// 		(*file_in) = new;
+// 		printf("  --- 1---- first node, new->name = %s\n", new->name);
+// 		return(1);
+// 	}
+// //	else if ((*file_in))
+// //	{
+// 		printf("    --- 2---- (*file_in)->file_in ezist : NOT first node, new->name = %s\n", new->name);
+// 		ft_strcpy(new_name, line);
+// 		new->next = NULL;
+// 		new->name = new_name;
+// 		new->type = &cmd->type;
+// 		while (tmp->next)
+// 			tmp = tmp->next;
+// 		tmp->next = new;
+// //	}
+// 	return (1);
+// }
 
 
 
@@ -170,7 +203,8 @@ int	ft_add_file_out(t_cmd *cmd, int *i, char *str, char *line)
 	return (1);
 }
 
-int	ft_add_file_in(t_cmd **cmd, int *i, char *str, char *line)
+
+int	ft_add_file_in(t_cmd *cmd, int *i, char *str, char *line)
 {
 	while (is_redir(str[*i]) || is_blank(str[*i]))
 		(*i)++;
@@ -182,7 +216,7 @@ int	ft_add_file_in(t_cmd **cmd, int *i, char *str, char *line)
 		(*i)++;
 	}
 	//printf("line in ft_add_file = NULL???? !!! %s\n", line);
-	if (!line || !ft_add_to_fstack_in(*cmd, &(*cmd)->file_in, line))
+	if (!line || !ft_add_to_fstack_in(cmd, line))
 	{
 		printf("Minishell: syntax error\n");
 		return (0);
@@ -190,6 +224,28 @@ int	ft_add_file_in(t_cmd **cmd, int *i, char *str, char *line)
 	free(line);
 	return (1);
 }
+
+
+// int	ft_add_file_in_2(t_cmd *cmd, int *i, char *str, char *line)
+// {
+// 	while (is_redir(str[*i]) || is_blank(str[*i]))
+// 		(*i)++;
+// 	while (!is_blank(str[*i]) && str[(*i)])
+// 	{
+// 		line = ft_add_line_after(line, str[(*i)]);
+// 		if (!line)
+// 			return (0);
+// 		(*i)++;
+// 	}
+// 	//printf("line in ft_add_file = NULL???? !!! %s\n", line);
+// 	if (!line || !ft_add_to_fstack_in(*cmd, &(*cmd)->file_in, line))
+// 	{
+// 		printf("Minishell: syntax error\n");
+// 		return (0);
+// 	}
+// 	free(line);
+// 	return (1);
+// }
 
 
 t_file	*new_elem_file(t_cmd *cmd)
@@ -251,7 +307,7 @@ int	ft_redirec(char *line, int *i, char *str, t_cmd *tmp)
 	}
 	ft_set_direct(line, i, tmp);
 	if (line[*i] == '<')
-		ft_add_file_in(&tmp, i, line, str);
+		ft_add_file_in(tmp, i, line, str);
 	else if (line[*i] == '>')
 		ft_add_file_out(tmp, i, line, str);
 	file_in_2 = tmp->file_in;
