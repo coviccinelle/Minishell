@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_each_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/27 20:05:43 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/02/27 21:58:20 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,44 @@ int	ft_add_to_fstack_out(t_cmd **cmd, char *line)
 
 
 int	ft_add_to_fstack_in(t_cmd **cmd, char *line)
+{
+	t_file		*tmp;
+	t_file		*new;
+	t_file		*p;
+
+//	printf("\nAJOUT REDIR %s TYPE %d \n", line, &(*cmd)->type);
+	tmp = (*cmd)->file_in;
+	p = (*cmd)->file_in;
+	new = (t_file *)malloc(sizeof(t_file));
+	if (!new)
+		return (0);
+	new->next = NULL;
+	new->name = strdup(line);
+	new->type = &(*cmd)->type;
+	printf("\nAJOUT REDIR %s \n", line);
+
+	if (!(*cmd)->file_in)
+	{
+		printf("\nAJOUT PREMIER ELEMENT\n");
+		(*cmd)->file_in = new;
+		printf("  --- 1---- first node, new->name = %s\n", new->name);
+	}
+	else
+	{
+		while(p && p->next)
+		{
+			p = p->next;	
+		//	while ((*cmd)->file_in->next)
+		//		(*cmd)->file_in = (*cmd)->file_in->next;
+		//	(*cmd)->file_in = new;
+		}
+		printf("\nAJOUT ELEMENTS %s\n", new->name);
+		p->next = new;
+	}
+	return (1);
+}
+
+int	ft_add_to_fstack_in_2(t_cmd **cmd, char *line)
 {
 	(void)line;
 	(void)cmd;
