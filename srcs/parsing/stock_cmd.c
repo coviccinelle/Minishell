@@ -215,7 +215,7 @@ t_cmd	*stock_cmds(t_mini *mini)
 
 		while (mini->line[i] && mini->line[i] != '|')
 		{
-			ft_each_cmd_4(mini, mini->line, &i, cmd);
+			ft_each_cmd_4(mini, mini->line, &i, &cmd);
 			if (!cmd->file_in)
 				printf("file_in invisible\n");
 			while (cmd->file_in)
