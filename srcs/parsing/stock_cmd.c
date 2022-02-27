@@ -213,18 +213,6 @@ t_cmd	*stock_cmds(t_mini *mini)
 		{
 			ft_each_cmd_4(mini, mini->line, &i, &cmd);
 			stock_cmds_3(&cmd);
-		/*	
-			while (cmd->file_in)
-			{
-				create_files(*cmd->file_in->type, cmd->file_in->name);
-				cmd->file_in = cmd->file_in->next;
-			}
-			while (cmd->file_out)
-			{
-				create_files(*cmd->file_out->type, cmd->file_out->name);
-				cmd->file_out = cmd->file_out->next;
-			}
-			*/
 		}
 		if (mini->line[i] == '|')
 			i++;
