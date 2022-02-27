@@ -6,16 +6,11 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/22 09:36:55 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/27 22:25:36 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-
-
-
-
 
 int	ft_check_2rd_quote(char *str, int a)
 {

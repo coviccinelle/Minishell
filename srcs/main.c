@@ -1,12 +1,5 @@
 #include "../minishell.h"
 
-void	get_pwd()
-{
-	char	cwd[1024];
-	getcwd(cwd, sizeof(cwd));
-	printf("\nCurrent Directory: %s", cwd);
-}
-
 char	*ft_readline_input(char *line)
 {
 	signal(SIGINT, ft_sigint_ctr_c);

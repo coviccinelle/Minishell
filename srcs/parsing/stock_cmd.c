@@ -2,7 +2,7 @@
 #include "../../minishell.h"
 
 
-// should be main parsing
+// should be main parsing -> pour la norme?
 void	get_line(t_mini *mini, int *i, t_cmd *cmd)
 {
 	//char	*var_val;
@@ -11,7 +11,6 @@ void	get_line(t_mini *mini, int *i, t_cmd *cmd)
 	//var_val = NULL;
 	while (mini->line[*i] && !is_redir(mini->line[*i]) && mini->line[*i] != '|')
 	{
-		
 		cmd->line = ft_add_line_after(cmd->line, mini->line[(*i)++]);
 	}
 }
@@ -53,22 +52,6 @@ void	add_cmd(t_cmd **cmd_lst, t_cmd *cmd)
 	current->next = cmd;
 	cmd->prev = current;
 }
-
-// REDIRECTION
-// void	get_redir(t_mini *mini, int *i, t_cmd *cmd)
-// {
-// 	(void)cmd;//will be used later in redirection
-// 	if (mini->line[*i] == '<')
-// 	{
-// 		printf("redirection IN\n");
-// 		get_redir_in(mini, *i, cmd, mini->line);
-// 	}
-// 	else
-// 	{
-// 		printf("Redirection OUT\n");
-// 		get_redir_out(mini, *i, cmd);
-// 	}
-// }
 
 
 char	*get_var_name(char *s, int *i)
@@ -198,6 +181,22 @@ int			create_files(t_redir type, char *filename)
 	return (0);
 }
 
+
+// void	*stock_cmds_2(t_mini *mini)
+// {
+// 	ft_each_cmd_4(mini, mini->line, &i, &cmd);
+// 	while (cmd->file_in)
+// 	{
+// 		create_files(*cmd->file_in->type, cmd->file_in->name);
+// 		cmd->file_in = cmd->file_in->next;
+// 	}
+// 	while (cmd->file_out)
+// 	{
+// 		create_files(*cmd->file_out->type, cmd->file_out->name);
+// 		cmd->file_out = cmd->file_out->next;
+// 	}
+//}
+
 //stock cmd
 t_cmd	*stock_cmds(t_mini *mini)
 {
@@ -205,38 +204,28 @@ t_cmd	*stock_cmds(t_mini *mini)
 	t_cmd	*cmd;
 	int		i;
 
-	//printf("2.0 Start\n");
 	cmd_lst = NULL;
 	i = 0;
 	while (mini->line[i])
 	{
 		cmd = new_elem_cmd(mini);
 		add_cmd(&cmd_lst, cmd);
-
 		while (mini->line[i] && mini->line[i] != '|')
 		{
 			ft_each_cmd_4(mini, mini->line, &i, &cmd);
-			if (!cmd->file_in)
-				printf("file_in invisible\n");
 			while (cmd->file_in)
 			{
-				printf("file _name = %s\n", cmd->file_in->name);
 				create_files(*cmd->file_in->type, cmd->file_in->name);
 				cmd->file_in = cmd->file_in->next;
 			}
-			if (!cmd->file_out)
-				printf("file_out invisible\n");
 			while (cmd->file_out)
 			{
-				printf("file _name = %s\n", cmd->file_out->name);
 				create_files(*cmd->file_out->type, cmd->file_out->name);
 				cmd->file_out = cmd->file_out->next;
 			}
 		}
-		printf("2.5 Done stocking data in first cmd\n");
 		if (mini->line[i] == '|')
 			i++;
-		printf("2.6 Found a pipe -> new cmd\n\n");
 	}
 	return (cmd_lst);
 }
