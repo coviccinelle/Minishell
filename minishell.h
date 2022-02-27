@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/27 18:53:30 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/02/27 23:39:13 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,12 @@
 # include <fcntl.h>
 
 // redirection type
-# define RDR_IN 1
-# define RDR_DOUBLE_IN 2
-# define RDR_OUT 3
-# define RDR_HEREDOC 4
+# define NOPE_0 0
+# define READONLY_0 1
+# define HEREDOC_0 2
+# define TRUNC_0 3
+# define APPEND_0 4
+
 
 // others
 # define ERROR -1

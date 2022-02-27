@@ -6,26 +6,26 @@ void    ft_set_direct(char *line, int *i, t_cmd *cmd)
 {
     if (line[*i + 1] == '<' && line[*i] == '<')
     {
-        printf("2\n");
-        cmd->type = HEREDOC;
+        printf("Type of redirection 2\n");
+        cmd->type = HEREDOC_0;
         return ;
     }
     else if (line[*i] == '>' && line[(*i) + 1] == '>')
     {   
-        printf("4\n");
-        cmd->type = APPEND; //d_right
+        printf("Type of redirection 4\n");
+        cmd->type = APPEND_0; //d_right
         return ;
     }
     else if (line[*i] == '<' && line[(*i) + 1] != '<')
     {
-        printf("1\n");
-        cmd->type = READONLY;//LEFT;
+        printf("Type of redirection 1\n");
+        cmd->type = READONLY_0;//LEFT;
         return ;
     }
     else if (line[*i] == '>' && line[(*i) + 1] != '>')
     {
-        printf("3\n");
-       cmd->type = TRUNC; //RIGHT;
+        printf("Type of redirection 3\n");
+       cmd->type = TRUNC_0; //RIGHT;
         return ;
     }
 }

@@ -166,11 +166,11 @@ int			create_files(t_redir type, char *filename)
 
     fd = -1;
 	printf("type de ficher = %d\n", type);
-	if (type == TRUNC)
+	if (type == TRUNC_0)
 	    fd = open (filename, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
-	else if (type == APPEND)
+	else if (type == APPEND_0)
         fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
-   	else if (type == READONLY)
+   	else if (type == READONLY_0)
 		fd = open(filename, O_RDONLY);
 	if (fd == -1)
 	{
