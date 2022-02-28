@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/28 11:21:54 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/28 15:46:52 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,9 +186,8 @@ void		init_tab(char **av, char ***s);
 int		exec_export(int ac, char **av, char ***env);
 int		ft_unsetenv(char ***env, char *name);
 int		exec_unset(int ac, char **av, char ***env);
-void		print_env(char **env);
+int		print_env(int ac, char **av, char **env);
 char		*ft_getenv(char **env, char *name);
-void	print_env(char **env);
 void	 exec_exit(int ac, char **av);
 void		ft_bzero(void *b, size_t n);
 void		*ft_memalloc(size_t size);

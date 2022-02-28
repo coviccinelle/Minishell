@@ -81,7 +81,10 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 {
 	(void)mini;
 	int exit_status;
+	t_file	*last_file_out = cmd->file_out;
 
+	if (last_file_out)
+		ft_putstr_fd("il y a un file out\n\n", 1);
 	exit_status = 0;
    //	printf("child process for cmd->av[0] = %s\n", cmd->av[0]);
 	close(READ_END);
@@ -96,8 +99,11 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
     // unline tmp stdin
 	if (cmd->next)
 		dup2(WRITE_END, STDOUT);
-	if (cmd->file_out)
+	if (last_file_out)
+	{	
+		printf("il y a un file out\n\n");
 		dup_last_file_fd_out(cmd);
+	}
 	close(WRITE_END);
     	if (is_builtin(cmd->av[0]))
 	{

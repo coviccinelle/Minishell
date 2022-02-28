@@ -32,7 +32,7 @@ int exec_builtin(char *builtin, int ac, char **av, char ***env)
 		if (!(ft_strcmp(builtin, "echo")))
 			exit_status = exec_echo(ac, av);
 		if (!(ft_strcmp(builtin, "env")))
-			print_env(*env);
+			print_env(ac, av, *env);
 		if (!(ft_strcmp(builtin, "export")))
 			exit_status = exec_export(ac, av, env);
 		if (!(ft_strcmp(builtin, "exit")))
@@ -131,6 +131,8 @@ int	exec_cmd(int ac, char **av, char ***env)
 	path = NULL;
 	relative = 0;
 	exit_status = 0;
+	if (ft_getenv(*env, "PATH") == NULL)
+		ft_puterror_fd("minishell: ", "command not found: ", av[0]);
 	if ((access(av[0], F_OK)) == 0)
 	{
 		relative = 1;

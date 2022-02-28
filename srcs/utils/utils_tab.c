@@ -23,16 +23,25 @@ void	print_export(char **tab)
 
 #include <string.h> //a enlever
 
-void	print_env(char **env) // plus print tab mais print env plutot vu que je viens dajouter la condition strchr
+int	print_env(int ac, char **av, char **env) // plus print tab mais print env plutot vu que je viens dajouter la condition strchr
 {
 	int	j;
+	int exit_status;
 
 	j = -1;
+	if (ac >= 2)
+	{
+		ft_puterror_fd("env: ", av[1], ": No such file or directory");
+		exit_status = 127;
+		return (exit_status);
+
+	}	
 	while (env[++j])
 	{
 		if (strchr(env[j], '=')) // a remplacer par ft_strchr
 			printf("%s\n", env[j]);
 	}
+	return (EXIT_SUCCESS);
 }
 
 void swap(char **s1, char **s2)
