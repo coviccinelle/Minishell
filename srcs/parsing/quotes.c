@@ -6,17 +6,43 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/28 18:39:27 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/28 23:42:20 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+/*
+
+int	ft_check_2rd_quote(char *str, int *i, char c)
+{
+	int j = (*i) + 1;
+	printf("JEEEEE RENTREEEEEEE\n\n\n");
+	while (str[j])
+	{
+		printf("str[j]\n = %c\n", str[j]);
+		if (str[j] && str[j] == c)
+			return (1);
+		(j)++;
+	}
+	return (0);
+*/
 
 
+int ft_check_2rd_quote(char *str, int i, int c)
+{
+	printf("stringgg now is = %c\n", str[i]);
+	while (str[i] != c)
+	{
+		if (str[i] == '\0')
+		{
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
 
-
-
-int	ft_check_2rd_quote(char *str, int a)
+int	ft_check_2rd_quote_2(char *str, int a)
 {
 	char	c;
 	int		i;
@@ -58,48 +84,48 @@ void	ft_pass_squote(char *str, int *i)
 }
 
 
-char	*ft_add_double_quote(t_cmd *cmd, int *i, char *line, line)
+// char	*ft_add_double_quote(t_cmd *cmd, int *i, char *line, line)
 
-// DOUBLE QUOTES principales //
+// // DOUBLE QUOTES principales //
+// int	ft_d2_quotes(char *str, int *i, char *line, t_cmd *one_cmd)
+// {
+// 	if (str)
+// 	{
+// 		ft_avs(one_cmd, str);
+// 		str = NULL;
+// 	}
+// 	return (ft_add_double_quote(param, i, argv, line));
+// }
+
+
 int	ft_d2_quotes(char *str, int *i, char *line, t_cmd *one_cmd)
 {
+	(*i)++;
+	while (line[*i] && line[*i] != '"')
+	{
+		str = ft_add_line_after(str, line[(*i)]);
+		(*i)++;
+	}
 	if (str)
 	{
+		printf("~~~~ Inside str exist, adding in ft_avs  ==>str = %s\n\n", str);
 		ft_avs(one_cmd, str);
-		str = NULL;
+		//return (1);
 	}
-	return (ft_add_double_quote(param, i, argv, line));
-}
-
-
-int	ft_d2_quotes_2(char *str, int *i, char *line, t_cmd *one_cmd)
-{
-	if (ft_check_2rd_quote(&line[*i], '"'))
+	//(*i)++;
+	//printf("LINEEEEE DAMMMIt = %s\n", &line[*i]);
+	printf("\n\n%d\n\n", *i);
+	int a = ft_check_2rd_quote(line, (*i), '"');
+	if (a == 0)
 	{
-		printf("CHECK _2rd_code = %d\n", ft_check_2rd_quote(&line[*i], '"'));
+		printf("CHECK _2rd_code = %d\n", a);
 		printf("ERROR: Double quotes are not safely closed\n");
 		one_cmd->stop = 1; //->g_n_exit = ???;
 		return (0);
 	}
-	else
-	{
-		printf("ok check quote\n\n");
-		(*i)++;
-		while (line[*i] && line[*i] != '"')
-		{
-			str = ft_add_line_after(str, line[(*i)]);
-			(*i)++;
-		}
-		printf("3. line_after in 3rd layer is: _%s_\n", str);
-		if (str)
-		{
-			printf("Inside str exist, adding in ft_avs\n");
-			ft_avs(one_cmd, str);
-			return (1);
-		}
-		free(str);
-	}
-	return (0);
+	printf("ok check quote\n\n");
+	//free(str);
+	return (1);
 }
 
 //int	ft_add_2rd_s_quote(t_mini *one_cmd, int *i, char *line, char *str)
@@ -109,7 +135,7 @@ int	ft_single_quote(char *str, int *i, char *line, t_cmd *one_cmd)
 
 	start = (*i);
 	(*i)++;
-	if (!ft_check_2rd_quote(&line[start], '\''))
+	if (!ft_check_2rd_quote(line, (*i), '\''))
 	{
 		free(str);
 		printf("Error: Second single quote not found\n\n");

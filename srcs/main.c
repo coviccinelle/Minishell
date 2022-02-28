@@ -32,10 +32,10 @@ void	mini_run(t_mini *mini)
 	// 	return ;
 	// }
 	mini->cmd = stock_cmds(mini);
-	if(!mini->cmd)
+	if(!mini->cmd || mini->stop == 1)
 		return ;
 	cmd = mini->cmd;
-	printf("!!!!nb_cmds = %d\n\n", nb_cmds(mini->cmd));
+	//printf("!!!!nb_cmds = %d\n\n", nb_cmds(mini->cmd));
 	if (nb_cmds(mini->cmd) == 1)
 		exec_cmd_with_no_pipe(mini);
 	else

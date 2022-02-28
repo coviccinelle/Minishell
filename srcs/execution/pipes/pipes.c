@@ -7,7 +7,7 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	int status;
 
 	cmd = mini->cmd;
-	printf("LA commande a exec est = %s\n\n", cmd->av[0]);
+	//printf("LA commande a exec est = %s\n\n", cmd->av[0]);
 	if (is_builtin(cmd->av[0])) //a remplacer par av[0] apres.
 		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
 	else
@@ -24,7 +24,7 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	 	{
 	 		sleep(1);
 
-	printf("RESULTAT DE LEXECUTION\n\n\n\n\n");
+	//printf("RESULTAT DE LEXECUTION\n\n\n\n\n");
 	 		exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
 	 		exit(0);
 	 	}

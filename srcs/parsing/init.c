@@ -23,6 +23,7 @@ void	ft_init_mini(t_mini **mini)
 	(*mini)->pipe = 0;
 	(*mini)->line = NULL;
 	(*mini)->env = NULL;
+	(*mini)->stop = 0;
 	//mini->env = ft_env_cpy(env);
 	(*mini)->fork = 0;
 	//mini->heredoc = 0;

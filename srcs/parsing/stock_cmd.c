@@ -208,12 +208,15 @@ t_cmd	*stock_cmds(t_mini *mini)
 		while (mini->line[i] && mini->line[i] != '|')
 		{
 			int a = ft_each_cmd_4(mini, mini->line, &i, &cmd);
-			printf("\n\n\nPARSING RETURN= %d\n", a);
-			//if (!ft_each_cmd_4(mini, mini->line, &i, &cmd))
-			if (a == 0)
-				return (NULL);
-				//exit (0);
-			stock_cmds_3(cmd);
+			printf("\nPARSING RETURN= %d\n", a);
+			if (a == 1)
+				stock_cmds_3(cmd);
+			else
+			{
+				printf("ERROR: syntax error => free tout\nValuer de retour???\n\n");
+			//	mini->stop = 1;
+			//	break ;
+			}
 		}
 		if (mini->line[i] == '|')
 			i++;
