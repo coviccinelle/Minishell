@@ -27,7 +27,7 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	
 	
 }
-
+/*
 t_file	*ft_last_file(t_file *file)
 {
 	t_file		*p;
@@ -39,7 +39,7 @@ t_file	*ft_last_file(t_file *file)
 		p = p->next;
 	}
 	return (p);
-}
+}*/
 
 void	dup_last_file_fd_in(t_cmd *cmd)
 {

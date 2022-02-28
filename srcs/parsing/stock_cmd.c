@@ -154,7 +154,7 @@ void	get_avs(t_mini *mini, int *i, t_cmd *cmd)
 		}
 	}
 }
-/*
+
 t_file	*ft_last_file(t_file *file)
 {
 	t_file		*p;
@@ -170,7 +170,7 @@ t_file	*ft_last_file(t_file *file)
 	return (p);
 }
 
-*/
+
 int			create_files(int type, char *filename)
 {
     int fd;
@@ -195,15 +195,17 @@ int			create_files(int type, char *filename)
 
 void	stock_cmds_3(t_cmd *cmd)
 {
-/*	t_file *last_file_in;
+	t_file *last_file_in;
 	t_file *last_file_out;
 	t_file *file_out;
 	t_file *file_inn;
 
 	last_file_in = NULL;
+	last_file_out = NULL;
+	last_file_in = NULL;
 	file_inn = cmd->file_in;
 	file_out = cmd->file_out;
-*/	while ((cmd)->file_in)
+	while ((cmd)->file_in)
 	{
 		create_files((*cmd).file_in->type, (cmd)->file_in->name);
 		(cmd)->file_in = (cmd)->file_in->next;
@@ -213,11 +215,13 @@ void	stock_cmds_3(t_cmd *cmd)
 		create_files((*cmd).file_out->type, (cmd)->file_out->name);
 		(cmd)->file_out = (cmd)->file_out->next;
 	}
-/*	printf("am i here?\n");
+	printf("am i here?\n");
 	last_file_in = ft_last_file(file_inn);
 	last_file_out = ft_last_file(file_out);
-	printf("le dernier fichier IN est : type %d nom = %s\n\n", last_file_in->type,last_file_in->name);
-	printf("le dernier fichier OUT est : type %d nom = %s\n\n", last_file_out->type,last_file_out->name);*/
+	if (file_inn != NULL)
+		printf("le dernier fichier IN est : type %d nom = %s\n\n", last_file_in->type,last_file_in->name);
+	if (file_out != NULL)
+		printf("le dernier fichier OUT est : type %d nom = %s\n\n", last_file_out->type,last_file_out->name);
 }
 
 //stock cmd
