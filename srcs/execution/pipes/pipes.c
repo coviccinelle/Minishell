@@ -1,4 +1,4 @@
-#include "../../minishell.h"
+#include "../../../minishell.h"
 
 
 void exec_cmd_with_no_pipe(t_mini *mini)
@@ -28,8 +28,6 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	 		exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
 	 		exit(0);
 	 	}
-	 //	else
-	 //		ft_puterror_fd("minishell: ", "COOOOommand not found :", cmd->av[0]); //et ret 127!!
 	 }
 	
 	
@@ -39,8 +37,11 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 
 void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 {
-(void)mini;
-   // printf("child process\n");
+	(void)mini;
+	int exit_status;
+
+	exit_status = 0;
+   //	printf("child process for cmd->av[0] = %s\n", cmd->av[0]);
 	close(READ_END);
     //if (cmd->infile)
     //  dup2(infile, STDIN);
@@ -48,32 +49,20 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
     // unline tmp stdin
 	if (cmd->next)
 		dup2(WRITE_END, STDOUT);
-    //if (cmd->outfile)
+   	//printf("just before exec, child process for cmd->av[0] = %s\n", cmd->av[0]);
+    //	if (cmd->outfile)
     //  get_oufile
 	close(WRITE_END);
     	if (is_builtin(cmd->av[0]))
 	{
-		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env); //mettre un g_exit
-		exit(0);
+		exit_status = exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env); //mettre un g_exit
+		exit(exit_status);
 	}
     	else if (!is_builtin(cmd->av[0]))
 	{
-	//	safely_exec_bin(cmd->av);
-	 	exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
-		exit(0);
+	 	exit_status = exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
+		exit(exit_status);
 	}
-	else
-	{
-		ft_puterror_fd("minishell:", cmd->av[0], " not found"); //et ret 127!!!
-		exit(1);
-	}
-
-    //exit 127 si error?
-    //juste inserer parent process ici. tenter de forker en haut comme ça je peux separer des builtins
-	close(WRITE_END);
-	if (cmd->next)
-		dup2(READ_END, STDIN);
-	close(READ_END);
 }
 
 void	waiting_for_all_children_to_finish_execution(pid_t	pid_lst[])
@@ -99,10 +88,10 @@ renvoie le code de sortie du fils. Ce code est constitué par les 8 bits de poid
         
 		if (waitpid(pid_lst[i], &status, 0) < -1)
       //  if (waitpid(pid_lst[i], &status, WUNTRACED | WCONTINUED) < -1)
-        {
-            perror("waitpid");
-            exit(EXIT_FAILURE);
-        }    
+        	{
+            		perror("waitpid");
+           		 exit(EXIT_FAILURE);
+        	}    
 	/*	if (WIFEXITED(status))
 		    g_exit = WEXITSTATUS(status); //renvoie le code de sortie du fils
         if (WIFSIGNALED(status)) //ici amyplant: if gstatus !=131 gstatus +=128 <= voir pq
@@ -129,6 +118,14 @@ void run_piped_cmds(t_mini *mini, int nb_cmd)
 		pid_lst[j] = new_pid;
 		if (new_pid == 0)
                 	child_process(cmd, fd, mini);
+		else
+		{
+			
+			close(WRITE_END);
+			if (cmd->next)
+				dup2(READ_END, STDIN);
+			close(READ_END);
+		}
 		close(READ_END);
 		close(WRITE_END);
 		cmd = cmd->next;

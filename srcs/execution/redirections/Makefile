@@ -2,48 +2,7 @@ NAME	=	minishell
 CC		=	clang
 CFLAGS	=	-Wall -Wextra -Werror -g3
 RM		=	rm -rf
-SRC		=	srcs/main.c \
-			\
-			srcs/signal/signal.c \
-			\
-			srcs/parsing/init.c \
-			srcs/parsing/quotes.c \
-			srcs/parsing/parsing.c \
-			srcs/parsing/ft_each_cmd.c \
-			srcs/parsing/stock_cmd.c \
-			srcs/parsing/redirrection.c \
-			\
-			srcs/utils/is_something.c \
-			srcs/utils/skip_char.c \
-			srcs/utils/ft_free.c \
-			srcs/utils/cpy_stuff.c \
-			srcs/utils/is_builtins_2.c \
-			srcs/utils/len.c \
-			srcs/utils/print_avs.c \
-			srcs/utils/readline_input.c \
-			srcs/utils/utils.c \
-			srcs/utils/ft_avs.c \
-			srcs/utils/utils_tab.c \
-			srcs/utils/utils_env.c \
-			srcs/utils/ft_split_3.c \
-			srcs/utils/ft_copy_tab.c \
-			srcs/utils/ft_space_skip.c \
-			srcs/utils/ft_redir_utils.c \
-			srcs/utils/utils_libft_1.c \
-			srcs/utils/utils_libft_2.c \
-			srcs/utils/utils_libft_3.c \
-			srcs/utils/ft_pars_piping.c \
-			srcs/utils/find_me_vs_token_dir.c \
-			\
-			srcs/execution/builtins_and_bin_exec/command_search_and_execution.c \
-			srcs/execution/builtins_and_bin_exec/exit.c \
-			srcs/execution/builtins_and_bin_exec/echo.c \
-			srcs/execution/builtins_and_bin_exec/export_unset.c \
-			srcs/execution/builtins_and_bin_exec/export_unset_2.c \
-			srcs/execution/builtins_and_bin_exec/pwd_cd.c \
-			srcs/execution/redirections/redir.c \
-			srcs/execution/pipes/pipes.c \
-			srcs/execution/pipes/pipes_utils.c \
+SRC		=	heredoc.c \
 			
 			#srcs/utils/ft_split_3.c 
 				
