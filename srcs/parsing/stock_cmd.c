@@ -1,8 +1,6 @@
-
 #include "../../minishell.h"
 
-
-// should be main parsing
+// should be main parsing -> pour la norme?
 void	get_line(t_mini *mini, int *i, t_cmd *cmd)
 {
 	//char	*var_val;
@@ -11,11 +9,9 @@ void	get_line(t_mini *mini, int *i, t_cmd *cmd)
 	//var_val = NULL;
 	while (mini->line[*i] && !is_redir(mini->line[*i]) && mini->line[*i] != '|')
 	{
-		
 		cmd->line = ft_add_line_after(cmd->line, mini->line[(*i)++]);
 	}
 }
-
 
 t_cmd	*new_elem_cmd(t_mini *mini)
 {
@@ -37,7 +33,6 @@ t_cmd	*new_elem_cmd(t_mini *mini)
 	return (elem);
 }
 
-
 void	add_cmd(t_cmd **cmd_lst, t_cmd *cmd)
 {
 	t_cmd	*current;
@@ -52,23 +47,6 @@ void	add_cmd(t_cmd **cmd_lst, t_cmd *cmd)
 		current = current->next;
 	current->next = cmd;
 	cmd->prev = current;
-}
-
-// REDIRECTION
-void	get_redir(t_mini *mini, int *i, t_cmd *cmd)
-{
-	(void)cmd;//will be used later in redirection
-	printf("Inside get_redir, str[*i] = %c\n", mini->line[*i]);
-	if (mini->line[*i] == '<')
-	{
-		printf("redirection IN\n");
-		get_redir_in(mini, *i, cmd, mini->line);
-	}
-	else
-	{
-		printf("Redirection OUT\n");
-		get_redir_out(mini, *i, cmd);
-	}
 }
 
 
@@ -184,11 +162,11 @@ int			create_files(t_redir type, char *filename)
 
     fd = -1;
 	printf("type de ficher = %d\n", type);
-	if (type == TRUNC)
+	if (type == TRUNC_0)
 	    fd = open (filename, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
-	else if (type == APPEND)
+	else if (type == APPEND_0)
         fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
-   	else if (type == READONLY)
+   	else if (type == READONLY_0)
 		fd = open(filename, O_RDONLY);
 	if (fd == -1)
 	{
@@ -199,6 +177,21 @@ int			create_files(t_redir type, char *filename)
 	return (0);
 }
 
+
+void	stock_cmds_3(t_cmd **cmd)
+{
+	while ((*cmd)->file_in)
+	{
+		create_files(*(*cmd)->file_in->type, (*cmd)->file_in->name);
+		(*cmd)->file_in = (*cmd)->file_in->next;
+	}
+	while ((*cmd)->file_out)
+	{
+		create_files(*(*cmd)->file_out->type, (*cmd)->file_out->name);
+		(*cmd)->file_out = (*cmd)->file_out->next;
+	}
+}
+
 //stock cmd
 t_cmd	*stock_cmds(t_mini *mini)
 {
@@ -206,34 +199,19 @@ t_cmd	*stock_cmds(t_mini *mini)
 	t_cmd	*cmd;
 	int		i;
 
-	//printf("2.0 Start\n");
 	cmd_lst = NULL;
 	i = 0;
 	while (mini->line[i])
 	{
 		cmd = new_elem_cmd(mini);
 		add_cmd(&cmd_lst, cmd);
-
 		while (mini->line[i] && mini->line[i] != '|')
 		{
-			ft_each_cmd_4(mini, mini->line, &i, cmd);
-			printf("adress of cmd->file_in is %p\n", cmd->file_in);
-			if (!cmd->file_in)
-				printf("invisible file_in\n");
-			if (!cmd->file_out)
-				printf("invisible file_out\n");
-			while (cmd->file_in)
-			{
-				printf("file _name = %s\n", cmd->file_in->name);
-				create_files(*cmd->file_in->type, cmd->file_in->name);
-				cmd->file_in = cmd->file_in->next;
-			}
+			ft_each_cmd_4(mini, mini->line, &i, &cmd);
+			stock_cmds_3(&cmd);
 		}
-		printf("2.5 Done stocking data in first cmd\n");
 		if (mini->line[i] == '|')
 			i++;
-		printf("2.6 Found a pipe -> new cmd\n\n");
 	}
 	return (cmd_lst);
 }
-

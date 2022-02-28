@@ -6,9 +6,10 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/23 12:11:09 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/28 10:12:38 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -36,10 +37,12 @@
 # include <fcntl.h>
 
 // redirection type
-# define RDR_IN 1
-# define RDR_DOUBLE_IN 2
-# define RDR_OUT 3
-# define RDR_HEREDOC 4
+# define NOPE_0 0
+# define READONLY_0 1
+# define HEREDOC_0 2
+# define TRUNC_0 3
+# define APPEND_0 4
+
 
 // others
 # define ERROR -1
@@ -134,7 +137,7 @@ char	**ft_env_cpy(char **envp);
 void print_mini_avs(t_mini *mini);
 
 
-
+char	*ft_strxjoin(char *s1, char *s2, char *s3);
 //char		*ft_strdup(const char *s1);
 char		*ft_strjoin(char *s1, char *s2);
 int	    	ft_strlen(char *s);
@@ -206,7 +209,7 @@ void		print_tab(char **env);
 //char		**ft_copy_tab(char **env);
 int			ft_unsetenv(char ***env,char *name);
 void		print_export(char **tab);
-void    exec_cmd(int ac, char **av, char ***env);
+void   exec_cmd(int ac, char **av, char ***env);
 int exec_builtin(char *builtin, int ac, char **av, char ***env);
 int	is_builtin(char *builtin);
 int	is_builtin_2(t_mini *mini, t_cmd *cmd);
@@ -239,12 +242,10 @@ void	get_line(t_mini *mini, int *pos, t_cmd *cmd);
 t_cmd	*stock_cmds(t_mini *mini);
 void	ft_each_cmd_3(t_mini *mini, char *str, int *i, t_cmd *cmd);
 t_cmd	*stock_cmds_2(t_mini *mini);
-int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd *one_cmd);
+int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **one_cmd);
 void	get_redir(t_mini *mini, int *i, t_cmd *cmd);
 char	*add_char(t_mini *mini, char *str, int c);
 
-//exec
-void    exec_cmd(int ac, char **av, char ***env);
 
 //*** PIPES ***//
 char	*ft_strndup(char *s, int n);
