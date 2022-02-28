@@ -28,19 +28,6 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	
 }
 
-t_file	*ft_last_file(t_file *file)
-{
-	t_file		*p;
-
-	p = file;
-	while (p && p->next)
-	{	
-		printf("last filename  = %s\n", p->name);
-		p = p->next;
-	}
-	return (p);
-}
-
 void	dup_last_file_fd_in(t_cmd *cmd)
 {
 	t_file *last_file_in;
@@ -79,12 +66,14 @@ int	dup_last_file_fd_out(t_cmd *cmd)
 
 void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 {
-	(void)mini;
+//	(void)mini;
 	int exit_status;
-	t_file	*last_file_out = cmd->file_out;
+//	enum	e_redir	a = TRUNC;
+//	enum	e_redir b = APPEND;
+//	t_file	*last_file_out = mini->cmd->file_out;
 
-	if (last_file_out)
-		ft_putstr_fd("il y a un file out\n\n", 1);
+//	if (last_file_out)
+//		ft_putstr_fd("il y a un file out\n\n", 0);
 	exit_status = 0;
    //	printf("child process for cmd->av[0] = %s\n", cmd->av[0]);
 	close(READ_END);
@@ -99,11 +88,43 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
     // unline tmp stdin
 	if (cmd->next)
 		dup2(WRITE_END, STDOUT);
-	if (last_file_out)
-	{	
-		printf("il y a un file out\n\n");
-		dup_last_file_fd_out(cmd);
+
+	//REDIR
+	//dup_last_file_fd_out(cmd);
+	
+	t_file *last_file_out;
+	int	last_file;
+
+	last_file = 0;	
+	last_file_out = cmd->last_file_out;
+	
+//	fprintf(stderr, "saluuuuuuut\n");
+	int	d;
+	d = 3 ;
+	//d = ((int)(last_file_out->type));
+	/*if(last_file_out->type == d)
+		fprintf(stderr,"\nTRUNC\n");
+	d = 4;
+	if(last_file_out->type == d)
+		fprintf(stderr,"\nAPPEND\n");*/
+//	if(last_file_out->type == NULL)
+//		fprintf(stderr, "\nNULL\n");
+	if (last_file_out->type == TRUNC_0)
+	{
+		fprintf(stderr, "\nAAAAAAAAA\n");
+		last_file = open(last_file_out->name, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	}
+	else if (last_file_out->type == APPEND_0)
+	{
+		fprintf(stderr, "ca vaaaaaa\n");
+		fprintf(stderr, "%s\n", last_file_out->name);
+        	last_file = open(last_file_out->name, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
+	}
+
+ //       last_file = open("HELLO", O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
+	dup2(last_file, STDOUT);
+	close(last_file);
+	//FIN REDIR
 	close(WRITE_END);
     	if (is_builtin(cmd->av[0]))
 	{
@@ -162,13 +183,17 @@ void run_piped_cmds(t_mini *mini, int nb_cmd)
     t_cmd	*cmd;
 
 	cmd = mini->cmd;
+//	fprintf(stderr, "\nNOOOOOONNNNN\n");
 	while (cmd)
 	{
 		safely_pipe_me(fd);
 		safely_fork(&new_pid);
 		pid_lst[j] = new_pid;
 		if (new_pid == 0)
+		{
+//			fprintf(stderr, "\nOUIIIIII\n");
                 	child_process(cmd, fd, mini);
+		}
 		else
 		{
 			close(WRITE_END);

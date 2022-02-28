@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:53 by mloubet           #+#    #+#             */
-/*   Updated: 2022/02/24 18:36:48 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/02/28 16:02:09 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,14 @@ int exec_pwd(void)
 
 int	exec_cd(int ac, char **av, char **env)
 {
-
 	char	*current_path;
 	char	*new_path;
+	char	*new_pwd;
+	int	res;
 
+	res = 0;
 	new_path = NULL;
+	new_pwd = NULL;
 	current_path = getcwd(NULL, 0);
 	if (ac > 2)
 		return (ft_puterror_fd("minishell: ", "cd: ", "too many arguments")); //donc ret EXIT a 1 aka exit failure
@@ -44,18 +47,19 @@ int	exec_cd(int ac, char **av, char **env)
 	else if (ac == 2 && (!ft_strncmp(av[1], "-", ft_strlen("-"))))
 	{
 		new_path = ft_getenv(env, "OLDPWD");
-	//	printf("New path = %s\n\n\n\n", new_path);
+		printf("%s\n", new_path);
 	}
 	else
 		new_path = av[1];
-	printf("New path = %s\n\n\n\n", new_path);
-	if (chdir(new_path) == -1)
+	res = chdir(new_path);
+	new_pwd = getcwd(NULL, 0);
+	if (res == -1)
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
 		perror(av[1]); // no such file or directory, not a directory...
 		return (EXIT_FAILURE);
 	}
-	ft_setenv(&env, NULL, "PWD", new_path);
+	ft_setenv(&env, NULL, "PWD", new_pwd);
 	ft_setenv(&env, NULL, "OLDPWD", current_path);
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

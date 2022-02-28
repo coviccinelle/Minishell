@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/28 15:46:52 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/02/28 23:01:00 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ typedef struct	s_cmd
 	int		type;
 	t_file		*file_in;
 	t_file		*file_out;
+	t_file		*last_file_in;
+	t_file		*last_file_out;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }				t_cmd;
@@ -282,6 +284,7 @@ void    ft_ignore(int sig);
 void    ft_disable_if_fork(int pid);
 void    ft_start_signal(void);
 
+t_file	*ft_last_file(t_file *file);
 
 
 

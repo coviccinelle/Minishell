@@ -41,9 +41,8 @@ SRC		=	srcs/main.c \
 			srcs/execution/builtins_and_bin_exec/export_unset.c \
 			srcs/execution/builtins_and_bin_exec/export_unset_2.c \
 			srcs/execution/builtins_and_bin_exec/pwd_cd.c \
-			srcs/execution/redirections/redir.c \
-			srcs/execution/pipes/pipes.c \
-			srcs/execution/pipes/pipes_utils.c \
+			srcs/execution/pipes_and_redirections/pipes.c \
+			srcs/execution/pipes_and_redirections/pipes_utils.c \
 			
 			#srcs/utils/ft_split_3.c 
 				
