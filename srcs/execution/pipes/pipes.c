@@ -43,6 +43,8 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 	exit_status = 0;
    //	printf("child process for cmd->av[0] = %s\n", cmd->av[0]);
 	close(READ_END);
+//	if (cmd->file_in)
+		
     //if (cmd->infile)
     //  dup2(infile, STDIN);
     //  close(infile);
@@ -81,7 +83,6 @@ void	waiting_for_all_children_to_finish_execution(pid_t	pid_lst[])
 renvoie vrai si le fils s'est terminé normalement, c'est-à-dire par un appel à exit(3) ou _exit(2), ou bien par un retour de main().
 WEXITSTATUS(status)
 renvoie le code de sortie du fils. Ce code est constitué par les 8 bits de poids faibles de l'argument status que le fils a fourni à exit(3) ou à _exit(2) ou l'argument d'une commande de retour dans main(). Cette macro ne peut être évaluée que si WIFEXITED a renvoyé vrai.
-
 */
 	while (pid_lst[++i] /*&& (!WIFSIGNALED(status))*/)
 	{

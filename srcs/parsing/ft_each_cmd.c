@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/28 11:22:38 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/28 11:47:21 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	ft_add_to_fstack_out(t_cmd **cmd, char *line)
 	}
 	return (1);
 }
-
 
 int	ft_add_to_fstack_in(t_cmd **cmd, char *line)
 {
