@@ -31,6 +31,28 @@ int	skip_blank(char *str)
 	return (i);
 }
 
+int	rest_is_blank(char *str, int *i)
+{
+	while (str[*i])
+	{
+		(*i)++;
+		if (!is_blank(str[*i]))
+			return (0);
+	}
+	return (1);
+}
+
+void	skip_blank_2(char *str, int *i, t_cmd *tmp, char *line_after)
+{
+	if (str[(*i)])
+	{
+		while (str[(*i)] == ' ')
+			(*i)++;
+	}
+	ft_avs(tmp, line_after);
+	//line_after = NULL;
+}
+
 
 int	is_redir(int c)
 {
@@ -38,3 +60,11 @@ int	is_redir(int c)
 		return (1);
 	return (0);
 }
+
+//dollar in quote
+// void	mdquote2(char *line, char **envp, t_parsing *param)
+// {
+// 	if (dolar_quotes(line))
+// 		line = ft_replace_var(line, envp);
+// 	ft_tabs(param, line);
+// }

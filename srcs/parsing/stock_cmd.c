@@ -207,7 +207,8 @@ t_cmd	*stock_cmds(t_mini *mini)
 		add_cmd(&cmd_lst, cmd);
 		while (mini->line[i] && mini->line[i] != '|')
 		{
-			if (!ft_each_cmd_4(mini, mini->line, &i, &cmd))
+			printf("\n\n\nPARSING RETURN= %d\n", ft_each_cmd_4(mini, mini->line, &i, &cmd));
+			if (ft_each_cmd_4(mini, mini->line, &i, &cmd) == 0)
 				exit (0);
 			stock_cmds_3(cmd);
 		}
