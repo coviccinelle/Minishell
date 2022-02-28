@@ -198,20 +198,65 @@ int is_quote_err(char *str)
 }
 
 
+int	ft_check_2rd_quote(char *str, int c)
+{
+	int		i;
+	int		p;
+
+	i = 0;
+	p = 0;
+	while (str[i])
+	{
+		if (i != 0 && str[i + 1] && str[i + 1] == c)
+		{
+			p++;
+			break ;
+		}
+		if (str[i] == c)
+			p++;
+		i++;
+	}
+	if (p % 2 == 0)
+		return (1);
+	else if (p % 2 == 1)
+		return (0);
+	//return (-42);
+}
+
+
 // check_quote_err = check the each cmd?
+// int main(int ac, char **av)
+// {
+// 	char *str = "\"hello' co\"ou'ou \"hihi\" ba bya hihi";
+// 	(void)av;
+// 	int 	a;
+
+// 	if (ac != 1)
+// 		printf("errrr: wrong number of argument\n");
+// 	a = is_quote_err(str);
+// 	printf("is_quote_err return %d\n", a);
+//     if (a != 0)
+//         printf("Quote ok -> no quote error\n");
+//     else if (a == 0)
+//         printf("Quote ERROR : no second quote found\n");
+//     return (0);
+// }
+
 int main(int ac, char **av)
 {
-	char *str = "hello' co\"ou'ou \"hihi\" ba bya hihi";
+	char *str = "\"hello' co\"ou'ou \"hihi\" ba bya hihi";
 	(void)av;
 	int 	a;
 
 	if (ac != 1)
 		printf("errrr: wrong number of argument\n");
-	a = is_quote_err(str);
-	printf("is_quote_err return %d\n", a);
-    if (a != 0)
+	a = ft_check_2rd_quote(str, '\"');
+	printf("ft_check_2rd_quote return %d\n", a);
+    if (a == 2)
         printf("Quote ok -> no quote error\n");
-    else if (a == 0)
+    else if (a == 1)
         printf("Quote ERROR : no second quote found\n");
+	else if (a == -42)
+        printf("Quote ERROR : NONE quote found\n");
     return (0);
 }
