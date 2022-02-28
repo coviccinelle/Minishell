@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/28 10:59:33 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/28 11:21:54 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef enum	e_redir
 typedef struct	s_file
 {
 	char			*name;
-	t_redir			*type;
+	int			type;
 	struct s_file	*next;
 }				t_file;
 
@@ -90,7 +90,7 @@ typedef struct	s_cmd
 	char	*line;
 	char	**av;
 	//t_redir	type;
-	t_redir		type;
+	int		type;
 	t_file		*file_in;
 	t_file		*file_out;
 	struct s_cmd	*next;

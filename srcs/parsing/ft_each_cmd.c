@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/28 10:09:59 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/02/28 11:22:38 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ft_add_to_fstack_out(t_cmd **cmd, char *line)
 		return (0);
 	new->next = NULL;
 	new->name = ft_strdup(line);
-	new->type = &(*cmd)->type;
+	new->type = (*cmd)->type;
 	if (!(*cmd)->file_out)
 		(*cmd)->file_out = new;
 	else
@@ -87,7 +87,7 @@ int	ft_add_to_fstack_in(t_cmd **cmd, char *line)
 		return (0);
 	new->next = NULL;
 	new->name = strdup(line);
-	new->type = &(*cmd)->type;
+	new->type = (*cmd)->type;
 	if (!(*cmd)->file_in)
 		(*cmd)->file_in = new;
 	else
