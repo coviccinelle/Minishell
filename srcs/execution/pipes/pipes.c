@@ -33,7 +33,54 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	
 }
 
+t_file	*ft_last_file(t_file *file)
+{
+	t_file		*p;
 
+	p = file;
+	while (p && p->next)
+	{	
+		printf("last filename  = %s\n", p->name);
+		p = p->next;
+	}
+	return (p);
+}
+
+void	dup_last_file_fd_in(t_cmd *cmd)
+{
+	t_file *last_file_in;
+	t_file *file_in;
+
+	file_in = cmd->file_in;
+	last_file_in = ft_last_file(file_in);
+	printf("PIPE le dernier fichier IN est : type %d nom = %s\n\n", last_file_in->type,last_file_in->name);
+}
+
+
+int	dup_last_file_fd_out(t_cmd *cmd)
+{
+	t_file *last_file_out;
+	t_file *file_out;
+	int	fd;
+
+	fd = 0;
+	printf("FONCTION DUP FD OUT\n\n");
+	file_out = cmd->file_out;
+	last_file_out = ft_last_file(file_out);
+	if (last_file_out->type == TRUNC_0)
+	    fd = open (last_file_out->name, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+	else if (last_file_out->type == APPEND_0)
+        	fd = open(last_file_out->name, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
+	if (fd == -1)
+	{
+        	perror(last_file_out->name);
+        	return(1);
+    	}
+	dup2(fd, STDOUT);
+	close(fd);
+	return(0);
+//	printf("PIPE le dernier fichier OUT est : type %d nom = %s\n\n", last_file_out->type,last_file_out->name);
+}
 
 void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 {
@@ -43,17 +90,19 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 	exit_status = 0;
    //	printf("child process for cmd->av[0] = %s\n", cmd->av[0]);
 	close(READ_END);
-//	if (cmd->file_in)
+/*	if (cmd->file_in)
+	{
 		
+	}	
+*/	
     //if (cmd->infile)
     //  dup2(infile, STDIN);
     //  close(infile);
     // unline tmp stdin
 	if (cmd->next)
 		dup2(WRITE_END, STDOUT);
-   	//printf("just before exec, child process for cmd->av[0] = %s\n", cmd->av[0]);
-    //	if (cmd->outfile)
-    //  get_oufile
+	if (cmd->file_out)
+		dup_last_file_fd_out(cmd);
 	close(WRITE_END);
     	if (is_builtin(cmd->av[0]))
 	{
@@ -121,7 +170,6 @@ void run_piped_cmds(t_mini *mini, int nb_cmd)
                 	child_process(cmd, fd, mini);
 		else
 		{
-			
 			close(WRITE_END);
 			if (cmd->next)
 				dup2(READ_END, STDIN);
