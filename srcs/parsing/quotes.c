@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/01 20:43:43 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/01 20:50:15 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	ft_pass_squote(char *str, int *i)
 		(*i)++;
 }
 
-
 char	*ft_add_double_quote(t_cmd *cmd, int *i, char *line, char *line_after)
 {
 	//(void)cmd;
@@ -69,8 +68,7 @@ char	*ft_add_double_quote(t_cmd *cmd, int *i, char *line, char *line_after)
 		line_after = ft_add_line_after(line_after, line[(*i)]);
 		(*i)++;
 	}
-	//printf("line_after = %s\n", line_after);
-	(*i)++; 
+	(*i)++;
 	return (line_after);
 }
 
@@ -85,7 +83,6 @@ char	*ft_d2_quotes(char *line_after, int *i, char *line, t_cmd *cmd)
 	return (ft_add_double_quote(cmd, i, line, line_after));
 }
 
-
 char	*stock_single_quote(t_cmd *cmd, int *i, char *line, char *line_after)
 {
 	if (!ft_check_2rd_quote(&line[*i], '\''))
@@ -97,13 +94,13 @@ char	*stock_single_quote(t_cmd *cmd, int *i, char *line, char *line_after)
 		return (0);
 	}
 	(*i)++;
-		printf("\033[0;32m ok Single quotes\033[0m\n");
+	printf("\033[0;32m ok Single quotes\033[0m\n");
 	while (line[(*i)] != '\'' && line[(*i)])
 	{
 		line_after = ft_add_line_after(line_after, line[(*i)]);
 		(*i)++;
 	}
-	(*i)++; 
+	(*i)++;
 	return (line_after);
 }
 
@@ -117,7 +114,6 @@ char	*ft_single_quote(char *line_after, int *i, char *line, t_cmd *cmd)
 	}
 	return (stock_single_quote(cmd, i, line, line_after));
 }
-
 
 int	ft_single_quote_3(char *str, int *i, char *line, t_cmd *one_cmd)
 {
