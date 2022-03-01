@@ -9,7 +9,7 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	cmd = mini->cmd;
 	if (is_builtin(cmd->av[0])) //a remplacer par av[0] apres.
 	{
-	//	dup_last_file_fd_out(cmd); //redirection ne fonctionne pas quand cest un builtin mais ok quand cest un bin
+		dup_last_file_fd_out(cmd); //redirection ne fonctionne pas quand cest un builtin mais ok quand cest un bin
 		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
 	}
 	else
@@ -17,6 +17,7 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	 	pid_t   father;
 
 	 	father = fork();
+		ft_disable_if_fork(father);
 	 	if (father > 0)
 		{
 	 		waitpid(-1, &status, 0);
@@ -34,11 +35,15 @@ int	dup_last_file_fd_in(t_cmd *cmd)
 {
 
 	t_file *last_file_in;
-	int	last_file = 0;
+	int	last_file;
 
+	last_file = 0;
+	printf("nom de leof = %s\n", cmd->file_in->name);
+	unlink(cmd->file_in->name);
 	last_file_in = cmd->last_file_in;
 	if (cmd->last_file_in == NULL)
 		return (0);
+//	call_heredoc(last_file_in->name);
 	last_file = open(last_file_in->name, O_RDONLY);
 	if (last_file == -1)
 	{
@@ -46,8 +51,7 @@ int	dup_last_file_fd_in(t_cmd *cmd)
         	return (1) ;
     	}
 	dup2(last_file, STDIN);
-	close(last_file);
-	
+	close(last_file);	
 	return (0);
 }
 
@@ -80,6 +84,7 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 	int exit_status;
 	exit_status = 0;
 	close(READ_END);
+	//call_heredoc(cmd->last_file_in->name);
 	dup_last_file_fd_in(cmd);
 	if (cmd->next)
 		dup2(WRITE_END, STDOUT);

@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/01 11:38:17 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/01 16:18:33 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,5 +295,7 @@ int	is_alnum(int c);
 
 void	ft_free_cmds(t_mini *mini);
 int	ft_len_cmd(char **str);
+
+void	call_heredoc(char *eof);
 
 #endif

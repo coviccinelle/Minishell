@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_each_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/28 11:47:21 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/01 16:57:26 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,13 @@ int	ft_add_to_fstack_in(t_cmd **cmd, char *line)
 	if (!new)
 		return (0);
 	new->next = NULL;
-	new->name = strdup(line);
+	new->name = ft_strdup(line);
 	new->type = (*cmd)->type;
+	if (new->type == HEREDOC)
+	{
+		call_heredoc(new->name);
+		unlink(new->name);
+	}
 	if (!(*cmd)->file_in)
 		(*cmd)->file_in = new;
 	else

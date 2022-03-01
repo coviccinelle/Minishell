@@ -43,6 +43,7 @@ SRC		=	srcs/main.c \
 			srcs/execution/builtins_and_bin_exec/pwd_cd.c \
 			srcs/execution/pipes_and_redirections/pipes.c \
 			srcs/execution/pipes_and_redirections/pipes_utils.c \
+			srcs/execution/pipes_and_redirections/heredoc.c \
 			
 			#srcs/utils/ft_split_3.c 
 				
