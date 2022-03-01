@@ -32,7 +32,7 @@ void	mini_run(t_mini *mini)
 	// 	return ;
 	// }
 	mini->cmd = stock_cmds(mini);
-	if(!mini->cmd || mini->stop == 1)
+	if(!mini->cmd || mini->stop == 1 || !mini->cmd->av)
 		return ;
 	cmd = mini->cmd;
 	//printf("!!!!nb_cmds = %d\n\n", nb_cmds(mini->cmd));
@@ -59,7 +59,8 @@ void	minishell(char **env)
 		mini->line = line;
 		if (mini->line)
 			mini_run(mini);
-		print_mini_avs(mini);
+		if (mini->cmd->av)
+			print_mini_avs(mini);
 		//free(mini);
 		//free(line);
 	}

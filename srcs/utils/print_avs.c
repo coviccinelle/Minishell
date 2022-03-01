@@ -34,4 +34,5 @@ void print_mini_avs(t_mini *mini)
 		i++;
 		cmd = cmd->next;
 	}
+	return ;
 }
