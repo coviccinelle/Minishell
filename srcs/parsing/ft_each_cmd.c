@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/01 12:44:58 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/01 13:19:38 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -545,6 +545,17 @@ int	mdquote3(char *argv, int *i)
 	return (1);
 }
 
+int str_blank(char *str)
+{
+	int i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 {
@@ -564,11 +575,22 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 		(*cmd)->stop = 0;
 		while (line[*i] == ' ')
 		{
-			printf("line_after = %s\n", line_after);
+			printf("in ESPACE line_after = %s\n", line_after);
+			if (line_after/* && !str_blank(line_after)*/)
+				ft_avs(tmp, line_after);
 			skip_blank_2(line, i, *cmd, line_after);
-			line_after = NULL;
 			// if ((line[*i + 1] = '\0'))
 			//  	break ;
+			if (str_blank(&line[*i]))
+			{
+				printf("line[*i] = ___|%c|___\n", line[*i]);
+				printf("Il reste que les espaces\n\n");
+				//break ;
+				//exit(0);
+				skip_blank_2(line, i, *cmd, line_after);
+				line_after = NULL;
+			}
+			line_after = NULL;
 		}
 		if (line[*i] == '"')
 		{

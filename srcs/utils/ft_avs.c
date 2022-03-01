@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:21:52 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/22 17:33:32 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/01 13:24:42 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,25 @@ void	free_avs(char **avs)
 	avs = NULL;
 }
 
+/*void	*ft_calloc(size_t count, size_t size)
+{
+	char			*dst;
+	unsigned int	total;
+	unsigned int	i;
+
+	total = count * size;
+	if (!(dst = malloc(total)))
+		return (NULL);
+	i = 0;
+	while (total--)
+	{
+		dst[i] = 0;
+		i++;
+	}
+	return ((void *)dst);
+}
+*/
+
 char	**ft_malloc_avs(t_cmd *one_cmd, int len_tab, char *line)
 {
 	char	**new;
@@ -110,7 +129,9 @@ int	ft_avs(t_cmd *one_cmd, char *line_after)
 	len_tab = ft_len_avs(one_cmd->av);
 	one_cmd->av = ft_malloc_avs(one_cmd, len_tab, line_after);
 	if (!one_cmd->av)
+	{
 		return (0);
+	}
 	return (1);
 }
 

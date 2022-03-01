@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/01 12:47:21 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/01 12:51:05 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,11 @@ char	*ft_add_double_quote(t_cmd *cmd, int *i, char *line, char *line_after)
 // // DOUBLE QUOTES principales //
 char	*ft_d2_quotes(char *line_after, int *i, char *line, t_cmd *cmd)
 {
-	// if (line_after)
-	// {
-	// 	ft_avs(cmd, line_after);
-	// 	line_after = NULL;
-	// }
+	if (line_after)
+	{
+		ft_avs(cmd, line_after);
+		line_after = NULL;
+	}
 	return (ft_add_double_quote(cmd, i, line, line_after));
 }
 
