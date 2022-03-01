@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/28 22:41:18 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/01 12:13:53 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -573,12 +573,12 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 		if (line[*i] == '"')
 		{
 			printf("1_Double quote found => ADDRESS = %d\n", *i);
-			int a = ft_d2_quotes(line_after, i, line, tmp);
-			printf("\n aaaaaaa ft_d2_quotes returns = %d ET cmd->stop = %d\n", a, (*cmd)->stop);
-			if (a == 0)
-				return (0);
-			// if ((*cmd)->stop == 1)
+			line_after = ft_d2_quotes(line_after, i, line, tmp);
+			printf("\n aaaaaaa ft_d2_quotes returns = %s ET cmd->stop = %d\n", line_after, (*cmd)->stop);
+			// if (line_after == 0)
 			// 	return (0);
+			if ((*cmd)->stop == 1)
+				return (0);
 			// if (line[(*i) + 1] == '\0')
 			// 	break ;
 			//dollar in quote

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/28 23:34:37 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/01 11:53:07 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,8 +226,7 @@ char	**ft_avs_2(t_cmd *one_cmd, char *line_after);
 int			ft_buf(char *argv, int *i, char *buf);
 int			malloc_node(t_cmd	**one_cmd);
 int			ft_check_2rd_quote_2(char *line, int c);
-int ft_check_2rd_quote(char *str, int i, int c);
-int		ft_d2_quotes(char *line_after, int *i, char *line, t_cmd *one_cmd);
+char	*ft_d2_quotes(char *line_after, int *i, char *line, t_cmd *cmd);
 int			ft_single_quote(char *line_after, int *i, char *line, t_cmd *one_cmd);
 void		free_avs(char **avs);
 char	*dollar_sign(int ac, char **av, char **env);
