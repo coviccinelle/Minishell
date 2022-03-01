@@ -86,11 +86,11 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 {
 	int exit_status;
 	exit_status = 0;
-	close(READ_END);
+	close(READ_END); //fd[0]
 	//call_heredoc(cmd->last_file_in->name);
 	dup_last_file_fd_in(cmd);
 	if (cmd->next)
-		dup2(WRITE_END, STDOUT);
+		dup2(WRITE_END, STDOUT); //fd[1]
 	dup_last_file_fd_out(cmd);
 	close(WRITE_END);
     	if (is_builtin(cmd->av[0]))
