@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/01 13:19:38 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/01 14:33:25 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -534,6 +534,7 @@ int	ft_redirec(char *line, int *i, char *str, t_cmd **tmp)
 	file_in_2 = (*tmp)->file_in;
 	t = (*tmp)->file_out;
 	line = NULL;
+	printf("DONE FT_REDIR \n\n");
 	return (1);
 }
 
@@ -570,7 +571,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 	tmp = *cmd;
 	
 	printf("3. Inside each_cmd ^^ Orgine line is : %s\n", line);
-	while (line[*i] && line[*i] != '|')
+	while (line[*i]/* && line[*i] != '|'*/)
 	{
 		(*cmd)->stop = 0;
 		while (line[*i] == ' ')
@@ -657,7 +658,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 			buf = malloc(sizeof(char) * 2);
 			ft_buf(line, i, buf);
 			line_after = ft_add_line_after(line_after, buf[0]);
-			if (!line[*i] && line_after)
+			if ((!line[*i] && line_after)/* || (line[*i + 1] == '|' && line_after)*/)
 				ft_avs(*cmd, line_after);
 			free(buf);
 		}
