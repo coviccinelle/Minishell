@@ -208,7 +208,7 @@ t_cmd	*stock_cmds(t_mini *mini)
 		while (mini->line[i] && mini->line[i] != '|')
 		{
 			int a = ft_each_cmd_4(mini, mini->line, &i, &cmd);
-			printf("\nPARSING RETURN= %d\n", a);
+			printf("  \nPARSING RETURN= %d\n\033[0;31m", a);
 			if (a == 1)
 			{
 				stock_cmds_3(cmd);
