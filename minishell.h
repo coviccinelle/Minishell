@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/28 23:01:00 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/01 11:38:17 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,6 +286,7 @@ void    ft_start_signal(void);
 
 t_file	*ft_last_file(t_file *file);
 
+int	dup_last_file_fd_out(t_cmd *cmd);
 
 
 // simple utils

@@ -162,9 +162,11 @@ t_file	*ft_last_file(t_file *file)
 	p = file;
 
 	printf("am i here 2222?\n");
+	/*if (p && p->next == NULL)
+			return (p);*/
 	while (p && p->next)
 	{	
-		printf("last filename  = %s\n", p->name);
+		printf("filename  = %s\n", p->name);
 		p = p->next;
 	}
 	return (p);

@@ -8,7 +8,10 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 
 	cmd = mini->cmd;
 	if (is_builtin(cmd->av[0])) //a remplacer par av[0] apres.
+	{
+	//	dup_last_file_fd_out(cmd); //redirection ne fonctionne pas quand cest un builtin mais ok quand cest un bin
 		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
+	}
 	else
 	{
 	 	pid_t   father;
@@ -20,6 +23,7 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	 	}
 	 	if (father == 0)
 	 	{
+			dup_last_file_fd_out(cmd);
 	 		exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
 	 		exit(0);
 	 	}
@@ -28,103 +32,60 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	
 }
 
-void	dup_last_file_fd_in(t_cmd *cmd)
+int	dup_last_file_fd_in(t_cmd *cmd)
 {
-	t_file *last_file_in;
-	t_file *file_in;
 
-	file_in = cmd->file_in;
-	last_file_in = ft_last_file(file_in);
-	printf("PIPE le dernier fichier IN est : type %d nom = %s\n\n", last_file_in->type,last_file_in->name);
+	t_file *last_file_in;
+	int	last_file = 0;
+
+	last_file_in = cmd->last_file_in;
+	if (cmd->last_file_in == NULL)
+		return (0);
+	last_file = open(last_file_in->name, O_RDONLY);
+	if (last_file == -1)
+	{
+        	perror(last_file_in->name);
+        	return (1) ;
+    	}
+	dup2(last_file, STDIN);
+	close(last_file);
+	
+	return (0);
 }
 
 
 int	dup_last_file_fd_out(t_cmd *cmd)
 {
 	t_file *last_file_out;
-	t_file *file_out;
-	int	fd;
-
-	fd = 0;
-	printf("FONCTION DUP FD OUT\n\n");
-	file_out = cmd->file_out;
-	last_file_out = ft_last_file(file_out);
-	if (last_file_out->type == TRUNC_0)
-	    fd = open (last_file_out->name, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
-	else if (last_file_out->type == APPEND_0)
-        	fd = open(last_file_out->name, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
-	if (fd == -1)
-	{
-        	perror(last_file_out->name);
-        	return(1);
-    	}
-	dup2(fd, STDOUT);
-	close(fd);
-	return(0);
-//	printf("PIPE le dernier fichier OUT est : type %d nom = %s\n\n", last_file_out->type,last_file_out->name);
-}
-
-void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
-{
-//	(void)mini;
-	int exit_status;
-//	enum	e_redir	a = TRUNC;
-//	enum	e_redir b = APPEND;
-//	t_file	*last_file_out = mini->cmd->file_out;
-
-//	if (last_file_out)
-//		ft_putstr_fd("il y a un file out\n\n", 0);
-	exit_status = 0;
-   //	printf("child process for cmd->av[0] = %s\n", cmd->av[0]);
-	close(READ_END);
-/*	if (cmd->file_in)
-	{
-		
-	}	
-*/	
-    //if (cmd->infile)
-    //  dup2(infile, STDIN);
-    //  close(infile);
-    // unline tmp stdin
-	if (cmd->next)
-		dup2(WRITE_END, STDOUT);
-
-	//REDIR
-	//dup_last_file_fd_out(cmd);
-	
-	t_file *last_file_out;
 	int	last_file;
 
 	last_file = 0;	
 	last_file_out = cmd->last_file_out;
-	
-//	fprintf(stderr, "saluuuuuuut\n");
-	int	d;
-	d = 3 ;
-	//d = ((int)(last_file_out->type));
-	/*if(last_file_out->type == d)
-		fprintf(stderr,"\nTRUNC\n");
-	d = 4;
-	if(last_file_out->type == d)
-		fprintf(stderr,"\nAPPEND\n");*/
-//	if(last_file_out->type == NULL)
-//		fprintf(stderr, "\nNULL\n");
+	if (cmd->last_file_out == NULL)
+		return (0);
 	if (last_file_out->type == TRUNC_0)
-	{
-		fprintf(stderr, "\nAAAAAAAAA\n");
 		last_file = open(last_file_out->name, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
-	}
 	else if (last_file_out->type == APPEND_0)
-	{
-		fprintf(stderr, "ca vaaaaaa\n");
-		fprintf(stderr, "%s\n", last_file_out->name);
         	last_file = open(last_file_out->name, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
-	}
-
- //       last_file = open("HELLO", O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
+	if (last_file == -1)
+	{
+        	perror(last_file_out->name);
+        	return(1);
+    	}
 	dup2(last_file, STDOUT);
 	close(last_file);
-	//FIN REDIR
+	return (0);
+}
+
+void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
+{
+	int exit_status;
+	exit_status = 0;
+	close(READ_END);
+	dup_last_file_fd_in(cmd);
+	if (cmd->next)
+		dup2(WRITE_END, STDOUT);
+	dup_last_file_fd_out(cmd);
 	close(WRITE_END);
     	if (is_builtin(cmd->av[0]))
 	{
@@ -138,7 +99,7 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 	}
 }
 
-void	waiting_for_all_children_to_finish_execution(pid_t	pid_lst[])
+void	waiting_for_all_children_to_finish_execution(pid_t pid_lst[])
 {
 	int i;
 	int status;
@@ -176,24 +137,21 @@ renvoie le code de sortie du fils. Ce code est constitué par les 8 bits de poid
 
 void run_piped_cmds(t_mini *mini, int nb_cmd)
 {
-	int		fd[2];
+	int fd[2];
+	int j;
 	pid_t	new_pid;
-    pid_t	pid_lst[nb_cmd];
-    int j = 0;
-    t_cmd	*cmd;
+	pid_t	pid_lst[nb_cmd];
+	t_cmd	*cmd;
 
+	j = 0;
 	cmd = mini->cmd;
-//	fprintf(stderr, "\nNOOOOOONNNNN\n");
 	while (cmd)
 	{
 		safely_pipe_me(fd);
 		safely_fork(&new_pid);
 		pid_lst[j] = new_pid;
 		if (new_pid == 0)
-		{
-//			fprintf(stderr, "\nOUIIIIII\n");
                 	child_process(cmd, fd, mini);
-		}
 		else
 		{
 			close(WRITE_END);
