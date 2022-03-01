@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/28 11:47:21 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/01 20:32:30 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,16 +100,6 @@ int	ft_add_to_fstack_in(t_cmd **cmd, char *line)
 
 
 
-int	check_redir(char *str, int *i)
-{
-	*i += 1;
-	if (str[*i] == str[*i - 1])
-		(*i)++;
-	(*i) += skip_blank(&str[*i]);
-	if (!str[*i] || is_redir(str[*i]) || str[*i] == '|')
-		return (1);
-	return (0);
-}
 
 int	ft_add_file_out(t_cmd **cmd, int *i, char *str, char *line)
 {
@@ -184,6 +174,30 @@ void	add_files(t_file **file_lst, t_file *file)
 	//cmd->prev = current;
 }
 
+int	check_redir(char *line, int i)
+{
+	int	k;
+	int	j;
+
+	k = 0;
+	j = i;
+	while (line[i] == '>' || line[i] == '<')
+	{
+		k++;
+		i++;
+	}
+	if (k == 1 || k == 2)
+	{
+		if (k == 1)
+			return (1);
+		else if (k == 2 && line[j] == line[j + 1])
+			return (1);
+		else
+			return (0);
+	}
+	else
+		return (0);
+}
 
 int	ft_redirec(char *line, int *i, char *str, t_cmd **tmp)
 {
@@ -195,11 +209,13 @@ int	ft_redirec(char *line, int *i, char *str, t_cmd **tmp)
 
 	file = NULL;
 	mini = NULL;
-	// if (!check_redir(str, &(*i)))
-	// {
-	// 	printf("Minishell: syntax error\n");
-	// 	return (0);
-	// }
+	if (!check_redir(line, *i))
+	{
+		printf("Minishell: syntax error\n");
+		(*tmp)->stop = 1;
+		exit (0);
+		return (0);
+	}
 	if (str)
 	{
 		ft_avs(*tmp, str);
@@ -213,17 +229,29 @@ int	ft_redirec(char *line, int *i, char *str, t_cmd **tmp)
 	file_in_2 = (*tmp)->file_in;
 	t = (*tmp)->file_out;
 	line = NULL;
+	printf("DONE FT_REDIR \n\n");
 	return (1);
 }
 
-int	mdquote3(char *argv, int *i)
+int	mdquote3(char *line, int *i)
 {
-	if (argv[(*i) + 1] == '\0')
+	if (line[(*i) + 1] == '\0')
 		return (0);
-	ft_pass_dquote(argv, i);
+	ft_pass_dquote(line, i);
 	return (1);
 }
 
+int str_blank(char *str)
+{
+	int i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 {
@@ -238,40 +266,45 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 	tmp = *cmd;
 	
 	printf("3. Inside each_cmd ^^ Orgine line is : %s\n", line);
-	while (line[*i] && line[*i] != '|')
+	while (line[*i]/* && line[*i] != '|'*/)
 	{
-		
-		if (line[*i] == ' ')
+		(*cmd)->stop = 0;
+		while (line[*i] == ' ')
 		{
-			if (line_after)
+			printf("in ESPACE line_after = %s\n", line_after);
+			if (line_after/* && !str_blank(line_after)*/)
+				ft_avs(tmp, line_after);
+			skip_blank_2(line, i, *cmd, line_after);
+			// if ((line[*i + 1] = '\0'))
+			//  	break ;
+			if (str_blank(&line[*i]))
 			{
-				printf("line_after = %s\n", line_after);
-				ft_avs(*cmd, line_after);
+				printf("line[*i] = ___|%c|___\n", line[*i]);
+				printf("Il reste que les espaces\n\n");
+				//break ;
+				//exit(0);
+				skip_blank_2(line, i, *cmd, line_after);
+				line_after = NULL;
 			}
-			(*i)++;
-			//ft_space_skip(line, i);
-			//cmd->line = line_after;
 			line_after = NULL;
 		}
 		if (line[*i] == '"')
 		{
-			printf("1_Double quote found\n\n");
-			printf("where am i ? line[*i] = double quote found : %c\n", line[*i]);
-			if (!ft_d2_quotes(line_after, i, line, tmp))
+			line_after = ft_d2_quotes(line_after, i, line, tmp);
+			ft_avs(tmp, line_after);
+			if ((*cmd)->stop == 1)
 				return (0);
-			printf("tmp->av[0] = %s\ntmp->av[1] = %s\n", tmp->av[0], tmp->av[1]);
-			if (line[(*i) + 1] == '\0')
-				break ;
 			//dollar in quote
+			
 			 if (!mdquote3(line, i))
 				break ;
 			line_after = NULL;
 		}
 		else if (line[*i] == '\'')
 		{
-			printf("single quotes\n\n");
-			printf("line_after = %s\n", line_after);
-			if (!ft_single_quote(line_after, i, line, tmp))
+			line_after = ft_single_quote(line_after, i, line, tmp);
+			ft_avs(tmp, line_after);
+			if ((*cmd)->stop == 1)
 				return (0);
 			if (line[(*i) + 1] == '\0')
 				break ;
@@ -288,17 +321,8 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 		}
 		else if (is_redir(line[*i]))
 		{
-			//printf("Redirection\n\n");
-			
 			if (!ft_redirec(line, i, line_after, &tmp))
 				return (0);
-			//get_redir(mini, i, cmd);
-		//	printf("done get_redir\n");
-			// if (cmd->type == HEREDOC || cmd->type == D_RIGHT)
-			// 	(*i)++;
-			// (*i)++;
-			// if (!ft_pars_redir(line_after, i, line, tmp)) //idea only
-			// 	return (0);
 		}
 		else if (line[*i] == '|')
 		{
@@ -312,7 +336,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 			buf = malloc(sizeof(char) * 2);
 			ft_buf(line, i, buf);
 			line_after = ft_add_line_after(line_after, buf[0]);
-			if (!line[*i] && line_after)
+			if ((!line[*i] && line_after)/* || (line[*i + 1] == '|' && line_after)*/)
 				ft_avs(*cmd, line_after);
 			free(buf);
 		}

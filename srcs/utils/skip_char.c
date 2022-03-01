@@ -38,3 +38,17 @@ int	is_redir(int c)
 		return (1);
 	return (0);
 }
+
+void	skip_blank_2(char *str, int *i, t_cmd *tmp, char *line_after)
+{
+	(void)tmp;
+	(void)line_after;
+	if (str[(*i)])
+	{
+		while (str[(*i)] == ' ')
+			(*i)++;
+	}
+//	ft_avs(tmp, line_after);
+	//line_after = NULL;
+}
+

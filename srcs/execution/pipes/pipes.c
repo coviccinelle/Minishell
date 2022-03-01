@@ -1,13 +1,14 @@
 #include "../../../minishell.h"
 
 
+
 void exec_cmd_with_no_pipe(t_mini *mini)
 {
 	t_cmd *cmd;
 	int status;
 
 	cmd = mini->cmd;
-	printf("LA commande a exec est = %s\n\n", cmd->av[0]);
+	//printf("LA commande a exec est = %s\n\n", cmd->av[0]);
 	if (is_builtin(cmd->av[0])) //a remplacer par av[0] apres.
 		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
 	else
@@ -18,13 +19,13 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	 	if (father > 0)
 		{
 	 		waitpid(-1, &status, 0);
-	 		printf("I AM YOUR FATHER\n");
+	 	//	printf("I AM YOUR FATHER\n");
 	 	}
 	 	if (father == 0)
 	 	{
 	 		sleep(1);
 
-	printf("RESULTAT DE LEXECUTION\n\n\n\n\n");
+	//printf("RESULTAT DE LEXECUTION\n\n\n\n\n");
 	 		exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
 	 		exit(0);
 	 	}
@@ -43,8 +44,6 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 	exit_status = 0;
    //	printf("child process for cmd->av[0] = %s\n", cmd->av[0]);
 	close(READ_END);
-//	if (cmd->file_in)
-		
     //if (cmd->infile)
     //  dup2(infile, STDIN);
     //  close(infile);
