@@ -48,12 +48,14 @@ void	call_heredoc(char *eof)
 	while (1)
 	{
 		input = readline("> ");
+		if (input == NULL)
+			break ;
 		if (input)
 		{
 			if(strncmp(input, eof, strlen(eof)) != 0) // a remplacer par ft_strncmp 
 				ft_putendl_fd(input, fd);
 			if (strncmp(input, eof, strlen(eof)) == 0) //idem
-					break;
+				break;
 			free(input);
 		}
 	}

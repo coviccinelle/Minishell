@@ -38,20 +38,23 @@ int	dup_last_file_fd_in(t_cmd *cmd)
 	int	last_file;
 
 	last_file = 0;
-	printf("nom de leof = %s\n", cmd->file_in->name);
-	unlink(cmd->file_in->name);
+	//printf("nom de leof = %s\n", cmd->file_in->name);
+	//unlink(cmd->file_in->name);
 	last_file_in = cmd->last_file_in;
+	fprintf(stderr,"\ntest\n");
 	if (cmd->last_file_in == NULL)
 		return (0);
 //	call_heredoc(last_file_in->name);
+	fprintf(stderr, "\n Fichier en redirection INPUT %s \n", last_file_in->name);
 	last_file = open(last_file_in->name, O_RDONLY);
 	if (last_file == -1)
 	{
         	perror(last_file_in->name);
         	return (1) ;
     	}
-	dup2(last_file, STDIN);
-	close(last_file);	
+	dup2(last_file, 0);
+	close(last_file);
+//	unlink(last_file_in->name);
 	return (0);
 }
 
@@ -117,7 +120,7 @@ void	waiting_for_all_children_to_finish_execution(pid_t pid_lst[])
     WIFEXITED(status)
 renvoie vrai si le fils s'est terminé normalement, c'est-à-dire par un appel à exit(3) ou _exit(2), ou bien par un retour de main().
 WEXITSTATUS(status)
-renvoie le code de sortie du fils. Ce code est constitué par les 8 bits de poids faibles de l'argument status que le fils a fourni à exit(3) ou à _exit(2) ou l'argument d'une commande de retour dans main(). Cette macro ne peut être évaluée que si WIFEXITED a renvoyé vrai.
+renvoie le code de sortie du fils. Ce  code est constitué par les 8 bits de poids faibles de l'argument status que le fils a fourni à exit(3) ou à _exit(2) ou l'argument d'une commande de retour dans main(). Cette macro ne peut être évaluée que si WIFEXITED a renvoyé vrai.
 */
 	while (pid_lst[++i] /*&& (!WIFSIGNALED(status))*/)
 	{
