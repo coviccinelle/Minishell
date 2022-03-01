@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/01 12:13:53 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/01 12:44:58 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -575,6 +575,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 			printf("1_Double quote found => ADDRESS = %d\n", *i);
 			line_after = ft_d2_quotes(line_after, i, line, tmp);
 			printf("\n aaaaaaa ft_d2_quotes returns = %s ET cmd->stop = %d\n", line_after, (*cmd)->stop);
+			ft_avs(tmp, line_after);
 			// if (line_after == 0)
 			// 	return (0);
 			if ((*cmd)->stop == 1)
@@ -585,6 +586,8 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 			
 			 if (!mdquote3(line, i))
 				break ;
+			// if (line_after)
+			// 	(*i)++;
 			line_after = NULL;
 		}
 		else if (line[*i] == '\'')
