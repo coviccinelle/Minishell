@@ -6,25 +6,11 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/01 15:20:18 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/01 19:58:32 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-int ft_check_2rd_quote_3(char *str, int i, int c)
-{
-	printf("stringgg now is = %c\n", str[i]);
-	while (str[i] != c)
-	{
-		if (str[i] == '\0')
-		{
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
 
 int	ft_check_2rd_quote(char *str, char c)
 {
@@ -44,7 +30,6 @@ int	ft_check_2rd_quote(char *str, char c)
 		}
 		i++;
 	}
-	printf("\nPRINT p de double quotes = %d\n", p);
 	if (p % 2 != 0)
 		return (0);
 	else
@@ -78,6 +63,7 @@ char	*ft_add_double_quote(t_cmd *cmd, int *i, char *line, char *line_after)
 		return (0);
 	}
 	(*i)++;
+	printf("\033[0;32m ok Double quotes\033[0m\n");
 	while (line[(*i)] != '"' && line[(*i)])
 	{
 		line_after = ft_add_line_after(line_after, line[(*i)]);
@@ -111,12 +97,12 @@ char	*stock_single_quote(t_cmd *cmd, int *i, char *line, char *line_after)
 		return (0);
 	}
 	(*i)++;
+		printf("\033[0;32m ok Single quotes\033[0m\n");
 	while (line[(*i)] != '\'' && line[(*i)])
 	{
 		line_after = ft_add_line_after(line_after, line[(*i)]);
 		(*i)++;
 	}
-	printf("line_after = %s\n", line_after);
 	(*i)++; 
 	return (line_after);
 }

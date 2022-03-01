@@ -18,7 +18,7 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	 	if (father > 0)
 		{
 	 		waitpid(-1, &status, 0);
-	 		printf("I AM YOUR FATHER\n");
+	 	//	printf("I AM YOUR FATHER\n");
 	 	}
 	 	if (father == 0)
 	 	{
