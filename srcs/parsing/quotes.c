@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/28 23:42:20 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/01 11:06:49 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,11 @@ int	ft_d2_quotes(char *str, int *i, char *line, t_cmd *one_cmd)
 	if (a == 0)
 	{
 		printf("CHECK _2rd_code = %d\n", a);
-		printf("ERROR: Double quotes are not safely closed\n");
+		printf("\033[0;31m ERROR: Double quotes are not safely closed\033[0m\n");
 		one_cmd->stop = 1; //->g_n_exit = ???;
 		return (0);
 	}
-	printf("ok check quote\n\n");
+	printf("\033[0;32mok check quote \033[0m\n\n");
 	//free(str);
 	return (1);
 }
