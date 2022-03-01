@@ -35,26 +35,35 @@ int exec_export(int ac, char **av, char ***env) // liste a faire dans point 4/ex
 	//init_tab(av, &name);
 //	init_tab(av, &data);
 
-	data = malloc(sizeof(char **) * (nb_tabs(av))); //essayer data[nb_tabs[]]
-	name = malloc(sizeof(char **) * (nb_tabs(av)));
+	data = malloc(sizeof(char *) * (nb_tabs(av) + 1)); //essayer data[nb_tabs[]]
+	name = malloc(sizeof(char *) * (nb_tabs(av) + 1));
 	if (ac == 1)
 		return (ft_alphabetical_order_tab(*env));
 	while (av[++j])
 	{
-		name[j] = cpy_trim(av[j], av[j][0], '=');
-		if (!is_valid_var_name(name[j]))
+		name[j - 1] = cpy_trim(av[j], av[j][0], '=');
+		if (!is_valid_var_name(name[j - 1]))
 		{
 			exit_value = ft_puterror_fd("minishell: export :'", av[j], "': not a valid identifier");
-			name[j] = NULL;
+			name[j - 1] = NULL;
 		}
-		data[j] = cpy_trim(av[j], '=', '\0');
+		data[j - 1] = cpy_trim(av[j], '=', '\0');
 	}
+	name[j - 1] = NULL;
+	data[j - 1] = NULL;
 	get_into_export_lst(env, av, name, data);
-	j = 1;
+/*	j = 0;
+	while(name[j] && data[j])
+	{
+		free(name[j]);
+		free(data[j]);
+		j++;
+	}
+	fprintf(stderr, "\nAdresse de name %p\n", &name);
 	free(data);
-	free(name);
-//	free_tab(&name); //  leaks dans mes init tabs que je free data et name ou pas... a comprendre
-//	free_tab(&data); // idem
+	free(name);*/
+	free_tab(&name); //  leaks dans mes init tabs que je free data et name ou pas... a comprendre
+	free_tab(&data); // idem
 	return (exit_value);
 }
 

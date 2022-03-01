@@ -28,8 +28,6 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	 		exit(0);
 	 	}
 	 }
-	
-	
 }
 
 int	dup_last_file_fd_in(t_cmd *cmd)
@@ -135,6 +133,15 @@ renvoie le code de sortie du fils. Ce code est constitué par les 8 bits de poid
 	}
 }
 
+void close_old_prepare_eventual_new(t_cmd *cmd, int *fd)
+{
+	close(WRITE_END);
+	if (cmd->next)
+		dup2(READ_END, STDIN);
+	close(READ_END);
+}
+
+
 void run_piped_cmds(t_mini *mini, int nb_cmd)
 {
 	int fd[2];
@@ -149,17 +156,19 @@ void run_piped_cmds(t_mini *mini, int nb_cmd)
 	{
 		safely_pipe_me(fd);
 		safely_fork(&new_pid);
+		ft_disable_if_fork(new_pid);
 		pid_lst[j] = new_pid;
 		if (new_pid == 0)
                 	child_process(cmd, fd, mini);
 		else
-		{
+			close_old_prepare_eventual_new(cmd, fd);
+	/*	{
 			close(WRITE_END);
 			if (cmd->next)
 				dup2(READ_END, STDIN);
 			close(READ_END);
 		}
-		close(READ_END);
+	*/	close(READ_END);
 		close(WRITE_END);
 		cmd = cmd->next;
 		j++;

@@ -1,2 +1,0 @@
-Sakhsk 
-akjhsda 

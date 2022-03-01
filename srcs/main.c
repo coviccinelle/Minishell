@@ -54,6 +54,7 @@ void	minishell(char **env)
 	init_shell();
 	while (42)
 	{
+	//	line = NULL;
 		line = ft_readline_input(mini->line);
 		add_history(line);
 		mini->line = line;
@@ -63,6 +64,7 @@ void	minishell(char **env)
 		//free(mini);
 		//free(line);
 	}
+	//free_tab(&mini->env); // a free mais ne veut pas pour linstant
 }
 
 int	main(int ac, char **av, char **env)
