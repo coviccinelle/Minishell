@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/01 21:15:39 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/01 21:16:19 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,12 @@
 # define STDOUT 1
 # define EXIT_FAILURE 1
 
-// redirection type
 # define NOPE_0 0
 # define READONLY_0 1
 # define HEREDOC_0 2
 # define TRUNC_0 3
 # define APPEND_0 4
 
-// others
 # define ERROR -1
 # define SUCCESS 0
 # define CHILD 0
