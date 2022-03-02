@@ -8,13 +8,39 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 {
 	t_cmd *cmd;
 	int status;
-
+	int	fd_out;
 	cmd = mini->cmd;
 	//printf("LA commande a exec est = %s\n\n", cmd->av[0]);
 	if (is_builtin(cmd->av[0])) //a remplacer par av[0] apres.
 	{
-			dup_last_file_fd_out(cmd);
-		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
+		pid_t	f;
+		int	status;
+
+		f = fork();
+		if( f != 0)
+		{
+			if((ft_strcmp(cmd->av[0] , "export") == 0 && cmd->av[1]))
+				exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
+			waitpid(f, &status , 0);
+		}
+		else
+		{
+			printf("\n1\n");
+			dup_last_file_fd_in(cmd);
+			printf("\n2\n");
+			fd_out = dup_last_file_fd_out(cmd);
+			fprintf(stderr,"\n8\n");
+			exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
+			fprintf(stderr,"\n9\n");
+			close(fd_out);
+			exit(1);
+		}
+//		dup2(fd_out, 1);
+//		fprintf(stderr, "\n10\n");
+//		fprintf(stderr, "\n STDIN %d \n",(int)STDIN);
+//		fprintf(stderr, "\n STDOUT %d \n", (int)STDOUT);
+//		close(cmd->last_file_out);
+//		dup2(STDOUT, STDIN);
 	}
 	else
 	{
@@ -28,6 +54,7 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	 	}
 	 	if (father == 0)
 	 	{
+			dup_last_file_fd_in(cmd);
 			dup_last_file_fd_out(cmd);
 	//printf("RESULTAT DE LEXECUTION\n\n\n\n\n");
 	 		exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
@@ -73,20 +100,27 @@ int	dup_last_file_fd_out(t_cmd *cmd)
 
 	last_file = 0;	
 	last_file_out = cmd->last_file_out;
+	printf("\n3\n");
 	if (cmd->last_file_out == NULL)
 		return (0);
+	printf("\n4\n");
 	if (last_file_out->type == TRUNC_0)
 		last_file = open(last_file_out->name, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	else if (last_file_out->type == APPEND_0)
         	last_file = open(last_file_out->name, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
+	printf("\n5\n");
 	if (last_file == -1)
 	{
         	perror(last_file_out->name);
         	return(1);
     	}
+	printf("\n6\n");
+	printf("\nLAST FILE %d\n", last_file);
 	dup2(last_file, STDOUT);
+	fprintf(stderr, "\n7\n");
+	return(last_file);
 //	dup2(last_file, STDIN); // a enlever ??????
-	close(last_file);
+//	close(last_file);
 	return (0);
 }
 
