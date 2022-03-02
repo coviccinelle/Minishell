@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/02 23:34:18 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/02 23:53:52 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,24 @@ void	ft_pass_squote(char *str, int *i)
 		(*i)++;
 }
 
+int	pos_dolar(char *str)
+{
+	int i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+			return (i);
+		i++;
+	}
+	return (i);
+}
+
 char	*dolar_name_quote(char *str, int *i)
 {
-	char *name = NULL;
-	(*i)++;
+	char *name;
 	
+	name = NULL;
+	(*i)++;
 	while (str[*i] && str[*i] != ' ')
 	{
 		name = ft_add_line_after(name, str[*i]);
@@ -69,6 +82,8 @@ char	*ft_strjoin_2(char *s1, char *s2)
 	size_t	i = 0, e = 0;
 	if (!s1)
 		return (s2);
+	if (!s2)
+		return (s1);
 	ret = malloc(ft_strlen(s1) + ft_strlen(s2) + 2);
 	if (!ret)
 		return (NULL);
@@ -114,7 +129,6 @@ char *dolar_quote(char *str, char **envp)
 
 char	*ft_add_double_quote(t_cmd *cmd, int *i, char *line, char *line_after, t_mini *mini)
 {
-	//(void)cmd;
 	if (!ft_check_2rd_quote(&line[*i], '"'))
 	{
 		printf("\033[0;31m ERROR: Double quotes are not safely closed\033[0m\n");
@@ -123,16 +137,16 @@ char	*ft_add_double_quote(t_cmd *cmd, int *i, char *line, char *line_after, t_mi
 		//g_exit_value = 1;
 		return (0);
 	}
-	(*i)++;
 	printf("\033[0;32m ok Double quotes\033[0m\n");
+	(*i)++;
 	while (line[*i] != '"' && line[*i])
 	{
 		line_after = ft_add_line_after(line_after, line[*i]);
 		(*i)++;
 	}
-	(*i)++;
 	if (find_me('$', line_after) != -1)
 		line_after = dolar_quote(line_after, mini->env);
+	(*i)++;
 	return (line_after);
 }
 
