@@ -55,8 +55,8 @@ char	*dolar_2(char *str, int *i, char *line_after, char **envp)
 	printf("1er ligne de env %s\n", envp[0]);
 	//line_after = NULL;
 
-//	line_after = ft_getenv(envp, line_after);
-	line_after = ft_getenv(envp, "USER");
+	line_after = ft_getenv(envp, line_after);
+//	line_after = ft_getenv(envp, "USER");
 	printf("line_after in GET_ENV in dolar_2 == %s\n", line_after);
 
 	printf("IN DOLAR 2.1\n");
