@@ -171,8 +171,8 @@ t_cmd	*stock_cmds(t_mini *mini)
 			//	break ;
 			}
 		}
-		//if (cmd->av)
-		//	ft_print_av(cmd);
+	//	if (cmd->av)
+	//		ft_print_av(cmd);
 		if (mini->line[i] == '|')
 			i++;
 	}

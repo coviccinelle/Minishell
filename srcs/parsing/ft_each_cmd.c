@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/02 21:32:25 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/02 21:48:53 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,6 +303,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 		}
 		else if (is_redir(line[*i]))
 		{
+			
 			if (!ft_redirec(line, i, line_after, &*cmd))
 				return (0);
 		}
@@ -322,5 +323,6 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 			free(buf);
 		}
 	}
+	printf("CA a la fin du parsing\n");
 	return (1);
 }
