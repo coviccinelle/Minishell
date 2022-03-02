@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/02 20:57:25 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/02 20:58:48 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,13 +258,11 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 	char		*buf;
 	char		*line_after;
 	t_cmd		*tmp;
-	(*cmd)->file_out = NULL;
 
 	(void)buf;
 	(void)mini;
 	line_after = NULL;
 	tmp = *cmd;
-	
 	printf("3. Inside each_cmd ^^ Orgine line is : %s\n", line);
 	while (line[*i]/* && line[*i] != '|'*/)
 	{
@@ -325,24 +323,3 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 	}
 	return (1);
 }
-
-
-// - check $ not followed by an espace
-// - check $ not followed by espaces and '='?
-
-// int	ft_change(char *line)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (line[i] == '$' && ((line[i + 1] && line[i + 1] == ' ' ) \
-// 		|| (!line[i + 1])))
-// 		return (0);
-// 	while (line[i] && line[i] != ' ')
-// 	{
-// 		if (line[i] == '=')
-// 			return (0);
-// 		i++;
-// 	}
-// 	return (1);
-// }
