@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/01 20:57:47 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/02 14:21:30 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ typedef struct	s_cmd
 	int		type;
 	t_file		*file_in;
 	t_file		*file_out;
+	t_file		*last_file_in;
+	t_file		*last_file_out;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }				t_cmd;

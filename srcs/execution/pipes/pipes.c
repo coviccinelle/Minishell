@@ -34,25 +34,67 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	
 }
 
+int	dup_last_file_fd_in(t_cmd *cmd)
+{
 
+	t_file *last_file_in;
+	int	last_file;
+
+	last_file = 0;
+	//printf("nom de leof = %s\n", cmd->file_in->name);
+	//unlink(cmd->file_in->name);
+	last_file_in = cmd->last_file_in;
+	fprintf(stderr,"\ntest\n");
+	if (cmd->last_file_in == NULL)
+		return (0);
+//	call_heredoc(last_file_in->name);
+	fprintf(stderr, "\n Fichier en redirection INPUT %s \n", last_file_in->name);
+	last_file = open(last_file_in->name, O_RDONLY);
+	if (last_file == -1)
+	{
+        	perror(last_file_in->name);
+        	return (1) ;
+    	}
+	dup2(last_file, 0);
+	close(last_file);
+//	unlink(last_file_in->name);
+	return (0);
+}
+
+
+int	dup_last_file_fd_out(t_cmd *cmd)
+{
+	t_file *last_file_out;
+	int	last_file;
+
+	last_file = 0;	
+	last_file_out = cmd->last_file_out;
+	if (cmd->last_file_out == NULL)
+		return (0);
+	if (last_file_out->type == TRUNC_0)
+		last_file = open(last_file_out->name, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+	else if (last_file_out->type == APPEND_0)
+        	last_file = open(last_file_out->name, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
+	if (last_file == -1)
+	{
+        	perror(last_file_out->name);
+        	return(1);
+    	}
+	dup2(last_file, STDOUT);
+	close(last_file);
+	return (0);
+}
 
 void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 {
-	(void)mini;
 	int exit_status;
-
 	exit_status = 0;
-   //	printf("child process for cmd->av[0] = %s\n", cmd->av[0]);
-	close(READ_END);
-    //if (cmd->infile)
-    //  dup2(infile, STDIN);
-    //  close(infile);
-    // unline tmp stdin
+	close(READ_END); //fd[0]
+	//call_heredoc(cmd->last_file_in->name);
+	dup_last_file_fd_in(cmd);
 	if (cmd->next)
-		dup2(WRITE_END, STDOUT);
-   	//printf("just before exec, child process for cmd->av[0] = %s\n", cmd->av[0]);
-    //	if (cmd->outfile)
-    //  get_oufile
+		dup2(WRITE_END, STDOUT); //fd[1]
+	dup_last_file_fd_out(cmd);
 	close(WRITE_END);
     	if (is_builtin(cmd->av[0]))
 	{
@@ -102,6 +144,14 @@ renvoie le code de sortie du fils. Ce code est constitué par les 8 bits de poid
 	}
 }
 
+void close_old_prepare_eventual_new(t_cmd *cmd, int *fd)
+{
+	close(WRITE_END);
+	if (cmd->next)
+		dup2(READ_END, STDIN);
+	close(READ_END);
+}
+
 void run_piped_cmds(t_mini *mini, int nb_cmd)
 {
 	int		fd[2];
@@ -119,13 +169,7 @@ void run_piped_cmds(t_mini *mini, int nb_cmd)
 		if (new_pid == 0)
                 	child_process(cmd, fd, mini);
 		else
-		{
-			
-			close(WRITE_END);
-			if (cmd->next)
-				dup2(READ_END, STDIN);
-			close(READ_END);
-		}
+			close_old_prepare_eventual_new(cmd, fd);
 		close(READ_END);
 		close(WRITE_END);
 		cmd = cmd->next;

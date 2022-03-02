@@ -11,6 +11,8 @@ void	init_cmd(t_cmd *cmd)
 	//cmd->type = 0;
 	cmd->file_in = NULL;
 	cmd->file_out = NULL;
+	cmd->last_file_in = NULL;
+	cmd->last_file_out = NULL;
 	cmd->next = NULL;
 	//cmd->prev = NULL;
 }

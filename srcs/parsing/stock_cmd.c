@@ -156,6 +156,7 @@ void	get_var_dollar(t_mini *mini, t_cmd *cmd, char *s, int *i)
 // }
 
 
+
 int			create_files(int type, char *filename)
 {
     int fd;
@@ -177,20 +178,62 @@ int			create_files(int type, char *filename)
 	return (0);
 }
 
-
-void	stock_cmds_3(t_cmd *cmd)
+t_file    *ft_last_file(t_file *file)
 {
-	while ((cmd)->file_in)
-	{
-		create_files((*cmd).file_in->type, (cmd)->file_in->name);
-		(cmd)->file_in = (cmd)->file_in->next;
-	}
-	while ((cmd)->file_out)
-	{
-		create_files((*cmd).file_out->type, (cmd)->file_out->name);
-		(cmd)->file_out = (cmd)->file_out->next;
-	}
+    t_file       *p;
+
+    p = file;
+
+    printf("am i here 2222?\n");
+    /*if (p && p->next == NULL)
+            return (p);*/
+    while (p && p->next)
+    {
+        printf("filename  = %s\n", p->name);
+        p = p->next;
+    }
+    return (p);
 }
+
+void    stock_cmds_3(t_cmd *cmd)
+{
+    t_file *file_out;
+    t_file *file_inn;
+
+    file_inn = cmd->file_in;
+    file_out = cmd->file_out;
+    while ((cmd)->file_in)
+    {
+        create_files((*cmd).file_in->type, (cmd)->file_in->name);
+        (cmd)->file_in = (cmd)->file_in->next;
+    }
+    while ((cmd)->file_out)
+    {
+        create_files((*cmd).file_out->type, (cmd)->file_out->name);
+        (cmd)->file_out = (cmd)->file_out->next;
+    }
+    printf("am i here?\n");
+    cmd->last_file_in = ft_last_file(file_inn);
+    cmd->last_file_out = ft_last_file(file_out);
+    if (file_inn != NULL)
+        printf("le dernier fichier IN est : type %d nom = %s\n\n", cmd->last_file_in->type, cmd->last_file_in->name);
+    if (file_out != NULL)
+        printf("le dernier fichier OUT est : type %d nom = %s\n\n", cmd->last_file_out->type, cmd->last_file_out->name);
+}
+
+// void	stock_cmds_3(t_cmd *cmd)
+// {
+// 	while ((cmd)->file_in)
+// 	{
+// 		create_files((*cmd).file_in->type, (cmd)->file_in->name);
+// 		(cmd)->file_in = (cmd)->file_in->next;
+// 	}
+// 	while ((cmd)->file_out)
+// 	{
+// 		create_files((*cmd).file_out->type, (cmd)->file_out->name);
+// 		(cmd)->file_out = (cmd)->file_out->next;
+// 	}
+// }
 
 //stock cmd
 t_cmd	*stock_cmds(t_mini *mini)
