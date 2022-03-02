@@ -164,7 +164,7 @@ void	print_list(t_cmd **mini)
   	printf("-----------------------------------\n\n");
 
     //printf("Now is time to print every av\n\n");
-    //ft_print_av(mini);
+    ft_print_av(*mini);
   	tmp = tmp->next;
   	//i++;
   }

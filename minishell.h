@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/02 14:32:43 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:28:32 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,6 +239,10 @@ t_cmd		*stock_cmds_2(t_mini *mini);
 int			ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **one_cmd);
 void		get_redir(t_mini *mini, int *i, t_cmd *cmd);
 char		*add_char(t_mini *mini, char *str, int c);
+
+//*** DOLAR SIGN ***//
+char	*dolar_name(char *str, int *i, char *line_after, t_cmd *cmd);
+char	*dolar_2(char *str, int *i, char *line_after, char **envp);
 
 //*** PIPES ***//
 char		*ft_strndup(char *s, int n);

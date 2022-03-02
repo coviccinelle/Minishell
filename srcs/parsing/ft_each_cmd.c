@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/01 20:32:30 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:53:35 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,23 +269,10 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 	while (line[*i]/* && line[*i] != '|'*/)
 	{
 		(*cmd)->stop = 0;
-		while (line[*i] == ' ')
+		if (line[*i] == ' ')
 		{
 			printf("in ESPACE line_after = %s\n", line_after);
-			if (line_after/* && !str_blank(line_after)*/)
-				ft_avs(tmp, line_after);
 			skip_blank_2(line, i, *cmd, line_after);
-			// if ((line[*i + 1] = '\0'))
-			//  	break ;
-			if (str_blank(&line[*i]))
-			{
-				printf("line[*i] = ___|%c|___\n", line[*i]);
-				printf("Il reste que les espaces\n\n");
-				//break ;
-				//exit(0);
-				skip_blank_2(line, i, *cmd, line_after);
-				line_after = NULL;
-			}
 			line_after = NULL;
 		}
 		if (line[*i] == '"')
@@ -313,9 +300,15 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 		}
 		else if (line[*i] == '$' && !(line[(*i) + 1] == '?'))
 		{
-			//line_after = ft_dollar_1(line, i, line_after, cmd);
-			//line_after = ft_dollar_2(line, i, line_after, envp);
+		//else if (line[i] == '$' && line[i + 1] &&	line[i + 1] != '?' && ft_change(&line[i]))
+
+			line_after = dolar_name(line, i, line_after, *cmd);
+			printf("Line_after = %s\n", line_after);
+			//=> line_after here = $USER
+			line_after = dolar_2(line, i, line_after, mini->env);
+			// => line_after here = thi-phng
 			printf("dollar sign but not $? non plus\n\n");
+			printf("line_after after dolar_2 = %s\n", line_after);
 			ft_avs(tmp, line_after);
 			line_after = NULL;
 		}
@@ -337,10 +330,34 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 			ft_buf(line, i, buf);
 			line_after = ft_add_line_after(line_after, buf[0]);
 			if ((!line[*i] && line_after)/* || (line[*i + 1] == '|' && line_after)*/)
+			{
+				printf("End of line and line_after still not stocked yet : %s\n", line_after);
 				ft_avs(*cmd, line_after);
+			}
 			free(buf);
 		}
 		//printf("cmd->av[0] = %s\n",cmd->av[0]);
 	}
 	return (1);
 }
+
+
+// - check $ not followed by an espace
+// - check $ not followed by espaces and '='?
+
+// int	ft_change(char *line)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	if (line[i] == '$' && ((line[i + 1] && line[i + 1] == ' ' ) \
+// 		|| (!line[i + 1])))
+// 		return (0);
+// 	while (line[i] && line[i] != ' ')
+// 	{
+// 		if (line[i] == '=')
+// 			return (0);
+// 		i++;
+// 	}
+// 	return (1);
+// }
