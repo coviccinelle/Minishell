@@ -1,7 +1,6 @@
 
 #include "../../minishell.h"
 
-
 void print_tab(char **av)
 {
 	int j;

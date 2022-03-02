@@ -1,14 +1,5 @@
 #include "../../minishell.h"
 
-// typedef	struct			s_sep
-// {
-// 	char				*cmd;
-// 	struct s_sep		*prev;
-// 	struct s_sep		*next;
-// 	struct s_pip		*pipcell;
-// }						t_sep;
-
-
 void	simple_free(t_cmd **st)
 {
 	t_cmd	*tmp;
@@ -31,8 +22,6 @@ void	ft_free_1st(t_cmd **st, int n)
 	else
 		simple_free(st);
 }
-
-
 
 void	ft_init_elem(t_cmd *mini)
 {
@@ -133,8 +122,6 @@ int	ft_new_element(t_cmd	**mini, char *line, int i)
 
 
 // faut mettre ft_piping inside of 
-
-
 void  ft_print_av(t_cmd *mini)
 {
   int i = 0;
@@ -169,39 +156,3 @@ void	print_list(t_cmd **mini)
   	//i++;
   }
 }
-
-// deviding into each cell and add things into **av
-// int   ft_pars_piping(char *line, t_cmd *mini)
-// {
-//    int   i = 0;
-//    char **line_2;
-//   // t_mini *prev;
-
-//   //prev = NULL;
-//  // printf("Let's start\n");
-//   mini = NULL;
-//   printf("origine big line is : %s\n", line);
-//   line_2 = ft_split_3(line, '|');
-//   printf("done splitting\n");
-//   while (line_2[i] && i <= ft_len_avs(line_2))
-//   {
-//      //mini = add_cell(mini, line_2[i], i); // deux cellules, dans chaqune on met str[i]
-//     if (!ft_new_element(&mini, line_2[i], i))
-//       return (0);
-//     printf("done ft_new_element\n");
-//     printf("each mini->line = %s\n\n", mini->line);
-//     if (ft_each_cmd(mini->line, mini))
-//       printf("Ok ft_each_cmd\n");
-//     print_list(&mini);
-//     i++;
-//    // prev = mini;
-//     mini = mini->next;
-//     //mini->next = NULL;
-//   }
-//   free(mini);
-//   free(line_2);
-//   return(i);
-// }
-
-
-

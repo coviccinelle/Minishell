@@ -27,5 +27,3 @@ char	*dolar_2(char *str, int *i, char *line_after, char **envp)
 	}
 	return (line_after);
 }
-
-
