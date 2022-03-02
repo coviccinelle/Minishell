@@ -59,8 +59,8 @@ void	minishell(char **env)
 		mini->line = line;
 		if (mini->line)
 			mini_run(mini);
-		if (mini->cmd->av)
-			print_mini_avs(mini);
+	//	if (mini->cmd->av)
+		//	print_mini_avs(mini);
 		//free(mini);
 		//free(line);
 	}

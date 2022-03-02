@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/02 21:06:27 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/02 21:26:24 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,7 @@ int	ft_redirec(char *line, int *i, char *str, t_cmd **tmp)
 	return (1);
 }
 
-int	mdquote3(char *line, int *i)
+int	quote_pass(char *line, int *i)
 {
 	if (line[(*i) + 1] == '\0')
 		return (0);
@@ -275,7 +275,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 			ft_avs(*cmd, line_after);
 			if ((*cmd)->stop == 1)
 				return (0);
-			 if (!mdquote3(line, i))
+			 if (!quote_pass(line, i))
 				break ;
 			line_after = NULL;
 		}
