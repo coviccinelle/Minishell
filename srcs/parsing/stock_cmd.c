@@ -83,80 +83,6 @@ void	get_var_dollar(t_mini *mini, t_cmd *cmd, char *s, int *i)
 	free(var_name);
 }
 
-
-// int	ft_quote(t_mini *mini, t_cmd *cmd, char *s, int *i)
-// {
-// 	char	*line_after;
-
-// 	(void)mini; // to use after for $ sign inside quote
-// 	line_after = NULL;
-// 	if (s[*i] == '"')
-// 	{
-// 		printf("1_Double quote found\n\n");
-// 		printf("where am i ? s[*i] = double quote found : %c\n", s[*i]);
-// 		if (!ft_d2_quotes(line_after, i, s, cmd))
-// 			return (0);
-// 		printf("cmd->av[0] = %s\ncmd->av[1] = %s\n", cmd->av[0], cmd->av[1]);
-// 		// if (s[(*i) + 1] == '\0')
-// 		// 	return (0) ;
-// 		//dollar in quote
-// 		if (!quote_pass_2(s, i))
-// 			return (0) ;
-// 		line_after = NULL;
-// 	}
-// 	else if (s[*i] == '\'')
-// 	{
-// 		printf("single quotes\n\n");
-// 		printf("line_after = %s\n", line_after);
-// 		if (!ft_single_quote(line_after, i, s, cmd))
-// 			return (0);
-// 		// if (s[(*i) + 1] == '\0')
-// 		// 	break ;
-// 		ft_pass_squote(s, i);
-// 		line_after = NULL;
-// 	}
-// 	return (1);
-// }
-
-
-// void	get_avs(t_mini *mini, int *i, t_cmd *cmd)
-// {
-// 	char	*line;
-// 	char	*s;
-// 	char	*buf;
-
-// 	line = NULL;
-// 	s = mini->line;
-// 	printf("get_avs : 1.0");
-// 	while (s[*i] && !is_redir(s[*i]) && s[*i] != '|' && s[*i] != ' ')
-// 	{
-// 		if (s[*i] == '$')
-// 			get_var_dollar(mini, cmd, s, i);//a fuction to check if variable after $ exist in env + stock avs
-// 		else if (s[*i] == '"' || s[*i] == '\'')
-// 		{
-// 			if (!ft_quote(mini, cmd, s, i)) // call funtion ft_quotes to take all entre les quotes + stock avs
-// 			{
-// 				printf("ERROR: quote not ok\n");
-// 				exit (0);
-// 				//exit_custom;
-// 			}
-// 		}
-// 		else
-// 		{
-// 			printf("mini->line[i] = %c\n", mini->line[*i]);
-// 			buf = malloc(sizeof(char) * 2);
-// 			ft_buf(s, i, buf);
-// 			line = ft_add_line_after(line, buf[0]);
-// 			printf("cmd->line = %s\n", line);
-// 			if (!s[*i] && line)
-// 				ft_avs(cmd, line);
-// 			free(buf);
-// 		}
-// 	}
-// }
-
-
-
 int			create_files(int type, char *filename)
 {
     int fd;
@@ -184,9 +110,6 @@ t_file    *ft_last_file(t_file *file)
 
     p = file;
 
-  //  printf("am i here 2222?\n");
-    /*if (p && p->next == NULL)
-            return (p);*/
     while (p && p->next)
     {
         printf("filename  = %s\n", p->name);
@@ -248,6 +171,8 @@ t_cmd	*stock_cmds(t_mini *mini)
 			//	break ;
 			}
 		}
+		//if (cmd->av)
+		//	ft_print_av(cmd);
 		if (mini->line[i] == '|')
 			i++;
 	}
