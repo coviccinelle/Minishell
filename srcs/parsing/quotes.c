@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/02 23:02:41 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/02 23:04:28 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	ft_pass_squote(char *str, int *i)
 	else if (str[*i] == 39 && str[(*i) + 1] && str[(*i) + 1] != ' ')
 		(*i)++;
 }
-
 
 int	pos_dolar(char *str)
 {
