@@ -1,21 +1,29 @@
 
 #include "../../minishell.h"
 
-char	*dollar_sign(int ac, char **av, char **env)
+char	*dolar_name(char *str, int *i, char *line_after, t_cmd *cmd)
 {
-	int j;
-	char	*s;
-
-	s = NULL;
-	j = -1;
-	while (av[++j])
+	if (line_after)
 	{
-		if (av[j][0]  == '$' && av[j][1]  == '?')
-			get_exit_status(); // comment vu que pas possible var globale?? Ret de fonction a mettre dans notre liste chainee “mini”?
-		else if (av[j][0]  == '$' && av[j][1] != NULL)
-			s = ft_getenv(env, av[j]); // rechecker nom final que je lui ai donne et tester le tout
-		else if (!ft_strcmp(av[j], "~"))
-			s = ft_getenv(env, "HOME"); // a free
+		ft_avs(cmd, line_after);
+		line_after = NULL;
 	}
-	return(s);
+	(*i)++;
+	while (str[*i] && str[*i] != ' ')
+	{
+		line_after = ft_add_line_after(line_after, str[*i]);
+		(*i)++;
+	}
+	return (line_after);
+}
+
+char	*dolar_2(char *str, int *i, char *line_after, char **envp)
+{
+	line_after = ft_getenv(envp, line_after);
+	if (str[*i])
+	{
+		while (str[*i] == ' ')
+			(*i)++;
+	}
+	return (line_after);
 }
