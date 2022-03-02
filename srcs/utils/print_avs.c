@@ -23,7 +23,7 @@ void print_mini_avs(t_mini *mini)
 	cmd = mini->cmd;
 	while(cmd)
 	{
-		printf(" 		%d commande = \n\n\033[0m", i);
+		printf("~ 		%d commande = \n\n\033[0m", i);
 		print_tab(cmd->av);
 		if (cmd->file_in)
 			printf("cmd->file_in exist\n");
