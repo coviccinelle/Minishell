@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/02 22:59:46 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/02 23:02:41 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ char *dolar_quote(char *str, char **envp)
 
 char	*ft_add_double_quote(t_cmd *cmd, int *i, char *line, char *line_after, t_mini *mini)
 {
-	//(void)cmd;
 	if (!ft_check_2rd_quote(&line[*i], '"'))
 	{
 		printf("\033[0;31m ERROR: Double quotes are not safely closed\033[0m\n");
