@@ -6,7 +6,11 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
+<<<<<<< .merge_file_F2nglW
 /*   Updated: 2022/03/02 21:06:27 by thi-phng         ###   ########.fr       */
+=======
+/*   Updated: 2022/03/02 17:25:32 by mloubet          ###   ########.fr       */
+>>>>>>> .merge_file_7AucZ0
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +91,11 @@ int	ft_add_to_fstack_in(t_cmd **cmd, char *line)
 	new->next = NULL;
 	new->name = strdup(line);
 	new->type = (*cmd)->type;
+	if (new->type == HEREDOC)
+	{
+		call_heredoc(new->name);
+		unlink(new->name);
+	}
 	if (!(*cmd)->file_in)
 		(*cmd)->file_in = new;
 	else
