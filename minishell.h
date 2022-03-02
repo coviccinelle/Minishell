@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/02 17:26:01 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/02 20:05:07 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 # define PIPE 2
 
 # define SEPARATORS " '\"|><"
+
+extern int	g_exit_value;
 
 // *** // STRUCTURE  // *** //
 typedef struct s_export
@@ -182,7 +184,7 @@ int			exec_unset(int ac, char **av, char ***env);
 void		print_env(char **env);
 char		*ft_getenv(char **env, char *name);
 void		print_env(char **env);
-void		exec_exit(int ac, char **av);
+int		exec_exit(int ac, char **av);
 void		ft_bzero(void *b, size_t n);
 void		*ft_memalloc(size_t size);
 void		test_print(char **envp);
