@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_unset.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:42 by mloubet           #+#    #+#             */
-/*   Updated: 2022/02/24 19:55:00 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/02 14:38:31 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,8 @@ char	*find_in_env(char **env, char *name, int *pos)
 
 	name_len = ft_strlen(name);
 	j = -1;
-	printf("JE PASSE DANS FIND ENV\n\n");
 	if (name == NULL || env == NULL)
 	{
-		printf("dans find env, name == NULL or !env\n\n");
 		return (NULL);
 	}
 	while (env[++j] && j < nb_tabs(env))
@@ -53,7 +51,6 @@ char	*find_in_env(char **env, char *name, int *pos)
 		if (ft_strncmp(name, env[j], name_len) == 0)
 		{
 			*pos = j;
-			printf("dans find envs, show it\n\n");
 			return (cpy_trim(env[j], '=', '\0'));
 		}
 	}

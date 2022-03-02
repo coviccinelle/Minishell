@@ -44,7 +44,7 @@ int	dup_last_file_fd_in(t_cmd *cmd)
 	//printf("nom de leof = %s\n", cmd->file_in->name);
 	//unlink(cmd->file_in->name);
 	last_file_in = cmd->last_file_in;
-	fprintf(stderr,"\ntest\n");
+	//fprintf(stderr,"\ntest\n");
 	if (cmd->last_file_in == NULL)
 		return (0);
 //	call_heredoc(last_file_in->name);
