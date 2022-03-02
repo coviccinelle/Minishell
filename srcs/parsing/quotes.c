@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/02 20:49:49 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/02 22:59:46 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,42 +63,12 @@ int	pos_dolar(char *str)
 	return (i);
 }
 
-// char	*ft_replace_var(char *line, char **envp)
-// {
-// 	int		len;
-// 	int		pos;
-// 	char	*var;
-// 	char	*exp;
-
-// 	len = 0;
-// 	pos = 0;
-// 	exp = line;
-// 	while (line[len])
-// 	{
-// 		if (line[len] == '$')
-// 		{
-// 			pos = len + 1;
-// 			len = pos_dolar(line);
-// 			break ;
-// 		}
-// 		len++;
-// 	}
-// 	if (!len)
-// 		return (line);
-// 	var = strndup(&line[pos], len);
-// 	//exp = ft_search_var(var, envp, exp, pos);
-// 	exp = ft_getenv(envp, exp);
-// 	var = malloc(sizeof(char) * \
-// 		(pos + ft_strlen(exp) + ft_strlen(&line[pos + len]) + 1));
-// 	return (ft_copy(var, line, exp, pos));
-// }
-
-
 char	*dolar_name_quote(char *str, int *i)
 {
-	char *name = NULL;
-	(*i)++;
+	char *name;
 	
+	name = NULL;
+	(*i)++;
 	while (str[*i] && str[*i] != ' ')
 	{
 		name = ft_add_line_after(name, str[*i]);
@@ -107,13 +77,14 @@ char	*dolar_name_quote(char *str, int *i)
 	return (name);
 }
 
-
 char	*ft_strjoin_2(char *s1, char *s2)
 {
 	char	*ret;
 	size_t	i = 0, e = 0;
 	if (!s1)
 		return (s2);
+	if (!s2)
+		return (s1);
 	ret = malloc(ft_strlen(s1) + ft_strlen(s2) + 2);
 	if (!ret)
 		return (NULL);
@@ -168,17 +139,16 @@ char	*ft_add_double_quote(t_cmd *cmd, int *i, char *line, char *line_after, t_mi
 		//g_exit_value = 1;
 		return (0);
 	}
-	(*i)++;
 	printf("\033[0;32m ok Double quotes\033[0m\n");
+	(*i)++;
 	while (line[*i] != '"' && line[*i])
 	{
 		line_after = ft_add_line_after(line_after, line[*i]);
 		(*i)++;
 	}
-	(*i)++;
 	if (find_me('$', line_after))
 		line_after = dolar_quote(line_after, mini->env);
-	printf("line Dolar + quote === %s\n", line_after);
+	(*i)++;
 	return (line_after);
 }
 

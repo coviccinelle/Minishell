@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:57:12 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 15:11:28 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/02 22:58:41 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int find_me(char c, char *str)
     while (str[i])
     {
         if (str[i] == c)
-            return (i);
+            return (1);
         i++;
     }
-    return (-1);
+    return (0);
 }
 
 int is_token_char(char c)
