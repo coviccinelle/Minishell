@@ -32,7 +32,7 @@ void	mini_run(t_mini *mini)
 	// 	return ;
 	// }
 	mini->cmd = stock_cmds(mini);
-	if(!mini->cmd)
+	if(!mini->cmd || !mini->cmd->av)
 		return ;
 	cmd = mini->cmd;
 	//printf("!!!!nb_cmds = %d\n\n", nb_cmds(mini->cmd));
