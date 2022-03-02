@@ -39,6 +39,7 @@ char	*dolar_name(char *str, int *i, char *line_after, t_cmd *cmd)
 		ft_avs(cmd, line_after);
 		line_after = NULL;
 	}
+	(*i)++;
 	while (str[*i] && str[*i] != ' ')
 	{
 		line_after = ft_add_line_after(line_after, str[*i]);
@@ -52,8 +53,10 @@ char	*dolar_2(char *str, int *i, char *line_after, char **envp)
 	printf("IN DOLAR 2.0\n");
 	printf("line_after BEFORE GET_ENV in dolar_2 == should be $USER %s\n", line_after);
 	printf("1er ligne de env %s\n", envp[0]);
+	//line_after = NULL;
 
-	line_after = ft_getenv(envp, line_after);
+//	line_after = ft_getenv(envp, line_after);
+	line_after = ft_getenv(envp, "USER");
 	printf("line_after in GET_ENV in dolar_2 == %s\n", line_after);
 
 	printf("IN DOLAR 2.1\n");
