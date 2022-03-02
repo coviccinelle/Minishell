@@ -1,6 +1,8 @@
 #include "../../../minishell.h"
 
 
+int	dup_last_file_fd_out(t_cmd *cmd);
+int	dup_last_file_fd_in(t_cmd *cmd);
 
 void exec_cmd_with_no_pipe(t_mini *mini)
 {
@@ -10,7 +12,10 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	cmd = mini->cmd;
 	//printf("LA commande a exec est = %s\n\n", cmd->av[0]);
 	if (is_builtin(cmd->av[0])) //a remplacer par av[0] apres.
+	{
+			dup_last_file_fd_out(cmd);
 		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
+	}
 	else
 	{
 	 	pid_t   father;
@@ -23,8 +28,7 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	 	}
 	 	if (father == 0)
 	 	{
-	 		sleep(1);
-
+			dup_last_file_fd_out(cmd);
 	//printf("RESULTAT DE LEXECUTION\n\n\n\n\n");
 	 		exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
 	 		exit(0);
@@ -81,6 +85,7 @@ int	dup_last_file_fd_out(t_cmd *cmd)
         	return(1);
     	}
 	dup2(last_file, STDOUT);
+//	dup2(last_file, STDIN); // a enlever ??????
 	close(last_file);
 	return (0);
 }
