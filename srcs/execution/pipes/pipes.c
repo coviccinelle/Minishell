@@ -4,6 +4,26 @@
 int	dup_last_file_fd_out(t_cmd *cmd);
 int	dup_last_file_fd_in(t_cmd *cmd);
 
+/*
+signal(SIGINT, ft_sigint_ctr_c);
+	signal(SIGQUIT, ft_sigquit_ctr_bs);
+void    ft_sigint_ctr_c(int sig)
+{
+    (void)sig;
+    write(1, "\n", 1);
+	rl_replace_line("", 0); 
+    //rl_replace_line NOT VALIDE IN C99
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+void    ft_sigquit_ctr_bs(int sig)
+{
+    (void)sig;
+    printf("\b\b  \b\b");
+}
+*/
+
 void	call_heredoc(char *eof)
 {
 	int fd;
@@ -50,7 +70,8 @@ void	exec_builtin_no_pipe(t_mini *mini)
 	}
 	else
 	{
-		dup_last_file_fd_in(cmd);
+		if (dup_last_file_fd_in(cmd) == 1) //mevite pb cat infini quand cat <file et file nexiste pas ou echo bonjour <EOF
+			exit (1);
 		fd_out = dup_last_file_fd_out(cmd);
 		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
 		close(fd_out);
@@ -75,13 +96,16 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	 		waitpid(-1, &status, 0);
 	 	if (father == 0)
 	 	{
-			dup_last_file_fd_in(cmd);
+			if (dup_last_file_fd_in(cmd) == 1)
+				exit (1);
 			dup_last_file_fd_out(cmd);
 	 		exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
 	 		exit(0);
 	 	}
 	 }
 }
+
+//void unlink heredocs
 
 int	dup_last_file_fd_in(t_cmd *cmd)
 {
@@ -96,7 +120,6 @@ int	dup_last_file_fd_in(t_cmd *cmd)
 	//fprintf(stderr,"\ntest\n");
 	if (cmd->last_file_in == NULL)
 		return (0);
-//	call_heredoc(last_file_in->name);
 	fprintf(stderr, "\n Fichier en redirection INPUT %s \n", last_file_in->name);
 	last_file = open(last_file_in->name, O_RDONLY);
 	if (last_file == -1)
@@ -106,8 +129,14 @@ int	dup_last_file_fd_in(t_cmd *cmd)
     	}
 	dup2(last_file, 0);
 	close(last_file);
-//	unlink(last_file_in->name);
-	return (0);
+//	unlink(cmd->last_file_in->name); en gros tout fonctionne avec cette ligne si un seul heredoc style cat <<EOF sauf que faut que focus sur heredocs car <file serait supp aussi si cetait le dernier. pourquoi ma boucle ci-dessous ne fonctionne pas ?
+/*	while (cmd->file_in->next)
+	{
+		if (cmd->file_in->type == HEREDOC)
+			unlink(cmd->file_in->name);
+		cmd->file_in = cmd->file_in->next;
+	}
+*/	return (0);
 }
 
 
@@ -138,10 +167,12 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 	int exit_status;
 	exit_status = 0;
 	close(READ_END); //fd[0]
-	dup_last_file_fd_in(cmd);
+	if (dup_last_file_fd_in(cmd) == 1)
+		exit (1);
 	if (cmd->next)
 		dup2(WRITE_END, STDOUT); //fd[1]
-	dup_last_file_fd_out(cmd);
+	if (dup_last_file_fd_out(cmd) == 1)
+		exit (1);
 	close(WRITE_END);
     	if (is_builtin(cmd->av[0]))
 	{
