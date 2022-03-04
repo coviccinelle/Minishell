@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/02 14:32:43 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/04 12:22:26 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void		run_builtin(t_mini *mini, t_cmd *cmd);
 void		run_execve_2(t_mini *mini, t_cmd *cmd);
 
 int			exec_cd(int ac, char **av, char **env);
-
+void		call_heredoc(char *eof);
 //pwd
 int			exec_pwd(void);
 /*echo*/
@@ -182,7 +182,7 @@ int			exec_unset(int ac, char **av, char ***env);
 void		print_env(char **env);
 char		*ft_getenv(char **env, char *name);
 void		print_env(char **env);
-void		exec_exit(int ac, char **av);
+int    		exec_exit(int ac, char **av);
 void		ft_bzero(void *b, size_t n);
 void		*ft_memalloc(size_t size);
 void		test_print(char **envp);

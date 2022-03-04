@@ -4,66 +4,108 @@
 int	dup_last_file_fd_out(t_cmd *cmd);
 int	dup_last_file_fd_in(t_cmd *cmd);
 
+/*
+signal(SIGINT, ft_sigint_ctr_c);
+	signal(SIGQUIT, ft_sigquit_ctr_bs);
+void    ft_sigint_ctr_c(int sig)
+{
+    (void)sig;
+    write(1, "\n", 1);
+	rl_replace_line("", 0); 
+    //rl_replace_line NOT VALIDE IN C99
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+void    ft_sigquit_ctr_bs(int sig)
+{
+    (void)sig;
+    printf("\b\b  \b\b");
+}
+*/
+
+void	call_heredoc(char *eof)
+{
+	int fd;
+	char *input;
+
+
+	input = NULL;
+//pour mieux cacher le fichier eof avant un eventuel cat,  char *filename = ft_strxjoin("/tmp/", eof, "/.heredoc")??
+	if (eof == NULL)
+		return ;
+	fd = open(eof,  O_CREAT | O_WRONLY | O_RDONLY | O_TRUNC, 0777);
+	if (fd == -1)
+		perror(eof);
+	while (1)
+	{
+		input = readline("> ");
+		if (input)
+		{
+			if(strncmp(input, eof, strlen(eof)) != 0) // a remplacer par ft_strncmp 
+				ft_putendl_fd(input, fd);
+			if (strncmp(input, eof, strlen(eof)) == 0) //idem
+					break;
+			free(input);
+		}
+	}
+	close(fd);
+}
+
+void	exec_builtin_no_pipe(t_mini *mini)
+{
+
+	t_cmd *cmd;
+	pid_t	f;
+	int	status;
+
+	int	fd_out;
+	cmd = mini->cmd;
+	f = fork();
+	if( f != 0)
+	{
+		if((ft_strcmp(cmd->av[0] , "export") == 0 && cmd->av[1]) || (ft_strcmp(cmd->av[0] , "unset") == 0 && cmd->av[1]))
+			exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
+		waitpid(f, &status , 0);
+	}
+	else
+	{
+		if (dup_last_file_fd_in(cmd) == 1) //mevite pb cat infini quand cat <file et file nexiste pas ou echo bonjour <EOF
+			exit (1);
+		fd_out = dup_last_file_fd_out(cmd);
+		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
+		close(fd_out);
+		exit(1);
+	}
+}
+
 void exec_cmd_with_no_pipe(t_mini *mini)
 {
 	t_cmd *cmd;
 	int status;
-	int	fd_out;
 	cmd = mini->cmd;
-	//printf("LA commande a exec est = %s\n\n", cmd->av[0]);
-	if (is_builtin(cmd->av[0])) //a remplacer par av[0] apres.
-	{
-		pid_t	f;
-		int	status;
 
-		f = fork();
-		if( f != 0)
-		{
-			if((ft_strcmp(cmd->av[0] , "export") == 0 && cmd->av[1]))
-				exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
-			waitpid(f, &status , 0);
-		}
-		else
-		{
-			printf("\n1\n");
-			dup_last_file_fd_in(cmd);
-			printf("\n2\n");
-			fd_out = dup_last_file_fd_out(cmd);
-			fprintf(stderr,"\n8\n");
-			exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
-			fprintf(stderr,"\n9\n");
-			close(fd_out);
-			exit(1);
-		}
-//		dup2(fd_out, 1);
-//		fprintf(stderr, "\n10\n");
-//		fprintf(stderr, "\n STDIN %d \n",(int)STDIN);
-//		fprintf(stderr, "\n STDOUT %d \n", (int)STDOUT);
-//		close(cmd->last_file_out);
-//		dup2(STDOUT, STDIN);
-	}
+	if (is_builtin(cmd->av[0]))
+		exec_builtin_no_pipe(mini);
 	else
 	{
 	 	pid_t   father;
 
 	 	father = fork();
 	 	if (father > 0)
-		{
 	 		waitpid(-1, &status, 0);
-	 	//	printf("I AM YOUR FATHER\n");
-	 	}
 	 	if (father == 0)
 	 	{
-			dup_last_file_fd_in(cmd);
+			if (dup_last_file_fd_in(cmd) == 1)
+				exit (1);
 			dup_last_file_fd_out(cmd);
-	//printf("RESULTAT DE LEXECUTION\n\n\n\n\n");
 	 		exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
 	 		exit(0);
 	 	}
 	 }
-	
-	
 }
+
+//void unlink heredocs
 
 int	dup_last_file_fd_in(t_cmd *cmd)
 {
@@ -78,7 +120,6 @@ int	dup_last_file_fd_in(t_cmd *cmd)
 	//fprintf(stderr,"\ntest\n");
 	if (cmd->last_file_in == NULL)
 		return (0);
-//	call_heredoc(last_file_in->name);
 	fprintf(stderr, "\n Fichier en redirection INPUT %s \n", last_file_in->name);
 	last_file = open(last_file_in->name, O_RDONLY);
 	if (last_file == -1)
@@ -88,8 +129,14 @@ int	dup_last_file_fd_in(t_cmd *cmd)
     	}
 	dup2(last_file, 0);
 	close(last_file);
-//	unlink(last_file_in->name);
-	return (0);
+//	unlink(cmd->last_file_in->name); en gros tout fonctionne avec cette ligne si un seul heredoc style cat <<EOF sauf que faut que focus sur heredocs car <file serait supp aussi si cetait le dernier. pourquoi ma boucle ci-dessous ne fonctionne pas ?
+/*	while (cmd->file_in->next)
+	{
+		if (cmd->file_in->type == HEREDOC)
+			unlink(cmd->file_in->name);
+		cmd->file_in = cmd->file_in->next;
+	}
+*/	return (0);
 }
 
 
@@ -100,28 +147,19 @@ int	dup_last_file_fd_out(t_cmd *cmd)
 
 	last_file = 0;	
 	last_file_out = cmd->last_file_out;
-	printf("\n3\n");
 	if (cmd->last_file_out == NULL)
 		return (0);
-	printf("\n4\n");
 	if (last_file_out->type == TRUNC_0)
 		last_file = open(last_file_out->name, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	else if (last_file_out->type == APPEND_0)
         	last_file = open(last_file_out->name, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
-	printf("\n5\n");
 	if (last_file == -1)
 	{
         	perror(last_file_out->name);
         	return(1);
     	}
-	printf("\n6\n");
-	printf("\nLAST FILE %d\n", last_file);
 	dup2(last_file, STDOUT);
-	fprintf(stderr, "\n7\n");
 	return(last_file);
-//	dup2(last_file, STDIN); // a enlever ??????
-//	close(last_file);
-	return (0);
 }
 
 void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
@@ -129,11 +167,12 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 	int exit_status;
 	exit_status = 0;
 	close(READ_END); //fd[0]
-	//call_heredoc(cmd->last_file_in->name);
-	dup_last_file_fd_in(cmd);
+	if (dup_last_file_fd_in(cmd) == 1)
+		exit (1);
 	if (cmd->next)
 		dup2(WRITE_END, STDOUT); //fd[1]
-	dup_last_file_fd_out(cmd);
+	if (dup_last_file_fd_out(cmd) == 1)
+		exit (1);
 	close(WRITE_END);
     	if (is_builtin(cmd->av[0]))
 	{
@@ -216,3 +255,4 @@ void run_piped_cmds(t_mini *mini, int nb_cmd)
 	}
 	waiting_for_all_children_to_finish_execution(pid_lst);
 }
+

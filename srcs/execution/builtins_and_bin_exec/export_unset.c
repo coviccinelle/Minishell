@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:42 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/02 14:38:31 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/02 17:37:36 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*find_in_env(char **env, char *name, int *pos)
 			return (cpy_trim(env[j], '=', '\0'));
 		}
 	}
-	return (NULL);
+	return (ft_strdup(""));
 }
 
 char	*ft_getenv(char **env, char *name)
