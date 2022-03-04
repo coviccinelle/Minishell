@@ -34,7 +34,7 @@ void	call_heredoc(char *eof)
 //pour mieux cacher le fichier eof avant un eventuel cat,  char *filename = ft_strxjoin("/tmp/", eof, "/.heredoc")??
 	if (eof == NULL)
 		return ;
-	fd = open(eof,  O_CREAT | O_WRONLY | O_RDONLY | O_TRUNC, 0777);
+	fd = open("heredoc",  O_CREAT | O_WRONLY | O_RDONLY | O_TRUNC, 0777);
 	if (fd == -1)
 		perror(eof);
 	while (1)
@@ -112,16 +112,18 @@ int	dup_last_file_fd_in(t_cmd *cmd)
 
 	t_file *last_file_in;
 	int	last_file;
+	t_cmd *cmd2;
+
+	cmd2 = cmd;
 
 	last_file = 0;
-	//printf("nom de leof = %s\n", cmd->file_in->name);
-	//unlink(cmd->file_in->name);
 	last_file_in = cmd->last_file_in;
-	//fprintf(stderr,"\ntest\n");
 	if (cmd->last_file_in == NULL)
 		return (0);
-	fprintf(stderr, "\n Fichier en redirection INPUT %s \n", last_file_in->name);
-	last_file = open(last_file_in->name, O_RDONLY);
+	if (last_file_in->type == HEREDOC)
+		last_file = open("heredoc", O_RDONLY);
+	else
+		last_file = open(last_file_in->name, O_RDONLY);
 	if (last_file == -1)
 	{
         	perror(last_file_in->name);
@@ -129,14 +131,8 @@ int	dup_last_file_fd_in(t_cmd *cmd)
     	}
 	dup2(last_file, 0);
 	close(last_file);
-//	unlink(cmd->last_file_in->name); en gros tout fonctionne avec cette ligne si un seul heredoc style cat <<EOF sauf que faut que focus sur heredocs car <file serait supp aussi si cetait le dernier. pourquoi ma boucle ci-dessous ne fonctionne pas ?
-/*	while (cmd->file_in->next)
-	{
-		if (cmd->file_in->type == HEREDOC)
-			unlink(cmd->file_in->name);
-		cmd->file_in = cmd->file_in->next;
-	}
-*/	return (0);
+	unlink("heredoc");	
+	return (0);
 }
 
 
@@ -165,7 +161,9 @@ int	dup_last_file_fd_out(t_cmd *cmd)
 void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 {
 	int exit_status;
+
 	exit_status = 0;
+
 	close(READ_END); //fd[0]
 	if (dup_last_file_fd_in(cmd) == 1)
 		exit (1);
@@ -184,6 +182,14 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 	 	exit_status = exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
 		exit(exit_status);
 	}
+
+/*	while (cmd2->file_in->next)
+	{
+		if (cmd2->file_in->type == 2)
+			unlink(cmd2->file_in->name);
+		cmd2->file_in = cmd2->file_in->next;
+	}
+*/
 }
 
 void	waiting_for_all_children_to_finish_execution(pid_t	pid_lst[])
@@ -253,6 +259,8 @@ void run_piped_cmds(t_mini *mini, int nb_cmd)
 		cmd = cmd->next;
 		j++;
 	}
+
 	waiting_for_all_children_to_finish_execution(pid_lst);
+
 }
 

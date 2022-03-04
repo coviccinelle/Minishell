@@ -167,11 +167,11 @@ int			create_files(int type, char *filename)
 	    fd = open (filename, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	else if (type == APPEND_0)
         fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
-   	else if (type == READONLY_0)
-		fd = open(filename, O_RDONLY);
+  // 	else if (type == READONLY_0) //sauf erreur cest inutile car doublon. si problemes de messages derreur apparaissent ca vient surement de la
+	//	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 	{
-        perror(filename);
+   //     perror(filename); //ai enleve car me faisait des success et autres choses inutiles par exemple dans les heredocs
         return(1);
     }
     close(fd);
