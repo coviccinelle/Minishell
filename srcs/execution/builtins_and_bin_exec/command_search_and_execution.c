@@ -1,8 +1,18 @@
-#include "../../../minishell.h"
-//#include <unistd.h>
-#include<sys/wait.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   command_search_and_execution.c                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/04 17:05:06 by mloubet           #+#    #+#             */
+/*   Updated: 2022/03/04 17:47:22 by mloubet          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// 1/ fonction ft_strcmp list of shell builtins.
+#include "../../../minishell.h"
+#include <sys/wait.h>
+
 int	is_builtin(char *builtin)
 {
 	if (!(ft_strcmp(builtin, "cd")))
@@ -22,38 +32,37 @@ int	is_builtin(char *builtin)
 	return (0);
 }
 
-int exec_builtin(char *builtin, int ac, char **av, char ***env)
+int	exec_builtin(char *builtin, int ac, char **av, char ***env)
 {
-		int exit_status;
+	int	exit_status;
 
-		exit_status =  EXIT_SUCCESS; 
-		if (!(ft_strcmp(builtin, "cd")))
-			exec_cd(ac, av, *env);
-		if (!(ft_strcmp(builtin, "echo")))
-			exit_status = exec_echo(ac, av);
-		if (!(ft_strcmp(builtin, "env")))
-			print_env(*env);
-		if (!(ft_strcmp(builtin, "export")))
-			exit_status = exec_export(ac, av, env);
-		if (!(ft_strcmp(builtin, "exit")))
-			exec_exit(ac, av);
-		if (!(ft_strcmp(builtin, "pwd")))
-			exit_status = exec_pwd();
-		if (!(ft_strcmp(builtin, "unset")))
-			exit_status = exec_unset(ac, av, env);
-		return (exit_status);
+	exit_status = EXIT_SUCCESS; 
+	if (!(ft_strcmp(builtin, "cd")))
+		exec_cd(ac, av, *env);
+	if (!(ft_strcmp(builtin, "echo")))
+		exit_status = exec_echo(ac, av);
+	if (!(ft_strcmp(builtin, "env")))
+		print_env(*env);
+	if (!(ft_strcmp(builtin, "export")))
+		exit_status = exec_export(ac, av, env);
+	if (!(ft_strcmp(builtin, "exit")))
+		exec_exit(ac, av);
+	if (!(ft_strcmp(builtin, "pwd")))
+		exit_status = exec_pwd();
+	if (!(ft_strcmp(builtin, "unset")))
+		exit_status = exec_unset(ac, av, env);
+	return (exit_status);
 }
-
 
 char	*ft_strxjoin(char *s1, char *s2, char *s3)
 {
-		char *res;
-		char	*tmp;
+	char	*res;
+	char	*tmp;
 
-		tmp = ft_strjoin(s1, s2);
-		res = ft_strjoin(tmp, s3);
-		free(tmp);
-		return (res);
+	tmp = ft_strjoin(s1, s2);
+	res = ft_strjoin(tmp, s3);
+	free(tmp);
+	return (res);
 }
 
 char	**ft_split(char *s, char sep)
@@ -111,7 +120,8 @@ char	*find_cmd_path(char *cmd, char **env)
 	return (NULL);
 }
 
-void safely_exec_bin_cmds(char *path, char **av, char **env, int *exit_status)
+void	safely_exec_bin_cmds(char *path, char **av,
+				char **env, int *exit_status)
 {
 	if (execve(path, av, env) < 0)
 	{
@@ -124,10 +134,10 @@ void safely_exec_bin_cmds(char *path, char **av, char **env, int *exit_status)
 int	exec_cmd(int ac, char **av, char ***env)
 {
 	char	*path;
-	int	relative;
-	int 	exit_status;
-	(void)ac;
+	int		relative;
+	int		exit_status;
 
+	(void)ac;
 	path = NULL;
 	relative = 0;
 	exit_status = 0;
@@ -141,7 +151,7 @@ int	exec_cmd(int ac, char **av, char ***env)
 	if (path == NULL)
 	{
 		ft_puterror_fd("minishell: ", "command not found: ", av[0]);
-		exit_status = 127; // if a command is not found the child process to execute it returns a status of 127
+		exit_status = 127;
 	}
 	else if (path != NULL)
 		safely_exec_bin_cmds(path, av, *env, &exit_status);
