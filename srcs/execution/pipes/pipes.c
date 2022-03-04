@@ -24,22 +24,54 @@ void    ft_sigquit_ctr_bs(int sig)
 }
 */
 
+
+void	ft_signal_heredoc_ctr_c(int sig)
+{
+	(void)sig;
+	printf("^C\b\b  \b\b\n>");
+}
+
+
+
+void	ft_signal_heredoc_ctr_d(int sig)
+{
+	(void)sig; //cat quand meme le doc contrairement a ctr c
+	printf("\b\b  \b\b\n>bash: warning: here-document at line 12 delimited by end-of-file (wanted `EOF')\n\n");
+}
+
+#include <string.h>
+char	*ft_readline_heredoc(char *line)
+{
+	
+//	signal(SIGINT, ft_signal_heredoc_ctr_c);
+//	signal(SIGQUIT, ft_signal_heredoc_ctr_d);
+	line = readline(">");
+	if (!line)
+	{
+		printf("\b\b  \b\b\n> bash: warning: here-document delimited by end-of-file (wanted `EOF')\n\n");
+		//g_exit == ??
+		return (NULL);
+	}
+//	if (SIGQUIT)
+//		return (NULL);
+	return (line);
+}
 void	call_heredoc(char *eof)
 {
 	int fd;
 	char *input;
 
-
 	input = NULL;
-//pour mieux cacher le fichier eof avant un eventuel cat,  char *filename = ft_strxjoin("/tmp/", eof, "/.heredoc")??
 	if (eof == NULL)
 		return ;
+	//signal(SIGINT, ft_signal_heredoc_ctr_c);
+	//signal(SIGQUIT, ft_signal_heredoc_ctr_d);
 	fd = open("heredoc",  O_CREAT | O_WRONLY | O_RDONLY | O_TRUNC, 0777);
 	if (fd == -1)
 		perror(eof);
 	while (1)
 	{
-		input = readline("> ");
+		input = ft_readline_heredoc(input);
 		if (input)
 		{
 			if(strncmp(input, eof, strlen(eof)) != 0) // a remplacer par ft_strncmp 
@@ -48,6 +80,8 @@ void	call_heredoc(char *eof)
 					break;
 			free(input);
 		}
+		else
+			break;
 	}
 	close(fd);
 }
@@ -104,8 +138,6 @@ void exec_cmd_with_no_pipe(t_mini *mini)
 	 	}
 	 }
 }
-
-//void unlink heredocs
 
 int	dup_last_file_fd_in(t_cmd *cmd)
 {
@@ -182,14 +214,6 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 	 	exit_status = exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
 		exit(exit_status);
 	}
-
-/*	while (cmd2->file_in->next)
-	{
-		if (cmd2->file_in->type == 2)
-			unlink(cmd2->file_in->name);
-		cmd2->file_in = cmd2->file_in->next;
-	}
-*/
 }
 
 void	waiting_for_all_children_to_finish_execution(pid_t	pid_lst[])
