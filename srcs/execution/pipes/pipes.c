@@ -4,47 +4,10 @@
 int	dup_last_file_fd_out(t_cmd *cmd);
 int	dup_last_file_fd_in(t_cmd *cmd);
 
-/*
-signal(SIGINT, ft_sigint_ctr_c);
-	signal(SIGQUIT, ft_sigquit_ctr_bs);
-void    ft_sigint_ctr_c(int sig)
-{
-    (void)sig;
-    write(1, "\n", 1);
-	rl_replace_line("", 0); 
-    //rl_replace_line NOT VALIDE IN C99
-	rl_on_new_line();
-	rl_redisplay();
-}
-
-void    ft_sigquit_ctr_bs(int sig)
-{
-    (void)sig;
-    printf("\b\b  \b\b");
-}
-*/
-
-
-void	ft_signal_heredoc_ctr_c(int sig)
-{
-	(void)sig;
-	printf("^C\b\b  \b\b\n>");
-}
-
-
-
-void	ft_signal_heredoc_ctr_d(int sig)
-{
-	(void)sig; //cat quand meme le doc contrairement a ctr c
-	printf("\b\b  \b\b\n>bash: warning: here-document at line 12 delimited by end-of-file (wanted `EOF')\n\n");
-}
 
 #include <string.h>
 char	*ft_readline_heredoc(char *line)
 {
-	
-//	signal(SIGINT, ft_signal_heredoc_ctr_c);
-//	signal(SIGQUIT, ft_signal_heredoc_ctr_d);
 	line = readline(">");
 	if (!line)
 	{
@@ -52,8 +15,6 @@ char	*ft_readline_heredoc(char *line)
 		//g_exit == ??
 		return (NULL);
 	}
-//	if (SIGQUIT)
-//		return (NULL);
 	return (line);
 }
 void	call_heredoc(char *eof)
@@ -64,8 +25,6 @@ void	call_heredoc(char *eof)
 	input = NULL;
 	if (eof == NULL)
 		return ;
-	//signal(SIGINT, ft_signal_heredoc_ctr_c);
-	//signal(SIGQUIT, ft_signal_heredoc_ctr_d);
 	fd = open("heredoc",  O_CREAT | O_WRONLY | O_RDONLY | O_TRUNC, 0777);
 	if (fd == -1)
 		perror(eof);
@@ -98,15 +57,17 @@ void	exec_builtin_no_pipe(t_mini *mini)
 	f = fork();
 	if( f != 0)
 	{
-		if((ft_strcmp(cmd->av[0] , "export") == 0 && cmd->av[1]) || (ft_strcmp(cmd->av[0] , "unset") == 0 && cmd->av[1]))
-			exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
 		waitpid(f, &status , 0);
+		if((ft_strcmp(cmd->av[0] , "export") == 0 && cmd->av[1]) || (ft_strcmp(cmd->av[0] , "unset") == 0 && cmd->av[1]) || ft_strcmp(cmd->av[0], "exit") == 0 || ft_strcmp(cmd->av[0], "cd") == 0)
+			exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
 	}
 	else
 	{
 		if (dup_last_file_fd_in(cmd) == 1) //mevite pb cat infini quand cat <file et file nexiste pas ou echo bonjour <EOF
 			exit (1);
 		fd_out = dup_last_file_fd_out(cmd);
+
+		if((ft_strcmp(cmd->av[0] , "export") != 0 && cmd->av[1]) || (ft_strcmp(cmd->av[0] , "unset") != 0 && cmd->av[1]) || ft_strcmp(cmd->av[0], "exit") != 0 || ft_strcmp(cmd->av[0], "cd") != 0)
 		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
 		close(fd_out);
 		exit(1);
