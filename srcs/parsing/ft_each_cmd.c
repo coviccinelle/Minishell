@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/06 22:13:18 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/06 22:54:30 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	ft_init_each_cmd(t_cmd *cmd, int *i, char *line)
 {
-
 	if (!malloc_node(&cmd))
 		return (0);
 	cmd->next = NULL;
@@ -47,7 +46,6 @@ int	quote_pass_2(char *str, int *i)
 	return (1);
 }
 
-
 int	ft_add_to_fstack_out(t_cmd **cmd, char *line)
 {
 	t_file		*tmp;
@@ -66,27 +64,27 @@ int	ft_add_to_fstack_out(t_cmd **cmd, char *line)
 		(*cmd)->file_out = new;
 	else
 	{
-		while(p && p->next)
+		while (p && p->next)
 			p = p->next;
 		p->next = new;
 	}
 	return (1);
 }
 
-int    ft_add_to_fstack_in(t_cmd **cmd, char *line)
+int	ft_add_to_fstack_in(t_cmd **cmd, char *line)
 {
-    t_file        *tmp;
-    t_file        *new;
-    t_file        *p;
+	t_file		*tmp;
+	t_file		*new;
+	t_file		*p;
 
-    tmp = (*cmd)->file_in;
-    p = (*cmd)->file_in;
-    new = (t_file *)malloc(sizeof(t_file));
-    if (!new)
-        return (0);
-    new->next = NULL;
-    new->name = strdup(line); // a remplacer par ft_strdup
-    new->type = (*cmd)->type;
+	tmp = (*cmd)->file_in;
+	p = (*cmd)->file_in;
+	new = (t_file *)malloc(sizeof(t_file));
+	if (!new)
+		return (0);
+	new->next = NULL;
+	new->name = strdup(line); // a remplacer par ft_strdup
+	new->type = (*cmd)->type;
     if (new->type == HEREDOC)
     {
         call_heredoc(new->name);
@@ -102,8 +100,6 @@ int    ft_add_to_fstack_in(t_cmd **cmd, char *line)
     }
     return (1);
 }
-
-
 
 int	ft_add_file_out(t_cmd **cmd, int *i, char *str, char *line)
 {
@@ -125,7 +121,6 @@ int	ft_add_file_out(t_cmd **cmd, int *i, char *str, char *line)
 	return (1);
 }
 
-
 int	ft_add_file_in(t_cmd **cmd, int *i, char *str, char *line)
 {
 	while (is_redir(str[*i]) || is_blank(str[*i]))
@@ -144,38 +139,6 @@ int	ft_add_file_in(t_cmd **cmd, int *i, char *str, char *line)
 	}
 	free(line);
 	return (1);
-}
-
-
-t_file	*new_elem_file(t_cmd *cmd)
-{
-	t_file	*elem;
-
-	(void)cmd;//to free after only
-	elem = malloc(sizeof(t_file));
-	if (!elem)
-		//exit_custom(mini, NULL, AUTO);
-		printf("Exist and Free mini\n");
-	elem->type = 0;
-	elem->name = NULL;
-	return (elem);
-}
-
-
-void	add_files(t_file **file_lst, t_file *file)
-{
-	t_file	*current;
-
-	if (!(*file_lst))
-	{
-		*file_lst = file;
-		return ;
-	}
-	current = *file_lst;
-	while (current->next)
-		current = current->next;
-	current->next = file;
-	//cmd->prev = current;
 }
 
 int	check_redir(char *line, int i)
@@ -271,6 +234,9 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 		{
 		//	printf("in ESPACE line_after = %s\n", line_after);
 			skip_blank_2(line, i, *cmd, line_after);
+			if (line[*i] != '\0')
+				return (0);
+			ft_avs(*cmd, line_after);
 			line_after = NULL;
 		}
 		if (line[*i] == '"')

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/06 21:52:24 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/06 22:29:37 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,8 @@ void		*ft_memcpy(void *dst, const void *src, size_t n);
 //*** Builtins ***//
 t_export	*new_export(char *export_name, char *export_data);
 void		delete_export(t_export **export_lst, char *export_name);
-void		add_to_export_lst(t_export **export_lst, char *export_name, char *export_data);
+void		add_to_export_lst(t_export **export_lst, char *export_name, \
+				char *export_data);
 void		printstack(t_mini *env);
 void		ft_memdel(char **s);
 void		ft_free_lst(t_mini **head);
@@ -174,7 +175,8 @@ int			env_realloc_and_append_envvar(char ***env, char *envvar);
 char		*find_in_env(char **env, char *name, int *pos);
 char		*ft_getenv(char **env, char *name);
 int			ft_setenv(char ***env, char *av, char *name, char *value);
-int			get_into_export_lst(char ***env, char **av, char **name, char **data);
+int			get_into_export_lst(char ***env, char **av, char **name, \
+			char **data);
 void		init_tab(char **av, char ***s);
 int			exec_export(int ac, char **av, char ***env);
 int			ft_unsetenv(char ***env, char *name);
@@ -182,7 +184,7 @@ int			exec_unset(int ac, char **av, char ***env);
 void		print_env(char **env);
 char		*ft_getenv(char **env, char *name);
 void		print_env(char **env);
-int    		exec_exit(int ac, char **av);
+int			exec_exit(int ac, char **av);
 void		ft_bzero(void *b, size_t n);
 void		*ft_memalloc(size_t size);
 void		test_print(char **envp);
@@ -217,8 +219,10 @@ char		**ft_avs_2(t_cmd *one_cmd, char *line_after);
 int			ft_buf(char *argv, int *i, char *buf);
 int			malloc_node(t_cmd	**one_cmd);
 int			ft_check_2rd_quote_2(char *line, int c);
-char    	*ft_d2_quotes(char *line_after, int *i, char *line, t_cmd *cmd, t_mini *mini);
-char		*ft_single_quote(char *line_after, int *i, char *line, t_cmd *one_cmd);
+char		*ft_d2_quotes(char *line_after, int *i, char *line, t_cmd *cmd, \
+			t_mini *mini);
+char		*ft_single_quote(char *line_after, int *i, char *line, \
+			t_cmd *one_cmd);
 void		free_avs(char **avs);
 char		*dollar_sign(int ac, char **av, char **env);
 void		skip_blank_2(char *str, int *i, t_cmd *tmp, char *line_after);
