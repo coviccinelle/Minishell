@@ -48,7 +48,7 @@ void	skip_blank_2(char *str, int *i, t_cmd *tmp, char *line_after)
 		while (str[(*i)] == ' ')
 			(*i)++;
 	}
-//	ft_avs(tmp, line_after);
-	//line_after = NULL;
+	ft_avs(tmp, line_after);
+	line_after = NULL;
 }
 

@@ -21,19 +21,13 @@ void	init_cmd(t_cmd *cmd)
 void	ft_init_mini(t_mini **mini)
 {
 	// malloc or not?
-	printf("1\n");
 	(*mini)->pipe = 0;
-	printf("2\n");
 	(*mini)->line = NULL;
 	(*mini)->env = NULL;
 	//mini->env = ft_env_cpy(env);
-	printf("3\n");
-	printf("4\n");
 	(*mini)->fork = 0;
 	//mini->heredoc = 0;
-	printf("5\n");
 	(*mini)->ret_status = 0;
-	printf("6\n");
 	(*mini)->heredoc = NULL;
 	printf("done init mini\n");
 }

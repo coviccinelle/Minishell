@@ -11,6 +11,7 @@ SRC		=	srcs/main.c \
 			srcs/parsing/parsing.c \
 			srcs/parsing/ft_each_cmd.c \
 			srcs/parsing/stock_cmd.c \
+			srcs/parsing/dollar_sign.c \
 			srcs/parsing/redirrection.c \
 			\
 			srcs/utils/is_something.c \
