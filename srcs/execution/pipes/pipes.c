@@ -1,218 +1,209 @@
-#include "../../../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipes.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
+/*   Updated: 2022/03/07 10:53:32 by mloubet          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../../../minishell.h"
+#include <string.h>
 
 int	dup_last_file_fd_out(t_cmd *cmd);
 int	dup_last_file_fd_in(t_cmd *cmd);
 
-/*
-signal(SIGINT, ft_sigint_ctr_c);
-	signal(SIGQUIT, ft_sigquit_ctr_bs);
-void    ft_sigint_ctr_c(int sig)
+char	*ft_readline_heredoc(char *line)
 {
-    (void)sig;
-    write(1, "\n", 1);
-	rl_replace_line("", 0); 
-    //rl_replace_line NOT VALIDE IN C99
-	rl_on_new_line();
-	rl_redisplay();
+	line = readline(">");
+	if (!line)
+	{
+		printf("\b\b  \b\b\n> bash: warning: here-document delimited \
+				by end-of-file (wanted `EOF')\n\n");
+		return (NULL);
+	}
+	return (line);
 }
-
-void    ft_sigquit_ctr_bs(int sig)
-{
-    (void)sig;
-    printf("\b\b  \b\b");
-}
-*/
 
 void	call_heredoc(char *eof)
 {
-	int fd;
-	char *input;
-
+	int		fd;
+	char	*input;
 
 	input = NULL;
-//pour mieux cacher le fichier eof avant un eventuel cat,  char *filename = ft_strxjoin("/tmp/", eof, "/.heredoc")??
 	if (eof == NULL)
 		return ;
-	fd = open(eof,  O_CREAT | O_WRONLY | O_RDONLY | O_TRUNC, 0777);
+	fd = open("heredoc",  O_CREAT | O_WRONLY | O_RDONLY | O_TRUNC, 0777);
 	if (fd == -1)
 		perror(eof);
 	while (1)
 	{
-		input = readline("> ");
+		input = ft_readline_heredoc(input);
 		if (input)
 		{
-			if(strncmp(input, eof, strlen(eof)) != 0) // a remplacer par ft_strncmp 
+			if (strncmp(input, eof, strlen(eof)) != 0) // ft_strncmp
 				ft_putendl_fd(input, fd);
 			if (strncmp(input, eof, strlen(eof)) == 0) //idem
-					break;
+				break ;
 			free(input);
 		}
+		else
+			break ;
 	}
 	close(fd);
 }
 
 void	exec_builtin_no_pipe(t_mini *mini)
 {
-
-	t_cmd *cmd;
+	t_cmd	*cmd;
 	pid_t	f;
-	int	status;
+	int		status;
+	int		fd_out;
 
-	int	fd_out;
 	cmd = mini->cmd;
 	f = fork();
-	if( f != 0)
+	if (f != 0)
 	{
-		if((ft_strcmp(cmd->av[0] , "export") == 0 && cmd->av[1]) || (ft_strcmp(cmd->av[0] , "unset") == 0 && cmd->av[1]))
-			exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
 		waitpid(f, &status , 0);
+		if ((ft_strcmp(cmd->av[0], "export") == 0) \
+				|| (ft_strcmp(cmd->av[0], "unset") == 0 && cmd->av[1]) \
+				|| ft_strcmp(cmd->av[0], "exit") == 0 \
+				|| ft_strcmp(cmd->av[0], "cd") == 0 \
+				|| ft_strcmp(cmd->av[0], "env") == 0)
+			exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
 	}
 	else
 	{
-		if (dup_last_file_fd_in(cmd) == 1) //mevite pb cat infini quand cat <file et file nexiste pas ou echo bonjour <EOF
+		if (dup_last_file_fd_in(cmd) == 1)
 			exit (1);
 		fd_out = dup_last_file_fd_out(cmd);
-		exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
+		if (ft_strcmp(cmd->av[0], "echo") == 0 \
+					|| ft_strcmp(cmd->av[0], "pwd") == 0)
+			exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
 		close(fd_out);
 		exit(1);
 	}
 }
 
-void exec_cmd_with_no_pipe(t_mini *mini)
+void	exec_cmd_with_no_pipe(t_mini *mini)
 {
-	t_cmd *cmd;
-	int status;
-	cmd = mini->cmd;
+	t_cmd	*cmd;
+	int		status;
+	pid_t	father;
 
+	cmd = mini->cmd;
 	if (is_builtin(cmd->av[0]))
 		exec_builtin_no_pipe(mini);
 	else
 	{
-	 	pid_t   father;
-
-	 	father = fork();
-	 	if (father > 0)
-	 		waitpid(-1, &status, 0);
-	 	if (father == 0)
-	 	{
+		father = fork();
+		if (father > 0)
+			waitpid(-1, &status, 0);
+		if (father == 0)
+		{
 			if (dup_last_file_fd_in(cmd) == 1)
 				exit (1);
+			ft_disable_if_fork(father);
 			dup_last_file_fd_out(cmd);
-	 		exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
-	 		exit(0);
-	 	}
-	 }
+			exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
+			exit(0);
+		}
+	}
 }
-
-//void unlink heredocs
 
 int	dup_last_file_fd_in(t_cmd *cmd)
 {
-
-	t_file *last_file_in;
-	int	last_file;
+	t_file	*last_file_in;
+	int		last_file;
 
 	last_file = 0;
-	//printf("nom de leof = %s\n", cmd->file_in->name);
-	//unlink(cmd->file_in->name);
 	last_file_in = cmd->last_file_in;
-	//fprintf(stderr,"\ntest\n");
 	if (cmd->last_file_in == NULL)
 		return (0);
-	fprintf(stderr, "\n Fichier en redirection INPUT %s \n", last_file_in->name);
-	last_file = open(last_file_in->name, O_RDONLY);
+	if (last_file_in->type == HEREDOC)
+		last_file = open("heredoc", O_RDONLY);
+	else
+		last_file = open(last_file_in->name, O_RDONLY);
 	if (last_file == -1)
 	{
-        	perror(last_file_in->name);
-        	return (1) ;
-    	}
+		perror(last_file_in->name);
+		return (1);
+	}
 	dup2(last_file, 0);
 	close(last_file);
-//	unlink(cmd->last_file_in->name); en gros tout fonctionne avec cette ligne si un seul heredoc style cat <<EOF sauf que faut que focus sur heredocs car <file serait supp aussi si cetait le dernier. pourquoi ma boucle ci-dessous ne fonctionne pas ?
-/*	while (cmd->file_in->next)
-	{
-		if (cmd->file_in->type == HEREDOC)
-			unlink(cmd->file_in->name);
-		cmd->file_in = cmd->file_in->next;
-	}
-*/	return (0);
+	unlink("heredoc");	
+	return (0);
 }
-
 
 int	dup_last_file_fd_out(t_cmd *cmd)
 {
-	t_file *last_file_out;
-	int	last_file;
+	t_file	*last_file_out;
+	int		last_file;
 
 	last_file = 0;	
 	last_file_out = cmd->last_file_out;
 	if (cmd->last_file_out == NULL)
 		return (0);
 	if (last_file_out->type == TRUNC_0)
-		last_file = open(last_file_out->name, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+		last_file = open(last_file_out->name, \
+				O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	else if (last_file_out->type == APPEND_0)
-        	last_file = open(last_file_out->name, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
+        	last_file = open(last_file_out->name, \
+				O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
 	if (last_file == -1)
 	{
-        	perror(last_file_out->name);
-        	return(1);
-    	}
+		perror(last_file_out->name);
+		return (1);
+	}
 	dup2(last_file, STDOUT);
-	return(last_file);
+	return (last_file);
 }
 
 void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 {
-	int exit_status;
+	int	exit_status;
+
 	exit_status = 0;
-	close(READ_END); //fd[0]
+	close(READ_END);
 	if (dup_last_file_fd_in(cmd) == 1)
 		exit (1);
 	if (cmd->next)
-		dup2(WRITE_END, STDOUT); //fd[1]
+		dup2(WRITE_END, STDOUT);
 	if (dup_last_file_fd_out(cmd) == 1)
 		exit (1);
 	close(WRITE_END);
     	if (is_builtin(cmd->av[0]))
 	{
-		exit_status = exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env); //mettre un g_exit
+		exit_status = exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
 		exit(exit_status);
 	}
     	else if (!is_builtin(cmd->av[0]))
 	{
-	 	exit_status = exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
+		exit_status = exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
 		exit(exit_status);
 	}
 }
 
 void	waiting_for_all_children_to_finish_execution(pid_t	pid_lst[])
 {
-	int i;
-	int status;
+	int	i;
+	int	status;
 
 	i = -1;
-   // printf("finish exxec");
 	dup2(STDOUT, STDIN);
-    if (!pid_lst)
+	if (!pid_lst)
 		return ;
-    //http://manpagesfr.free.fr/man/man2/wait.2.html
-    /*
-    WIFEXITED(status)
-renvoie vrai si le fils s'est terminé normalement, c'est-à-dire par un appel à exit(3) ou _exit(2), ou bien par un retour de main().
-WEXITSTATUS(status)
-renvoie le code de sortie du fils. Ce code est constitué par les 8 bits de poids faibles de l'argument status que le fils a fourni à exit(3) ou à _exit(2) ou l'argument d'une commande de retour dans main(). Cette macro ne peut être évaluée que si WIFEXITED a renvoyé vrai.
-*/
 	while (pid_lst[++i] /*&& (!WIFSIGNALED(status))*/)
 	{
-        
 		if (waitpid(pid_lst[i], &status, 0) < -1)
-      //  if (waitpid(pid_lst[i], &status, WUNTRACED | WCONTINUED) < -1)
         	{
-            		perror("waitpid");
-           		 exit(EXIT_FAILURE);
-        	}    
-	/*	if (WIFEXITED(status))
+			perror("waitpid");
+			exit(EXIT_FAILURE);
+        	}
+/*	if (WIFEXITED(status))
 		    g_exit = WEXITSTATUS(status); //renvoie le code de sortie du fils
         if (WIFSIGNALED(status)) //ici amyplant: if gstatus !=131 gstatus +=128 <= voir pq
             g_exit = WTERMSIG(status); //renvoie signal qui a causé fin du fils
@@ -222,7 +213,7 @@ renvoie le code de sortie du fils. Ce code est constitué par les 8 bits de poid
 	}
 }
 
-void close_old_prepare_eventual_new(t_cmd *cmd, int *fd)
+void	close_old_prepare_eventual_new(t_cmd *cmd, int *fd)
 {
 	close(WRITE_END);
 	if (cmd->next)
@@ -230,22 +221,24 @@ void close_old_prepare_eventual_new(t_cmd *cmd, int *fd)
 	close(READ_END);
 }
 
-void run_piped_cmds(t_mini *mini, int nb_cmd)
+void	run_piped_cmds(t_mini *mini, int nb_cmd)
 {
+	t_cmd	*cmd;
 	int		fd[2];
 	pid_t	new_pid;
-    pid_t	pid_lst[nb_cmd];
-    int j = 0;
-    t_cmd	*cmd;
+	pid_t	pid_lst[nb_cmd];
+	int 	j;
 
+	j = 0;
 	cmd = mini->cmd;
 	while (cmd)
 	{
 		safely_pipe_me(fd);
 		safely_fork(&new_pid);
+		ft_disable_if_fork(new_pid);
 		pid_lst[j] = new_pid;
 		if (new_pid == 0)
-                	child_process(cmd, fd, mini);
+            child_process(cmd, fd, mini);
 		else
 			close_old_prepare_eventual_new(cmd, fd);
 		close(READ_END);
@@ -255,4 +248,3 @@ void run_piped_cmds(t_mini *mini, int nb_cmd)
 	}
 	waiting_for_all_children_to_finish_execution(pid_lst);
 }
-

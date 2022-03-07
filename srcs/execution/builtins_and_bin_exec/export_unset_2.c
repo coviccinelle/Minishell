@@ -1,15 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export_unset_2.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/04 17:16:58 by mloubet           #+#    #+#             */
+/*   Updated: 2022/03/04 17:25:05 by mloubet          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../minishell.h"
 
-int get_into_export_lst(char ***env, char **av, char **name, char **data)
+int	get_into_export_lst(char ***env, char **av, char **name, char **data)
 {
-	int j;
-	
+	int	j;
+
 	j = 1;
 	while (j < nb_tabs(av))
 	{
 		if (name[j] != NULL)
 		{
-			printf("added %s=%s. name = |%s|, value = |%s|\n", name[j], data[j], name[j], data[j]);
 			ft_setenv(env, av[j], name[j], data[j]);
 		}
 		j++;
@@ -17,25 +28,30 @@ int get_into_export_lst(char ***env, char **av, char **name, char **data)
 	return (0);
 }
 
-void	init_tab(char **av, char ***s)
+void	free_all(char **name, char **data)
 {
-	//*s = NULL;
-	*s = malloc(sizeof(char **) * (nb_tabs(av)));
+	int	j;
 
+	j = 0;
+	while (name[++j])
+	{
+		free(name[j]);
+		free(data[j]);
+	}
+	free(name);
+	free(data);
 }
 
-int exec_export(int ac, char **av, char ***env) // liste a faire dans point 4/expansions
+int	exec_export(int ac, char **av, char ***env)
 {
-	char **name; // de la taille de **av
-	char **data; //idem 
-	int j;
-	int exit_value = EXIT_SUCCESS;
-	
-	j = 0;
-	//init_tab(av, &name);
-//	init_tab(av, &data);
+	char			**name;
+	char			**data;
+	int				j;
+	int				exit_value;
 
-	data = malloc(sizeof(char **) * (nb_tabs(av))); //essayer data[nb_tabs[]]
+	exit_value = EXIT_SUCCESS;
+	j = 0;
+	data = malloc(sizeof(char **) * (nb_tabs(av)));
 	name = malloc(sizeof(char **) * (nb_tabs(av)));
 	if (ac == 1)
 		return (ft_alphabetical_order_tab(*env));
@@ -44,31 +60,28 @@ int exec_export(int ac, char **av, char ***env) // liste a faire dans point 4/ex
 		name[j] = cpy_trim(av[j], av[j][0], '=');
 		if (!is_valid_var_name(name[j]))
 		{
-			exit_value = ft_puterror_fd("minishell: export :'", av[j], "': not a valid identifier");
+			exit_value = ft_puterror_fd("minishell: export :'", \
+					av[j], "': not a valid identifier");
 			name[j] = NULL;
 		}
 		data[j] = cpy_trim(av[j], '=', '\0');
 	}
 	get_into_export_lst(env, av, name, data);
-	j = 1;
-	free(data);
-	free(name);
-//	free_tab(&name); //  leaks dans mes init tabs que je free data et name ou pas... a comprendre
-//	free_tab(&data); // idem
+//	free_all(name, data);
 	return (exit_value);
 }
 
 int	ft_unsetenv(char ***env,char *name)
 {
-	int pos_name;
-	int	j;
-	char	*found;
+	int			pos_name;
+	int			j;
+	char		*found;
 
 	found = find_in_env(*env, name, &pos_name);
 	if (!found)
-		return(0);
+		return (0);
 	j = pos_name;
-	while((*env)[j] && j < nb_tabs(*env))
+	while ((*env)[j] && j < nb_tabs(*env))
 	{
 		ft_memdel(&(*env)[j]);
 		if ((*env)[j + 1])
@@ -82,9 +95,9 @@ int	ft_unsetenv(char ***env,char *name)
 
 int	exec_unset(int ac, char **av, char ***env)
 {
-	(void)ac;
-	int j;
+	int	j;
 
+	(void)ac;
 	j = 0;
 	while (av[++j])
 		ft_unsetenv(env, av[j]);
