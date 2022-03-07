@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/07 10:35:08 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/07 10:41:14 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,8 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 			if (line[*i + 1] != '\0')
 				return (0);
 			line_after = NULL;
+			if (!line[*i])
+				break ;
 		}
 		if (line[*i] == '"')
 		{
