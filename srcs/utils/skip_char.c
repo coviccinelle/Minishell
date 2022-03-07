@@ -33,6 +33,8 @@ int	rest_is_blank_2(char *str)
 	int	i;
 
 	i = 0;
+	if (!str[i] || str[i] == '|')
+		return (0);
 	while (str[i])
 	{
 		if (!ft_is_blank(str[i]))
