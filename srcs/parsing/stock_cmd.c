@@ -260,6 +260,9 @@ t_cmd	*stock_cmds(t_mini *mini)
 			else
 			{
 				printf("ERROR: syntax error => free tout\nValuer de retour???\n\n");
+				
+				//free all struct
+				return (NULL);
 			//	mini->stop = 1;
 			//	break ;
 			}
