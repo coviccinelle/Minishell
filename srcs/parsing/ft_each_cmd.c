@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/07 21:30:36 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/07 21:33:04 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,19 +219,6 @@ int str_blank(char *str)
 	return (1);
 }
 
-void	quote_colle(char *str, int *i)
-{
-	if (((str[*i + 1] && (str[*i + 1] == '\"'))))
-	{
-		(*i) += 2;
-	}
-	if (((str[*i + 1] && (str[*i + 1] == ' ')) && (str[*i + 2] && str[*i + 2] == '\"')))
-	{
-		(*i) += 3;
-	}
-}
-
-
 int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 {
 	char		*buf;
@@ -274,7 +261,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 			ft_pass_squote(line, i);
 			line_after = NULL;
 		}
-		else if (line[*i] == '$' && !(line[(*i) + 1] == '?'))
+		else if (line[*i] == '$'/* && !(line[(*i) + 1] == '?')*/)
 		{
 			line_after = dolar_name(line, i, line_after, *cmd);
 			ft_avs(*cmd, dolar_2(line, i, line_after, mini->env));
