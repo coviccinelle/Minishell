@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/07 19:17:12 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/07 22:24:49 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	call_heredoc(char *eof)
 	input = NULL;
 	if (eof == NULL)
 		return ;
+//	fd = open("heredoc",  O_CREAT | O_WRONLY | O_RDONLY | O_TRUNC, 0777);
 	fd = open("heredoc",  O_CREAT | O_WRONLY | O_RDONLY | O_TRUNC, 0777);
 	if (fd == -1)
 		perror(eof);

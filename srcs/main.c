@@ -64,9 +64,11 @@ void	minishell(char **env)
 			 //segfaut in enter but no more gabarage value after espace //
 		//free(mini);
 		//free(line);
+		unlink("heredoc");
 	}
 }
 
+int	g_exit_value = 0;
 int	main(int ac, char **av, char **env)
 {
 	(void)ac;
