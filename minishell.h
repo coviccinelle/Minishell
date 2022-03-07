@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/07 10:48:43 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/07 14:12:32 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ void		ft_putstr(char *s);
 void		ft_free_tab(char **tab);
 int			ft_len_avs(char **avs);
 int			ft_syntax_error(t_cmd *mini);
-int			skip_blank(char *str);
 char		**ft_env_cpy(char **envp);
 void		print_mini_avs(t_mini *mini);
 int			rest_is_blank(char *str, int *i);
