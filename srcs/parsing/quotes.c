@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/07 13:43:09 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:59:14 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,13 @@ char	*ft_d2_quotes(char *line_after, int *i, char *line, t_cmd *cmd, t_mini *min
 	{
 		ft_avs(cmd, line_after);
 		line_after = NULL;
+	}
+	if (((line[*i + 1] && (line[*i + 1] == '\"')) || (line[*i + 1] && line[*i + 2] == '\"')))
+	{
+		printf("Oops, 2 double quotes se collent\n");
+		mini->stop = 1;
+		(*i)++;
+		return (NULL);
 	}
 	return (ft_add_double_quote(cmd, i, line, line_after, mini));
 }

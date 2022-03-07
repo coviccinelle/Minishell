@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/07 14:12:32 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/07 19:01:23 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 # define PIPE 2
 
 # define SEPARATORS " '\"|><"
+
+extern int	g_exit_value;
 
 //int	g_nb_exit;
 
