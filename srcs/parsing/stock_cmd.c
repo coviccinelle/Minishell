@@ -167,11 +167,11 @@ int			create_files(int type, char *filename)
 	    fd = open (filename, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	else if (type == APPEND_0)
         fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
-   	else if (type == READONLY_0)
-		fd = open(filename, O_RDONLY);
+   	//else if (type == READONLY_0)
+	//	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 	{
-        perror(filename);
+        //perror(filename);
         return(1);
     }
     close(fd);
@@ -249,6 +249,8 @@ t_cmd	*stock_cmds(t_mini *mini)
 		add_cmd(&cmd_lst, cmd);
 		while (mini->line[i] && mini->line[i] != '|')
 		{
+			while (mini->line[i] == ' ')
+				i++;
 			int a = ft_each_cmd_4(mini, mini->line, &i, &cmd);
 			printf("  \nPARSING RETURN= %d\n\033[0;31m", a);
 			if (a == 1)
