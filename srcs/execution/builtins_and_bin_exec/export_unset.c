@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:42 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/02 17:37:36 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/07 15:35:02 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,10 @@ int	ft_setenv(char ***env, char *av, char *name, char *value)
 		free_me = 1;
 		av = ft_strxjoin(name, "=", value);
 	}
-	if (find_in_env(*env, name, &pos_name) != NULL)
+	if (find_in_env(*env, name, &pos_name) != NULL && value != NULL)
 		ft_unsetenv(env, name);
-	env_realloc_and_append_envvar(env, av);
+	if((find_in_env(*env, name, &pos_name) != NULL && value != NULL) || !(find_in_env(*env, name, &pos_name) != NULL))
+		env_realloc_and_append_envvar(env, av);
 	if (free_me == 1)
 		free(av);
 	return (0);

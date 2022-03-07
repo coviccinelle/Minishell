@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/07 10:53:32 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/07 16:32:49 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	exec_builtin_no_pipe(t_mini *mini)
 	f = fork();
 	if (f != 0)
 	{
-		waitpid(f, &status , 0);
+		waitpid(f, &status, 0);
 		if ((ft_strcmp(cmd->av[0], "export") == 0) \
 				|| (ft_strcmp(cmd->av[0], "unset") == 0 && cmd->av[1]) \
 				|| ft_strcmp(cmd->av[0], "exit") == 0 \
@@ -100,13 +100,13 @@ void	exec_cmd_with_no_pipe(t_mini *mini)
 	else
 	{
 		father = fork();
+		ft_disable_if_fork(father);
 		if (father > 0)
 			waitpid(-1, &status, 0);
 		if (father == 0)
 		{
 			if (dup_last_file_fd_in(cmd) == 1)
 				exit (1);
-			ft_disable_if_fork(father);
 			dup_last_file_fd_out(cmd);
 			exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
 			exit(0);
@@ -213,6 +213,28 @@ void	waiting_for_all_children_to_finish_execution(pid_t	pid_lst[])
 	}
 }
 
+
+
+void	waiting_for_all_children_to_finish_executionn(int nb_cmds) //pour la norme. si bug vient d'ici
+{
+	int	i;
+	int	status;
+
+	i = -1;
+	dup2(STDOUT, STDIN);
+	if (nb_cmds == 0)
+		return ;
+	while (i < nb_cmds /*&& (!WIFSIGNALED(status))*/)
+	{
+		if (waitpid(-1, &status, 0) < -1)
+        	{
+			perror("waitpid");
+			exit(EXIT_FAILURE);
+        	}
+		i++;
+	}
+}
+
 void	close_old_prepare_eventual_new(t_cmd *cmd, int *fd)
 {
 	close(WRITE_END);
@@ -246,5 +268,6 @@ void	run_piped_cmds(t_mini *mini, int nb_cmd)
 		cmd = cmd->next;
 		j++;
 	}
-	waiting_for_all_children_to_finish_execution(pid_lst);
+	waiting_for_all_children_to_finish_executionn(nb_cmd);
+	//waiting_for_all_children_to_finish_execution(pid_lst);
 }

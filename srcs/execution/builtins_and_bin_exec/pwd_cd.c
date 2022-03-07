@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:53 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/04 17:39:00 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/07 16:27:16 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ int	exec_cd(int ac, char **av, char **env)
 		return (ft_puterror_fd("minishell: ",
 				"cd: ", "too many arguments"));
 	if ((ac == 1) || (ac == 2 && (!ft_strncmp(av[1], "~", ft_strlen("~")))))
+	{
 		new_path = ft_getenv(env, "HOME");
+		// message d erreur si unset HOME 
+	}
 	else if (ac == 2 && (!ft_strncmp(av[1], "-", ft_strlen("-"))))
 	{
 		new_path = ft_getenv(env, "OLDPWD");
@@ -78,6 +81,7 @@ int	exec_cd(int ac, char **av, char **env)
 	res = chdir(new_path);
 	if (error_case(&new_pwd, av, res) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	// if (PWD dans ton environement)
 	ft_setenv(&env, NULL, "PWD", new_pwd);
 	ft_setenv(&env, NULL, "OLDPWD", current_path);
 	free_pwds(&current_path, &new_path);
