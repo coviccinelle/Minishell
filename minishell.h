@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/07 10:22:54 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/07 10:48:43 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 # define PIPE 2
 
 # define SEPARATORS " '\"|><"
+
+//int	g_nb_exit;
 
 // *** // STRUCTURE  // *** //
 typedef struct s_export
@@ -105,8 +107,6 @@ typedef struct s_mini
 	t_cmd			*cmd;
 	t_heredoc		*heredoc;
 }				t_mini;
-
-extern int		g_nb_exit;
 
 // *** // main  // *** //
 

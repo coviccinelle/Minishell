@@ -184,7 +184,7 @@ t_file    *ft_last_file(t_file *file)
 
     p = file;
 
-    printf("am i here 2222?\n");
+   // printf("am i here 2222?\n");
     /*if (p && p->next == NULL)
             return (p);*/
     while (p && p->next)
@@ -212,7 +212,6 @@ void    stock_cmds_3(t_cmd *cmd)
         create_files((*cmd).file_out->type, (cmd)->file_out->name);
         (cmd)->file_out = (cmd)->file_out->next;
     }
-    printf("am i here?\n");
     cmd->last_file_in = ft_last_file(file_inn);
     cmd->last_file_out = ft_last_file(file_out);
     if (file_inn != NULL)

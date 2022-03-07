@@ -71,6 +71,7 @@ int	main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
+	//g_nb_exit = 0;
 	if (ac != 1)
 		return (printf("Error: Invalid argument\nHint: only ./minishell\n"), 1);
 	minishell(env);
