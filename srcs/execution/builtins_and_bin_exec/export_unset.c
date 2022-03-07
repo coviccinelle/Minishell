@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:42 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/07 18:38:02 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/07 18:44:54 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	comp_env(char *s, char *s1)
 	if(s1[j] == '\0' && s[j] == '\0')
 		return(0);
 	if(s1[j] != '\0')
-		return((-(s1[j]));
+		return((-(s1[j])));
 	else
 		return(s[j]);
 
