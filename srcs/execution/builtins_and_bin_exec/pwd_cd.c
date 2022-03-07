@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:53 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/07 16:27:16 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/07 18:59:49 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	exec_cd(int ac, char **av, char **env)
 				"cd: ", "too many arguments"));
 	if ((ac == 1) || (ac == 2 && (!ft_strncmp(av[1], "~", ft_strlen("~")))))
 	{
+if(ac == 2)
+		//chdir("");
 		new_path = ft_getenv(env, "HOME");
 		// message d erreur si unset HOME 
 	}
