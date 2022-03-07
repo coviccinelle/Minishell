@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:21:52 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/06 23:27:24 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/07 22:01:55 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ int	ft_avs(t_cmd *one_cmd, char *line_after)
 	int	len_tab;
 
 	len_tab = ft_len_avs(one_cmd->av);
-	while (*line_after == ' ')
-		(*line_after)++;
+	// while (*line_after == ' ')
+	// 	(*line_after)++;
 	one_cmd->av = ft_malloc_avs(one_cmd, len_tab, line_after);
 	if (!one_cmd->av)
 		return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_each_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/07 16:10:27 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/07 22:02:53 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,11 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 		}
 		if (line[*i] == '"')
 		{
+			if ((line[*i + 1] && (line[*i + 1] == '\"')) )
+			{
+				(*i) += 2;
+				break ;
+			}
 			line_after = ft_d2_quotes(line_after, i, line, *cmd, mini);
 			ft_avs(*cmd, line_after);
 			if ((*cmd)->stop == 1)
