@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/07 18:59:23 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/07 21:23:29 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,19 @@ int str_blank(char *str)
 	return (1);
 }
 
+void	quote_colle(char *str, int *i)
+{
+	if (((str[*i + 1] && (str[*i + 1] == '\"'))))
+	{
+		(*i) += 2;
+	}
+	if (((str[*i + 1] && (str[*i + 1] == ' ')) && (str[*i + 2] && str[*i + 2] == '\"')))
+	{
+		(*i) += 3;
+	}
+}
+
+
 int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 {
 	char		*buf;
@@ -228,7 +241,6 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 	printf("3. Inside each_cmd ^^ Orgine line is : %s\n", line);
 	while (line[*i]/* && line[*i] != '|'*/)
 	{
-		(*cmd)->stop = 0;
 		if (line[*i] == ' ')
 		{
 			skip_blank_2(line, i, *cmd, line_after);
@@ -238,8 +250,17 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 		}
 		if (line[*i] == '"')
 		{
+			if ((line[*i + 1] && (line[*i + 1] == '\"')) )
+			{
+				(*i) += 2;
+				//quote_colle(line, i);
+				break ;
+			}
 			line_after = ft_d2_quotes(line_after, i, line, *cmd, mini);
-			if (line_after == NULL && mini->stop == 1)
+			//printf("line_after = ----%s----\n", line_after);
+			//if ((*cmd)->stop == 1)
+			//if (line_after == )
+			if (line_after == NULL)
 				return (0);
 			ft_avs(*cmd, line_after);
 			if (!quote_pass_2(line, i))
@@ -252,8 +273,6 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 			if (line_after == NULL)
 				return (0);
 			ft_avs(*cmd, line_after);
-			if ((*cmd)->stop == 1)
-				return (0);
 			if (line[(*i) + 1] == '\0')
 				break ;
 			ft_pass_squote(line, i);

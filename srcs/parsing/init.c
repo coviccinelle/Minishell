@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:07:21 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/07 19:00:07 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/07 19:10:44 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	init_cmd(t_cmd *cmd)
 {
 	cmd->line = NULL;
+	cmd->stop = 0;
 	cmd->av = NULL;
 	cmd->file_in = NULL;
 	cmd->file_out = NULL;

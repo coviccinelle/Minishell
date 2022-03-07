@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:18:38 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/07 14:23:11 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/07 19:12:23 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_cmd	*new_elem_cmd(t_mini *mini)
 		printf("Exist and Free mini\n");
 	elem->line = NULL;
 	elem->av = NULL;
+	elem->stop = 0;
 	elem->type = 0;
 	elem->file_in = NULL;
 	elem->file_out = NULL;
