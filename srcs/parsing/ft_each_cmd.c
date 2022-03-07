@@ -6,7 +6,11 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/03/07 16:10:27 by mloubet          ###   ########.fr       */
+=======
+/*   Updated: 2022/03/07 13:55:11 by thi-phng         ###   ########.fr       */
+>>>>>>> 548c4f259842da4f4bf74c1f2894bc6d2ced6eb6
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,6 +243,8 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 		if (line[*i] == '"')
 		{
 			line_after = ft_d2_quotes(line_after, i, line, *cmd, mini);
+			if (line_after == NULL)
+				return (0);
 			ft_avs(*cmd, line_after);
 			if ((*cmd)->stop == 1)
 				return (0);
@@ -249,6 +255,8 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 		else if (line[*i] == '\'')
 		{
 			line_after = ft_single_quote(line_after, i, line, *cmd);
+			if (line_after == NULL)
+				return (0);
 			ft_avs(*cmd, line_after);
 			if ((*cmd)->stop == 1)
 				return (0);
@@ -275,6 +283,8 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 		}
 		else if (line[*i] == '|')
 		{
+			if (!rest_is_blank_2(&line[*i + 1]))
+				return (0);
 			if (line_after)
 				ft_avs(*cmd, line_after);
 			break ;

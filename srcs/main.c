@@ -32,6 +32,8 @@ void	mini_run(t_mini *mini)
 	// 	return ;
 	// }
 	mini->cmd = stock_cmds(mini);
+	if (mini->cmd == NULL)
+		return ;
 	if(!mini->cmd || !mini->cmd->av)
 		return ;
 	cmd = mini->cmd;
