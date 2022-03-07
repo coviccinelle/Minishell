@@ -78,7 +78,8 @@ char	*cpy_trim(char *s, char from, char to)
 	i = chpos(s, from);
 	j = chpos(s, to);
 	if (i == -1 || j == -1)
-		return (ft_strndup("", 0));
+		return(ft_strdup(s));
+	//	return (ft_strndup("", 0));
 	if (from == '=')
 		i = i + 1;
 	d = ft_strndup(&s[i], j);
