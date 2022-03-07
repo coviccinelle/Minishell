@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/07 21:23:29 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/07 21:30:36 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,13 +253,9 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 			if ((line[*i + 1] && (line[*i + 1] == '\"')) )
 			{
 				(*i) += 2;
-				//quote_colle(line, i);
 				break ;
 			}
 			line_after = ft_d2_quotes(line_after, i, line, *cmd, mini);
-			//printf("line_after = ----%s----\n", line_after);
-			//if ((*cmd)->stop == 1)
-			//if (line_after == )
 			if (line_after == NULL)
 				return (0);
 			ft_avs(*cmd, line_after);
