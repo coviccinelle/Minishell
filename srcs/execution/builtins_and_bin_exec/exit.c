@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:13:00 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/07 19:03:19 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/07 19:10:54 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	exec_exit(int ac, char **av)
 	if (ac == 1)
 	{
 		printf("exit\n");
-		exit(g_exit_value); /*exit g_exit_value*/
+		exit(g_exit_value);
 	}
 	if (!all_are_digits(av[1]))
 	{
