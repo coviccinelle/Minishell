@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/06 22:29:37 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/07 10:22:54 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ int			ft_count_quotes(const char *str);
 char		*ft_strdup(char *s1);
 int			ft_strcmp(char *s, char *t);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
+int			rest_is_blank_2(char *str);
 
 //*** Builtins ***//
 t_export	*new_export(char *export_name, char *export_data);
@@ -229,6 +230,9 @@ void		skip_blank_2(char *str, int *i, t_cmd *tmp, char *line_after);
 char		*dolar_2(char *str, int *i, char *line_after, char **envp);
 void		ft_pass_squote(char *argv, int *i);
 int			quote_pass_2(char *argv, int *i);
+
+int	single_quote_3(char *line_after, int *i, char *line, t_cmd *cmd);
+int	ft_single_quote_3(char *str, int *i, char *line, t_cmd *one_cmd);
 
 char		*dolar_name(char *str, int *i, char *line_after, t_cmd *cmd);
 char		*ft_add_line_after(char *line, char buf);

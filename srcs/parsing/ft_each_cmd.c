@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/06 22:54:30 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/07 10:35:08 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,11 +232,9 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 		(*cmd)->stop = 0;
 		if (line[*i] == ' ')
 		{
-		//	printf("in ESPACE line_after = %s\n", line_after);
 			skip_blank_2(line, i, *cmd, line_after);
-			if (line[*i] != '\0')
+			if (line[*i + 1] != '\0')
 				return (0);
-			ft_avs(*cmd, line_after);
 			line_after = NULL;
 		}
 		if (line[*i] == '"')
@@ -287,7 +285,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 			buf = malloc(sizeof(char) * 2);
 			ft_buf(line, i, buf);
 			line_after = ft_add_line_after(line_after, buf[0]);
-			if ((!line[*i] && line_after)/* || (line[*i + 1] == '|' && line_after)*/)
+			if ((!line[*i] && line_after))
 				ft_avs(*cmd, line_after);
 			free(buf);
 		}

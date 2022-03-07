@@ -57,10 +57,11 @@ void	minishell(char **env)
 		line = ft_readline_input(mini->line);
 		add_history(line);
 		mini->line = line;
-		if (mini->line)
+		if (mini->line || mini->cmd->av)
 			mini_run(mini);
-		if (mini->cmd->av)
-		 	print_mini_avs(mini);
+		// if (mini->cmd->av)
+		//  	print_mini_avs(mini);
+			 //segfaut in enter but no more gabarage value after espace //
 		//free(mini);
 		//free(line);
 	}

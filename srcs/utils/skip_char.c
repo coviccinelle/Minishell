@@ -21,6 +21,27 @@ int	is_blank(int c)
 	return (0);
 }
 
+int	ft_is_blank(int c)
+{
+	if ((9 <= c && c <= 13) || c == 32)
+		return (1);
+	return (0);
+}
+
+int	rest_is_blank_2(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_is_blank(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	skip_blank(char *str)
 {
 	int	i;
@@ -31,7 +52,6 @@ int	skip_blank(char *str)
 	return (i);
 }
 
-
 int	is_redir(int c)
 {
 	if (c == '<' || c == '>')
@@ -39,12 +59,6 @@ int	is_redir(int c)
 	return (0);
 }
 
-int	ft_is_blank(int c)
-{
-	if ((9 <= c && c <= 13) || c == 32)
-		return (1);
-	return (0);
-}
 
 void	skip_blank_2(char *str, int *i, t_cmd *tmp, char *line_after)
 {
@@ -55,7 +69,6 @@ void	skip_blank_2(char *str, int *i, t_cmd *tmp, char *line_after)
 		while (ft_is_blank(str[*i]))
 			(*i)++;
 	}
-	// ft_avs(tmp, line_after);
-	 //line_after = NULL;
+	ft_avs(tmp, line_after);
 }
 

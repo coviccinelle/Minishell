@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/06 22:04:43 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/07 10:35:54 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ char	*ft_add_double_quote(t_cmd *cmd, int *i, char *line, char *line_after, t_mi
 		cmd->stop = 1;
 		exit (0); // free tout stp
 		//g_exit_value = 1;
-		return (0);
+		return (NULL);
 	}
 	printf("\033[0;32m ok Double quotes\033[0m\n");
 	(*i)++;
