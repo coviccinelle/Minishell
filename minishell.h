@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/07 19:01:23 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/07 19:16:28 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,7 @@ void		safely_fork(int *pid);
 void		child_process(t_cmd *cmd, int *fd, t_mini *mini);
 void		waiting_for_all_children_to_finish_execution(pid_t	pid_lst[]);
 void		run_piped_cmds(t_mini *mini, int nb_cmd);
-void		exec_cmd_with_no_pipe(t_mini *mini);
+int		exec_cmd_with_no_pipe(t_mini *mini);
 
 //*** REDIRECTIONS ***//
 void		ft_set_direct(char *line, int *i, t_cmd *mini);
