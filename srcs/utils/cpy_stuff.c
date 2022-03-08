@@ -1,7 +1,6 @@
 
 #include "../../minishell.h"
 
-
 char    *ft_strdup(char *s1)
 {
         char    *str;
@@ -43,4 +42,3 @@ char	**ft_env_cpy(char **envp)
 	env[i] = NULL;
 	return (env);
 }
-

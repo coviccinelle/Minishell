@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 16:44:36 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 16:51:53 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,6 @@ char 		*dolar_quote(char *str, char **envp);
 char		*dolar_name(char *str, int *i, char *line_after, t_cmd *cmd);
 char		*ft_add_line_after(char *line, char buf);
 
-t_cmd		*add_cell(t_cmd *mini, char *cmd, int pos);
 void		print_list(t_cmd **mini);
 int			is_blank(int c);
 int			is_redir(int c);
