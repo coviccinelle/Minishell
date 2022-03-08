@@ -6,27 +6,11 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:43:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/22 10:02:08 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 16:06:38 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-int	malloc_node(t_cmd	**one_cmd)
-{
-	t_cmd	*new;
-	
-	new = (t_cmd *)malloc(sizeof(t_cmd));
-	if (!new)
-		return (0);
-	if (!(*one_cmd))
-	{
-		new->next = NULL;
-		*one_cmd = new;
-		printf("after node\n");
-	}
-	return (1);
-}
 
 // ft_add_line_after
 char	*ft_add_line_after(char *line, char buf)
@@ -56,9 +40,9 @@ char	*ft_add_line_after(char *line, char buf)
 }
 
 //ft_fill_av vs ft_malloc_avs
-char *ft_strcpy(char *dest, char *src)
+char	*ft_strcpy(char *dest, char *src)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (src[i] != '\0')
