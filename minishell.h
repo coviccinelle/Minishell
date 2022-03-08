@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 12:23:49 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 14:49:27 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,8 +223,7 @@ char		**ft_avs_2(t_cmd *one_cmd, char *line_after);
 int			ft_buf(char *argv, int *i, char *buf);
 int			malloc_node(t_cmd	**one_cmd);
 int			ft_check_2rd_quote_2(char *line, int c);
-char		*ft_d2_quotes(char *line_after, int *i, char *line, t_cmd *cmd, \
-			t_mini *mini);
+char		*ft_d2_quotes(char *line_after, int *i, t_cmd *cmd, t_mini *mini);
 char		*ft_single_quote(char *line_after, int *i, char *line, \
 			t_cmd *one_cmd);
 void		free_avs(char **avs);
@@ -236,6 +235,7 @@ int			quote_pass_2(char *argv, int *i);
 
 int	single_quote_3(char *line_after, int *i, char *line, t_cmd *cmd);
 int	ft_single_quote_3(char *str, int *i, char *line, t_cmd *one_cmd);
+char *dolar_quote(char *str, char **envp);
 
 char		*dolar_name(char *str, int *i, char *line_after, t_cmd *cmd);
 char		*ft_add_line_after(char *line, char buf);
