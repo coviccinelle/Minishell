@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:42 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/07 15:35:02 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/07 18:44:54 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,31 @@ int	env_realloc_and_append_envvar(char ***env, char *envvar)
 	return (0);
 }
 
+int	comp_env(char *s, char *s1)
+{
+	int	j;
+
+	j = -1;
+	while(s && s1 && s[++j] && s1[j])
+	{
+		if(s[j] != s1[j])
+			return(s[j] - s1[j]);
+	}
+	if(s1[j] == '\0' && s[j] == '\0')
+		return(0);
+	if(s1[j] != '\0')
+		return((-(s1[j])));
+	else
+		return(s[j]);
+
+}
+
 char	*find_in_env(char **env, char *name, int *pos)
 {
 	int	j;
 	int	name_len;
+	char	*s;
+	int	c;
 
 	name_len = ft_strlen(name);
 	j = -1;
@@ -48,11 +69,18 @@ char	*find_in_env(char **env, char *name, int *pos)
 	}
 	while (env[++j] && j < nb_tabs(env))
 	{
-		if (ft_strncmp(name, env[j], name_len) == 0)
+		s = cpy_trim(env[j], env[j][0], '=');
+		//fprintf(stderr, "\n S = %s\n", s);
+		if ((c = comp_env(name, s)) == 0)
 		{
 			*pos = j;
+			fprintf(stderr, "\n comparaison de s(%s) et name(%s) =  %d \n", s, name, c);
+			if(s)
+				free(s);
 			return (cpy_trim(env[j], '=', '\0'));
 		}
+		if(s)
+			free(s);
 	}
 	return (ft_strdup(""));
 }

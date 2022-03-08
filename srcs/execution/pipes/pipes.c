@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/07 16:32:49 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/07 22:24:49 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	call_heredoc(char *eof)
 	input = NULL;
 	if (eof == NULL)
 		return ;
+//	fd = open("heredoc",  O_CREAT | O_WRONLY | O_RDONLY | O_TRUNC, 0777);
 	fd = open("heredoc",  O_CREAT | O_WRONLY | O_RDONLY | O_TRUNC, 0777);
 	if (fd == -1)
 		perror(eof);
@@ -44,9 +45,9 @@ void	call_heredoc(char *eof)
 		input = ft_readline_heredoc(input);
 		if (input)
 		{
-			if (strncmp(input, eof, strlen(eof)) != 0) // ft_strncmp
+			if (ft_strncmp(input, eof, strlen(eof)) != 0) // ft_strncmp
 				ft_putendl_fd(input, fd);
-			if (strncmp(input, eof, strlen(eof)) == 0) //idem
+			if (ft_strncmp(input, eof, strlen(eof)) == 0) //idem
 				break ;
 			free(input);
 		}
@@ -56,7 +57,7 @@ void	call_heredoc(char *eof)
 	close(fd);
 }
 
-void	exec_builtin_no_pipe(t_mini *mini)
+int	exec_builtin_no_pipe(t_mini *mini)
 {
 	t_cmd	*cmd;
 	pid_t	f;
@@ -73,7 +74,7 @@ void	exec_builtin_no_pipe(t_mini *mini)
 				|| ft_strcmp(cmd->av[0], "exit") == 0 \
 				|| ft_strcmp(cmd->av[0], "cd") == 0 \
 				|| ft_strcmp(cmd->av[0], "env") == 0)
-			exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
+			g_exit_value = exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
 	}
 	else
 	{
@@ -82,21 +83,24 @@ void	exec_builtin_no_pipe(t_mini *mini)
 		fd_out = dup_last_file_fd_out(cmd);
 		if (ft_strcmp(cmd->av[0], "echo") == 0 \
 					|| ft_strcmp(cmd->av[0], "pwd") == 0)
-			exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
+			g_exit_value = exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
 		close(fd_out);
 		exit(1);
 	}
+	return (g_exit_value);
 }
 
-void	exec_cmd_with_no_pipe(t_mini *mini)
+int	exec_cmd_with_no_pipe(t_mini *mini)
 {
 	t_cmd	*cmd;
 	int		status;
+	int		exit_value;
 	pid_t	father;
 
+	exit_value = 0;
 	cmd = mini->cmd;
 	if (is_builtin(cmd->av[0]))
-		exec_builtin_no_pipe(mini);
+		exit_value = exec_builtin_no_pipe(mini);
 	else
 	{
 		father = fork();
@@ -108,10 +112,11 @@ void	exec_cmd_with_no_pipe(t_mini *mini)
 			if (dup_last_file_fd_in(cmd) == 1)
 				exit (1);
 			dup_last_file_fd_out(cmd);
-			exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
+			exit_value = exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
 			exit(0);
 		}
 	}
+	return (g_exit_value);
 }
 
 int	dup_last_file_fd_in(t_cmd *cmd)
@@ -164,9 +169,6 @@ int	dup_last_file_fd_out(t_cmd *cmd)
 
 void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 {
-	int	exit_status;
-
-	exit_status = 0;
 	close(READ_END);
 	if (dup_last_file_fd_in(cmd) == 1)
 		exit (1);
@@ -177,13 +179,13 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 	close(WRITE_END);
     	if (is_builtin(cmd->av[0]))
 	{
-		exit_status = exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
-		exit(exit_status);
+		g_exit_value = exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
+		exit(g_exit_value);
 	}
     	else if (!is_builtin(cmd->av[0]))
 	{
-		exit_status = exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
-		exit(exit_status);
+		g_exit_value = exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
+		exit(g_exit_value);
 	}
 }
 

@@ -64,6 +64,7 @@ void	minishell(char **env)
 			 //segfaut in enter but no more gabarage value after espace //
 		//free(mini);
 		//free(line);
+		unlink("heredoc");
 	}
 }
 
