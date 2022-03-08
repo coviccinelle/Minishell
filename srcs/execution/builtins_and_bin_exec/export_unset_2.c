@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:16:58 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/08 14:47:09 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/08 15:30:43 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,30 @@ char	*l(char *line)
 	return (NULL);
 }
 
+void	init(int *j, int *c, int *exit_value)
+{
+	*c = 1;
+	*exit_value = EXIT_SUCCESS;
+	*j = 0;
+}
+
+void	init_1(char ***data, char ***name, char **av)
+{
+	*data = malloc(sizeof(char *) * (nb_tabs(av) + 1));
+	*name = malloc(sizeof(char *) * (nb_tabs(av) + 1));
+}
+
+void	unvalid_name_case(int *exit_value, \
+			char **name_j, char **data_j, char *av_j)
+{
+	*exit_value = ft_puterror_fd("minishell: export :'", \
+			av_j, "': not a valid identifier");
+	if (*name_j)
+		free(*name_j);
+	*name_j = NULL;
+	*data_j = NULL;
+}
+
 int	exec_export(int ac, char **av, char ***env)
 {
 	char			**name;
@@ -77,31 +101,18 @@ int	exec_export(int ac, char **av, char ***env)
 	int				c;
 	int				exit_value;
 
-	c = 1;
-	exit_value = EXIT_SUCCESS;
-	j = 0;
-	data = malloc(sizeof(char *) * (nb_tabs(av) + 1));
-	name = malloc(sizeof(char *) * (nb_tabs(av) + 1));
+	init(&j, &c, &exit_value);
+	init_1(&data, &name, av);
 	if (ac == 1)
 		return (ft_alphabetical_order_tab(*env));
 	while (av[j + c])
 	{
 		name[j] = cpy_trim(av[j + c], av[j + c][0], '=');
 		if (!is_valid_var_name(name[j]))
-		{
-			exit_value = ft_puterror_fd("minishell: export :'", \
-					av[j], "': not a valid identifier");
-			if (name[j])
-				free(name[j]);
-			name[j] = NULL;
-			data[j] = NULL;
-			j++;
-		}
+			unvalid_name_case(&exit_value, &name[j], &data[j], av[j]);
 		else
-		{
 			data[j] = l(av[j + c]);
-			j++;
-		}
+		j++;
 	}
 	name[j] = NULL;
 	get_into_export_lst(env, av, name, data);

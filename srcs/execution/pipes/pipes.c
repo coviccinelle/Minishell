@@ -6,12 +6,11 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/08 15:03:07 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/08 16:01:29 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minishell.h"
-#include <string.h>
 
 int	dup_last_file_fd_out(t_cmd *cmd);
 int	dup_last_file_fd_in(t_cmd *cmd);
@@ -56,6 +55,50 @@ void	call_heredoc(char *eof)
 	close(fd);
 }
 
+int	cmp_them_all(t_cmd *cmd)
+{
+	int	ret;
+
+	ret = -1;
+	ret = ft_strcmp(cmd->av[0], "export");
+	if (ret == 0)
+		return (ret);
+	ret = ft_strcmp(cmd->av[0], "unset");
+	if (ret == 0)
+		return (ret);
+	ret = ft_strcmp(cmd->av[0], "exit");
+	if (ret == 0)
+		return (ret);
+	ret = ft_strcmp(cmd->av[0], "cd");
+	if (ret == 0)
+		return (ret);
+	ret = ft_strcmp(cmd->av[0], "env");
+	if (ret == 0)
+		return (ret);
+	return (ret);
+}
+
+int	cmp_again(t_cmd *cmd)
+{
+	int	ret;
+
+	ret = -1;
+	ret = ft_strcmp(cmd->av[0], "echo");
+	if (ret == 0)
+		return (ret);
+	ret = ft_strcmp(cmd->av[0], "pwd");
+	if (ret == 0)
+		return (ret);
+	return (ret);
+}
+
+void	i_am_your_father(t_mini *mini, t_cmd *cmd)
+{
+	if (cmp_them_all(cmd) == 0)
+		g_exit_value = exec_builtin(cmd->av[0], \
+			nb_tabs(cmd->av), cmd->av, &mini->env);
+}
+
 int	exec_builtin_no_pipe(t_mini *mini)
 {
 	t_cmd	*cmd;
@@ -68,21 +111,14 @@ int	exec_builtin_no_pipe(t_mini *mini)
 	if (f != 0)
 	{
 		waitpid(f, &status, 0);
-		if ((ft_strcmp(cmd->av[0], "export") == 0) \
-				|| (ft_strcmp(cmd->av[0], "unset") == 0 && cmd->av[1]) \
-				|| ft_strcmp(cmd->av[0], "exit") == 0 \
-				|| ft_strcmp(cmd->av[0], "cd") == 0 \
-				|| ft_strcmp(cmd->av[0], "env") == 0)
-			g_exit_value = exec_builtin(cmd->av[0], \
-				nb_tabs(cmd->av), cmd->av, &mini->env);
+		i_am_your_father(mini, cmd);
 	}
 	else
 	{
 		if (dup_last_file_fd_in(cmd) == 1)
 			exit (1);
 		fd_out = dup_last_file_fd_out(cmd);
-		if (ft_strcmp(cmd->av[0], "echo") == 0 \
-					|| ft_strcmp(cmd->av[0], "pwd") == 0)
+		if (cmp_again(cmd) == 0)
 			g_exit_value = exec_builtin(cmd->av[0], \
 				nb_tabs(cmd->av), cmd->av, &mini->env);
 		close(fd_out);
