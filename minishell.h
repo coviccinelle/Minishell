@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 16:35:48 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 16:44:36 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,25 @@
 # include <fcntl.h>
 # define EXIT_SUCCESS 0
 # define EXIT_FAILURE 1
-
 # define READ_END fd[0]
 # define WRITE_END fd[1]
 # define STDIN 0
 # define STDOUT 1
 # define EXIT_FAILURE 1
-
 # define NOPE_0 0
 # define READONLY_0 1
 # define HEREDOC_0 2
 # define TRUNC_0 3
 # define APPEND_0 4
-
 # define ERROR -1
 # define SUCCESS 0
 # define CHILD 0
 # define REDIR 1
 # define PIPE 2
-
 # define SEPARATORS " '\"|><"
 
 extern int	g_exit_value;
 
-// *** // STRUCTURE  // *** //
 typedef struct s_export
 {
 	char				*name;
@@ -60,39 +55,30 @@ typedef struct s_export
 
 typedef enum e_redir
 {
-	NOPE,// 0
-	READONLY,// 1 <
-	HEREDOC,// 2 // <<
-	TRUNC,// 3 //>
-	APPEND,// 4 // >>
+	NOPE,
+	READONLY,
+	HEREDOC,
+	TRUNC,
+	APPEND,
 }				t_redir;
 
 typedef struct s_file
 {
-	char				*name;
-	int					type;
-	struct s_file		*next;
+	char			*name;
+	int				type;
+	struct s_file	*next;
 }				t_file;
-/*
-typedef struct s_heredoc
-{
-	char				*eof;
-	struct s_heredoc	*next;
-}
-				t_heredoc;
-*/
 
 typedef struct s_cmd
 {
-	char	*line;
-	char	**av;
-	//t_redir	type;
-	int		stop;
-	int		type;
-	t_file		*file_in;
-	t_file		*file_out;
-	t_file		*last_file_in;
-	t_file		*last_file_out;
+	char			*line;
+	char			**av;
+	int				stop;
+	int				type;
+	t_file			*file_in;
+	t_file			*file_out;
+	t_file			*last_file_in;
+	t_file			*last_file_out;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }				t_cmd;
@@ -108,11 +94,9 @@ typedef struct s_mini
 	int				ret_status;
 	t_cmd			*cmd;
 	char			*heredoc;
-//	t_heredoc		*heredoc;
 }				t_mini;
 
 // *** // main  // *** //
-
 void	ft_init_mini(t_mini **mini);
 void	init_shell(void);
 
@@ -166,6 +150,7 @@ int			exec_cd(int ac, char **av, char **env);
 void		call_heredoc(char *eof);
 //pwd
 int			exec_pwd(void);
+
 /*echo*/
 int			is_option_n(char *av);
 int			echo(int ac, char **av, int option_n);
@@ -198,13 +183,11 @@ void		ft_putstr(char *s);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 char		*cpy_trim(char *s, char from, char to);
 int			ft_strncmp(char *s1, char *s2, unsigned int n);
-//char *ft_strcat(char *dest, char *src);
 int			nb_tabs(char **s);
 char		*ft_strdup(char *src);
 char		*ft_strcpy(char *dst, char *src);
 int			ft_alphabetical_order_tab(char **env);
 void		print_tab(char **env);
-//char		**ft_copy_tab(char **env);
 int			ft_unsetenv(char ***env, char *name);
 void		print_export(char **tab);
 int			exec_cmd(int ac, char **av, char ***env);
@@ -222,8 +205,7 @@ char		**ft_avs_2(t_cmd *one_cmd, char *line_after);
 int			ft_buf(char *argv, int *i, char *buf);
 int			ft_check_2rd_quote_2(char *line, int c);
 char		*ft_d2_quotes(char *line_after, int *i, t_cmd *cmd, t_mini *mini);
-char		*ft_single_quote(char *line_after, int *i, char *line, \
-			t_cmd *one_cmd);
+char		*ft_single_quote(char *line_after, int *i, char *line, t_cmd *one_cmd);
 void		free_avs(char **avs);
 char		*dollar_sign(int ac, char **av, char **env);
 void		skip_blank_2(char *str, int *i, t_cmd *tmp, char *line_after);
@@ -231,15 +213,15 @@ char		*dolar_2(char *str, int *i, char *line_after, char **envp);
 void		ft_pass_squote(char *argv, int *i);
 int			quote_pass_2(char *argv, int *i);
 int			check_redir(char *line, int i);
-int	ft_redirec(char *line, int *i, char *str, t_cmd **tmp);
+int			ft_redirec(char *line, int *i, char *str, t_cmd **tmp);
 t_file		*ft_last_file(t_file *file);
 
-int	ft_add_file_in(t_cmd **cmd, int *i, char *str, char *line);
+int			ft_add_file_in(t_cmd **cmd, int *i, char *str, char *line);
 
-int	ft_add_file_out(t_cmd **cmd, int *i, char *str, char *line);
-int	single_quote_3(char *line_after, int *i, char *line, t_cmd *cmd);
-int	ft_single_quote_3(char *str, int *i, char *line, t_cmd *one_cmd);
-char *dolar_quote(char *str, char **envp);
+int			ft_add_file_out(t_cmd **cmd, int *i, char *str, char *line);
+int			single_quote_3(char *line_after, int *i, char *line, t_cmd *cmd);
+int			ft_single_quote_3(char *str, int *i, char *line, t_cmd *one_cmd);
+char 		*dolar_quote(char *str, char **envp);
 
 char		*dolar_name(char *str, int *i, char *line_after, t_cmd *cmd);
 char		*ft_add_line_after(char *line, char buf);
@@ -268,7 +250,7 @@ void		safely_fork(int *pid);
 void		child_process(t_cmd *cmd, int *fd, t_mini *mini);
 void		waiting_for_all_children_to_finish_execution(int nb_cmds);
 void		run_piped_cmds(t_mini *mini, int nb_cmd);
-int		exec_cmd_with_no_pipe(t_mini *mini);
+int			exec_cmd_with_no_pipe(t_mini *mini);
 
 //*** REDIRECTIONS ***//
 void		ft_set_direct(char *line, int *i, t_cmd *mini);
@@ -290,9 +272,9 @@ void		ft_disable_if_fork(int pid);
 void		ft_start_signal(void);
 
 // simple utils
-int		is_alnum(int c);
+int			is_alnum(int c);
 //
-void	ft_free_cmds(t_mini *mini);
-int	ft_len_cmd(char **str);
+void		ft_free_cmds(t_mini *mini);
+int			ft_len_cmd(char **str);
 
 #endif
