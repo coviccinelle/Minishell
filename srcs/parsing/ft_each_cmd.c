@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 15:52:19 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 16:45:37 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 	char		*line_after;
 
 	line_after = NULL;
-	printf("3. Inside each_cmd ^^ Orgine line is : %s\n", line);
-	while (line[*i]/* && line[*i] != '|'*/)
+	while (line[*i])
 	{
 		(*cmd)->stop = 0;
 		if (line[*i] == ' ')

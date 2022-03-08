@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:11:08 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 16:19:17 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 16:47:42 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,11 @@ t_cmd	*stock_cmds(t_mini *mini)
 			while (mini->line[i] == ' ')
 				i++;
 			int a = ft_each_cmd_4(mini, mini->line, &i, &cmd);
-			printf("  \nPARSING RETURN= %d\n\033[0;31m", a);
 			if (a == 1)
-			{
 				stock_cmds_3(cmd);
-			}
 			else
 			{
-				printf("ERROR: syntax error => free tout\nValuer de retour???\n\n");
+				printf("ERROR: syntax error => free tout\n\n");
 				return (NULL);
 			}
 		}
