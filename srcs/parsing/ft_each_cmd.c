@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 12:14:23 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 13:09:56 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,8 +178,6 @@ int	ft_redirec(char *line, int *i, char *str, t_cmd **tmp)
 	if (!check_redir(line, *i))
 	{
 		printf("Minishell: syntax error\n");
-		(*tmp)->stop = 1;
-		exit (0);
 		return (0);
 	}
 	if (str)
