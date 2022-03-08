@@ -6,21 +6,11 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 14:55:36 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 15:52:19 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-int	ft_init_each_cmd(t_cmd *cmd, int *i, char *line)
-{
-	if (!malloc_node(&cmd))
-		return (0);
-	cmd->next = NULL;
-	(*i) = 0;
-	ft_space_skip(line, i);
-	return (1);
-}
 
 void	ft_pass_dquote(char *str, int *i)
 {
@@ -46,177 +36,9 @@ int	quote_pass_2(char *str, int *i)
 	return (1);
 }
 
-int	ft_add_to_fstack_out(t_cmd **cmd, char *line)
-{
-	t_file		*tmp;
-	t_file		*new;
-	t_file		*p;
+// more than 25 lines
 
-	tmp = (*cmd)->file_out;
-	p = (*cmd)->file_out;
-	new = (t_file *)malloc(sizeof(t_file));
-	if (!new)
-		return (0);
-	new->next = NULL;
-	new->name = ft_strdup(line);
-	new->type = (*cmd)->type;
-	if (!(*cmd)->file_out)
-		(*cmd)->file_out = new;
-	else
-	{
-		while (p && p->next)
-			p = p->next;
-		p->next = new;
-	}
-	return (1);
-}
-
-int	ft_add_to_fstack_in(t_cmd **cmd, char *line)
-{
-	t_file		*tmp;
-	t_file		*new;
-	t_file		*p;
-
-	tmp = (*cmd)->file_in;
-	p = (*cmd)->file_in;
-	new = (t_file *)malloc(sizeof(t_file));
-	if (!new)
-		return (0);
-	new->next = NULL;
-	new->name = strdup(line); // a remplacer par ft_strdup
-	new->type = (*cmd)->type;
-    if (new->type == HEREDOC)
-    {
-			call_heredoc(new->name);
-    }
-    if (!(*cmd)->file_in)
-        (*cmd)->file_in = new;
-    else
-    {
-        while(p && p->next)
-            p = p->next;
-        p->next = new;
-    }
-    return (1);
-}
-
-int	ft_add_file_out(t_cmd **cmd, int *i, char *str, char *line)
-{
-	while (is_redir(str[*i]) || is_blank(str[*i]))
-		(*i)++;
-	while (!is_blank(str[*i]) && str[(*i)])
-	{
-		line = ft_add_line_after(line, str[(*i)]);
-		if (!line)
-			return (0);
-		(*i)++;
-	}
-	if (!line || !ft_add_to_fstack_out(cmd, line))
-	{
-		printf("Minishell: syntax error\n");
-		return (0);
-	}
-	free(line);
-	return (1);
-}
-
-int	ft_add_file_in(t_cmd **cmd, int *i, char *str, char *line)
-{
-	while (is_redir(str[*i]) || is_blank(str[*i]))
-		(*i)++;
-	while (!is_blank(str[*i]) && str[(*i)])
-	{
-		line = ft_add_line_after(line, str[(*i)]);
-		if (!line)
-			return (0);
-		(*i)++;
-	}
-	if (!line || !ft_add_to_fstack_in(cmd, line))
-	{
-		printf("Minishell: syntax error\n");
-		return (0);
-	}
-	free(line);
-	return (1);
-}
-
-int	check_redir(char *line, int i)
-{
-	int	k;
-	int	j;
-
-	k = 0;
-	j = i;
-	while (line[i] == '>' || line[i] == '<')
-	{
-		k++;
-		i++;
-	}
-	if (k == 1 || k == 2)
-	{
-		if (k == 1)
-			return (1);
-		else if (k == 2 && line[j] == line[j + 1])
-			return (1);
-		else
-			return (0);
-	}
-	else
-		return (0);
-}
-
-int	ft_redirec(char *line, int *i, char *str, t_cmd **tmp)
-{
-	t_file	*t;
-	t = (*tmp)->file_out;
-	t_file	*file_in_2;
-	t_file	*file;
-	t_mini *mini;
-
-	file = NULL;
-	mini = NULL;
-	if (!check_redir(line, *i))
-	{
-		printf("Minishell: syntax error\n");
-		return (0);
-	}
-	if (str)
-	{
-		ft_avs(*tmp, str);
-		str = NULL;
-	}
-	ft_set_direct(line, i, *tmp);
-	if (line[*i] == '<')
-		ft_add_file_in(tmp, i, line, str);
-	else if (line[*i] == '>')
-		ft_add_file_out(tmp, i, line, str);
-	file_in_2 = (*tmp)->file_in;
-	t = (*tmp)->file_out;
-	line = NULL;
-	printf("DONE FT_REDIR \n\n");
-	return (1);
-}
-
-int	mdquote3(char *line, int *i)
-{
-	if (line[(*i) + 1] == '\0')
-		return (0);
-	ft_pass_dquote(line, i);
-	return (1);
-}
-
-int str_blank(char *str)
-{
-	int i = 0;
-	while (str[i])
-	{
-		if (str[i] != ' ')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
+// more than 25 lines
 int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 {
 	char		*buf;
@@ -236,7 +58,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 		}
 		else if (line[*i] == '"')
 		{
-			if ((line[*i + 1] && (line[*i + 1] == '\"')) )
+			if (line[*i + 1] && (line[*i + 1] == '\"'))
 			{
 				(*i) += 2;
 				break ;
@@ -251,7 +73,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 		}
 		else if (line[*i] == '\'')
 		{
-			if ((line[*i + 1] && (line[*i + 1] == '\'')) )
+			if (line[*i + 1] && (line[*i + 1] == '\''))
 			{
 				(*i) += 2;
 				break ;

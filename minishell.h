@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 14:49:27 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 15:51:03 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,12 @@ void		skip_blank_2(char *str, int *i, t_cmd *tmp, char *line_after);
 char		*dolar_2(char *str, int *i, char *line_after, char **envp);
 void		ft_pass_squote(char *argv, int *i);
 int			quote_pass_2(char *argv, int *i);
+int			check_redir(char *line, int i);
+int	ft_redirec(char *line, int *i, char *str, t_cmd **tmp);
 
+int	ft_add_file_in(t_cmd **cmd, int *i, char *str, char *line);
+
+int	ft_add_file_out(t_cmd **cmd, int *i, char *str, char *line);
 int	single_quote_3(char *line_after, int *i, char *line, t_cmd *cmd);
 int	ft_single_quote_3(char *str, int *i, char *line, t_cmd *one_cmd);
 char *dolar_quote(char *str, char **envp);

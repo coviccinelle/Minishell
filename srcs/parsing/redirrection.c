@@ -1,32 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirrection.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/08 15:53:50 by thi-phng          #+#    #+#             */
+/*   Updated: 2022/03/08 15:54:49 by thi-phng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
-int	get_ftype_left(t_mini *mini, int *i)
+int	check_redir(char *line, int i)
 {
-	(*i)++;
-	if (mini->line[*i] == '<')
+	int	k;
+	int	j;
+
+	k = 0;
+	j = i;
+	while (line[i] == '>' || line[i] == '<')
 	{
-		(*i)++;
-		return (2);//heredoc
+		k++;
+		i++;
 	}
-	return (1);// left
+	if (k == 1 || k == 2)
+	{
+		if (k == 1)
+			return (1);
+		else if (k == 2 && line[j] == line[j + 1])
+			return (1);
+		else
+			return (0);
+	}
+	else
+		return (0);
 }
 
-
-int	get_ftype_right(t_mini *mini, int *i)
+int	ft_redirec(char *line, int *i, char *str, t_cmd **tmp)
 {
-	(*i)++;
-	if (mini->line[*i] == '>')
+	t_file	*t;
+	t_file	*file_in_2;
+	t_file	*file;
+	t_mini	*mini;
+
+	t = (*tmp)->file_out;
+	file = NULL;
+	mini = NULL;
+	if (!check_redir(line, *i))
 	{
-		(*i)++;
-		return (4);//d_right
+		printf("Minishell: syntax error\n");
+		return (0);
 	}
-	return (3);// right
-}
-
-
-void    get_heredoc(t_mini *mini, int *i)
-{
-    (void)mini;
-    (void)*i;
-    printf("Alert : HEREDOC\n"); 
+	if (str)
+	{
+		ft_avs(*tmp, str);
+		str = NULL;
+	}
+	ft_set_direct(line, i, *tmp);
+	if (line[*i] == '<')
+		ft_add_file_in(tmp, i, line, str);
+	else if (line[*i] == '>')
+		ft_add_file_out(tmp, i, line, str);
+	file_in_2 = (*tmp)->file_in;
+	t = (*tmp)->file_out;
+	line = NULL;
+	return (1);
 }

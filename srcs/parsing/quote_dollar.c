@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:38:44 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 14:57:46 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 15:36:35 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ void	ft_pass_squote(char *str, int *i)
 char	*ft_strjoin_2(char *s1, char *s2)
 {
 	char	*ret;
-	size_t	i = 0, e = 0;
+	int		i;
+	int		e;
+
+	i = 0;
+	e = 0;
 	if (!s1)
 		return (s2);
 	if (!s2)
@@ -44,22 +48,20 @@ char	*ft_strjoin_2(char *s1, char *s2)
 	}
 	while (s2[e])
 	{
-		ret[i] = s2[e];
+		ret[i + e] = s2[e];
 		e++;
-		i++;
 	}
-	ret[i] = ' ';
-	i++;
-	ret[i] = '\0';
+	ret[i + e] = ' ';
+	e++;
+	ret[i + e] = '\0';
 	free(s1);
 	return (ret);
 }
 
-
 char	*dolar_name_quote(char *str, int *i)
 {
-	char *name;
-	
+	char	*name;
+
 	name = NULL;
 	(*i)++;
 	while (str[*i] && str[*i] != ' ')
@@ -70,13 +72,14 @@ char	*dolar_name_quote(char *str, int *i)
 	return (name);
 }
 
-
-char *dolar_quote(char *str, char **envp)
+char	*dolar_quote(char *str, char **envp)
 {
-	int	i;
-	char *line_after = NULL;
-	char *dolar_value = NULL;
+	int		i;
+	char	*line_after;
+	char	*dolar_value;
 
+	line_after = NULL;
+	dolar_value = NULL;
 	i = 0;
 	while (str[i])
 	{
@@ -92,4 +95,3 @@ char *dolar_quote(char *str, char **envp)
 	}
 	return (line_after);
 }
-

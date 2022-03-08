@@ -14,6 +14,7 @@ SRC		=	srcs/main.c \
 			srcs/parsing/stock_cmd.c \
 			srcs/parsing/dollar_sign.c \
 			srcs/parsing/redirrection.c \
+			srcs/parsing/file_in_out.c \
 			\
 			srcs/utils/is_something.c \
 			srcs/utils/skip_char.c \
