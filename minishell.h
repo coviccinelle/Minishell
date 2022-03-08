@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/07 10:48:43 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 11:46:09 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 
 # define SEPARATORS " '\"|><"
 
-//int	g_nb_exit;
+extern int	g_exit_value;
 
 // *** // STRUCTURE  // *** //
 typedef struct s_export

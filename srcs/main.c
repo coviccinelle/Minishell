@@ -67,6 +67,8 @@ void	minishell(char **env)
 	}
 }
 
+int g_exit_value = 0;
+
 int	main(int ac, char **av, char **env)
 {
 	(void)ac;
