@@ -6,12 +6,11 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/07 22:24:49 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/08 16:01:29 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minishell.h"
-#include <string.h>
 
 int	dup_last_file_fd_out(t_cmd *cmd);
 int	dup_last_file_fd_in(t_cmd *cmd);
@@ -36,8 +35,7 @@ void	call_heredoc(char *eof)
 	input = NULL;
 	if (eof == NULL)
 		return ;
-//	fd = open("heredoc",  O_CREAT | O_WRONLY | O_RDONLY | O_TRUNC, 0777);
-	fd = open("heredoc",  O_CREAT | O_WRONLY | O_RDONLY | O_TRUNC, 0777);
+	fd = open("heredoc", O_CREAT | O_WRONLY | O_RDONLY | O_TRUNC, 0777);
 	if (fd == -1)
 		perror(eof);
 	while (1)
@@ -45,9 +43,9 @@ void	call_heredoc(char *eof)
 		input = ft_readline_heredoc(input);
 		if (input)
 		{
-			if (ft_strncmp(input, eof, strlen(eof)) != 0) // ft_strncmp
+			if (ft_strncmp(input, eof, strlen(eof)) != 0)
 				ft_putendl_fd(input, fd);
-			if (ft_strncmp(input, eof, strlen(eof)) == 0) //idem
+			if (ft_strncmp(input, eof, strlen(eof)) == 0)
 				break ;
 			free(input);
 		}
@@ -55,6 +53,50 @@ void	call_heredoc(char *eof)
 			break ;
 	}
 	close(fd);
+}
+
+int	cmp_them_all(t_cmd *cmd)
+{
+	int	ret;
+
+	ret = -1;
+	ret = ft_strcmp(cmd->av[0], "export");
+	if (ret == 0)
+		return (ret);
+	ret = ft_strcmp(cmd->av[0], "unset");
+	if (ret == 0)
+		return (ret);
+	ret = ft_strcmp(cmd->av[0], "exit");
+	if (ret == 0)
+		return (ret);
+	ret = ft_strcmp(cmd->av[0], "cd");
+	if (ret == 0)
+		return (ret);
+	ret = ft_strcmp(cmd->av[0], "env");
+	if (ret == 0)
+		return (ret);
+	return (ret);
+}
+
+int	cmp_again(t_cmd *cmd)
+{
+	int	ret;
+
+	ret = -1;
+	ret = ft_strcmp(cmd->av[0], "echo");
+	if (ret == 0)
+		return (ret);
+	ret = ft_strcmp(cmd->av[0], "pwd");
+	if (ret == 0)
+		return (ret);
+	return (ret);
+}
+
+void	i_am_your_father(t_mini *mini, t_cmd *cmd)
+{
+	if (cmp_them_all(cmd) == 0)
+		g_exit_value = exec_builtin(cmd->av[0], \
+			nb_tabs(cmd->av), cmd->av, &mini->env);
 }
 
 int	exec_builtin_no_pipe(t_mini *mini)
@@ -69,21 +111,16 @@ int	exec_builtin_no_pipe(t_mini *mini)
 	if (f != 0)
 	{
 		waitpid(f, &status, 0);
-		if ((ft_strcmp(cmd->av[0], "export") == 0) \
-				|| (ft_strcmp(cmd->av[0], "unset") == 0 && cmd->av[1]) \
-				|| ft_strcmp(cmd->av[0], "exit") == 0 \
-				|| ft_strcmp(cmd->av[0], "cd") == 0 \
-				|| ft_strcmp(cmd->av[0], "env") == 0)
-			g_exit_value = exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
+		i_am_your_father(mini, cmd);
 	}
 	else
 	{
 		if (dup_last_file_fd_in(cmd) == 1)
 			exit (1);
 		fd_out = dup_last_file_fd_out(cmd);
-		if (ft_strcmp(cmd->av[0], "echo") == 0 \
-					|| ft_strcmp(cmd->av[0], "pwd") == 0)
-			g_exit_value = exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
+		if (cmp_again(cmd) == 0)
+			g_exit_value = exec_builtin(cmd->av[0], \
+				nb_tabs(cmd->av), cmd->av, &mini->env);
 		close(fd_out);
 		exit(1);
 	}
@@ -139,7 +176,7 @@ int	dup_last_file_fd_in(t_cmd *cmd)
 	}
 	dup2(last_file, 0);
 	close(last_file);
-	unlink("heredoc");	
+	unlink("heredoc");
 	return (0);
 }
 
@@ -148,7 +185,7 @@ int	dup_last_file_fd_out(t_cmd *cmd)
 	t_file	*last_file_out;
 	int		last_file;
 
-	last_file = 0;	
+	last_file = 0;
 	last_file_out = cmd->last_file_out;
 	if (cmd->last_file_out == NULL)
 		return (0);
@@ -156,7 +193,7 @@ int	dup_last_file_fd_out(t_cmd *cmd)
 		last_file = open(last_file_out->name, \
 				O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	else if (last_file_out->type == APPEND_0)
-        	last_file = open(last_file_out->name, \
+		last_file = open(last_file_out->name, \
 				O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
 	if (last_file == -1)
 	{
@@ -177,47 +214,20 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
 	if (dup_last_file_fd_out(cmd) == 1)
 		exit (1);
 	close(WRITE_END);
-    	if (is_builtin(cmd->av[0]))
+	if (is_builtin(cmd->av[0]))
 	{
-		g_exit_value = exec_builtin(cmd->av[0], nb_tabs(cmd->av), cmd->av, &mini->env);
+		g_exit_value = exec_builtin(cmd->av[0], \
+			nb_tabs(cmd->av), cmd->av, &mini->env);
 		exit(g_exit_value);
 	}
-    	else if (!is_builtin(cmd->av[0]))
+	else if (!is_builtin(cmd->av[0]))
 	{
 		g_exit_value = exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
 		exit(g_exit_value);
 	}
 }
 
-void	waiting_for_all_children_to_finish_execution(pid_t	pid_lst[])
-{
-	int	i;
-	int	status;
-
-	i = -1;
-	dup2(STDOUT, STDIN);
-	if (!pid_lst)
-		return ;
-	while (pid_lst[++i] /*&& (!WIFSIGNALED(status))*/)
-	{
-		if (waitpid(pid_lst[i], &status, 0) < -1)
-        	{
-			perror("waitpid");
-			exit(EXIT_FAILURE);
-        	}
-/*	if (WIFEXITED(status))
-		    g_exit = WEXITSTATUS(status); //renvoie le code de sortie du fils
-        if (WIFSIGNALED(status)) //ici amyplant: if gstatus !=131 gstatus +=128 <= voir pq
-            g_exit = WTERMSIG(status); //renvoie signal qui a causé fin du fils
-        if (WIFSTOPPED(status) //arrêté par le signal WSTOPSIG
-            g_exit = WSTOPSIG(status);
-	*/
-	}
-}
-
-
-
-void	waiting_for_all_children_to_finish_executionn(int nb_cmds) //pour la norme. si bug vient d'ici
+void	waiting_for_all_children_to_finish_executionn(int nb_cmds)
 {
 	int	i;
 	int	status;
@@ -226,13 +236,13 @@ void	waiting_for_all_children_to_finish_executionn(int nb_cmds) //pour la norme.
 	dup2(STDOUT, STDIN);
 	if (nb_cmds == 0)
 		return ;
-	while (i < nb_cmds /*&& (!WIFSIGNALED(status))*/)
+	while (i < nb_cmds)
 	{
 		if (waitpid(-1, &status, 0) < -1)
-        	{
+		{
 			perror("waitpid");
 			exit(EXIT_FAILURE);
-        	}
+		}
 		i++;
 	}
 }
@@ -250,8 +260,7 @@ void	run_piped_cmds(t_mini *mini, int nb_cmd)
 	t_cmd	*cmd;
 	int		fd[2];
 	pid_t	new_pid;
-	pid_t	pid_lst[nb_cmd];
-	int 	j;
+	int		j;
 
 	j = 0;
 	cmd = mini->cmd;
@@ -260,9 +269,8 @@ void	run_piped_cmds(t_mini *mini, int nb_cmd)
 		safely_pipe_me(fd);
 		safely_fork(&new_pid);
 		ft_disable_if_fork(new_pid);
-		pid_lst[j] = new_pid;
 		if (new_pid == 0)
-            child_process(cmd, fd, mini);
+			child_process(cmd, fd, mini);
 		else
 			close_old_prepare_eventual_new(cmd, fd);
 		close(READ_END);
@@ -271,5 +279,4 @@ void	run_piped_cmds(t_mini *mini, int nb_cmd)
 		j++;
 	}
 	waiting_for_all_children_to_finish_executionn(nb_cmd);
-	//waiting_for_all_children_to_finish_execution(pid_lst);
 }

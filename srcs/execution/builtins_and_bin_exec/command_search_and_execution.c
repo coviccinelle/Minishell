@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:05:06 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/07 16:28:57 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/08 14:39:07 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	exec_builtin(char *builtin, int ac, char **av, char ***env)
 {
 	int	exit_status;
 
-	exit_status = EXIT_SUCCESS; 
+	exit_status = EXIT_SUCCESS;
 	if (!(ft_strcmp(builtin, "cd")))
 		exec_cd(ac, av, *env);
 	if (!(ft_strcmp(builtin, "echo")))
@@ -93,11 +93,11 @@ char	**ft_split(char *s, char sep)
 
 char	*find_cmd_path(char *cmd, char **env)
 {
-	char	**path;
-	char	*absolute_path;
-	int		j;
+	char		**path;
+	char		*absolute_path;
+	int			j;
 	struct stat	s;
-	char	*possible_paths;
+	char		*possible_paths;
 
 	possible_paths = ft_getenv(env, "PATH");
 	j = -1;
@@ -111,7 +111,7 @@ char	*find_cmd_path(char *cmd, char **env)
 		if (stat(absolute_path, &s) == 0)
 		{
 			free_tab(&path);
-			return (absolute_path); // a free pour le dernier ft_strjoin non?
+			return (absolute_path);
 		}
 		ft_memdel(&absolute_path);
 	}
@@ -126,8 +126,7 @@ void	safely_exec_bin_cmds(char *path, char **av,
 	if (execve(path, av, env) < 0)
 	{
 		perror(path);
-		*exit_status = 1; // a remplacer par g_exit ? anyway faire attention car de base je voulais ret tout en meme temps a la fin de exec_cmd mais la jai un exit donc cet exit_status ne sera pas pris en compte
-		//si bug dans mes pipes, remettre exit(EXIT_FAILURE);
+		*exit_status = 1;
 	}
 }
 
@@ -155,5 +154,6 @@ int	exec_cmd(int ac, char **av, char ***env)
 	}
 	else if (path != NULL)
 		safely_exec_bin_cmds(path, av, *env, &exit_status);
+	free(path);
 	return (exit_status);
 }
