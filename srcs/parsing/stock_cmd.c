@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stock_cmd.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/08 16:11:08 by thi-phng          #+#    #+#             */
+/*   Updated: 2022/03/08 16:19:17 by thi-phng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 t_cmd	*new_elem_cmd(t_mini *mini)
@@ -11,7 +23,7 @@ t_cmd	*new_elem_cmd(t_mini *mini)
 		printf("Exist and Free mini\n");
 	elem->line = NULL;
 	elem->av = NULL;
-	//elem->type = NOPE;
+	elem->type = NOPE;
 	elem->type = 0;
 	elem->file_in = NULL;
 	elem->file_out = NULL;
@@ -36,97 +48,43 @@ void	add_cmd(t_cmd **cmd_lst, t_cmd *cmd)
 	cmd->prev = current;
 }
 
-char	*get_var_name(char *s, int *i)
+int	create_files(int type, char *filename)
 {
-	char	*var_name;
-	int		k;
+	int	fd;
 
-	k = 0;
-	var_name = NULL;
-	while (s[*i] && is_alnum(s[*i]))
-	{
-		var_name[k] = s[*i + k];
-		k++;
-	}
-	var_name[k] = '\0';
-	return (var_name);
-}
-
-void	get_var_dollar(t_mini *mini, t_cmd *cmd, char *s, int *i)
-{
-	char	*var;
-	char	*var_name;
-	int		k;
-
-	k = 0;
-	//var = NULL;
-	var_name = get_var_name(s, i);
-	var = ft_getenv(mini->env, var_name);
-	if (!var)
-		var = " ";
-	ft_avs(cmd, var);
-	free(var);
-	free(var_name);
-}
-
-
-int			create_files(int type, char *filename)
-{
-    int fd;
-
-    fd = -1;
+	fd = -1;
 	printf("type de ficher = %d\n", type);
 	if (type == TRUNC_0)
-	    fd = open (filename, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+		fd = open (filename, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	else if (type == APPEND_0)
-        fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
-   	//else if (type == READONLY_0)
-	//	fd = open(filename, O_RDONLY);
+		fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
 	if (fd == -1)
 	{
-        //perror(filename);
-        return(1);
-    }
-    close(fd);
+		return (1);
+	}
+	close(fd);
 	return (0);
 }
 
-t_file    *ft_last_file(t_file *file)
+void	stock_cmds_3(t_cmd *cmd)
 {
-    t_file       *p;
+	t_file	*file_out;
+	t_file	*file_inn;
 
-    p = file;
-    while (p && p->next)
-    {
-        printf("filename  = %s\n", p->name);
-        p = p->next;
-    }
-    return (p);
-}
-
-void    stock_cmds_3(t_cmd *cmd)
-{
-    t_file *file_out;
-    t_file *file_inn;
-
-    file_inn = cmd->file_in;
-    file_out = cmd->file_out;
-    while ((cmd)->file_in)
-    {
-        create_files((*cmd).file_in->type, (cmd)->file_in->name);
-        (cmd)->file_in = (cmd)->file_in->next;
-    }
-    while ((cmd)->file_out)
-    {
-        create_files((*cmd).file_out->type, (cmd)->file_out->name);
-        (cmd)->file_out = (cmd)->file_out->next;
-    }
-    cmd->last_file_in = ft_last_file(file_inn);
-    cmd->last_file_out = ft_last_file(file_out);
-    if (file_inn != NULL)
-        printf("le dernier fichier IN est : type %d nom = %s\n\n", cmd->last_file_in->type, cmd->last_file_in->name);
-    if (file_out != NULL)
-        printf("le dernier fichier OUT est : type %d nom = %s\n\n", cmd->last_file_out->type, cmd->last_file_out->name);
+	file_inn = cmd->file_in;
+	file_out = cmd->file_out;
+	while ((cmd)->file_in)
+	{
+		create_files((*cmd).file_in->type, (cmd)->file_in->name);
+		(cmd)->file_in = (cmd)->file_in->next;
+	}
+	while ((cmd)->file_out)
+	{
+		create_files((*cmd).file_out->type, (cmd)->file_out->name);
+		(cmd)->file_out = (cmd)->file_out->next;
+	}
+	cmd->last_file_in = ft_last_file(file_inn);
+	cmd->last_file_out = ft_last_file(file_out);
 }
 
 //stock cmd

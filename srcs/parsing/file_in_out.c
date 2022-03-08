@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:45:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 16:03:49 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 16:19:33 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,17 @@ int	ft_add_file_in(t_cmd **cmd, int *i, char *str, char *line)
 	}
 	free(line);
 	return (1);
+}
+
+t_file	*ft_last_file(t_file *file)
+{
+	t_file	*p;
+
+	p = file;
+	while (p && p->next)
+	{
+		printf("filename  = %s\n", p->name);
+		p = p->next;
+	}
+	return (p);
 }

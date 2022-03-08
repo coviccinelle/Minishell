@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 16:05:45 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 16:19:55 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,7 @@ void		ft_pass_squote(char *argv, int *i);
 int			quote_pass_2(char *argv, int *i);
 int			check_redir(char *line, int i);
 int	ft_redirec(char *line, int *i, char *str, t_cmd **tmp);
+t_file		*ft_last_file(t_file *file);
 
 int	ft_add_file_in(t_cmd **cmd, int *i, char *str, char *line);
 
