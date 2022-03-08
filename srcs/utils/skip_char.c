@@ -62,7 +62,6 @@ int	is_redir(int c)
 
 void	skip_blank_2(char *str, int *i, t_cmd *tmp, char *line_after)
 {
-	printf("line_ater = %s\n", line_after);
 	if (str[(*i)])
 	{
 		while (ft_is_blank(str[*i]))

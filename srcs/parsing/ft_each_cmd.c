@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 12:07:54 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 12:14:23 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,13 +231,10 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 		(*cmd)->stop = 0;
 		if (line[*i] == ' ')
 		{
-			printf("espace 1\n");
 			skip_blank_2(line, i, *cmd, line_after);
 			line_after = NULL;
-			printf("espace 2\n");
 			if (!line[*i])
 				break ;
-			printf("espace 3\n");
 		}
 		else if (line[*i] == '"')
 		{
@@ -247,14 +244,12 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 				break ;
 			}
 			line_after = ft_d2_quotes(line_after, i, line, *cmd, mini);
-			printf("STOCK LINE_AFTER %s\n", line_after);
 			if (!line_after)
 				return (0);
 			ft_avs(*cmd, line_after);
 			if (!quote_pass_2(line, i))
 				break ;
 			line_after = NULL;
-			printf("fin de quotes\n");
 		}
 		else if (line[*i] == '\'')
 		{
