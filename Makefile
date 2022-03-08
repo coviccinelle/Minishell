@@ -17,6 +17,7 @@ SRC		=	srcs/main.c \
 			srcs/parsing/file_in_out.c \
 			\
 			srcs/utils/is_something.c \
+			srcs/utils/ft_itoa.c \
 			srcs/utils/skip_char.c \
 			srcs/utils/ft_free.c \
 			srcs/utils/cpy_stuff.c \

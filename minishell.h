@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 16:51:53 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 16:59:26 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	init_shell(void);
 
 //*** Utils ***//
 int			find_me(char c, char *str);
+char		*ft_itoa(int nb);
 int			is_token_char(char c);
 int			is_digit(char c);
 int			is_alpha(char c);

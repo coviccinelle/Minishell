@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:13:00 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/08 12:23:38 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 17:15:19 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	exec_exit(int ac, char **av)
 		exit(g_exit_value);
 	}
 	else if (all_are_digits(av[1]) && ac > 2)
-		ft_puterror_fd("minishell: exit: ", "too many arguments", NULL);
+		g_exit_value = ft_puterror_fd("minishell: exit: ", "too many arguments", NULL);
 	else if (all_are_digits(av[1]) && ac == 2)
 	{
 		printf("exit\n");
