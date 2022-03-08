@@ -27,13 +27,31 @@ void	mini_run(t_mini *mini)
 
 	mini->cmd = stock_cmds(mini);
 	if(!mini->cmd || !mini->cmd->av)
+	{
+		ft_free_cmds(mini);
 		return ;
+	}
 	cmd = mini->cmd;
 	if (nb_cmds(mini->cmd) == 1)
 		exec_cmd_with_no_pipe(mini);
 	else
 		run_piped_cmds(mini,  nb_cmds(mini->cmd));
-	free(cmd->line);
+	//free(cmd->line);
+	ft_free_cmds(mini);
+}
+
+void	ft_copy_env(char ***s, char **v)
+{
+	int	i;
+
+	i = 0;
+	while(v[i])
+		i++;
+	(*s) = malloc(sizeof(char *) * (i + 1));
+	i = -1;
+	while(v[++i])
+		(*s)[i] = ft_strdup(v[i]);
+	(*s)[i] = NULL;
 }
 
 // my_new_version :
@@ -43,8 +61,12 @@ void	minishell(char **env)
 	char		*line;//data_parsing
 
 	ft_init_mini(&mini);
-	mini->env = ft_env_cpy(env);
+	mini->env = NULL;
+//	mini->env = ft_env_cpy(env);
+	ft_copy_env(&(mini->env), env);
+	//mini->env = env;
 	init_shell();
+	line = NULL;
 	while (42)
 	{
 		line = ft_readline_input(mini->line);
@@ -52,10 +74,15 @@ void	minishell(char **env)
 		mini->line = line;
 		if (mini->line || mini->cmd->av)
 			mini_run(mini);
-		//free(mini);
-		//free(line);
+
 		unlink("heredoc");
+		if(line)
+			free(line);
+//	ft_free_cmds(mini);
 	}
+	free_tab(&(mini->env));
+//	free(mini);
+	//free(line);
 }
 
 int g_exit_value = 0;

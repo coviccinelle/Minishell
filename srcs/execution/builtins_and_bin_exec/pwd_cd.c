@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:53 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/08 14:31:08 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/08 18:49:46 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	exec_pwd(void)
 	if (pwd)
 	{
 		ft_putendl_fd(pwd, 1);
-		ft_memdel(&pwd);
+		//ft_memdel(&pwd);
+		if(pwd)
+			free(pwd);
 		return (EXIT_SUCCESS);
 	}
 	else if (!pwd)

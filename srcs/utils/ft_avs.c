@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:21:52 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/07 22:01:55 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 17:33:09 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,6 @@ char	**ft_malloc_avs(t_cmd *one_cmd, int len_tab, char *line)
 	ft_fill_av(one_cmd, new, line);
 	free(line);
 	free_avs(one_cmd->av);
-	// if (one_cmd->av)
-	//	printf("av existe\n");
 	return (new);
 }
 
@@ -121,7 +119,6 @@ char	**ft_avs_2(t_cmd *one_cmd, char *line_after)
 	int	len_tab;
 
 	len_tab = ft_len_avs(one_cmd->av);
-	//printf("ATTENTION : ft_len_avs is %d\n", ft_len_avs(one_cmd->av));
 	one_cmd->av = ft_malloc_avs(one_cmd, len_tab, line_after);
 	if (!one_cmd->av)
 		return (NULL);

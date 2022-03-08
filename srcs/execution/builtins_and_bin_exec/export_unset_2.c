@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_unset_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:16:58 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/08 15:30:43 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/08 17:41:40 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,13 @@ int	ft_unsetenv(char ***env, char *name)
 
 	found = find_in_env(*env, name, &pos_name);
 	if (ft_strcmp(found, "") == 0)
+	{	
+		if(found)
+			free(found);
 		return (0);
+	}
+	if(found)
+		free(found);
 	j = pos_name;
 	while ((*env)[j] && j < nb_tabs(*env))
 	{

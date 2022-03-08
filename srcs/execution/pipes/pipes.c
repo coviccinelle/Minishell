@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/08 16:01:29 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/08 19:03:14 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ void	i_am_your_father(t_mini *mini, t_cmd *cmd)
 			nb_tabs(cmd->av), cmd->av, &mini->env);
 }
 
+// built in 
+// cmd invalid dans les non built in
+
 int	exec_builtin_no_pipe(t_mini *mini)
 {
 	t_cmd	*cmd;
@@ -122,6 +125,7 @@ int	exec_builtin_no_pipe(t_mini *mini)
 			g_exit_value = exec_builtin(cmd->av[0], \
 				nb_tabs(cmd->av), cmd->av, &mini->env);
 		close(fd_out);
+		//free(&(mini->env));
 		exit(1);
 	}
 	return (g_exit_value);
@@ -141,7 +145,7 @@ int	exec_cmd_with_no_pipe(t_mini *mini)
 	else
 	{
 		father = fork();
-		ft_disable_if_fork(father);
+		//ft_disable_if_fork(father);
 		if (father > 0)
 			waitpid(-1, &status, 0);
 		if (father == 0)

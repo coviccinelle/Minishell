@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 16:59:26 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 18:27:15 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct s_file
 
 typedef struct s_cmd
 {
-	char			*line;
+//	char			*line;
 	char			**av;
 	int				stop;
 	int				type;
@@ -80,7 +80,7 @@ typedef struct s_cmd
 	t_file			*last_file_in;
 	t_file			*last_file_out;
 	struct s_cmd	*next;
-	struct s_cmd	*prev;
+//	struct s_cmd	*prev;
 }				t_cmd;
 
 typedef struct s_mini
@@ -93,7 +93,7 @@ typedef struct s_mini
 	int				fork;
 	int				ret_status;
 	t_cmd			*cmd;
-	char			*heredoc;
+	//char			*heredoc;
 }				t_mini;
 
 // *** // main  // *** //
