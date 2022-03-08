@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:45:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 15:48:10 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/08 16:03:49 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,19 @@ int	ft_add_to_fstack_in(t_cmd **cmd, char *line)
 	if (!new)
 		return (0);
 	new->next = NULL;
-	new->name = strdup(line); // a remplacer par ft_strdup
+	new->name = strdup(line);// a remplacer par ft_strdup
 	new->type = (*cmd)->type;
-    if (new->type == HEREDOC)
-    {
-			call_heredoc(new->name);
-    }
-    if (!(*cmd)->file_in)
-        (*cmd)->file_in = new;
-    else
-    {
-        while(p && p->next)
-            p = p->next;
-        p->next = new;
-    }
-    return (1);
+	if (new->type == HEREDOC)
+		call_heredoc(new->name);
+	if (!(*cmd)->file_in)
+		(*cmd)->file_in = new;
+	else
+	{
+		while (p && p->next)
+			p = p->next;
+		p->next = new;
+	}
+	return (1);
 }
 
 int	ft_add_file_out(t_cmd **cmd, int *i, char *str, char *line)
