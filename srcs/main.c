@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 21:46:52 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 23:00:51 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,21 @@ void	ft_copy_env(char ***s, char **v)
 	(*s)[i] = NULL;
 }
 
+#include "string.h"
 // my_new_version :
 void	minishell(char **env)
 {
 	t_mini		*mini;//data
 	char		*line;//data_parsing
 	
+	//mini = NULL;
 	ft_init_mini(&mini);
 	ft_copy_env(&(env), env);
 	init_shell();
 	line = NULL;
 	while (42)
 	{
+		//mini->line = NULL;
 		line = ft_readline_input(mini->line, &env);
 		if(!line)
 			exit(130);
@@ -82,6 +85,7 @@ void	minishell(char **env)
 		if (mini->line || mini->cmd->av)
 			mini_run(mini, &env);
 		unlink("heredoc");
+		free_tab(&env);
 		//if (line)
 		//	free(line);
 		ft_free_cmds(mini);
