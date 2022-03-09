@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 20:41:43 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 21:32:41 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	quote_pass_2(char *str, int *i)
 }
 
 // more than 25 lines =>82 lignes
-int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
+int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd, char ***env)
 {
 	char		*buf;
 	char		*line_after;
@@ -59,7 +59,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 				(*i) += 2;
 				break ;
 			}
-			line_after = ft_d2_quotes(line_after, i, *cmd, mini);
+			line_after = ft_d2_quotes(line_after, i, *cmd, mini, env);
 			if (!line_after)
 				return (0);
 			if (!ft_strcmp(line_after, "?"))
@@ -93,7 +93,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 			line_after = dolar_name(line, i, line_after, *cmd);
 			if (*line_after == '?')
 				ft_avs(*cmd, ft_itoa(g_exit_value));
-			avs_and_nul(*cmd, dolar_2(line, i, line_after, mini->env));
+			avs_and_nul(*cmd, dolar_2(line, i, line_after, *env));
 			line_after = NULL;
 		}
 		else if (is_redir(line[*i]))

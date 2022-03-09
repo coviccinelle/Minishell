@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:32:04 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 16:27:01 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 21:31:53 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	ft_init_mini(t_mini **mini)
 {
 	(*mini)->pipe = 0;
 	(*mini)->line = NULL;
-	(*mini)->env = NULL;
 	(*mini)->fork = 0;
 	(*mini)->ret_status = 0;
 }

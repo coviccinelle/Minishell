@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:11:08 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 19:17:53 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 20:59:39 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	ft_free_c(t_cmd **c)
 }
 
 //stock cmd
-t_cmd	*stock_cmds(t_mini *mini)
+t_cmd	*stock_cmds(t_mini *mini, char ***env)
 {
 	t_cmd	*cmd_lst;
 	t_cmd	*cmd;
@@ -134,7 +134,7 @@ t_cmd	*stock_cmds(t_mini *mini)
 		{
 			while (mini->line[i] == ' ')
 				i++;
-			int a = ft_each_cmd_4(mini, mini->line, &i, &cmd);
+			int a = ft_each_cmd_4(mini, mini->line, &i, &cmd, env);
 			if (a == 1)
 				stock_cmds_3(cmd);
 			else

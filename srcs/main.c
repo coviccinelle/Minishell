@@ -6,31 +6,31 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 19:45:50 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 21:46:52 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_readline_input(char *line, t_mini *mini)
+char	*ft_readline_input(char *line, char ***env)
 {
 	signal(SIGINT, ft_sigint_ctr_c);
 	signal(SIGQUIT, ft_sigquit_ctr_bs);
 	line = readline("\033[1;33m~🌈 Minishell 🌻$\033[0m ");
 	if (!line)
 	{
-		free_tab(&(mini->env));
+		free_tab(env);
 		//printf("Oops someone just typed ctr^D?!? Bye, I'm out < 0_0 >\n");
 		exit(0);
 	}
 	return (line);
 }
 
-void	mini_run(t_mini *mini)
+void	mini_run(t_mini *mini, char ***env)
 {
 //	t_cmd	*cmd;
 
-	mini->cmd = stock_cmds(mini);
+	mini->cmd = stock_cmds(mini, env);
 	if (!mini->cmd || !mini->cmd->av)
 	{
 		ft_free_cmds(mini);
@@ -38,9 +38,9 @@ void	mini_run(t_mini *mini)
 	}
 //	cmd = mini->cmd;
 	if (nb_cmds(mini->cmd) == 1)
-		exec_cmd_with_no_pipe(mini);
+		exec_cmd_with_no_pipe(mini, env);
 	else
-		run_piped_cmds(mini, nb_cmds(mini->cmd));
+		run_piped_cmds(mini, nb_cmds(mini->cmd), env);
 	//free(cmd->line);
 //	if(mini)
 //		ft_free_cmds(mini);
@@ -69,21 +69,18 @@ void	minishell(char **env)
 	char		*line;//data_parsing
 	
 	ft_init_mini(&mini);
-	mini->env = NULL;
-//	mini->env = ft_env_cpy(env);
-	ft_copy_env(&(mini->env), env);
-	//mini->env = env;
+	ft_copy_env(&(env), env);
 	init_shell();
 	line = NULL;
 	while (42)
 	{
-		line = ft_readline_input(mini->line, mini);
+		line = ft_readline_input(mini->line, &env);
 		if(!line)
 			exit(130);
 		add_history(line);
 		mini->line = line;
 		if (mini->line || mini->cmd->av)
-			mini_run(mini);
+			mini_run(mini, &env);
 		unlink("heredoc");
 		//if (line)
 		//	free(line);

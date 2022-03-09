@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 17:49:21 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 21:39:03 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef struct s_cmd
 
 typedef struct s_mini
 {
-	char			**env;
+	//char			**env;
 	char			*line;
 	int				stop;
 	int				n_cmd;
@@ -201,8 +201,8 @@ int			ft_avs(t_cmd *one_cmd, char *line_after);
 char		**ft_avs_2(t_cmd *one_cmd, char *line_after);
 int			ft_buf(char *argv, int *i, char *buf);
 int			ft_check_2rd_quote_2(char *line, int c);
-char		*ft_d2_quotes(char *line_after, int *i, t_cmd *cmd, t_mini *mini);
-char		*ft_single_quote(char *line_after, int *i, char *line, t_cmd *one_cmd);
+char		*ft_d2_quotes(char *line_after, int *i, t_cmd *cmd, t_mini *mini, char ***env);
+char	*ft_single_quote(char *line_after, int *i, char *line, t_cmd *cmd);
 void		free_avs(char **avs);
 char		*dollar_sign(int ac, char **av, char **env);
 void		skip_blank_2(char *str, int *i, t_cmd *tmp, char *line_after);
@@ -227,10 +227,10 @@ void		print_list(t_cmd **mini);
 int			is_blank(int c);
 int			is_redir(int c);
 void		get_line(t_mini *mini, int *pos, t_cmd *cmd);
-t_cmd		*stock_cmds(t_mini *mini);
+t_cmd		*stock_cmds(t_mini *mini, char ***env);
 void		ft_each_cmd_3(t_mini *mini, char *str, int *i, t_cmd *cmd);
 t_cmd		*stock_cmds_2(t_mini *mini);
-int			ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **one_cmd);
+int			ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **one_cmd, char ***env);
 void		get_redir(t_mini *mini, int *i, t_cmd *cmd);
 char		*add_char(t_mini *mini, char *str, int c);
 
@@ -243,10 +243,10 @@ int			nb_cmds(t_cmd *cmd);
 void		safely_exec_bin(char **cmd);
 void		safely_pipe_me(int new_pipe_fd[]);
 void		safely_fork(int *pid);
-void		child_process(t_cmd *cmd, int *fd, t_mini *mini);
+void		child_process(t_cmd *cmd, int *fd, char ***env);
 void		waiting_for_all_children_to_finish_execution(int nb_cmds);
-void		run_piped_cmds(t_mini *mini, int nb_cmd);
-int			exec_cmd_with_no_pipe(t_mini *mini);
+void		run_piped_cmds(t_mini *mini, int nb_cmd, char ***env);
+int			exec_cmd_with_no_pipe(t_mini *mini, char ***env);
 
 //*** REDIRECTIONS ***//
 void		ft_set_direct(char *line, int *i, t_cmd *mini);

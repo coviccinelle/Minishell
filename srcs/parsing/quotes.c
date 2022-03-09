@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 12:17:39 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 21:32:32 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_check_2rd_quote(char *str, char c)
 		return (1);
 }
 
-char	*ft_add_double_quote(int *i, char *line, char *line_after, t_mini *mini)
+char	*ft_add_double_quote(int *i, char *line, char *line_after, char ***env)
 {
 	if (!ft_check_2rd_quote(&line[*i], '"'))
 	{
@@ -51,20 +51,20 @@ char	*ft_add_double_quote(int *i, char *line, char *line_after, t_mini *mini)
 		(*i)++;
 	}
 	if (find_me('$', line_after) != -1)
-		line_after = dolar_quote(line_after, mini->env);
+		line_after = dolar_quote(line_after, *env);
 	(*i)++;
 	return (line_after);
 }
 
 // // DOUBLE QUOTES principales //
-char	*ft_d2_quotes(char *line_aft, int *i, t_cmd *cmd, t_mini *mini)
+char	*ft_d2_quotes(char *line_aft, int *i, t_cmd *cmd, t_mini *mini, char ***env)
 {
 	if (line_aft)
 	{
 		ft_avs(cmd, line_aft);
 		line_aft = NULL;
 	}
-	return (ft_add_double_quote(i, mini->line, line_aft, mini));
+	return (ft_add_double_quote(i, mini->line, line_aft, env));
 }
 
 char	*stock_single_quote(int *i, char *line, char *line_after)
