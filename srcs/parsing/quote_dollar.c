@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:38:44 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 12:10:15 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 12:36:27 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_strjoin_2(char *s1, char *s2)
 	int		i;
 	int		e;
 
-	i = 0;
+	i = -1;
 	e = 0;
 	if (!s1)
 		return (s2);
@@ -41,11 +41,8 @@ char	*ft_strjoin_2(char *s1, char *s2)
 	ret = malloc(ft_strlen(s1) + ft_strlen(s2) + 2);
 	if (!ret)
 		return (NULL);
-	while (s1[i])
-	{
+	while (s1[++i])
 		ret[i] = s1[i];
-		i++;
-	}
 	while (s2[e])
 	{
 		ret[i + e] = s2[e];
