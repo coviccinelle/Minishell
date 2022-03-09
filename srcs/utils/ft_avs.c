@@ -6,12 +6,11 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:21:52 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 17:33:09 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 13:03:02 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
 
 //stuff buf + \0
 int	ft_buf(char *argv, int *i, char *buf)
@@ -20,7 +19,6 @@ int	ft_buf(char *argv, int *i, char *buf)
 		return (0);
 	buf[0] = argv[(*i)];
 	buf[1] = '\0';
-//	(void)line;
 	(*i)++;
 	return (1);
 }
@@ -81,7 +79,8 @@ char	**ft_malloc_avs(t_cmd *one_cmd, int len_tab, char *line)
 
 	if (len_tab == 0)
 	{
-		if (!(new = malloc(sizeof(char *) * 2)))
+		new = malloc(sizeof(char *) * 2);
+		if (!new)
 			return (0);
 		new[0] = malloc(sizeof(char) * (ft_strlen(line) + 1));
 		if (!new[0])
@@ -106,24 +105,8 @@ int	ft_avs(t_cmd *one_cmd, char *line_after)
 	int	len_tab;
 
 	len_tab = ft_len_avs(one_cmd->av);
-	// while (*line_after == ' ')
-	// 	(*line_after)++;
 	one_cmd->av = ft_malloc_avs(one_cmd, len_tab, line_after);
 	if (!one_cmd->av)
 		return (0);
 	return (1);
 }
-
-char	**ft_avs_2(t_cmd *one_cmd, char *line_after)
-{
-	int	len_tab;
-
-	len_tab = ft_len_avs(one_cmd->av);
-	one_cmd->av = ft_malloc_avs(one_cmd, len_tab, line_after);
-	if (!one_cmd->av)
-		return (NULL);
-	//free(line_after);
-	return (one_cmd->av);
-}
-
-

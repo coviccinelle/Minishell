@@ -6,12 +6,11 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 14:30:11 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/02/09 16:29:25 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 13:07:16 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
 
 int	ft_len_avs(char **avs)
 {
@@ -25,15 +24,16 @@ int	ft_len_avs(char **avs)
 	return (i);
 }
 
-void  ft_free_tab(char **tab)
+void	ft_free_tab(char **tab)
 {
-   int i = 0;
+	int	i;
 
-   while (tab[i])
-   {
-      free(tab[i]);
-      i++;
-   }
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
 }
 
 char	**ft_copy_tab(char **env)
@@ -48,21 +48,22 @@ char	**ft_copy_tab(char **env)
 	size = nb_tabs(env);
 	envp = malloc(sizeof(char *) * (size + 1));
 	while (++i < size)
-		envp[i] = strdup(env[i]); // A REMPLACER ! pourquoi ne repere pas mon ft_strdup ????
+		envp[i] = strdup(env[i]); // A REMPLACER ! 
+		//pourquoi ne repere pas mon ft_strdup ????
 	envp[i] = NULL;
 	return (envp);
 }
 
-void ft_putchar(int c)
+void	ft_putchar(int c)
 {
 	write(1, &c, 1);
 }
 
-void ft_putstr(char *s)
+void	ft_putstr(char *s)
 {
 	int	i;
 
 	i = -1;
-	while(s[++i])
-		write(1, &s[i], 1);
+	while (s[++i])
+		write (1, &s[i], 1);
 }
