@@ -31,7 +31,6 @@ SRC		=	srcs/main.c \
 			srcs/utils/utils_env.c \
 			srcs/utils/ft_split_3.c \
 			srcs/utils/ft_copy_tab.c \
-			srcs/utils/ft_space_skip.c \
 			srcs/utils/ft_redir_utils.c \
 			srcs/utils/utils_libft_1.c \
 			srcs/utils/utils_libft_2.c \
