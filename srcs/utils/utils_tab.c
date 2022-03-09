@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:32:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 14:34:54 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 16:35:33 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	print_export(char **tab)
 
 // plus print tab mais print env plutot vu que 
 //je viens dajouter la condition strchr
-void	print_env(char **env)
+int	print_env(char **env)
 {
 	int	j;
 
@@ -46,6 +46,7 @@ void	print_env(char **env)
 		if (strchr(env[j], '=')) // a remplacer par ft_strchr
 			printf("%s\n", env[j]);
 	}
+	return(1);
 }
 
 void	swap(char **s1, char **s2)

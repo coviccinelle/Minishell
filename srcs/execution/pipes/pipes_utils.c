@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mloubet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:48 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/04 17:49:49 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/09 16:32:34 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	safely_pipe_me(int new_pipe_fd[])
 void	safely_fork(int *pid)
 {
 	*pid = fork();
-	if (pid < 0)
+	if (*pid < 0)
 	{
 		perror("fork");
 		exit(EXIT_FAILURE);

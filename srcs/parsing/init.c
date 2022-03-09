@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:32:04 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 12:38:01 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 16:27:01 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	init_shell(void)
 	printf("  ~^~^~^ `----------------' ~^~^~^\n");
 	printf(" ~^~^~^~^~^^~^~^~^~^~^~^~^~^~^~^~\n");
 	printf("\n");
-	printf("");
+	//printf("");
 	printf("Your user_name is : %s\n", user_name);
 	sleep(1);
 }

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:05:06 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/08 17:11:37 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 17:16:09 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ int	exec_builtin(char *builtin, int ac, char **av, char ***env)
 
 	exit_status = EXIT_SUCCESS;
 	if (!(ft_strcmp(builtin, "cd")))
-		exec_cd(ac, av, *env);
+		exit_status = exec_cd(ac, av, *env);
 	if (!(ft_strcmp(builtin, "echo")))
 		exit_status = exec_echo(ac, av);
 	if (!(ft_strcmp(builtin, "env")))
-		print_env(*env);
+		exit_status = print_env(*env);
 	if (!(ft_strcmp(builtin, "export")))
 		exit_status = exec_export(ac, av, env);
 	if (!(ft_strcmp(builtin, "exit")))
-		exec_exit(ac, av);
+		exit_status = exec_exit(ac, av);
 	if (!(ft_strcmp(builtin, "pwd")))
 		exit_status = exec_pwd();
 	if (!(ft_strcmp(builtin, "unset")))
@@ -150,7 +150,8 @@ int	exec_cmd(int ac, char **av, char ***env)
 	if (path == NULL)
 	{
 		ft_puterror_fd("minishell: ", "command not found: ", av[0]);
-		exit_status = 127;
+		exit(127);
+		return(127);
 	}
 	else if (path != NULL)
 		safely_exec_bin_cmds(path, av, *env, &exit_status);

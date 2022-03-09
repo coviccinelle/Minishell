@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/08 19:03:14 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 17:33:55 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int	exec_builtin_no_pipe(t_mini *mini)
 	pid_t	f;
 	int		status;
 	int		fd_out;
+	int		ret;
 
 	cmd = mini->cmd;
 	f = fork();
@@ -122,11 +123,11 @@ int	exec_builtin_no_pipe(t_mini *mini)
 			exit (1);
 		fd_out = dup_last_file_fd_out(cmd);
 		if (cmp_again(cmd) == 0)
-			g_exit_value = exec_builtin(cmd->av[0], \
-				nb_tabs(cmd->av), cmd->av, &mini->env);
+			ret = (exec_builtin(cmd->av[0], \
+				nb_tabs(cmd->av), cmd->av, &mini->env));
 		close(fd_out);
+		exit(ret); 
 		//free(&(mini->env));
-		exit(1);
 	}
 	return (g_exit_value);
 }
@@ -135,28 +136,37 @@ int	exec_cmd_with_no_pipe(t_mini *mini)
 {
 	t_cmd	*cmd;
 	int		status;
-	int		exit_value;
+//	int		exit_value;
 	pid_t	father;
 
-	exit_value = 0;
+	g_exit_value = 0;
 	cmd = mini->cmd;
 	if (is_builtin(cmd->av[0]))
-		exit_value = exec_builtin_no_pipe(mini);
+		g_exit_value = exec_builtin_no_pipe(mini);
 	else
 	{
 		father = fork();
-		//ft_disable_if_fork(father);
+		ft_disable_if_fork(father);
 		if (father > 0)
+		{
 			waitpid(-1, &status, 0);
+			if(WIFEXITED(status))
+				g_exit_value = WEXITSTATUS(status);
+			fprintf(stderr, "\n  g_ret = %d\n", g_exit_value);
+		}
 		if (father == 0)
 		{
 			if (dup_last_file_fd_in(cmd) == 1)
 				exit (1);
 			dup_last_file_fd_out(cmd);
-			exit_value = exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env);
-			exit(0);
+			exit(exec_cmd(nb_tabs(cmd->av), cmd->av, &mini->env));
+			//if(WIFEXITED(status))
+			//	g_exit_value = WEXITSTATUS(status);
+			//fprintf(stderr, "\n  g_ret = %d\n", g_exit_value);
+			//exit(g_exit_value);
 		}
 	}
+	ft_start_signal();
 	return (g_exit_value);
 }
 
@@ -208,15 +218,15 @@ int	dup_last_file_fd_out(t_cmd *cmd)
 	return (last_file);
 }
 
-void	child_process(t_cmd *cmd, int *fd, t_mini *mini)
+void		child_process(t_cmd *cmd, int *fd, t_mini *mini)
 {
 	close(READ_END);
 	if (dup_last_file_fd_in(cmd) == 1)
-		exit (1);
+		exit (1); //return?
 	if (cmd->next)
 		dup2(WRITE_END, STDOUT);
 	if (dup_last_file_fd_out(cmd) == 1)
-		exit (1);
+		exit (1); //return?
 	close(WRITE_END);
 	if (is_builtin(cmd->av[0]))
 	{
@@ -247,12 +257,15 @@ void	waiting_for_all_children_to_finish_executionn(int nb_cmds)
 			perror("waitpid");
 			exit(EXIT_FAILURE);
 		}
+		if(WIFEXITED(status))
+			g_exit_value = WEXITSTATUS(status);
 		i++;
 	}
 }
 
 void	close_old_prepare_eventual_new(t_cmd *cmd, int *fd)
 {
+	
 	close(WRITE_END);
 	if (cmd->next)
 		dup2(READ_END, STDIN);
@@ -270,9 +283,11 @@ void	run_piped_cmds(t_mini *mini, int nb_cmd)
 	cmd = mini->cmd;
 	while (cmd)
 	{
+		g_exit_value = 0;
 		safely_pipe_me(fd);
 		safely_fork(&new_pid);
-		ft_disable_if_fork(new_pid);
+		//ft_disable_if_fork(new_pid);
+		fprintf(stderr, "\n GRET AVANT = %d \n", g_exit_value);
 		if (new_pid == 0)
 			child_process(cmd, fd, mini);
 		else
@@ -281,6 +296,8 @@ void	run_piped_cmds(t_mini *mini, int nb_cmd)
 		close(WRITE_END);
 		cmd = cmd->next;
 		j++;
+		fprintf(stderr, "\n GRET PENDANT = %d \n", g_exit_value);
 	}
 	waiting_for_all_children_to_finish_executionn(nb_cmd);
+	fprintf(stderr, "\n GRET FINAL = %d\n", g_exit_value);
 }

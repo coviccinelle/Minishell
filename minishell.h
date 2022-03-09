@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 14:05:47 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 16:35:42 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,9 +167,8 @@ void		init_tab(char **av, char ***s);
 int			exec_export(int ac, char **av, char ***env);
 int			ft_unsetenv(char ***env, char *name);
 int			exec_unset(int ac, char **av, char ***env);
-void		print_env(char **env);
+int		print_env(char **env);
 char		*ft_getenv(char **env, char *name);
-void		print_env(char **env);
 int			exec_exit(int ac, char **av);
 void		ft_bzero(void *b, size_t n);
 void		*ft_memalloc(size_t size);

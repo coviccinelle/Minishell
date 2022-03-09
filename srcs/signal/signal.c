@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:38:11 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 16:31:57 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 17:37:24 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,20 @@ void	ft_ignore(int sig)
 		g_exit_value = 131;
 	}
 }
+/*
+void	ft_disable_if_fork(int pid)
+{
+	if (pid == 0)
+	{
+		signal(SIGINT, ft_sigint_ctr_c);
+		signal(SIGQUIT, ft_sigquit_ctr_bs);
+	}
+	else
+	{
+		signal(SIGINT, ft_ignore);
+		signal(SIGQUIT, ft_ignore);
+	}
+}*/
 
 void	ft_disable_if_fork(int pid)
 {

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 09:16:14 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 16:42:42 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_readline_input(char *line)
 
 void	mini_run(t_mini *mini)
 {
-	t_cmd	*cmd;
+//	t_cmd	*cmd;
 
 	mini->cmd = stock_cmds(mini);
 	if (!mini->cmd || !mini->cmd->av)
@@ -35,7 +35,7 @@ void	mini_run(t_mini *mini)
 		ft_free_cmds(mini);
 		return ;
 	}
-	cmd = mini->cmd;
+//	cmd = mini->cmd;
 	if (nb_cmds(mini->cmd) == 1)
 		exec_cmd_with_no_pipe(mini);
 	else
@@ -88,7 +88,7 @@ void	minishell(char **env)
 	//free(line);
 }
 
-int	g_exit_value = 0;
+int	g_exit_value;
 
 int	main(int ac, char **av, char **env)
 {

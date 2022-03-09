@@ -1,6 +1,6 @@
 NAME	=	minishell
-CC		=	clang
-CFLAGS	=	-Wall -Wextra -Werror -g3
+CC		=	gcc
+CFLAGS	=	-Wall -Wextra -Werror
 RM		=	rm -rf
 SRC		=	srcs/main.c \
 			\

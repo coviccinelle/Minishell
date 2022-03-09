@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:45:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 12:39:53 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 17:11:18 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	ft_add_to_fstack_out(t_cmd **cmd, char *line)
 {
-	t_file		*tmp;
+//	t_file		*tmp;
 	t_file		*new;
 	t_file		*p;
 
-	tmp = (*cmd)->file_out;
+//	tmp = (*cmd)->file_out;
 	p = (*cmd)->file_out;
 	new = (t_file *)malloc(sizeof(t_file));
 	if (!new)
@@ -39,17 +39,17 @@ int	ft_add_to_fstack_out(t_cmd **cmd, char *line)
 
 int	ft_add_to_fstack_in(t_cmd **cmd, char *line)
 {
-	t_file		*tmp;
+//	t_file		*tmp;
 	t_file		*new;
 	t_file		*p;
 
-	tmp = (*cmd)->file_in;
+//	tmp = (*cmd)->file_in;
 	p = (*cmd)->file_in;
 	new = (t_file *)malloc(sizeof(t_file));
 	if (!new)
 		return (0);
 	new->next = NULL;
-	new->name = strdup(line);// a remplacer par ft_strdup
+	new->name = ft_strdup(line);
 	new->type = (*cmd)->type;
 	if (new->type == HEREDOC)
 		call_heredoc(new->name);

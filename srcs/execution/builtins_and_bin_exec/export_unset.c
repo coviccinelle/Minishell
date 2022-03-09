@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:42 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/09 14:41:20 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 16:31:58 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ int	comp_env(char *s, char *s1)
 char	*find_in_env(char **env, char *name, int *pos)
 {
 	int		j;
-	int		name_len;
+//	int		name_len;
 	char	*s;
 	int		c;
 
-	name_len = ft_strlen(name);
+//	name_len = ft_strlen(name);
 	j = -1;
 	if (name == NULL || env == NULL)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 14:30:11 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 13:07:16 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 17:09:30 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	**ft_copy_tab(char **env)
 	size = nb_tabs(env);
 	envp = malloc(sizeof(char *) * (size + 1));
 	while (++i < size)
-		envp[i] = strdup(env[i]); // A REMPLACER ! 
+		envp[i] = ft_strdup(env[i]); // A REMPLACER ! 
 		//pourquoi ne repere pas mon ft_strdup ????
 	envp[i] = NULL;
 	return (envp);
