@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:53:50 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 16:29:46 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 23:52:02 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ int	check_redir(char *line, int i)
 void	avs_and_nul(t_cmd *cmd, char *str)
 {
 	if (str)
+	{
 		ft_avs(cmd, str);
+	//	free(str);
+	}
 }
 
 int	ft_redirec(char *line, int *i, char *str, t_cmd **tmp)
@@ -73,6 +76,7 @@ int	ft_redirec(char *line, int *i, char *str, t_cmd **tmp)
 		ft_add_file_out(tmp, i, line, str);
 //	file_in_2 = (*tmp)->file_in;
 //	t = (*tmp)->file_out;
+
 	line = NULL;
 	return (1);
 }

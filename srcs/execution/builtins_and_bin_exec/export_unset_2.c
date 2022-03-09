@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:16:58 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/09 14:44:27 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 23:41:45 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@ int	get_into_export_lst(char ***env, char **av, char **name, char **data)
 	return (0);
 }
 
-void	free_all(char **name, char **data, char **av)
+void	free_all(char ***name, char ***data, char **av)
 {
 	int	j;
 
 	j = 0;
 	while (av[j + 1])
 	{
-		if (name[j])
-			free(name[j]);
-		if (data[j])
-			free(data[j]);
+		if (*name[j])
+			free(*name[j]);
+		if (*data[j])
+			free(*data[j]);
 		j++;
 	}
-	free(name);
-	free(data);
+	free(*name);
+	free(*data);
 }
 
 char	*l(char *line)
@@ -116,7 +116,7 @@ int	exec_export(int ac, char **av, char ***env)
 	}
 	name[j] = NULL;
 	get_into_export_lst(env, av, name, data);
-	free_all(name, data, av);
+	free_all(&name, &data, av);
 	return (exit_value);
 }
 

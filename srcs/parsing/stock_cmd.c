@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:11:08 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 20:59:39 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 00:02:38 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,10 @@ void	stock_cmds_3(t_cmd *cmd)
 	}
 	cmd->last_file_in = ft_last_file(file_inn);
 	cmd->last_file_out = ft_last_file(file_out);
-	free_file(&cmd->file_in);
-	free_file(&cmd->file_out);
+	// if (cmd->file_in)
+	// 	free_file(&cmd->file_in);
+	// if (cmd->file_out)
+	// 	free_file(&cmd->file_out);
 
 }
 
@@ -147,6 +149,8 @@ t_cmd	*stock_cmds(t_mini *mini, char ***env)
 			i++;
 		//if(cmd)
 		//	ft_free_c(&cmd);
+
+		
 	}
 	return (cmd_lst);
 }

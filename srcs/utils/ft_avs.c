@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:21:52 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 19:39:14 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 23:48:42 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	ft_fill_av(t_cmd *one_cmd, char **new, char *line)
 		return (0);
 	ft_strcpy(new[y], line);
 	new[++y] = NULL;
+	free(line);
 	return (1);
 }
 
@@ -94,7 +95,6 @@ char	**ft_malloc_avs(t_cmd *one_cmd, int len_tab, char *line)
 	if (!new)
 		return (0);
 	ft_fill_av(one_cmd, new, line);
-	free(line);
 	free_avs(one_cmd->av);
 	return (new);
 }

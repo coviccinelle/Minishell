@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 21:46:52 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 00:06:30 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	mini_run(t_mini *mini, char ***env)
 	mini->cmd = stock_cmds(mini, env);
 	if (!mini->cmd || !mini->cmd->av)
 	{
-		ft_free_cmds(mini);
+	//	ft_free_cmds(mini);
 		return ;
 	}
 //	cmd = mini->cmd;
@@ -84,7 +84,7 @@ void	minishell(char **env)
 		unlink("heredoc");
 		//if (line)
 		//	free(line);
-		ft_free_cmds(mini);
+		//ft_free_cmds(mini);
 		if(line)
 			free(line);
 	}
