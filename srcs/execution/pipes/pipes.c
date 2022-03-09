@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/09 17:33:55 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 17:56:53 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int	exec_cmd_with_no_pipe(t_mini *mini)
 	t_cmd	*cmd;
 	int		status;
 //	int		exit_value;
-	pid_t	father;
+//	pid_t	father;
 
 	g_exit_value = 0;
 	cmd = mini->cmd;
@@ -145,16 +145,16 @@ int	exec_cmd_with_no_pipe(t_mini *mini)
 		g_exit_value = exec_builtin_no_pipe(mini);
 	else
 	{
-		father = fork();
-		ft_disable_if_fork(father);
-		if (father > 0)
+		cmd->pid = fork();
+		ft_disable_if_fork(cmd->pid);
+		if (cmd->pid > 0)
 		{
-			waitpid(-1, &status, 0);
+			waitpid(cmd->pid, &status, 0);
 			if(WIFEXITED(status))
 				g_exit_value = WEXITSTATUS(status);
 			fprintf(stderr, "\n  g_ret = %d\n", g_exit_value);
 		}
-		if (father == 0)
+		if (cmd->pid == 0)
 		{
 			if (dup_last_file_fd_in(cmd) == 1)
 				exit (1);
@@ -241,25 +241,25 @@ void		child_process(t_cmd *cmd, int *fd, t_mini *mini)
 	}
 }
 
-void	waiting_for_all_children_to_finish_executionn(int nb_cmds)
+void	waiting_for_all_children_to_finish_executionn(t_cmd *cmd)
 {
-	int	i;
 	int	status;
 
-	i = -1;
 	dup2(STDOUT, STDIN);
-	if (nb_cmds == 0)
-		return ;
-	while (i < nb_cmds)
+
+	while (cmd)
 	{
+		fprintf(stderr, "\n CMD  \n", cmd->av[0]);
+		/*
 		if (waitpid(-1, &status, 0) < -1)
 		{
 			perror("waitpid");
 			exit(EXIT_FAILURE);
-		}
+		}*/
+		waitpid(cmd->pid, &status, 0);
 		if(WIFEXITED(status))
 			g_exit_value = WEXITSTATUS(status);
-		i++;
+		cmd = cmd->next;
 	}
 }
 
@@ -276,7 +276,8 @@ void	run_piped_cmds(t_mini *mini, int nb_cmd)
 {
 	t_cmd	*cmd;
 	int		fd[2];
-	pid_t	new_pid;
+//	pid_t	new_pid;
+	(void)nb_cmd;
 	int		j;
 
 	j = 0;
@@ -285,10 +286,10 @@ void	run_piped_cmds(t_mini *mini, int nb_cmd)
 	{
 		g_exit_value = 0;
 		safely_pipe_me(fd);
-		safely_fork(&new_pid);
-		//ft_disable_if_fork(new_pid);
+		safely_fork(&(cmd->pid));
+		ft_disable_if_fork(cmd->pid);
 		fprintf(stderr, "\n GRET AVANT = %d \n", g_exit_value);
-		if (new_pid == 0)
+		if (cmd->pid == 0)
 			child_process(cmd, fd, mini);
 		else
 			close_old_prepare_eventual_new(cmd, fd);
@@ -298,6 +299,7 @@ void	run_piped_cmds(t_mini *mini, int nb_cmd)
 		j++;
 		fprintf(stderr, "\n GRET PENDANT = %d \n", g_exit_value);
 	}
-	waiting_for_all_children_to_finish_executionn(nb_cmd);
+	waiting_for_all_children_to_finish_executionn(cmd);
+	ft_start_signal();
 	fprintf(stderr, "\n GRET FINAL = %d\n", g_exit_value);
 }

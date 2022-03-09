@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:38:11 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 17:37:24 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 17:42:23 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	ft_disable_if_fork(int pid)
 	}
 	else
 	{
-		signal(SIGINT, ft_ignore);
-		signal(SIGQUIT, ft_ignore);
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 	}
 }
 
