@@ -21,10 +21,8 @@ SRC		=	srcs/main.c \
 			srcs/utils/skip_char.c \
 			srcs/utils/ft_free.c \
 			srcs/utils/cpy_stuff.c \
-			srcs/utils/is_builtins_2.c \
 			srcs/utils/len.c \
 			srcs/utils/print_avs.c \
-			srcs/utils/readline_input.c \
 			srcs/utils/utils.c \
 			srcs/utils/ft_avs.c \
 			srcs/utils/utils_tab.c \

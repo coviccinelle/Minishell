@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 13:52:09 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:05:47 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ int			is_token_char(char c);
 int			is_digit(char c);
 int			is_alpha(char c);
 int			is_valid_var_name(char *av);
-char		**ft_split_3(char	const *s, char c);
 char		*ft_strchr(const char *s, int c);
 char		**ft_copy_tab(char **env);
 void		ft_putchar(int c);
@@ -144,8 +143,6 @@ void		add_to_export_lst(t_export **export_lst, char *export_name, \
 void		printstack(t_mini *env);
 void		ft_memdel(char **s);
 void		ft_free_lst(t_mini **head);
-void		run_builtin(t_mini *mini, t_cmd *cmd);
-void		run_execve_2(t_mini *mini, t_cmd *cmd);
 
 int			exec_cd(int ac, char **av, char **env);
 void		call_heredoc(char *eof);
@@ -188,7 +185,6 @@ int			nb_tabs(char **s);
 char		*ft_strdup(char *src);
 char		*ft_strcpy(char *dst, char *src);
 int			ft_alphabetical_order_tab(char **env);
-void		print_tab(char **env);
 int			ft_unsetenv(char ***env, char *name);
 void		print_export(char **tab);
 int			exec_cmd(int ac, char **av, char ***env);
