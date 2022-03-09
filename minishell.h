@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 18:27:15 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 11:52:01 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ char		*ft_strdup(char *s1);
 int			ft_strcmp(char *s, char *t);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 int			rest_is_blank_2(char *str);
+void		avs_and_nul(t_cmd *cmd, char *str);
 
 //*** Builtins ***//
 t_export	*new_export(char *export_name, char *export_data);

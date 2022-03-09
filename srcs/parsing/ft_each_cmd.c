@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 09:28:44 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 12:10:26 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 				ft_avs(*cmd, ft_itoa(g_exit_value));
 				break ;
 			}
-			ft_avs(*cmd, line_after);
+			avs_and_nul(*cmd, line_after);
 			if (!quote_pass_2(line, i))
 				break ;
 			line_after = NULL;
@@ -84,7 +84,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 			line_after = ft_single_quote(line_after, i, line, *cmd);
 			if (!line_after)
 				return (0);
-			ft_avs(*cmd, line_after);
+			avs_and_nul(*cmd, line_after);
 			if (line[(*i) + 1] == '\0')
 				break ;
 			ft_pass_squote(line, i);
@@ -96,7 +96,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 			printf("g_exit_value = %d\n", g_exit_value);
 			if (*line_after == '?')
 				ft_avs(*cmd, ft_itoa(g_exit_value));
-			ft_avs(*cmd, dolar_2(line, i, line_after, mini->env));
+			avs_and_nul(*cmd, dolar_2(line, i, line_after, mini->env));
 			line_after = NULL;
 		}
 		else if (is_redir(line[*i]))
@@ -110,8 +110,7 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 		}
 		else if (line[*i] == '|')
 		{
-			if (line_after)
-				ft_avs(*cmd, line_after);
+			avs_and_nul(*cmd, line_after);
 			break ;
 		}
 		else
@@ -119,8 +118,8 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 			buf = malloc(sizeof(char) * 2);
 			ft_buf(line, i, buf);
 			line_after = ft_add_line_after(line_after, buf[0]);
-			if ((!line[*i] && line_after))
-				ft_avs(*cmd, line_after);
+			if ((!line[*i]))
+				avs_and_nul(*cmd, line_after);
 			free(buf);
 		}
 	}
