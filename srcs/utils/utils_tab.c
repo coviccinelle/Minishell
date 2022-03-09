@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_tab.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/09 14:32:39 by thi-phng          #+#    #+#             */
+/*   Updated: 2022/03/09 14:34:54 by thi-phng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
+#include <string.h>
 
 //char	**ft_copy_tab(char **env);
 
@@ -21,9 +34,9 @@ void	print_export(char **tab)
 		printf("declare -x %s\n", tab[j]);
 }
 
-#include <string.h> //a enlever
-
-void	print_env(char **env) // plus print tab mais print env plutot vu que je viens dajouter la condition strchr
+// plus print tab mais print env plutot vu que 
+//je viens dajouter la condition strchr
+void	print_env(char **env)
 {
 	int	j;
 
@@ -35,21 +48,18 @@ void	print_env(char **env) // plus print tab mais print env plutot vu que je vie
 	}
 }
 
-void swap(char **s1, char **s2)
+void	swap(char **s1, char **s2)
 {
-  char *tmp;
-  
-  tmp = *s1;
-  *s1= *s2;
-  *s2 = tmp;
-}  
+	char	*tmp;
 
-
+	tmp = *s1;
+	*s1 = *s2;
+	*s2 = tmp;
+}
 
 int	ft_alphabetical_order_tab(char **env)
 {
 	char	**copy;
-	//char	*tmp;
 	int		i;
 	int		j;
 
@@ -71,4 +81,3 @@ int	ft_alphabetical_order_tab(char **env)
 	free_tab(&copy);
 	return (0);
 }
-

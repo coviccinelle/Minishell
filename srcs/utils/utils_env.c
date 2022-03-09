@@ -1,26 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_env.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/09 14:20:39 by thi-phng          #+#    #+#             */
+/*   Updated: 2022/03/09 14:22:51 by thi-phng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
-int is_valid_var_name(char *av)
+int	is_valid_var_name(char *av)
 {
-		int	i;
+	int	i;
 
-		i = -1;
-	/*	if (av[0] == '\0')
-		{
-			printf("no string passed on. probably not an export.\n");
-			return (-1); // ret plutot -1 en fonction de ce que met ensuite !! si bug regarder ici
-		}
-	*/	if (is_digit(av[0]))
+	i = -1;
+	if (is_digit(av[0]))
+		return (0);
+	while (av[++i])
+	{
+		if ((!is_digit(av[i])) && (!is_alpha(av[i]) && av[i] != '_'))
 			return (0);
-		while(av[++i])
-		{
-			if ((!is_digit(av[i])) && (!is_alpha(av[i]) && av[i] != '_'))
-				return (0);
-		}
-		return(1);
+	}
+	return (1);
 }
 
-int	chpos(const char *s, int c) // pour trouver indice ou jai mon char.
+// pour trouver indice ou jai mon char.
+int	chpos(const char *s, int c)
 {
 	char	*str;
 
@@ -34,13 +42,13 @@ int	chpos(const char *s, int c) // pour trouver indice ou jai mon char.
 	return (str - s);
 }
 
-char *ft_strndup(char *s, int n)
+char	*ft_strndup(char *s, int n)
 {
-	int len;
-	char *copy;
+	int		len;
+	char	*copy;
 
 	len = 0;
-	while (s[len] && len < n) //len < n
+	while (s[len] && len < n)
 		len++;
 	copy = malloc(len + 1);
 	if (!copy)
@@ -49,6 +57,7 @@ char *ft_strndup(char *s, int n)
 	copy[len] = '\0';
 	return (copy);
 }
+
 /*
 char	*ft_strndup(char *s, int n)
 {
@@ -68,52 +77,22 @@ char	*ft_strndup(char *s, int n)
 	return (res);
 }
 */
+
 char	*cpy_trim(char *s, char from, char to)
 {
-	int i;
-	int j;
-	char *d;
+	int		i;
+	int		j;
+	char	*d;
 
 	d = NULL;
 	i = chpos(s, from);
 	j = chpos(s, to);
 	if (i == -1 || j == -1)
-		return(ft_strdup(s));
-	//	return (ft_strndup("", 0));
+		return (ft_strdup(s));
 	if (from == '=')
 		i = i + 1;
 	d = ft_strndup(&s[i], j);
 	return (d);
 }
 
-
 //ajouter ft_strcmp pour mon failure cases dans mon export
-/*
-#include <string.h>
-int main(int ac, char **av)
-{
-	int	j;
-	(void)ac;
-
-	j = 1;
-
-	char *name = cpy_trim(av[j], av[j][0], '=');
-	char *value = cpy_trim(av[j], '=', '\0');
-
-	printf("VarName = %s\n", name);
-
-	if (is_valid_var_name(name) == 1)
-	{
-		printf("Ok nom valable\n");
-		printf("Value = %s\n", value);
-	}
-	else
-		printf("Error var name\n");
-//	const char *separator = "$";
-//	char *export = strtok(av[j], separator);
-
-//	printf("export = %s\n", export);
-	return (0);
-}
-
-*/
