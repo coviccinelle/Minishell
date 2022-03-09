@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:53 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/08 18:49:46 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:45:11 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	exec_pwd(void)
 	{
 		ft_putendl_fd(pwd, 1);
 		//ft_memdel(&pwd);
-		if(pwd)
+		if (pwd)
 			free(pwd);
 		return (EXIT_SUCCESS);
 	}
