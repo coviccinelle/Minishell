@@ -1,11 +1,16 @@
-#include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
+/*   Updated: 2022/03/09 09:16:14 by thi-phng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	get_pwd()
-{
-	char	cwd[1024];
-	getcwd(cwd, sizeof(cwd));
-	printf("\nCurrent Directory: %s", cwd);
-}
+#include "../minishell.h"
 
 char	*ft_readline_input(char *line)
 {
@@ -20,13 +25,12 @@ char	*ft_readline_input(char *line)
 	return (line);
 }
 
-
 void	mini_run(t_mini *mini)
 {
 	t_cmd	*cmd;
 
 	mini->cmd = stock_cmds(mini);
-	if(!mini->cmd || !mini->cmd->av)
+	if (!mini->cmd || !mini->cmd->av)
 	{
 		ft_free_cmds(mini);
 		return ;
@@ -35,7 +39,7 @@ void	mini_run(t_mini *mini)
 	if (nb_cmds(mini->cmd) == 1)
 		exec_cmd_with_no_pipe(mini);
 	else
-		run_piped_cmds(mini,  nb_cmds(mini->cmd));
+		run_piped_cmds(mini, nb_cmds(mini->cmd));
 	//free(cmd->line);
 	ft_free_cmds(mini);
 }
@@ -45,11 +49,11 @@ void	ft_copy_env(char ***s, char **v)
 	int	i;
 
 	i = 0;
-	while(v[i])
+	while (v[i])
 		i++;
 	(*s) = malloc(sizeof(char *) * (i + 1));
 	i = -1;
-	while(v[++i])
+	while (v[++i])
 		(*s)[i] = ft_strdup(v[i]);
 	(*s)[i] = NULL;
 }
@@ -59,7 +63,7 @@ void	minishell(char **env)
 {
 	t_mini		*mini;//data
 	char		*line;//data_parsing
-
+	
 	ft_init_mini(&mini);
 	mini->env = NULL;
 //	mini->env = ft_env_cpy(env);
@@ -74,9 +78,8 @@ void	minishell(char **env)
 		mini->line = line;
 		if (mini->line || mini->cmd->av)
 			mini_run(mini);
-
 		unlink("heredoc");
-		if(line)
+		if (line)
 			free(line);
 //	ft_free_cmds(mini);
 	}
@@ -85,7 +88,7 @@ void	minishell(char **env)
 	//free(line);
 }
 
-int g_exit_value = 0;
+int	g_exit_value = 0;
 
 int	main(int ac, char **av, char **env)
 {
@@ -96,4 +99,3 @@ int	main(int ac, char **av, char **env)
 	minishell(env);
 	return (0);
 }
-
