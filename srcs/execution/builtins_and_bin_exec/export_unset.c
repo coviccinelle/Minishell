@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:42 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/08 18:37:00 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:41:20 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,13 @@ void	free_new_env(char ***s)
 	int		i;
 
 	i = 0;
-	while((*s)[i])
+	while ((*s)[i])
 	{
 		free((*s[i]));
 		i++;
 	}
 	free(*s);
 }
-
 
 int	env_realloc_and_append_envvar(char ***env, char *envvar)
 {
@@ -44,7 +43,7 @@ int	env_realloc_and_append_envvar(char ***env, char *envvar)
 	}
 	new_env[j] = ft_strndup(envvar, ft_strlen(envvar));
 	new_env[j + 1] = NULL;
-	if(*env)
+	if (*env)
 		free_tab(env);
 	*env = new_env;
 	//if(new_env)
@@ -108,8 +107,9 @@ char	*ft_getenv(char **env, char *name)
 
 int	ft_setenv(char ***env, char *av, char *name, char *value)
 {
-	int	pos_name;
-	int	free_me;
+	int		pos_name;
+	int		free_me;
+	char	*s;
 
 	free_me = 0;
 	if (av == NULL)
@@ -117,13 +117,12 @@ int	ft_setenv(char ***env, char *av, char *name, char *value)
 		free_me = 1;
 		av = ft_strxjoin(name, "=", value);
 	}
-	char	*s;
 	s = find_in_env(*env, name, &pos_name);
 	if (s != NULL && value != NULL)
 		ft_unsetenv(env, name);
 	if (s != NULL)
 		env_realloc_and_append_envvar(env, av);
-	if(s)
+	if (s)
 		free(s);
 	if (free_me == 1)
 		free(av);
