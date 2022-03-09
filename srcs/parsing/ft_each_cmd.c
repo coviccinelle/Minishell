@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 12:47:21 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 12:50:11 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	quote_pass_2(char *str, int *i)
 	return (1);
 }
 
-// more than 25 lines
+// more than 25 lines =>82 lignes
 int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 {
 	char		*buf;
@@ -45,7 +45,6 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 	line_after = NULL;
 	while (line[*i])
 	{
-		(*cmd)->stop = 0;
 		if (line[*i] == ' ')
 		{
 			skip_blank_2(line, i, *cmd, line_after);
