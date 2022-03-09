@@ -6,13 +6,13 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:58:45 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 16:59:02 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 13:14:38 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static int		len(long nb)
+static int	len(long nb)
 {
 	int		len;
 
@@ -32,7 +32,7 @@ static int		len(long nb)
 	return (len);
 }
 
-char			*ft_itoa(int nb)
+char	*ft_itoa(int nb)
 {
 	char	*str;
 	long	n;
@@ -40,7 +40,8 @@ char			*ft_itoa(int nb)
 
 	n = nb;
 	i = len(n);
-	if (!(str = (char*)malloc(sizeof(char) * (i + 1))))
+	str = (char *)malloc(sizeof(char) * (i + 1));
+	if (!str)
 		return (NULL);
 	str[i--] = '\0';
 	if (n == 0)
