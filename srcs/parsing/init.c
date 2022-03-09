@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:32:04 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 18:25:05 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 12:38:01 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	init_cmd(t_cmd *cmd)
 {
-//	cmd->line = NULL;
 	cmd->av = NULL;
 	cmd->file_in = NULL;
 	cmd->file_out = NULL;
@@ -30,7 +29,6 @@ void	ft_init_mini(t_mini **mini)
 	(*mini)->env = NULL;
 	(*mini)->fork = 0;
 	(*mini)->ret_status = 0;
-	//(*mini)->heredoc = NULL;
 }
 
 void	init_shell(void)
