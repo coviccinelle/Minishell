@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/09 17:56:53 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 19:13:51 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,15 +247,11 @@ void	waiting_for_all_children_to_finish_executionn(t_cmd *cmd)
 
 	dup2(STDOUT, STDIN);
 
+	if(!cmd)
+		fprintf(stderr, "\n DONT exist\n");
 	while (cmd)
 	{
-		fprintf(stderr, "\n CMD  \n", cmd->av[0]);
-		/*
-		if (waitpid(-1, &status, 0) < -1)
-		{
-			perror("waitpid");
-			exit(EXIT_FAILURE);
-		}*/
+		fprintf(stderr, "\n CMD %s \n", cmd->av[0]);
 		waitpid(cmd->pid, &status, 0);
 		if(WIFEXITED(status))
 			g_exit_value = WEXITSTATUS(status);
@@ -290,16 +286,18 @@ void	run_piped_cmds(t_mini *mini, int nb_cmd)
 		ft_disable_if_fork(cmd->pid);
 		fprintf(stderr, "\n GRET AVANT = %d \n", g_exit_value);
 		if (cmd->pid == 0)
+		{
 			child_process(cmd, fd, mini);
+			fprintf(stderr, "\n EST CE QUE C A A EXIT ? \n");
+		}
 		else
 			close_old_prepare_eventual_new(cmd, fd);
 		close(READ_END);
 		close(WRITE_END);
 		cmd = cmd->next;
 		j++;
-		fprintf(stderr, "\n GRET PENDANT = %d \n", g_exit_value);
 	}
-	waiting_for_all_children_to_finish_executionn(cmd);
+	waiting_for_all_children_to_finish_executionn(mini->cmd);
 	ft_start_signal();
 	fprintf(stderr, "\n GRET FINAL = %d\n", g_exit_value);
 }

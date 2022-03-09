@@ -6,20 +6,21 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 16:42:42 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 19:10:41 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_readline_input(char *line)
+char	*ft_readline_input(char *line, t_mini *mini)
 {
 	signal(SIGINT, ft_sigint_ctr_c);
 	signal(SIGQUIT, ft_sigquit_ctr_bs);
 	line = readline("\033[1;33m~🌈 Minishell 🌻$\033[0m ");
 	if (!line)
 	{
-		printf("Oops someone just typed ctr^D?!? Bye, I'm out < 0_0 >\n");
+		free_tab(&(mini->env));
+		//printf("Oops someone just typed ctr^D?!? Bye, I'm out < 0_0 >\n");
 		exit(0);
 	}
 	return (line);
@@ -52,6 +53,8 @@ void	ft_copy_env(char ***s, char **v)
 	while (v[i])
 		i++;
 	(*s) = malloc(sizeof(char *) * (i + 1));
+	if (!*s)
+		return ;
 	i = -1;
 	while (v[++i])
 		(*s)[i] = ft_strdup(v[i]);
@@ -73,7 +76,9 @@ void	minishell(char **env)
 	line = NULL;
 	while (42)
 	{
-		line = ft_readline_input(mini->line);
+		line = ft_readline_input(mini->line, mini);
+		if(!line)
+			exit(130);
 		add_history(line);
 		mini->line = line;
 		if (mini->line || mini->cmd->av)
@@ -83,7 +88,6 @@ void	minishell(char **env)
 			free(line);
 //	ft_free_cmds(mini);
 	}
-	free_tab(&(mini->env));
 //	free(mini);
 	//free(line);
 }
