@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:31:02 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 14:31:41 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 19:28:53 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	free_tab(char ***line)
 		free((*line)[i]);
 		i++;
 	}
-	free((*line)[i]);
+	//free((*line)[i]);
 	free(*line);
 }
 
