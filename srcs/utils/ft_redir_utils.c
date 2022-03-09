@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_redir_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/09 09:21:55 by thi-phng          #+#    #+#             */
+/*   Updated: 2022/03/09 09:21:57 by thi-phng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../minishell.h"
 
@@ -6,38 +16,22 @@ void    ft_set_direct(char *line, int *i, t_cmd *cmd)
 {
     if (line[*i + 1] == '<' && line[*i] == '<')
     {
-        printf("2\n");
         cmd->type = HEREDOC;
         return ;
     }
     else if (line[*i] == '>' && line[(*i) + 1] == '>')
     {   
-        printf("4\n");
         cmd->type = APPEND; //d_right
         return ;
     }
     else if (line[*i] == '<' && line[(*i) + 1] != '<')
     {
-        printf("1\n");
         cmd->type = READONLY;//LEFT;
         return ;
     }
     else if (line[*i] == '>' && line[(*i) + 1] != '>')
     {
-        printf("3\n");
        cmd->type = TRUNC; //RIGHT;
         return ;
     }
 }
-
-// void	ft_define_redicretcion(char *argv, int *i, t_parsing *param)
-// {
-// 	if (argv[(*i) + 1] == '<' && argv[(*i)] == '<')
-// 		param->type = DOUBLEIN;
-// 	else if (argv[(*i) + 1] == '>' && argv[(*i)] == '>')
-// 		param->type = DOUBLEOUT;
-// 	else if (argv[(*i) + 1] != '<' && argv[(*i)] == '<')
-// 		param->type = IN;
-// 	else if (argv[(*i) + 1] != '>' && argv[(*i)] == '>')
-// 		param->type = OUT;
-// }

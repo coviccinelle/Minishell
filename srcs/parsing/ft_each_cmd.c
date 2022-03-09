@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 08:59:30 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 09:28:44 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 			line_after = ft_d2_quotes(line_after, i, *cmd, mini);
 			if (!line_after)
 				return (0);
-			printf("g_exit_value = %d\n", g_exit_value);
 			if (!ft_strcmp(line_after, "?"))
 			{
+				printf("g_exit_value = %d\n", g_exit_value);
 				ft_avs(*cmd, ft_itoa(g_exit_value));
 				break ;
 			}
@@ -102,7 +102,6 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd)
 		else if (is_redir(line[*i]))
 		{
 			int g = ft_redirec(line, i, line_after, &*cmd);
-			printf("g = %d\n", g);
 			//if (!ft_redirec(line, i, line_after, &*cmd))
 			if (g == 0)
 				return (0);

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:11:08 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/08 18:26:38 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/09 09:20:43 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	create_files(int type, char *filename)
 	int	fd;
 
 	fd = -1;
-	printf("type de ficher = %d\n", type);
 	if (type == TRUNC_0)
 		fd = open (filename, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	else if (type == APPEND_0)
@@ -98,7 +97,6 @@ void	ft_free_c(t_cmd **c)
 		(*c) = temp;
 	}
 }
-
 
 //stock cmd
 t_cmd	*stock_cmds(t_mini *mini)
