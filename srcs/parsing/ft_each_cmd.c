@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 20:29:50 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 21:15:56 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	ft_each_cmd_4(t_mini *mini, int *i, t_cmd **cmd, char ***env)
 			ft_pass_squote(mini->line, i);
 			line_after = NULL;
 		}
-		else if (mini->line[*i] == '$')
+		else if (mini->line[*i] == '$' && mini->line[*i + 1] && mini->line[*i + 1] != ' ')
 		{
 			va_2 = dolar_name(mini->line, i, line_after, *cmd);
 			line_after = va_2;

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:38:44 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 19:25:18 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 21:13:43 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*dolar_quote(char *str, char **envp)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$')
+		if (str[i] == '$' && str[i + 1] && str[i + 1] != ' ')
 		{
 			dolar_value = dolar_name_quote(str, &i);
 			if (*dolar_value == '?')
