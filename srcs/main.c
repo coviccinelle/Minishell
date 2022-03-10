@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 12:03:31 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 16:24:29 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	minishell(char **env)
 	line = NULL;
 	while (42)
 	{
+		line = NULL;
 		line = ft_readline_input(mini->line, &env, mini);
 		if(!line)
 			exit(130);

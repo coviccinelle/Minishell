@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 12:19:30 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 16:51:00 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,11 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd, char ***env)
 			if (!ft_strcmp(line_after, "?"))
 			{
 				ft_avs(*cmd, ft_itoa(g_exit_value));
-			//	free(line_after);
 				break ;
 			}
 			avs_and_nul(*cmd, line_after);
-			
 			if (!quote_pass_2(line, i))
-			{
-			//	free(line_after);
 				break ;
-			}
-				
 			line_after = NULL;
 		}
 		else if (line[*i] == '\'')
@@ -96,32 +90,22 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd, char ***env)
 		}
 		else if (line[*i] == '$'/* && !(line[(*i) + 1] == '?')*/)
 		{
-			char *va_2;
-			va_2 = dolar_name(line, i, line_after, *cmd);
-			line_after = va_2;
-			char *var = dolar_2(line, i, line_after, *env);
+			line_after = dolar_name(line, i, line_after, *cmd);
 			if (*line_after == '?')
 				ft_avs(*cmd, ft_itoa(g_exit_value));
-		//	avs_and_nul(*cmd, dolar_2(line, i, line_after, *env));
-			avs_and_nul(*cmd, var);
-			//free(var);
-			free(va_2);
+			avs_and_nul(*cmd, dolar_2(line, i, line_after, *env));
 			line_after = NULL;
 		}
 		else if (is_redir(line[*i]))
 		{
 			if (!ft_redirec(line, i, line_after, &*cmd))
-			{
-			//	free(line_after);
 				return (0);
-			}
 			else
 				(*i)++;
 		}
 		else if (line[*i] == '|')
 		{
 			avs_and_nul(*cmd, line_after);
-			//free(line_after);
 			break ;
 		}
 		else
@@ -133,8 +117,6 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd, char ***env)
 				avs_and_nul(*cmd, line_after);
 			free(buf);
 		}
-	//	free(line_after);
 	}
-	
 	return (1);
 }
