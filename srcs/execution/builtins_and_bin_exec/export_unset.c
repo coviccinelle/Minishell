@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:42 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/10 11:38:33 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 12:56:13 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,33 @@ int	env_realloc_and_append_envvar(char ***env, char *envvar)
 	if (*env)
 		free_tab_3(*env, nb_tabs(*env));
 	*env = new_env;
+
 	return (0);
+}
+
+char	**env_realloc_and_append_envvarr(char **env, char *envvar)
+{
+	int		j;
+	char	**new_env;
+	int		new_size;
+
+	j = 0;
+	new_size = nb_tabs(env) + 2;
+	new_env = malloc(sizeof(char *) * new_size);
+	if (!new_env)
+		return (NULL);
+	while ((env)[j] && j < nb_tabs(env))
+	{
+		new_env[j] = ft_strndup((env)[j], ft_strlen((env)[j]));
+		j++;
+	}
+	new_env[j] = ft_strndup(envvar, ft_strlen(envvar));
+	new_env[j + 1] = NULL;
+//	if (env)
+//		free_tab_3(*env, nb_tabs(*env));
+	//*env = new_env;
+
+	return (new_env);
 }
 
 int	comp_env(char *s, char *s1)
@@ -108,6 +134,9 @@ int	ft_setenv(char ***env, char *av, char *name, char *value)
 	int		pos_name;
 	int		free_me;
 	char	*s;
+	//char	**envp;
+
+	//envp = *env;
 
 	free_me = 0;
 	if (av == NULL)
@@ -119,7 +148,12 @@ int	ft_setenv(char ***env, char *av, char *name, char *value)
 	if (s != NULL && value != NULL)
 		ft_unsetenv(env, name);
 	if (s != NULL)
+	{
+		//(void)envp;
 		env_realloc_and_append_envvar(env, av);
+		//*env = env_realloc_and_append_envvarr(envp, av);
+		//free_tab_3(envp, nb_tabs(envp));
+	}	
 	if (s)
 		free(s);
 	if (free_me == 1)

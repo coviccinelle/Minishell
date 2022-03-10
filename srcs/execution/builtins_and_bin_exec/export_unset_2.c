@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:16:58 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/10 11:03:29 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 12:56:49 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	get_into_export_lst(char ***env, char **av, char **name, char **data)
 			ft_setenv(env, av[j + 1], name[j], data[j]);
 		j++;
 	}
+	free_tab_3(name, nb_tabs(name));
+	free_tab_3(data, nb_tabs(data));
 	return (0);
 }
 
@@ -101,10 +103,10 @@ int	exec_export(int ac, char **av, char ***env)
 	int				c;
 	int				exit_value;
 
-	init(&j, &c, &exit_value);
-	init_1(&data, &name, av);
 	if (ac == 1)
 		return (ft_alphabetical_order_tab(*env));
+	init(&j, &c, &exit_value);
+	init_1(&data, &name, av);
 	while (av[j + c])
 	{
 		name[j] = cpy_trim(av[j + c], av[j + c][0], '=');
@@ -115,8 +117,9 @@ int	exec_export(int ac, char **av, char ***env)
 		j++;
 	}
 	name[j] = NULL;
+	data[j] = NULL;
 	get_into_export_lst(env, av, name, data);
-	free_all(&name, &data, av);
+//	free_all(&name, &data, av);
 	return (exit_value);
 }
 

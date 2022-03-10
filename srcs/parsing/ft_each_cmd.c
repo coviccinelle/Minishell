@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 11:55:22 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 12:19:30 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,16 @@ int	ft_each_cmd_4(t_mini *mini, char *line, int *i, t_cmd **cmd, char ***env)
 		}
 		else if (line[*i] == '$'/* && !(line[(*i) + 1] == '?')*/)
 		{
-			line_after = dolar_name(line, i, line_after, *cmd);
+			char *va_2;
+			va_2 = dolar_name(line, i, line_after, *cmd);
+			line_after = va_2;
 			char *var = dolar_2(line, i, line_after, *env);
 			if (*line_after == '?')
 				ft_avs(*cmd, ft_itoa(g_exit_value));
 		//	avs_and_nul(*cmd, dolar_2(line, i, line_after, *env));
 			avs_and_nul(*cmd, var);
 			//free(var);
+			free(va_2);
 			line_after = NULL;
 		}
 		else if (is_redir(line[*i]))

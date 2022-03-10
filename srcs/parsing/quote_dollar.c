@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:38:44 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 11:56:22 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 13:22:56 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char	*ft_strjoin_2(char *s1, char *s2)
 	e++;
 	ret[i + e] = '\0';
 	free(s1);
+	free(s2);
 	return (ret);
 }
 
@@ -97,6 +98,6 @@ char	*dolar_quote(char *str, char **envp)
 			line_after = ft_add_line_after(line_after, str[i]);
 		i++;
 	}
-//	free(dolar_value);
+	printf("line_after\n");
 	return (line_after);
 }
