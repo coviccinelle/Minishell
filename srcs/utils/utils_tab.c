@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:32:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 18:52:07 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 21:31:36 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	print_env(char **env)
 		if (strchr(env[j], '=')) // a remplacer par ft_strchr
 			printf("%s\n", env[j]);
 	}
-	return(1);
+	return (1);
 }
 
 void	swap(char **s1, char **s2)
