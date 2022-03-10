@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:11:08 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 19:59:51 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 20:36:01 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,15 @@ t_cmd	*new_elem_cmd(t_mini *mini)
 {
 	t_cmd	*elem;
 
-	(void)mini;//to free after only
+	(void)mini;
 	elem = malloc(sizeof(t_cmd));
 	if (!elem)
-		//exit_custom(mini, NULL, AUTO);
-		printf("Exist and Free mini\n");
-	//elem->line = NULL;
+		return (NULL);
 	elem->av = NULL;
 	elem->type = NOPE;
 	elem->type = 0;
 	elem->file_in = NULL;
 	elem->file_out = NULL;
-//	elem->prev = NULL;
 	elem->next = NULL;
 	return (elem);
 }
@@ -45,7 +42,6 @@ void	add_cmd(t_cmd **cmd_lst, t_cmd *cmd)
 	while (current->next)
 		current = current->next;
 	current->next = cmd;
-	//cmd->prev = current;
 }
 
 int	create_files(int type, char *filename)
@@ -99,11 +95,6 @@ void	stock_cmds_3(t_cmd *cmd)
 	}
 	cmd->last_file_in = ft_last_file(file_inn);
 	cmd->last_file_out = ft_last_file(file_out);
-	// if (cmd->file_in)
-	// 	free_file(&cmd->file_in);
-	// if (cmd->file_out)
-	// 	free_file(&cmd->file_out);
-
 }
 
 void	ft_free_c(t_cmd **c)
@@ -131,6 +122,8 @@ t_cmd	*stock_cmds(t_mini *mini, char ***env)
 	while (mini->line[i])
 	{
 		cmd = new_elem_cmd(mini);
+		if (!cmd)
+			return (NULL);
 		add_cmd(&cmd_lst, cmd);
 		while (mini->line[i] && mini->line[i] != '|')
 		{
@@ -143,10 +136,6 @@ t_cmd	*stock_cmds(t_mini *mini, char ***env)
 		}
 		if (mini->line[i] == '|')
 			i++;
-		//if(cmd)
-		//	ft_free_c(&cmd);
-
-		
 	}
 	return (cmd_lst);
 }

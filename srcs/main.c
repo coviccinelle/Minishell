@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 18:14:58 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 20:38:09 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,15 @@ char	*ft_readline_input(char *line, char ***env, t_mini *mini)
 
 void	mini_run(t_mini *mini, char ***env)
 {
-//	t_cmd	*cmd;
-
 	mini->cmd = stock_cmds(mini, env);
 	if (!mini->cmd || !mini->cmd->av)
 	{
-	//	ft_free_cmds(mini);
 		return ;
 	}
-//	cmd = mini->cmd;
 	if (nb_cmds(mini->cmd) == 1)
 		exec_cmd_with_no_pipe(mini, env);
 	else
 		run_piped_cmds(mini, env);
-	//free(cmd->line);
-//	if(mini)
-//		ft_free_cmds(mini);
 }
 
 void	ft_copy_env(char ***s, char **v)
@@ -64,11 +57,10 @@ void	ft_copy_env(char ***s, char **v)
 	(*s)[i] = NULL;
 }
 
-// my_new_version :
 void	minishell(char **env)
 {
-	t_mini		*mini;//data
-	char		*line;//data_parsing
+	t_mini		*mini;
+	char		*line;
 	
 	ft_init_mini(&mini);
 	ft_copy_env(&(env), env);
@@ -92,8 +84,6 @@ void	minishell(char **env)
 	//	free_tab(&env);
 		free_tout_mini(mini);
 	}
-//	free(mini);
-	//free(line);
 }
 
 int	g_exit_value;
