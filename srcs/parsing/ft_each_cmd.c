@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 22:00:13 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 22:11:04 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,29 @@ int	quote_pass_2(char *str, int *i)
 //if ret 1, break
 //if ret 2, continue / parsing ok
 
-int	ft_each_cmd_4(t_mini *mini, int *i, t_cmd **cmd, char ***env)
+int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 {
 	char		*buf;
 	char		*va_2;
 	char		*var;
 
-	while (mini->line[*i])
+	while (m->line[*i])
 	{
-		if (mini->line[*i] == ' ')
+		if (m->line[*i] == ' ')
 		{
-			skip_blank_2(mini->line, i, *cmd, (*cmd)->la);
+			skip_blank_2(m->line, i, *cmd, (*cmd)->la);
 			(*cmd)->la = NULL;
-			if (!mini->line[*i])
+			if (!m->line[*i])
 				break ;
 		}
-		else if (mini->line[*i] == '"')
+		else if (m->line[*i] == '"')
 		{
-			if (mini->line[*i + 1] && (mini->line[*i + 1] == '\"'))
+			if (m->line[*i + 1] && (m->line[*i + 1] == '\"'))
 			{
 				(*i) += 2;
 				break ;
 			}
-			(*cmd)->la = ft_d2_quotes(i, *cmd, mini, env);
+			(*cmd)->la = ft_d2_quotes(i, *cmd, m, env);
 			if (!(*cmd)->la)
 				return (0);
 			if (!ft_strcmp((*cmd)->la, "?"))
@@ -72,45 +72,45 @@ int	ft_each_cmd_4(t_mini *mini, int *i, t_cmd **cmd, char ***env)
 				break ;
 			}
 			avs_and_nul(*cmd, (*cmd)->la);
-			if (!quote_pass_2(mini->line, i))
+			if (!quote_pass_2(m->line, i))
 				break ;
 			(*cmd)->la = NULL;
 		}
-		else if (mini->line[*i] == '\'')
+		else if (m->line[*i] == '\'')
 		{
-			if (mini->line[*i + 1] && (mini->line[*i + 1] == '\''))
+			if (m->line[*i + 1] && (m->line[*i + 1] == '\''))
 			{
 				(*i) += 2;
 				break ;
 			}
-			(*cmd)->la = ft_single_quote(i, mini->line, *cmd);
+			(*cmd)->la = ft_single_quote(i, m->line, *cmd);
 			if (!(*cmd)->la)
 				return (0);
 			avs_and_nul(*cmd, (*cmd)->la);
-			if (mini->line[(*i) + 1] == '\0')
+			if (m->line[(*i) + 1] == '\0')
 				break ;
-			ft_pass_squote(mini->line, i);
+			ft_pass_squote(m->line, i);
 			(*cmd)->la = NULL;
 		}
-		else if (mini->line[*i] == '$' && mini->line[*i + 1] && mini->line[*i + 1] != ' ')
+		else if (m->line[*i] == '$' && is_dollar(m->line[*i + 1]))
 		{
-			va_2 = dolar_name(mini->line, i, (*cmd)->la, *cmd);
+			va_2 = dolar_name(m->line, i, (*cmd)->la, *cmd);
 			(*cmd)->la = va_2;
-			var = dolar_2(mini->line, i, (*cmd)->la, *env);
+			var = dolar_2(m->line, i, (*cmd)->la, *env);
 			if (*(*cmd)->la == '?')
 				ft_avs(*cmd, ft_itoa(g_exit_value));
 			avs_and_nul(*cmd, var);
 			free(va_2);
 			(*cmd)->la = NULL;
 		}
-		else if (is_redir(mini->line[*i]))
+		else if (is_redir(m->line[*i]))
 		{
-			if (!ft_redirec(mini->line, i, (*cmd)->la, &*cmd))
+			if (!ft_redirec(m->line, i, (*cmd)->la, &*cmd))
 				return (0);
 			else
 				(*i)++;
 		}
-		else if (mini->line[*i] == '|')
+		else if (m->line[*i] == '|')
 		{
 			avs_and_nul(*cmd, (*cmd)->la);
 			break ;
@@ -118,9 +118,9 @@ int	ft_each_cmd_4(t_mini *mini, int *i, t_cmd **cmd, char ***env)
 		else
 		{
 			buf = malloc(sizeof(char) * 2);
-			ft_buf(mini->line, i, buf);
+			ft_buf(m->line, i, buf);
 			(*cmd)->la = ft_add_line_after((*cmd)->la, buf[0]);
-			if ((!mini->line[*i]))
+			if ((!m->line[*i]))
 				avs_and_nul(*cmd, (*cmd)->la);
 			free(buf);
 		}

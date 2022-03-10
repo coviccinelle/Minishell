@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 13:52:46 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 13:53:04 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 22:10:52 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,12 @@ int	is_alnum(int c)
 			|| (c >= '0' && c <= '9'))
 		return (1);
 	return (0);
+}
+
+int	is_dollar(char c)
+{
+	if (c && c != ' ')
+		return (1);
+	else
+		return (0);
 }
