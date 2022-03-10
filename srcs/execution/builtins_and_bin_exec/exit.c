@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:13:00 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/09 16:57:16 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 18:12:00 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,7 @@ int	exec_exit(int ac, char **av)
 	{
 		printf("exit\n");
 		ret = ft_atoi(av[1]);
-		//fprintf(stderr, "\n EXIT avec chiffre%d \n", g_exit_value);
-//		printf("g_exit_value = %d\n", g_exit_value);
-//		exit(g_exit_value);
-//		return(g_exit_value);
 	}
 	exit(ret);
-	return(ret);
+	return (ret);
 }

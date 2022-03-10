@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 13:09:01 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 12:06:48 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 18:42:20 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	ft_free_cmds(t_mini *mini)
 	while (cmd)
 	{
 		next = cmd->next;
-		printf("free tout dans cmd pls\n");
 		if (cmd->av)
 			free_tab_3((cmd->av), nb_tabs(cmd->av));
 		if (cmd->file_in)

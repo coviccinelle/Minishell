@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:05:06 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/10 11:38:16 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 18:22:56 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,6 @@ int	exec_builtin(char *builtin, int ac, char **av, char ***env)
 	if (!(ft_strcmp(builtin, "unset")))
 		exit_status = exec_unset(ac, av, env);
 	return (exit_status);
-}
-
-char	*ft_strxjoin(char *s1, char *s2, char *s3)
-{
-	char	*res;
-	char	*tmp;
-
-	tmp = ft_strjoin(s1, s2);
-	res = ft_strjoin(tmp, s3);
-	free(tmp);
-	return (res);
 }
 
 char	**ft_split(char *s, char sep)
@@ -120,16 +109,6 @@ char	*find_cmd_path(char *cmd, char **env)
 	return (NULL);
 }
 
-void	safely_exec_bin_cmds(char *path, char **av,
-				char **env, int *exit_status)
-{
-	if (execve(path, av, env) < 0)
-	{
-		perror(path);
-		*exit_status = 1;
-	}
-}
-
 int	exec_cmd(int ac, char **av, char ***env)
 {
 	char	*path;
@@ -151,7 +130,7 @@ int	exec_cmd(int ac, char **av, char ***env)
 	{
 		ft_puterror_fd("minishell: ", "command not found: ", av[0]);
 		exit(127);
-		return(127);
+		return (127);
 	}
 	else if (path != NULL)
 		safely_exec_bin_cmds(path, av, *env, &exit_status);

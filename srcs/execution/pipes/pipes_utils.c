@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:48 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/09 16:32:34 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 18:23:21 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,25 @@ void	safely_fork(int *pid)
 		perror("fork");
 		exit(EXIT_FAILURE);
 	}
+}
+
+void	safely_exec_bin_cmds(char *path, char **av, \
+				char **env, int *exit_status)
+{
+	if (execve(path, av, env) < 0)
+	{
+		perror(path);
+		*exit_status = 1;
+	}
+}
+
+char	*ft_strxjoin(char *s1, char *s2, char *s3)
+{
+	char	*res;
+	char	*tmp;
+
+	tmp = ft_strjoin(s1, s2);
+	res = ft_strjoin(tmp, s3);
+	free(tmp);
+	return (res);
 }

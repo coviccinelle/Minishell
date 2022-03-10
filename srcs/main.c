@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 17:14:00 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 18:14:58 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	mini_run(t_mini *mini, char ***env)
 	if (nb_cmds(mini->cmd) == 1)
 		exec_cmd_with_no_pipe(mini, env);
 	else
-		run_piped_cmds(mini, nb_cmds(mini->cmd), env);
+		run_piped_cmds(mini, env);
 	//free(cmd->line);
 //	if(mini)
 //		ft_free_cmds(mini);

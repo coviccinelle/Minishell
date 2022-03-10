@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:11:08 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 00:02:38 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 18:43:10 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,10 +140,7 @@ t_cmd	*stock_cmds(t_mini *mini, char ***env)
 			if (a == 1)
 				stock_cmds_3(cmd);
 			else
-			{
-				printf("ERROR: syntax error => free tout\n\n");
 				return (NULL);
-			}
 		}
 		if (mini->line[i] == '|')
 			i++;

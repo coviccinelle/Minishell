@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 16:59:28 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 18:43:30 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_add_double_quote(int *i, char *line, char *line_after, char ***env)
 	char *tmp;
 	if (!ft_check_2rd_quote(&line[*i], '"'))
 	{
-		printf("ERROR: Double quotes are not safely closed\n free tout stp\n");
+		printf("ERROR: Double quotes are not safely closed\n");
 		//free_tout_mini(mini);
 		g_exit_value = 1003;
 		return (NULL);
@@ -84,7 +84,7 @@ char	*stock_single_quote(int *i, char *line, char *line_after)
 {
 	if (!ft_check_2rd_quote(&line[*i], '\''))
 	{
-		printf("ERROR: Single quotes are not safely closed\n free tout stp\n");
+		printf("ERROR: Single quotes are not safely closed\n");
 		g_exit_value = 1003;
 		return (NULL);
 	}
