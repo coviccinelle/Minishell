@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:53 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/10 11:25:01 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 17:55:26 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,11 @@ int	exec_cd(int ac, char **av, char **env)
 		return (EXIT_FAILURE);
 	ft_setenv(&env, NULL, "PWD", new_pwd);
 	ft_setenv(&env, NULL, "OLDPWD", current_path);
-	free(current_path);
+/*	free(current_path);
 	free(new_path);
 	
-	free(new_pwd);
+	free(new_pwd);*/
+	
 //	free_pwds(&current_path, &new_path);
 	return (EXIT_SUCCESS);
 }

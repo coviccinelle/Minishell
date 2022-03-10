@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 12:03:31 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 17:14:00 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	minishell(char **env)
 		//ft_free_cmds(mini);
 		// if(line)
 		// 	free(line);
-		//free_tab(&env);
+	//	free_tab(&env);
 		free_tout_mini(mini);
 	}
 //	free(mini);

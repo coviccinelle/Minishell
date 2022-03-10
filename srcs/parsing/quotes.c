@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 13:05:13 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 16:59:28 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_add_double_quote(int *i, char *line, char *line_after, char ***env)
 	if (find_me('$', line_after) != -1)
 		line_after = dolar_quote(line_after, *env);
 	(*i)++;
-	free(tmp);
+	//free(tmp);
 	return (line_after);
 }
 
