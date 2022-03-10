@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:11:08 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 21:41:20 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 21:43:37 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void	stock_cmds_3(t_cmd *cmd)
 	cmd->last_file_out = ft_last_file(file_out);
 }
 
-//stock cmd
+//stock cmd 
+//if !cmd -> return NULL to protect -> norme
 t_cmd	*stock_cmds(t_mini *mini, char ***env)
 {
 	t_cmd	*cmd_lst;
