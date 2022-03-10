@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 21:58:42 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 22:04:37 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*ft_d2_quotes(int *i, t_cmd *cmd, t_mini *mini, char ***env)
 	if (!return_line && g_exit_value == 1003)
 	{
 		g_exit_value = 1;
-	//	free(cmd->la);
+		free(cmd->la);
 		free_one_cmd(cmd);
 	}
 	return (return_line);
