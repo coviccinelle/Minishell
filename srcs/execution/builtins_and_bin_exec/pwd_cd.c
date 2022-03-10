@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:53 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/09 19:53:17 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 11:25:01 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ int	exec_cd(int ac, char **av, char **env)
 	free(current_path);
 	free(new_path);
 	
-//	free(new_pwd);
-	//free(new_path);
+	free(new_pwd);
 //	free_pwds(&current_path, &new_path);
 	return (EXIT_SUCCESS);
 }

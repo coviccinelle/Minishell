@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:25:42 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/09 19:22:15 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 11:38:33 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,8 @@ int	env_realloc_and_append_envvar(char ***env, char *envvar)
 	new_env[j] = ft_strndup(envvar, ft_strlen(envvar));
 	new_env[j + 1] = NULL;
 	if (*env)
-		free_tab(env);
+		free_tab_3(*env, nb_tabs(*env));
 	*env = new_env;
-	//if(new_env)
-	//	free_new_env(&new_env);
 	return (0);
 }
 

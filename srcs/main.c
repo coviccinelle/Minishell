@@ -6,20 +6,22 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 00:06:30 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 12:03:31 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_readline_input(char *line, char ***env)
+char	*ft_readline_input(char *line, char ***env, t_mini *mini)
 {
+	(void)mini;
 	signal(SIGINT, ft_sigint_ctr_c);
 	signal(SIGQUIT, ft_sigquit_ctr_bs);
 	line = readline("\033[1;33m~🌈 Minishell 🌻$\033[0m ");
 	if (!line)
 	{
-		free_tab(env);
+		if (*env)
+			printf("FREE TAB NE MARCHE PAS\n\n");
 		//printf("Oops someone just typed ctr^D?!? Bye, I'm out < 0_0 >\n");
 		exit(0);
 	}
@@ -74,7 +76,7 @@ void	minishell(char **env)
 	line = NULL;
 	while (42)
 	{
-		line = ft_readline_input(mini->line, &env);
+		line = ft_readline_input(mini->line, &env, mini);
 		if(!line)
 			exit(130);
 		add_history(line);
@@ -85,8 +87,10 @@ void	minishell(char **env)
 		//if (line)
 		//	free(line);
 		//ft_free_cmds(mini);
-		if(line)
-			free(line);
+		// if(line)
+		// 	free(line);
+		//free_tab(&env);
+		free_tout_mini(mini);
 	}
 //	free(mini);
 	//free(line);

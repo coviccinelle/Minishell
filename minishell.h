@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 21:39:03 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 12:07:01 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,10 @@ int			ft_strcmp(char *s, char *t);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 int			rest_is_blank_2(char *str);
 void		avs_and_nul(t_cmd *cmd, char *str);
+void	free_tout_mini(t_mini *mini);
+void free_tab_3(char **tab, int nrow);
 
+void	free_one_cmd(t_cmd *cmd);
 //*** Builtins ***//
 t_export	*new_export(char *export_name, char *export_data);
 void		delete_export(t_export **export_lst, char *export_name);
@@ -175,7 +178,6 @@ void		ft_bzero(void *b, size_t n);
 void		*ft_memalloc(size_t size);
 void		test_print(char **envp);
 void		free_tab(char ***line);
-void		free_tabs(char **tabs);
 void		ft_putchar(int c);
 void		ft_putstr(char *s);
 void		*ft_memcpy(void *dst, const void *src, size_t n);

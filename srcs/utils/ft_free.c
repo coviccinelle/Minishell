@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 13:09:01 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 19:44:02 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 12:06:48 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,21 @@ void	free_t_file(t_file **f)
 	}
 }
 
+
+void	free_one_cmd(t_cmd *cmd)
+{
+	if (!cmd)
+		return ;
+	if (cmd->av)
+		free_tab_3((cmd->av), nb_tabs(cmd->av));
+	if (cmd->file_in)
+		free_t_file(&(cmd->file_in));
+	if (cmd->file_out)
+		free_t_file(&(cmd->file_out));
+	if (cmd)
+		free(cmd);
+}
+
 void	ft_free_cmds(t_mini *mini)
 {
 	t_cmd	*cmd;
@@ -51,7 +66,7 @@ void	ft_free_cmds(t_mini *mini)
 		next = cmd->next;
 		printf("free tout dans cmd pls\n");
 		if (cmd->av)
-			free_tab(&(cmd->av));
+			free_tab_3((cmd->av), nb_tabs(cmd->av));
 		if (cmd->file_in)
 			free_t_file(&(cmd->file_in));
 		if (cmd->file_out)
@@ -62,6 +77,32 @@ void	ft_free_cmds(t_mini *mini)
 	}
 }
 
+
+void	free_tout_mini(t_mini *mini)
+{
+	if (!mini)
+		return ;
+	else if (mini)
+	{
+		ft_free_cmds(mini);
+		free(mini->line);
+	}
+}
+
+void free_tab_3(char **tab, int nrow)
+{
+	int i;
+	i = 0;
+	while (i < nrow)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+
+//Function to free all cmds + mini + line_after
 void	exit_custom(t_mini *mini, char *str, int n)
 {
 	(void)str;

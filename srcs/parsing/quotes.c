@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 21:32:32 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 12:13:43 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ char	*ft_add_double_quote(int *i, char *line, char *line_after, char ***env)
 	if (!ft_check_2rd_quote(&line[*i], '"'))
 	{
 		printf("ERROR: Double quotes are not safely closed\n free tout stp\n");
-		g_exit_value = 1;
+		//free_tout_mini(mini);
+		g_exit_value = 1003;
 		return (NULL);
 	}
 	(*i)++;
@@ -59,12 +60,21 @@ char	*ft_add_double_quote(int *i, char *line, char *line_after, char ***env)
 // // DOUBLE QUOTES principales //
 char	*ft_d2_quotes(char *line_aft, int *i, t_cmd *cmd, t_mini *mini, char ***env)
 {
+	char	*return_line;
+
 	if (line_aft)
 	{
 		ft_avs(cmd, line_aft);
 		line_aft = NULL;
 	}
-	return (ft_add_double_quote(i, mini->line, line_aft, env));
+	return_line = ft_add_double_quote(i, mini->line, line_aft, env);
+	if (!return_line && g_exit_value == 1003)
+	{
+		g_exit_value = 1;
+		free(line_aft);
+		free_one_cmd(cmd);
+	}
+	return (return_line);
 }
 
 char	*stock_single_quote(int *i, char *line, char *line_after)
@@ -72,7 +82,7 @@ char	*stock_single_quote(int *i, char *line, char *line_after)
 	if (!ft_check_2rd_quote(&line[*i], '\''))
 	{
 		printf("ERROR: Single quotes are not safely closed\n free tout stp\n");
-		g_exit_value = 1;
+		g_exit_value = 1003;
 		return (NULL);
 	}
 	(*i)++;
@@ -88,10 +98,21 @@ char	*stock_single_quote(int *i, char *line, char *line_after)
 //int	ft_add_2rd_s_quote(t_mini *one_cmd, int *i, char *line, char *str)
 char	*ft_single_quote(char *line_after, int *i, char *line, t_cmd *cmd)
 {
+
+	char	*return_line;
+	
 	if (line_after)
 	{
 		ft_avs(cmd, line_after);
 		line_after = NULL;
 	}
-	return (stock_single_quote(i, line, line_after));
+
+	return_line = stock_single_quote(i, line, line_after);
+	if (!return_line && g_exit_value == 1003)
+	{
+		g_exit_value = 1;
+		free(line_after);
+		free_one_cmd(cmd);
+	}
+	return (return_line);
 }

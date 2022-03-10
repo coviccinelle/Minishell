@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:58:45 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 13:14:38 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 11:57:32 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	*ft_itoa(int nb)
 
 	n = nb;
 	i = len(n);
+	str = NULL;
 	str = (char *)malloc(sizeof(char) * (i + 1));
 	if (!str)
 		return (NULL);

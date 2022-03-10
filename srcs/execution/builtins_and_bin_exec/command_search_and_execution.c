@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:05:06 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/09 17:16:09 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 11:38:16 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,12 @@ char	*find_cmd_path(char *cmd, char **env)
 		absolute_path = ft_strxjoin(path[j], "/", cmd);
 		if (stat(absolute_path, &s) == 0)
 		{
-			free_tab(&path);
+			free_tab_3(path, nb_tabs(path));
 			return (absolute_path);
 		}
 		ft_memdel(&absolute_path);
 	}
-	free_tab(&path);
+	free_tab_3(path, nb_tabs(path));
 	ft_memdel(&absolute_path);
 	return (NULL);
 }
