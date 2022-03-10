@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:45:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 18:53:37 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 19:14:59 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 int	ft_add_to_fstack_out(t_cmd **cmd, char *line)
 {
-//	t_file		*tmp;
 	t_file		*new;
 	t_file		*p;
 
-//	tmp = (*cmd)->file_out;
 	p = (*cmd)->file_out;
 	new = (t_file *)malloc(sizeof(t_file));
 	if (!new)
@@ -39,11 +37,9 @@ int	ft_add_to_fstack_out(t_cmd **cmd, char *line)
 
 int	ft_add_to_fstack_in(t_cmd **cmd, char *line)
 {
-//	t_file		*tmp;
 	t_file		*new;
 	t_file		*p;
 
-//	tmp = (*cmd)->file_in;
 	p = (*cmd)->file_in;
 	new = (t_file *)malloc(sizeof(t_file));
 	if (!new)

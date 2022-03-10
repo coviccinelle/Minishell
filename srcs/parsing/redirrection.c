@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:53:50 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 23:52:02 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 19:13:55 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,11 @@ void	avs_and_nul(t_cmd *cmd, char *str)
 	if (str)
 	{
 		ft_avs(cmd, str);
-	//	free(str);
 	}
 }
 
 int	ft_redirec(char *line, int *i, char *str, t_cmd **tmp)
 {
-//	t_file	*t;
-//	t_file	*file_in_2;
-//	t_file	*file;
-//	t_mini	*mini;
-
-//	t = (*tmp)->file_out;
-//	file = NULL;
-//	mini = NULL;
 	if (!check_redir(line, *i))
 	{
 		printf("Minishell: syntax error\n");
@@ -74,9 +65,6 @@ int	ft_redirec(char *line, int *i, char *str, t_cmd **tmp)
 		ft_add_file_in(tmp, i, line, str);
 	else if (line[*i] == '>')
 		ft_add_file_out(tmp, i, line, str);
-//	file_in_2 = (*tmp)->file_in;
-//	t = (*tmp)->file_out;
-
 	line = NULL;
 	return (1);
 }

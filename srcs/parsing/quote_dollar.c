@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:38:44 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 18:44:41 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 19:25:18 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char	*ft_strjoin_2(char *s1, char *s2)
 	e++;
 	ret[i + e] = '\0';
 	free(s1);
-	free(s2);
 	return (ret);
 }
 
@@ -75,7 +74,6 @@ char	*dolar_quote(char *str, char **envp)
 	int		i;
 	char	*line_after;
 	char	*dolar_value;
-	char	*ito;
 
 	line_after = NULL;
 	dolar_value = NULL;
@@ -86,10 +84,7 @@ char	*dolar_quote(char *str, char **envp)
 		{
 			dolar_value = dolar_name_quote(str, &i);
 			if (*dolar_value == '?')
-			{
-				ito = ft_itoa(g_exit_value);
-				line_after = ft_strjoin_2(line_after, ito);
-			}
+				line_after = ft_strjoin_2(line_after, ft_itoa(g_exit_value));
 			dolar_value = ft_getenv(envp, dolar_value);
 			line_after = ft_strjoin_2(line_after, dolar_value);
 		}
