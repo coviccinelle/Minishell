@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 13:09:01 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 21:32:38 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 22:00:27 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	free_one_cmd(t_cmd *cmd)
 		return ;
 	if (cmd->av)
 		free_tab_3((cmd->av), nb_tabs(cmd->av));
+	if (cmd->la)
+		free(cmd->la);
 	if (cmd->file_in)
 		free_t_file(&(cmd->file_in));
 	if (cmd->file_out)

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:11:08 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 21:43:37 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 21:48:56 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_cmd	*new_elem_cmd(t_mini *mini)
 	if (!elem)
 		return (NULL);
 	elem->av = NULL;
-	elem->type = NOPE;
+	elem->la = NULL;
 	elem->type = 0;
 	elem->file_in = NULL;
 	elem->file_out = NULL;

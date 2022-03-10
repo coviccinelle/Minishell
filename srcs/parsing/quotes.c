@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 19:29:32 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 21:58:42 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_check_2rd_quote(char *str, char c)
 		return (1);
 }
 
-char	*ft_add_double_quote(int *i, char *line, char *line_after, char ***env)
+char	*ft_add_double_quote(int *i, char *line, t_cmd *cmd, char ***env)
 {
 	char	*tmp;
 
@@ -49,31 +49,31 @@ char	*ft_add_double_quote(int *i, char *line, char *line_after, char ***env)
 	(*i)++;
 	while (line[*i] != '"' && line[*i])
 	{
-		tmp = ft_add_line_after(line_after, line[*i]);
-		line_after = tmp;
+		tmp = ft_add_line_after(cmd->la, line[*i]);
+		cmd->la = tmp;
 		(*i)++;
 	}
-	if (find_me('$', line_after) != -1)
-		line_after = dolar_quote(line_after, *env);
+	if (find_me('$', cmd->la) != -1)
+		cmd->la = dolar_quote(cmd->la, *env);
 	(*i)++;
-	return (line_after);
+	return (cmd->la);
 }
 
 // // DOUBLE QUOTES principales //
-char	*ft_d2_quotes(char *line_aft, int *i, t_cmd *cmd, t_mini *mini, char ***env)
+char	*ft_d2_quotes(int *i, t_cmd *cmd, t_mini *mini, char ***env)
 {
 	char	*return_line;
 
-	if (line_aft)
+	if (cmd->la)
 	{
-		ft_avs(cmd, line_aft);
-		line_aft = NULL;
+		ft_avs(cmd, cmd->la);
+		cmd->la = NULL;
 	}
-	return_line = ft_add_double_quote(i, mini->line, line_aft, env);
+	return_line = ft_add_double_quote(i, mini->line, cmd, env);
 	if (!return_line && g_exit_value == 1003)
 	{
 		g_exit_value = 1;
-		free(line_aft);
+	//	free(cmd->la);
 		free_one_cmd(cmd);
 	}
 	return (return_line);
@@ -98,20 +98,20 @@ char	*stock_single_quote(int *i, char *line, char *line_after)
 }
 
 //int	ft_add_2rd_s_quote(t_mini *one_cmd, int *i, char *line, char *str)
-char	*ft_single_quote(char *line_after, int *i, char *line, t_cmd *cmd)
+char	*ft_single_quote(int *i, char *line, t_cmd *cmd)
 {
 	char	*return_line;
 
-	if (line_after)
+	if (cmd->la)
 	{
-		ft_avs(cmd, line_after);
-		line_after = NULL;
+		ft_avs(cmd, cmd->la);
+		cmd->la = NULL;
 	}
-	return_line = stock_single_quote(i, line, line_after);
+	return_line = stock_single_quote(i, line, cmd->la);
 	if (!return_line && g_exit_value == 1003)
 	{
 		g_exit_value = 1;
-		free(line_after);
+		free(cmd->la);
 		free_one_cmd(cmd);
 	}
 	return (return_line);

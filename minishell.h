@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 21:23:50 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 21:59:18 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,30 +71,22 @@ typedef struct s_file
 
 typedef struct s_cmd
 {
-//	char			*line;
+	char			*la;
 	int				pid;
 	char			**av;
-	int				stop;
 	int				type;
 	t_file			*file_in;
 	t_file			*file_out;
 	t_file			*last_file_in;
 	t_file			*last_file_out;
 	struct s_cmd	*next;
-//	struct s_cmd	*prev;
 }				t_cmd;
 
 typedef struct s_mini
 {
 	//char			**env;
 	char			*line;
-	int				stop;
-	int				n_cmd;
-	int				pipe;
-	int				fork;
-	int				ret_status;
 	t_cmd			*cmd;
-	//char			*heredoc;
 }				t_mini;
 
 // *** // main  // *** //
@@ -203,8 +195,8 @@ int			ft_avs(t_cmd *one_cmd, char *line_after);
 char		**ft_avs_2(t_cmd *one_cmd, char *line_after);
 int			ft_buf(char *argv, int *i, char *buf);
 int			ft_check_2rd_quote_2(char *line, int c);
-char		*ft_d2_quotes(char *line_after, int *i, t_cmd *cmd, t_mini *mini, char ***env);
-char	*ft_single_quote(char *line_after, int *i, char *line, t_cmd *cmd);
+char		*ft_d2_quotes(int *i, t_cmd *cmd, t_mini *mini, char ***env);
+char	*ft_single_quote(int *i, char *line, t_cmd *cmd);
 void		free_avs(char **avs);
 char		*dollar_sign(int ac, char **av, char **env);
 void		skip_blank_2(char *str, int *i, t_cmd *tmp, char *line_after);
