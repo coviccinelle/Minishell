@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/10 18:40:43 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 19:07:02 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	call_heredoc(char *eof)
 		input = ft_readline_heredoc(input);
 		if (input)
 		{
-			if (ft_strncmp(input, eof, strlen(eof)) != 0)
+			if (ft_strcmp(input, eof) != 0)
 				ft_putendl_fd(input, fd);
-			if (ft_strncmp(input, eof, strlen(eof)) == 0)
+			if (ft_strcmp(input, eof) == 0)
 				break ;
 			free(input);
 		}

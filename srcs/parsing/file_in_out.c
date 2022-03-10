@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:45:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 23:44:55 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 18:53:37 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ t_file	*ft_last_file(t_file *file)
 	p = file;
 	while (p && p->next)
 	{
-		printf("filename  = %s\n", p->name);
 		p = p->next;
 	}
 	return (p);

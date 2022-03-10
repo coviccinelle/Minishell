@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:32:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 18:45:26 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 18:52:07 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,5 @@ int	ft_alphabetical_order_tab(char **env)
 	print_export(copy);
 	if (copy)
 		free_tab_3(copy, nb_tabs(copy));
-	if (copy)
 	return (0);
 }

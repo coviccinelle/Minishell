@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/10 18:40:31 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 18:58:34 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,8 @@ void	waiting_for_all_children_to_finish_executionn(t_cmd *cmd)
 	int	status;
 
 	dup2(STDOUT, STDIN);
-	if (!cmd)
-		fprintf(stderr, "\n DONT exist\n");
 	while (cmd)
 	{
-		fprintf(stderr, "\n CMD %s \n", cmd->av[0]);
 		waitpid(cmd->pid, &status, 0);
 		if (WIFEXITED(status))
 			g_exit_value = WEXITSTATUS(status);
