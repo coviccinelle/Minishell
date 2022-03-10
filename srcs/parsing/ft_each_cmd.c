@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 20:05:31 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 20:25:27 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,32 +41,12 @@ int	quote_pass_2(char *str, int *i)
 //if ret 1, break
 //if ret 2, continue / parsing ok
 
-// int	double_quote_norm(t_mini *mini, char *line, int *i, t_cmd **cmd, char ***env)
-// {
-// 	if (line[*i + 1] && (line[*i + 1] == '\"'))
-// 	{
-// 		(*i) += 2;
-// 		return (1);
-// 	}
-// 	line_after = ft_d2_quotes(line_after, i, *cmd, mini, env);
-// 	if (!line_after)
-// 		return (0);
-// 	if (!ft_strcmp(line_after, "?"))
-// 	{
-// 		ft_avs(*cmd, ft_itoa(g_exit_value));
-// 		return (1);
-// 	}
-// 	avs_and_nul(*cmd, line_after);
-// 	if (!quote_pass_2(line, i))
-// 		return (1);
-// 	line_after = NULL;
-// 	return (2);
-// }
-
 int	ft_each_cmd_4(t_mini *mini, int *i, t_cmd **cmd, char ***env)
 {
 	char		*buf;
 	char		*line_after;
+	char		*va_2;
+	char		*var;
 
 	line_after = NULL;
 	while (mini->line[*i])
@@ -116,10 +96,9 @@ int	ft_each_cmd_4(t_mini *mini, int *i, t_cmd **cmd, char ***env)
 		}
 		else if (mini->line[*i] == '$')
 		{
-			char *va_2;
 			va_2 = dolar_name(mini->line, i, line_after, *cmd);
 			line_after = va_2;
-			char *var = dolar_2(mini->line, i, line_after, *env);
+			var = dolar_2(mini->line, i, line_after, *env);
 			if (*line_after == '?')
 				ft_avs(*cmd, ft_itoa(g_exit_value));
 			avs_and_nul(*cmd, var);
