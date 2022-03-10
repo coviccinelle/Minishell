@@ -22,6 +22,7 @@ SRC		=	srcs/main.c \
 			srcs/utils/ft_free.c \
 			srcs/utils/cpy_stuff.c \
 			srcs/utils/len.c \
+			srcs/utils/ft_free_file.c \
 			srcs/utils/print_avs.c \
 			srcs/utils/utils.c \
 			srcs/utils/ft_avs.c \

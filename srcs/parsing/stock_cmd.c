@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:11:08 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 20:36:01 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 21:23:11 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,6 @@ int	create_files(int type, char *filename)
 	return (0);
 }
 
-void	free_file(t_file **file)
-{
-	t_file *tmp;
-
-	tmp = *file;
-	while ((*file))
-	{
-		tmp = (*file)->next;
-		if((*file)->name)
-			free((*file)->name);
-		free(*file);
-		(*file) = tmp;
-	}
-}
-
 void	stock_cmds_3(t_cmd *cmd)
 {
 	t_file	*file_out;
@@ -95,18 +80,6 @@ void	stock_cmds_3(t_cmd *cmd)
 	}
 	cmd->last_file_in = ft_last_file(file_inn);
 	cmd->last_file_out = ft_last_file(file_out);
-}
-
-void	ft_free_c(t_cmd **c)
-{
-	t_cmd	*temp;
-
-	while((*c))
-	{
-		temp = (*c)->next;
-		free((*c));
-		(*c) = temp;
-	}
 }
 
 //stock cmd
