@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:38:51 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 18:43:30 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 19:29:32 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ int	ft_check_2rd_quote(char *str, char c)
 
 char	*ft_add_double_quote(int *i, char *line, char *line_after, char ***env)
 {
-	char *tmp;
+	char	*tmp;
+
 	if (!ft_check_2rd_quote(&line[*i], '"'))
 	{
 		printf("ERROR: Double quotes are not safely closed\n");
-		//free_tout_mini(mini);
 		g_exit_value = 1003;
 		return (NULL);
 	}
@@ -56,7 +56,6 @@ char	*ft_add_double_quote(int *i, char *line, char *line_after, char ***env)
 	if (find_me('$', line_after) != -1)
 		line_after = dolar_quote(line_after, *env);
 	(*i)++;
-	//free(tmp);
 	return (line_after);
 }
 
@@ -101,15 +100,13 @@ char	*stock_single_quote(int *i, char *line, char *line_after)
 //int	ft_add_2rd_s_quote(t_mini *one_cmd, int *i, char *line, char *str)
 char	*ft_single_quote(char *line_after, int *i, char *line, t_cmd *cmd)
 {
-
 	char	*return_line;
-	
+
 	if (line_after)
 	{
 		ft_avs(cmd, line_after);
 		line_after = NULL;
 	}
-
 	return_line = stock_single_quote(i, line, line_after);
 	if (!return_line && g_exit_value == 1003)
 	{
