@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 21:20:15 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 21:36:49 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,22 @@ char	*ft_readline_input(char *line, char ***env, t_mini *mini)
 	if (!line)
 	{
 		if (*env)
-			printf("FREE TAB NE MARCHE PAS\n\n");
-		//printf("Oops someone just typed ctr^D?!? Bye, I'm out < 0_0 >\n");
-		exit(0);
+			exit (0);
 	}
 	return (line);
 }
 
-int	mini_run(t_mini *mini, char ***env)
+void	mini_run(t_mini *mini, char ***env)
 {
 	mini->cmd = stock_cmds(mini, env);
 	if (!mini->cmd || !mini->cmd->av)
 	{
-		return (0);
+		return ;
 	}
 	if (nb_cmds(mini->cmd) == 1)
-	{
 		exec_cmd_with_no_pipe(mini, env);
-		return (1);
-	}
 	else
-	{
 		run_piped_cmds(mini, env);
-		return (1);
-	}
 }
 
 void	ft_copy_env(char ***s, char **v)
@@ -67,7 +59,7 @@ void	minishell(char **env)
 {
 	t_mini		*mini;
 	char		*line;
-	
+
 	ft_init_mini(&mini);
 	ft_copy_env(&(env), env);
 	init_shell();
@@ -75,24 +67,13 @@ void	minishell(char **env)
 	while (42)
 	{
 		line = ft_readline_input(mini->line, &env, mini);
-		if(!line)
-			exit(130);
+		if (!line)
+			exit (130);
 		add_history(line);
 		mini->line = line;
 		if (mini->line || mini->cmd->av)
-		{
-			if (mini_run(mini, &env) == 0)
-			{
-				free_tout_mini(mini);
-				exit (1);
-			}
-		}
+			mini_run(mini, &env);
 		unlink("heredoc");
-		//if (line)
-		//	free(line);
-		//ft_free_cmds(mini);
-		// if(line)
-		// 	free(line);
 	//	free_tab(&env);
 		free_tout_mini(mini);
 	}
