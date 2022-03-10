@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:32:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 21:31:36 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 22:12:58 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ void	print_export(char **tab)
 		printf("declare -x %s\n", tab[j]);
 }
 
-// plus print tab mais print env plutot vu que 
-//je viens dajouter la condition strchr
 int	print_env(char **env)
 {
 	int	j;
