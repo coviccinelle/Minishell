@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:11:08 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 21:23:11 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 21:41:20 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ t_cmd	*stock_cmds(t_mini *mini, char ***env)
 	while (mini->line[i])
 	{
 		cmd = new_elem_cmd(mini);
-		if (!cmd)
-			return (NULL);
 		add_cmd(&cmd_lst, cmd);
 		while (mini->line[i] && mini->line[i] != '|')
 		{
