@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:21:52 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 23:48:42 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/10 18:06:42 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	ft_fill_av(t_cmd *one_cmd, char **new, char *line)
 	int	y;
 
 	i = 0;
-	y = 0;
-	while (one_cmd->av[y])
+	y = -1;
+	while (one_cmd->av[++y])
 	{
 		new[y] = malloc(sizeof(char) * (ft_strlen(one_cmd->av[y]) + 1));
 		if (!new[y])
@@ -42,7 +42,6 @@ int	ft_fill_av(t_cmd *one_cmd, char **new, char *line)
 		}
 		new[y][i] = '\0';
 		i = 0;
-		y++;
 	}
 	new[y] = malloc(sizeof(char) * (ft_strlen(line) + 1));
 	if (!new[y])
