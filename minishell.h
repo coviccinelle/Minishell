@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 10:56:22 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 11:09:29 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,35 +188,33 @@ int			is_builtin(char *builtin);
 //*** PARSING ***//
 int			parsing(t_cmd *mini, char *line);
 void		ft_init_param(t_param *param, char ***env, int *i);
-int			ft_pars_piping(char *line, t_cmd *mini);
-void		ft_each_cmd_2(t_mini *mini, int *i, t_cmd *cmd);
-int			ft_each_cmd(char *line, int *i, t_cmd *cmd);
 int			ft_avs(t_cmd *one_cmd, char *line_after);
-char		**ft_avs_2(t_cmd *one_cmd, char *line_after);
 int			ft_buf(char *argv, int *i, char *buf);
+char		*ft_single_quote(int *i, char *line, t_cmd *cmd);
+void		free_avs(char **avs);
+void		print_list(t_cmd **mini);
+
+//*** DOUBLE QUOTE ***//
 int			ft_check_2rd_quote_2(char *line, int c);
 char		*ft_d2_quotes(int *i, t_cmd *cmd, t_mini *mini, char ***env);
-char	*ft_single_quote(int *i, char *line, t_cmd *cmd);
-void		free_avs(char **avs);
 char		*dollar_sign(int ac, char **av, char **env);
 char		*dolar_2(char *str, int *i, char *line_after, char **envp);
 void		ft_pass_squote(char *argv, int *i);
 int			quote_pass_2(char *argv, int *i);
+
+//*** REDIRECTION parsing ***//
 int			check_redir(char *line, int i);
 int			ft_redirec(char *line, int *i, char *str, t_cmd **tmp);
 t_file		*ft_last_file(t_file *file);
-
 int			ft_add_file_in(t_cmd **cmd, int *i, char *str, char *line);
-
 int			ft_add_file_out(t_cmd **cmd, int *i, char *str, char *line);
-int			single_quote_3(char *line_after, int *i, char *line, t_cmd *cmd);
-int			ft_single_quote_3(char *str, int *i, char *line, t_cmd *one_cmd);
-char 		*dolar_quote(char *str, char **envp);
-
-char		*dolar_name(char *str, int *i, char *line_after, t_cmd *cmd);
 char		*ft_add_line_after(char *line, char buf);
-void	free_file(t_file **file);
-void		print_list(t_cmd **mini);
+void		free_file(t_file **file);
+void		get_redir(t_mini *mini, int *i, t_cmd *cmd);
+
+//*** dolar quote ***//
+char 		*dolar_quote(char *str, char **envp);
+char		*dolar_name(char *str, int *i, char *line_after, t_cmd *cmd);
 int			is_blank(int c);
 int			is_redir(int c);
 void		get_line(t_mini *mini, int *pos, t_cmd *cmd);
@@ -224,7 +222,6 @@ t_cmd		*stock_cmds(t_mini *mini, char ***env);
 void		ft_each_cmd_3(t_mini *mini, char *str, int *i, t_cmd *cmd);
 t_cmd		*stock_cmds_2(t_mini *mini);
 int			ft_each_cmd_4(t_mini *mini, int *i, t_cmd **one_cmd, char ***env);
-void		get_redir(t_mini *mini, int *i, t_cmd *cmd);
 char		*add_char(t_mini *mini, char *str, int c);
 
 //*** PIPES ***//
@@ -240,12 +237,12 @@ void		child_process(t_cmd *cmd, int *fd, char ***env);
 void		waiting_for_all_children_to_finish_execution(int nb_cmds);
 void		run_piped_cmds(t_mini *mini, char ***env);
 int			exec_cmd_with_no_pipe(t_mini *mini, char ***env);
-void	safely_exec_bin_cmds(char *path, char **av, char **env, int *exit_status);
-void	init_1(char ***data, char ***name, char **av);
-void	init(int *j, int *c, int *exit_value);
-char	*l(char *line);
+void		safely_exec_bin_cmds(char *path, char **av, char **env, int *exit_status);
+void		init_1(char ***data, char ***name, char **av);
+void		init(int *j, int *c, int *exit_value);
+char		*l(char *line);
 int			cmp_again(t_cmd *cmd);
-void	i_am_your_father(t_cmd *cmd, char ***env);
+void		i_am_your_father(t_cmd *cmd, char ***env);
 
 //*** REDIRECTIONS ***//
 void		ft_set_direct(char *line, int *i, t_cmd *mini);
@@ -257,7 +254,7 @@ void		ft_print_av(t_cmd *mini);
 
 //*** SIMPLE QUOTE ***//
 
-//*** DOUBLE QUOTE ***//
+
 
 //*** SIGNAL ***//
 void		ft_sigint_ctr_c(int sig);

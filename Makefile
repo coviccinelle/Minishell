@@ -35,7 +35,7 @@ SRC		=	srcs/main.c \
 			srcs/utils/utils_libft_1.c \
 			srcs/utils/utils_libft_2.c \
 			srcs/utils/utils_libft_3.c \
-			srcs/utils/ft_pars_piping.c \
+			srcs/utils/ft_print_av.c \
 			srcs/utils/find_me_vs_token_dir.c \
 			\
 			srcs/execution/builtins_and_bin_exec/command_search_and_execution.c \
