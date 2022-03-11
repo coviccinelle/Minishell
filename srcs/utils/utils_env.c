@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:20:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 14:22:51 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 14:47:02 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*cpy_trim(char *s, char from, char to)
 		return (ft_strdup(s));
 	if (from == '=')
 		i = i + 1;
-	d = ft_strndup(&s[i], j);
+	d = strndup(&s[i], j);
 	return (d);
 }
 

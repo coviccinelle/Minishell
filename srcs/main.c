@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 10:22:37 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 15:10:47 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ void	minishell(char **env)
 	t_mini		*mini;
 	char		*line;
 
+	mini = malloc(sizeof(t_mini));
+	if (!mini)
+		return ;
+	memset(mini, 0 , sizeof(t_mini));
 	ft_init_mini(&mini);
 	ft_copy_env(&(env), env);
 	init_shell();

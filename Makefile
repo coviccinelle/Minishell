@@ -1,59 +1,62 @@
 NAME	=	minishell
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror #-g3 -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g3 -fsanitize=address
 RM		=	rm -rf
-SRC		=	srcs/main.c \
+SRC		=	main.c \
 			\
-			srcs/signal/signal.c \
+			signal/signal.c \
 			\
-			srcs/parsing/parsing_mini.c \
-			srcs/parsing/init.c \
-			srcs/parsing/quotes.c \
-			srcs/parsing/quote_dollar.c \
-			srcs/parsing/ft_add_line_after.c \
-			srcs/parsing/ft_each_cmd.c \
-			srcs/parsing/stock_cmd.c \
-			srcs/parsing/dollar_sign.c \
-			srcs/parsing/redirrection.c \
-			srcs/parsing/file_in_out.c \
+			parsing/parsing_mini.c \
+			parsing/init.c \
+			parsing/quotes.c \
+			parsing/quote_dollar.c \
+			parsing/ft_add_line_after.c \
+			parsing/ft_each_cmd.c \
+			parsing/stock_cmd.c \
+			parsing/dollar_sign.c \
+			parsing/redirrection.c \
+			parsing/file_in_out.c \
 			\
-			srcs/utils/is_something.c \
-			srcs/utils/ft_itoa.c \
-			srcs/utils/skip_char.c \
-			srcs/utils/ft_free.c \
-			srcs/utils/cpy_stuff.c \
-			srcs/utils/len.c \
-			srcs/utils/ft_free_file.c \
-			srcs/utils/print_avs.c \
-			srcs/utils/utils.c \
-			srcs/utils/ft_avs.c \
-			srcs/utils/utils_tab.c \
-			srcs/utils/utils_env.c \
-			srcs/utils/ft_split_3.c \
-			srcs/utils/ft_copy_tab.c \
-			srcs/utils/ft_redir_utils.c \
-			srcs/utils/utils_libft_1.c \
-			srcs/utils/utils_libft_2.c \
-			srcs/utils/utils_libft_3.c \
-			srcs/utils/ft_print_av.c \
-			srcs/utils/find_me_vs_token_dir.c \
+			utils/is_something.c \
+			utils/ft_itoa.c \
+			utils/skip_char.c \
+			utils/ft_free.c \
+			utils/cpy_stuff.c \
+			utils/len.c \
+			utils/ft_free_file.c \
+			utils/print_avs.c \
+			utils/utils.c \
+			utils/ft_avs.c \
+			utils/utils_tab.c \
+			utils/utils_env.c \
+			utils/ft_split_3.c \
+			utils/ft_copy_tab.c \
+			utils/ft_redir_utils.c \
+			utils/utils_libft_1.c \
+			utils/utils_libft_2.c \
+			utils/utils_libft_3.c \
+			utils/ft_print_av.c \
+			utils/find_me_vs_token_dir.c \
 			\
-			srcs/execution/builtins_and_bin_exec/command_search_and_execution.c \
-			srcs/execution/builtins_and_bin_exec/exit.c \
-			srcs/execution/builtins_and_bin_exec/echo.c \
-			srcs/execution/builtins_and_bin_exec/export_unset.c \
-			srcs/execution/builtins_and_bin_exec/export_unset_1.c \
-			srcs/execution/builtins_and_bin_exec/export_unset_2.c \
-				srcs/execution/builtins_and_bin_exec/export_unset_3.c \
-			srcs/execution/builtins_and_bin_exec/pwd_cd.c \
-			srcs/execution/pipes/pipes.c \
-			srcs/execution/pipes/pipes_1.c \
-			srcs/execution/pipes/pipes_2.c \
-			srcs/execution/pipes/pipes_utils.c \
+			execution/builtins_and_bin_exec/command_search_and_execution.c \
+			execution/builtins_and_bin_exec/exit.c \
+			execution/builtins_and_bin_exec/echo.c \
+			execution/builtins_and_bin_exec/export_unset.c \
+			execution/builtins_and_bin_exec/export_unset_1.c \
+			execution/builtins_and_bin_exec/export_unset_2.c \
+			execution/builtins_and_bin_exec/export_unset_3.c \
+			execution/builtins_and_bin_exec/pwd_cd.c \
+			execution/pipes/pipes.c \
+			execution/pipes/pipes_1.c \
+			execution/pipes/pipes_2.c \
+			execution/pipes/pipes_utils.c \
 			
-			#srcs/utils/ft_split_3.c 
-				
-OBJ = ${SRC:.c=.o}
+			#/utils/ft_split_3.c 
+
+OBJDIR = objs
+SRCDIR = srcs
+
+OBJ = $(addprefix ${OBJDIR}/, ${SRC:.c=.o})
 
 .SILENT:
 SHELL	:= bash
@@ -93,16 +96,14 @@ define  progress_bar
 endef
  # ******************************************************************************* #
 
-.c.o:
-	${CC} -c ${CFLAGS} -o $@ $<
-
 #	@$(CC) $(CFLAGS) $(OBJ) -L .brew/opt/readline/lib -I .brew/opt/readline/include -o $(NAME)
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -lreadline -o $(NAME)
 	@printf "${B}${CWHITE}]\n"
 
-%.o: %.c
+${OBJDIR}/%.o:${SRCDIR}/%.c
+	@mkdir -p ${@D}
 	@$(CC) $(CFLAGS) -c $< -o $@
 	printf "█"
 
