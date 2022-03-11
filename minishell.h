@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 09:53:16 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 10:48:14 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 # include <fcntl.h>
 # define EXIT_SUCCESS 0
 # define EXIT_FAILURE 1
-# define READ_END fd[0]
-# define WRITE_END fd[1]
 # define STDIN 0
 # define STDOUT 1
 # define EXIT_FAILURE 1
@@ -199,6 +197,7 @@ int			is_builtin_2(t_mini *mini, t_cmd *cmd);
 
 //*** PARSING ***//
 int			parsing(t_cmd *mini, char *line);
+void	ft_init_param(t_param *param, char ***env, int *i);
 int			ft_pars_piping(char *line, t_cmd *mini);
 void		ft_each_cmd_2(t_mini *mini, int *i, t_cmd *cmd);
 int			ft_each_cmd(char *line, int *i, t_cmd *cmd);

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 13:09:01 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 22:00:27 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 10:35:19 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,21 @@ void	free_one_cmd(t_cmd *cmd)
 		free_t_file(&(cmd->file_in));
 	if (cmd->file_out)
 		free_t_file(&(cmd->file_out));
-	if (cmd)
-		free(cmd);
+	// if (cmd)
+	// 	free(cmd);
 }
 
 void	ft_free_cmds(t_mini *mini)
 {
 	t_cmd	*cmd;
-	t_cmd	*next;
+//	t_cmd	*next;
 
 	cmd = mini->cmd;
 	if (!cmd)
 		return ;
 	while (cmd)
 	{
-		next = cmd->next;
+	//	next = cmd->next;
 		if (cmd->av)
 			free_tab_3((cmd->av), nb_tabs(cmd->av));
 		if (cmd->file_in)
@@ -73,7 +73,7 @@ void	ft_free_cmds(t_mini *mini)
 			free_t_file(&(cmd->file_out));
 		if (cmd)
 			free(cmd);
-		cmd = next;
+		cmd = cmd->next;
 	}
 }
 

@@ -6,6 +6,7 @@ SRC		=	srcs/main.c \
 			\
 			srcs/signal/signal.c \
 			\
+			srcs/parsing/parsing_mini.c \
 			srcs/parsing/init.c \
 			srcs/parsing/quotes.c \
 			srcs/parsing/quote_dollar.c \
