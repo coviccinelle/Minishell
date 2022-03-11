@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 09:49:29 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 09:53:16 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,16 @@ typedef struct s_file
 	int				type;
 	struct s_file	*next;
 }				t_file;
+
+typedef struct s_param
+{
+	char	*buf;
+	char	*va_2;
+	char	*var;
+	char	***env;
+	int		*i;
+}		t_param;
+
 
 typedef struct s_cmd
 {

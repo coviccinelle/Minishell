@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 22:11:04 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 09:59:36 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,27 @@ int	quote_pass_2(char *str, int *i)
 //if ret 1, break
 //if ret 2, continue / parsing ok
 
+void	ft_init_param(t_param *param, char ***env, int *i)
+{
+	param->buf = NULL;
+	param->var = NULL;
+	param->env = env;
+	param->i = i;
+}
+
 int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 {
+	t_param		p;
+
+	ft_init_param(&p, env, i);
+/*
+	char	*buf;
+	char	*va_2;
+	char	*var;
+	char	***env;
+	int		*i;
+		L-> a init 
+*/
 	char		*buf;
 	char		*va_2;
 	char		*var;
