@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 10:46:48 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 10:47:08 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 12:18:23 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,24 @@ int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 	t_param		p;
 
 	ft_init_param(&p, env, i);
-/*
-	char	*buf;
-	char	*va_2;
-	char	*var;
-	char	***env;
-	int		*i;
-		L-> a init 
-
-	char		*buf;
-	char		*va_2;
-	char		*var;
-*/
-	while (m->line[*i])
+	while (m->line[p.i])
 	{
 		///----------------------------
-		if (m->line[*i] == ' ')
+		if (m->line[p.i] == ' ')
 		{
-			skip_blank_2(m->line, i, *cmd, (*cmd)->la);
+			skip_blank_2(m->line, &p.i, *cmd, (*cmd)->la);
 			(*cmd)->la = NULL;
-			if (!m->line[*i])
+			if (!m->line[p.i])
 				break ;
 		}
-		else if (m->line[*i] == '"')
+		else if (m->line[p.i] == '"')
 		{
-			if (m->line[*i + 1] && (m->line[*i + 1] == '\"'))
+			if (m->line[p.i + 1] && (m->line[p.i + 1] == '\"'))
 			{
-				(*i) += 2;
+				p.i += 2;
 				break ;
 			}
-			(*cmd)->la = ft_d2_quotes(i, *cmd, m, env);
+			(*cmd)->la = ft_d2_quotes(&p.i, *cmd, m, env);
 			if (!(*cmd)->la)
 				return (0);
 			if (!ft_strcmp((*cmd)->la, "?"))
@@ -55,34 +43,34 @@ int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 				break ;
 			}
 			avs_and_nul(*cmd, (*cmd)->la);
-			if (!quote_pass_2(m->line, i))
+			if (!quote_pass_2(m->line, &p.i))
 				break ;
 			(*cmd)->la = NULL;
 		}
-				///----------------------------
+		///----------------------------
 
-		else if (m->line[*i] == '\'')
+		else if (m->line[p.i] == '\'')
 		{
-			if (m->line[*i + 1] && (m->line[*i + 1] == '\''))
+			if (m->line[p.i + 1] && (m->line[p.i + 1] == '\''))
 			{
-				(*i) += 2;
+				p.i += 2;
 				break ;
 			}
-			(*cmd)->la = ft_single_quote(i, m->line, *cmd);
+			(*cmd)->la = ft_single_quote(&p.i, m->line, *cmd);
 			if (!(*cmd)->la)
 				return (0);
 			avs_and_nul(*cmd, (*cmd)->la);
-			if (m->line[(*i) + 1] == '\0')
+			if (m->line[p.i + 1] == '\0')
 				break ;
-			ft_pass_squote(m->line, i);
+			ft_pass_squote(m->line, &p.i);
 			(*cmd)->la = NULL;
 		}
 
-		else if (m->line[*i] == '$' && is_dollar(m->line[*i + 1]))
+		else if (m->line[p.i] == '$' && is_dollar(m->line[p.i + 1]))
 		{
-			p.va_2 = dolar_name(m->line, i, (*cmd)->la, *cmd);
+			p.va_2 = dolar_name(m->line, &p.i, (*cmd)->la, *cmd);
 			(*cmd)->la = p.va_2;
-			p.var = dolar_2(m->line, i, (*cmd)->la, *env);
+			p.var = dolar_2(m->line, &p.i, (*cmd)->la, *env);
 			if (*(*cmd)->la == '?')
 				ft_avs(*cmd, ft_itoa(g_exit_value));
 			avs_and_nul(*cmd, p.var);
@@ -91,15 +79,15 @@ int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 		}
 		///----------------------------
 
-		else if (is_redir(m->line[*i]))
+		else if (is_redir(m->line[p.i]))
 		{
-			if (!ft_redirec(m->line, i, (*cmd)->la, &*cmd))
+			if (!ft_redirec(m->line, &p.i, (*cmd)->la, &*cmd))
 				return (0);
 			else
-				(*i)++;
+				p.i++;
 		}
 
-		else if (m->line[*i] == '|')
+		else if (m->line[p.i] == '|')
 		{
 			avs_and_nul(*cmd, (*cmd)->la);
 			break ;
@@ -108,12 +96,13 @@ int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 		else
 		{
 			p.buf = malloc(sizeof(char) * 2);
-			ft_buf(m->line, i, p.buf);
+			ft_buf(m->line, &p.i, p.buf);
 			(*cmd)->la = ft_add_line_after((*cmd)->la, p.buf[0]);
-			if ((!m->line[*i]))
+			if ((!m->line[p.i]))
 				avs_and_nul(*cmd, (*cmd)->la);
 			free(p.buf);
 		}
 	}
+	(*i) = p.i;
 	return (1);
 }

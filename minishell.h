@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 11:09:29 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 12:08:03 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_param
 	char	*va_2;
 	char	*var;
 	char	***env;
-	int		*i;
+	int		i;
 }		t_param;
 
 
