@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 21:59:18 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 09:49:29 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int			rest_is_blank_2(char *str);
 void		avs_and_nul(t_cmd *cmd, char *str);
 void	free_tout_mini(t_mini *mini);
 void free_tab_3(char **tab, int nrow);
+int	is_dollar(char c);
 
 void	free_one_cmd(t_cmd *cmd);
 //*** Builtins ***//
