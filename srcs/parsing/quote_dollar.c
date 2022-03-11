@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_dollar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:38:44 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 17:57:40 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/11 23:25:31 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char	*ft_strjoin_2(char *s1, char *s2)
 	e++;
 	ret[i + e] = '\0';
 	free(s1);
+	if (s2)
+		free(s2);
 	return (ret);
 }
 
@@ -68,6 +70,39 @@ char	*dolar_name_quote(char *str, int *i)
 	}
 	return (name);
 }
+/*
+char	*dolar_quote(char *str, char **envp)
+{
+	int		i;
+	char	*line_after;
+	char	*dolar_value;
+	char 	*another_value;
+
+	line_after = NULL;
+	dolar_value = NULL;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$' && str[i + 1] && str[i + 1] != ' ')
+		{
+			dolar_value = dolar_name_quote(str, &i);
+			if (*dolar_value == '?')
+				line_after = ft_strjoin_2(line_after, ft_itoa(g_exit_value));
+			another_value = ft_getenv(envp, dolar_value);
+			free(dolar_value);
+			line_after = ft_strjoin_2(line_after, another_value);
+		}
+		else
+		{
+			another_value = ft_add_line_after(ft_strdup(line_after), str[i]);
+		//	free(line_after);
+			i++;
+		}
+	}
+	free(str);
+	return (another_value);
+}
+*/
 
 char	*dolar_quote(char *str, char **envp)
 {
@@ -86,11 +121,20 @@ char	*dolar_quote(char *str, char **envp)
 			if (*dolar_value == '?')
 				line_after = ft_strjoin_2(line_after, ft_itoa(g_exit_value));
 			dolar_value = ft_getenv(envp, dolar_value);
-			line_after = ft_strjoin_2(line_after, dolar_value);
+			char *leak_1 = line_after;
+			line_after = ft_strxjoin(line_after, dolar_value, " ");
+			free(leak_1);
+			free(dolar_value);
 		}
 		else
+		{
+			printf("JE PASSE ICI\n\n");
+			//char	*leak_2 = line_after;
 			line_after = ft_add_line_after(line_after, str[i]);
-		i++;
+			//free(leak_2);
+			i++;
+		}
 	}
+	free(str);
 	return (line_after);
 }

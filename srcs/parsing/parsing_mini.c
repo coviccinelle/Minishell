@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_mini.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 10:46:48 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 13:52:55 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 22:56:53 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,9 @@ int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 			}
 		}
 		if (p.ret1 == -1 || p.ret2 == -1)
-			break ;
+			break;
+		if (p.ret1 == 0)
+			return (0);
 	}
 	return ((*i) = p.i, 1);
 }

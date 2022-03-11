@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 18:16:38 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/11 23:02:32 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ int		skip_blank(char *str);
 void	skip_blank_2(char *str, int *i, t_cmd *tmp, char *line_after);
 char	**ft_env_cpy(char **envp);
 void	print_mini_avs(t_mini *mini);
-char	*ft_strxjoin(char *s1, char *s2, char *s3);
 char	*ft_strjoin(char *s1, char *s2);
 int		ft_strlen(char *s);
 char	*cpy_trim(char *s, char from, char to);
