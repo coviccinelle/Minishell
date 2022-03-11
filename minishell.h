@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 10:48:14 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 10:56:22 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ void	init_shell(void);
 //*** Utils ***//
 int			find_me(char c, char *str);
 char		*ft_itoa(int nb);
-int			is_token_char(char c);
 int			is_digit(char c);
 int			is_alpha(char c);
 int			is_valid_var_name(char *av);
@@ -115,9 +114,9 @@ void		ft_putstr(char *s);
 void		ft_free_tab(char **tab);
 int			ft_len_avs(char **avs);
 int			skip_blank(char *str);
+void		skip_blank_2(char *str, int *i, t_cmd *tmp, char *line_after);
 char		**ft_env_cpy(char **envp);
 void		print_mini_avs(t_mini *mini);
-int			rest_is_blank(char *str, int *i);
 char		*ft_strxjoin(char *s1, char *s2, char *s3);
 char		*ft_strjoin(char *s1, char *s2);
 int			ft_strlen(char *s);
@@ -129,23 +128,17 @@ void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 int			ft_puterror_fd(char *error, char *s, char *error2);
 void		free_tab(char ***line);
-int			ft_count_quotes(const char *str);
 char		*ft_strdup(char *s1);
 int			ft_strcmp(char *s, char *t);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 int			rest_is_blank_2(char *str);
 void		avs_and_nul(t_cmd *cmd, char *str);
-void	free_tout_mini(t_mini *mini);
-void free_tab_3(char **tab, int nrow);
-int	is_dollar(char c);
+void		free_tout_mini(t_mini *mini);
+void		free_tab_3(char **tab, int nrow);
+int			is_dollar(char c);
+void		free_one_cmd(t_cmd *cmd);
 
-void	free_one_cmd(t_cmd *cmd);
 //*** Builtins ***//
-t_export	*new_export(char *export_name, char *export_data);
-void		delete_export(t_export **export_lst, char *export_name);
-void		add_to_export_lst(t_export **export_lst, char *export_name, \
-				char *export_data);
-void		printstack(t_mini *env);
 void		ft_memdel(char **s);
 void		ft_free_lst(t_mini **head);
 
@@ -160,8 +153,6 @@ int			echo(int ac, char **av, int option_n);
 int			exec_echo(int ac, char **av);
 /*env, export et unset*/
 char		*ft_strxjoin(char *s1, char *s2, char *s3);
-//char		**ft_split(char *s, char sep);
-//char		*find_cmd_path(char *cmd, char **env);
 int			env_realloc_and_append_envvar(char ***env, char *envvar);
 char		*find_in_env(char **env, char *name, int *pos);
 char		*ft_getenv(char **env, char *name);
@@ -172,7 +163,7 @@ void		init_tab(char **av, char ***s);
 int			exec_export(int ac, char **av, char ***env);
 int			ft_unsetenv(char ***env, char *name);
 int			exec_unset(int ac, char **av, char ***env);
-int		print_env(char **env);
+int			print_env(char **env);
 char		*ft_getenv(char **env, char *name);
 int			exec_exit(int ac, char **av);
 void		ft_bzero(void *b, size_t n);
@@ -193,11 +184,10 @@ void		print_export(char **tab);
 int			exec_cmd(int ac, char **av, char ***env);
 int			exec_builtin(char *builtin, int ac, char **av, char ***env);
 int			is_builtin(char *builtin);
-int			is_builtin_2(t_mini *mini, t_cmd *cmd);
 
 //*** PARSING ***//
 int			parsing(t_cmd *mini, char *line);
-void	ft_init_param(t_param *param, char ***env, int *i);
+void		ft_init_param(t_param *param, char ***env, int *i);
 int			ft_pars_piping(char *line, t_cmd *mini);
 void		ft_each_cmd_2(t_mini *mini, int *i, t_cmd *cmd);
 int			ft_each_cmd(char *line, int *i, t_cmd *cmd);
@@ -209,7 +199,6 @@ char		*ft_d2_quotes(int *i, t_cmd *cmd, t_mini *mini, char ***env);
 char	*ft_single_quote(int *i, char *line, t_cmd *cmd);
 void		free_avs(char **avs);
 char		*dollar_sign(int ac, char **av, char **env);
-void		skip_blank_2(char *str, int *i, t_cmd *tmp, char *line_after);
 char		*dolar_2(char *str, int *i, char *line_after, char **envp);
 void		ft_pass_squote(char *argv, int *i);
 int			quote_pass_2(char *argv, int *i);

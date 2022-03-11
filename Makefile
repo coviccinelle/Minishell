@@ -10,7 +10,7 @@ SRC		=	srcs/main.c \
 			srcs/parsing/init.c \
 			srcs/parsing/quotes.c \
 			srcs/parsing/quote_dollar.c \
-			srcs/parsing/parsing.c \
+			srcs/parsing/ft_add_line_after.c \
 			srcs/parsing/ft_each_cmd.c \
 			srcs/parsing/stock_cmd.c \
 			srcs/parsing/dollar_sign.c \

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:57:12 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 13:00:49 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 10:49:52 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,4 @@ int	find_me(char c, char *str)
 		i++;
 	}
 	return (-1);
-}
-
-int	is_token_char(char c)
-{
-	if (c == '|')
-		return (1);
-	if (c == '<')
-		return (1);
-	if (c == '>')
-		return (1);
-	return (0);
 }
