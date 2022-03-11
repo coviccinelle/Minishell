@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 15:10:47 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 15:32:33 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	minishell(char **env)
 		unlink("heredoc");
 		free_tout_mini(mini);
 	}
+	free(mini);
 }
 
 int	g_exit_value;

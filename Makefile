@@ -1,6 +1,6 @@
 NAME	=	minishell
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g3 #-fsanitize=address
 RM		=	rm -rf
 SRC		=	main.c \
 			\
@@ -111,7 +111,7 @@ launch:
 	$(call progress_bar)
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJDIR)
 	@echo "$(B)Cleared$(D)"
 
 fclean:			clean
