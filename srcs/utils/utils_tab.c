@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:32:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 22:12:58 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 10:04:49 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	print_env(char **env)
 	j = -1;
 	while (env[++j])
 	{
-		if (strchr(env[j], '=')) // a remplacer par ft_strchr
+		if (ft_strchr(env[j], '='))
 			printf("%s\n", env[j]);
 	}
 	return (1);

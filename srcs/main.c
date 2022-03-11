@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 21:36:49 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 10:07:55 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	minishell(char **env)
 		if (mini->line || mini->cmd->av)
 			mini_run(mini, &env);
 		unlink("heredoc");
-	//	free_tab(&env);
 		free_tout_mini(mini);
 	}
 }
