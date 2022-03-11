@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:05:06 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/10 18:22:56 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 16:18:47 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	exec_builtin(char *builtin, int ac, char **av, char ***env)
 
 	exit_status = EXIT_SUCCESS;
 	if (!(ft_strcmp(builtin, "cd")))
-		exit_status = exec_cd(ac, av, *env);
+		exit_status = exec_cd(ac, av, env);
 	if (!(ft_strcmp(builtin, "echo")))
 		exit_status = exec_echo(ac, av);
 	if (!(ft_strcmp(builtin, "env")))

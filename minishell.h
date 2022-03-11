@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 14:05:15 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 16:18:25 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void	free_one_cmd(t_cmd *cmd);
 void	ft_memdel(char **s);
 void	ft_free_lst(t_mini **head);
 
-int		exec_cd(int ac, char **av, char **env);
+int		exec_cd(int ac, char **av, char ***env);
 void	call_heredoc(char *eof);
 //pwd
 int		exec_pwd(void);

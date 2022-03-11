@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:16:58 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/10 18:26:27 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:32:37 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 void	unvalid_name_case(int *exit_value, \
 			char **name_j, char **data_j, char *av_j)
 {
+	(void)av_j;
 	*exit_value = ft_puterror_fd("minishell: export :'", \
-			av_j, "': not a valid identifier");
+			name_j[0], "': not a valid identifier");
 	if (*name_j)
 		free(*name_j);
 	*name_j = NULL;

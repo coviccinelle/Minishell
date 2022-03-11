@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_file.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 21:24:21 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 21:32:50 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 16:00:22 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ void	free_tab_3(char **tab, int nrow)
 	i = 0;
 	while (i < nrow)
 	{
-		free(tab[i]);
+		if (tab[i])
+			free(tab[i]);
 		i++;
 	}
-	free(tab);
+	if (tab)
+		free(tab);
 }
 
 //Function to free all cmds + mini + line_after
