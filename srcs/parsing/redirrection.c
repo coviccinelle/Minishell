@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:53:50 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 19:13:55 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 13:51:52 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,16 @@ void	avs_and_nul(t_cmd *cmd, char *str)
 	{
 		ft_avs(cmd, str);
 	}
+}
+
+void	avs_and_nul_2(t_cmd *cmd, char *str, char *s)
+{
+	if (str)
+	{
+		ft_avs(cmd, str);
+	}
+	free(s);
+	cmd->la = NULL;
 }
 
 int	ft_redirec(char *line, int *i, char *str, t_cmd **tmp)

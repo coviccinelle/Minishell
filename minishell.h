@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 12:08:03 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 13:39:13 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ typedef struct s_param
 	char	*var;
 	char	***env;
 	int		i;
+	int		ret1;
+	int		ret2;
+	int		ret3;
 }		t_param;
 
 
@@ -193,6 +196,7 @@ int			ft_buf(char *argv, int *i, char *buf);
 char		*ft_single_quote(int *i, char *line, t_cmd *cmd);
 void		free_avs(char **avs);
 void		print_list(t_cmd **mini);
+void		avs_and_nul_2(t_cmd *cmd, char *str, char *s);
 
 //*** DOUBLE QUOTE ***//
 int			ft_check_2rd_quote_2(char *line, int c);

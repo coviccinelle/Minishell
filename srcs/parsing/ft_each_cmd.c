@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 16:26:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 12:08:10 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 13:39:24 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,7 @@ void	ft_init_param(t_param *param, char ***env, int *i)
 	param->var = NULL;
 	param->env = env;
 	param->i = *i;
+	param->ret1 = 0;
+	param->ret2 = 0;
+	param->ret3 = 0;
 }
