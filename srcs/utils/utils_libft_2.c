@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_libft_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:28:30 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 14:29:05 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 18:16:56 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,30 +52,3 @@ int	ft_strcmp(char *s1, char *s2)
 		i++;
 	return (s1[i] - s2[i]);
 }
-
-//leaks
-/*
-char	*ft_strdup(char *s1)
-{
-	char	*str;
-	int		i;
-	int		size;
-
-	size = 0;
-	while (s1[size])
-	{
-		size++;
-	}
-	str = malloc((size + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
-}
-*/

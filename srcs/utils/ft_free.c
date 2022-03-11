@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 13:09:01 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 17:37:48 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/11 18:09:10 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	free_one_cmd(t_cmd *cmd)
 void	ft_free_cmds(t_mini *mini)
 {
 	t_cmd	*cmd;
+	t_cmd	*tmp;
 
 	cmd = mini->cmd;
 	if (!cmd)
@@ -67,7 +68,7 @@ void	ft_free_cmds(t_mini *mini)
 			free_t_file(&(cmd->file_in));
 		if (cmd->file_out)
 			free_t_file(&(cmd->file_out));
-		t_cmd *tmp = cmd;
+		tmp = cmd;
 		cmd = cmd->next;
 		if (tmp)
 			free(tmp);

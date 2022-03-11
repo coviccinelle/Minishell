@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_libft_3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:31:02 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 11:08:11 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/11 18:16:27 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,18 @@ void	*ft_memalloc(size_t size)
 		return (NULL);
 	ft_bzero(mem, size);
 	return (mem);
+}
+
+void	*ft_memset(void *b, int c, size_t len)
+{
+	char	*str;
+
+	str = b;
+	while (len)
+	{
+		*str = (unsigned char)c;
+		str++;
+		len--;
+	}
+	return (b);
 }

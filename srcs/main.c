@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 17:27:18 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/11 18:15:57 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	minishell(char **env)
 	mini = malloc(sizeof(t_mini));
 	if (!mini)
 		return ;
-	memset(mini, 0 , sizeof(t_mini));
+	ft_memset(mini, 0, sizeof(t_mini));
 	ft_init_mini(&mini);
 	ft_copy_env(&(env), env);
 	init_shell();
