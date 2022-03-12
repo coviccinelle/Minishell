@@ -31,6 +31,7 @@ void	mini_run(t_mini *mini, char ***env)
 	mini->cmd = stock_cmds(mini, env);
 	if (!mini->cmd || !mini->cmd->av)
 	{
+		printf("JE PASSE ICI\n\n\n");
 		return ;
 	}
 	if (nb_cmds(mini->cmd) == 1)

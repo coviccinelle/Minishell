@@ -73,8 +73,8 @@ char	*ft_d2_quotes(int *i, t_cmd *cmd, t_mini *mini, char ***env)
 	if (!return_line && g_exit_value == 1003)
 	{
 		g_exit_value = 1;
-		free(cmd->la);
-		free_one_cmd(cmd);
+	//	free(cmd->la);
+	//	free_one_cmd(cmd);
 	}
 	return (return_line);
 }
