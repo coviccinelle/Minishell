@@ -144,7 +144,7 @@ char	*dolar_quote(char *str, char **envp)
 		else
 		{
 			printf("JE PASSE ICI\n\n");
-			line_after = ft_add_line_after(ft_strdup(line_after), str[i]);
+			line_after = ft_add_line_after(line_after, str[i]);
 			i++;
 		}
 	}
