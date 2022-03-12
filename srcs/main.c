@@ -34,6 +34,7 @@ void	mini_run(t_mini *mini, char ***env)
 		printf("JE PASSE ICI\n\n\n");
 		return ;
 	}
+	//print_mini_avs(mini);
 	if (nb_cmds(mini->cmd) == 1)
 		exec_cmd_with_no_pipe(mini, env);
 	else

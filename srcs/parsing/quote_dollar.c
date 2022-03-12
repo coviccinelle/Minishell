@@ -123,7 +123,6 @@ char	*dolar_quote(char *str, char **envp)
 			dolar_value = dolar_name_quote(str, &i);
 			if (*dolar_value == '?')
 			{
-
 				char *leak_0 = line_after;
 				line_after = ft_strjoin_2(line_after, ft_itoa(g_exit_value));
 				if (leak_0)
@@ -133,10 +132,7 @@ char	*dolar_quote(char *str, char **envp)
 			{
 				char	*tmp = dolar_value;
 				dolar_value = ft_getenv(envp, tmp);
-				char *leak_1 = line_after;
 				line_after = ft_strxjoin(line_after, dolar_value, " ");
-				if(leak_1)
-					free(leak_1);
 				free(tmp);
 			}
 			free(dolar_value);

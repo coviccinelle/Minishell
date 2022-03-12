@@ -120,7 +120,7 @@ int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 			{
 				p.ret3 = third_if(cmd, m, &p);
 				if (p.ret3 == 0)
-					return (0);
+					return(0);
 				else if (p.ret3 == -1)
 					break ;
 			}
