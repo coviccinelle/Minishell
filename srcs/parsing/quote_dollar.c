@@ -111,6 +111,8 @@ char	*dolar_quote(char *str, char **envp)
 {
 	int		i;
 	char	*line_after;
+	char 	*leak;
+	char    *leak_2;
 	char	*dolar_value;
 
 	line_after = NULL;
@@ -120,9 +122,11 @@ char	*dolar_quote(char *str, char **envp)
 	{
 		if (str[i] == '$' && str[i + 1] && str[i + 1] != ' ')
 		{
+			printf("JE PASSE ICI 124\n\n");
 			dolar_value = dolar_name_quote(str, &i);
 			if (*dolar_value == '?')
 			{
+				printf("JE PASSE ICI 128\n\n");
 				char *leak_0 = line_after;
 				line_after = ft_strjoin_2(line_after, ft_itoa(g_exit_value));
 				if (leak_0)
@@ -130,10 +134,13 @@ char	*dolar_quote(char *str, char **envp)
 			}
 			else
 			{
-				char	*tmp = dolar_value;
-				dolar_value = ft_getenv(envp, tmp);
-				line_after = ft_strxjoin(line_after, dolar_value, " ");
-				free(tmp);
+				leak = ft_getenv(envp, dolar_value);
+				if (!line_after)
+					line_after = ft_strdup("");
+				leak_2 = line_after;
+				line_after = ft_strxjoin(leak_2, leak, " ");
+				free(leak_2);
+				free(leak);
 			}
 			free(dolar_value);
 		}

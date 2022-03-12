@@ -56,11 +56,15 @@ void	safely_exec_bin_cmds(char *path, char **av, \
 
 char	*ft_strxjoin(char *s1, char *s2, char *s3)
 {
-	char	*res;
-	char	*tmp;
+	char	*new;
+	char 	*leak;
 
-	tmp = ft_strjoin(s1, s2);
-	res = ft_strjoin(tmp, s3);
-	free(tmp);
-	return (res);
+	new = NULL;
+	new	= ft_strjoin(s1, s2);
+	if (!new)
+		return (NULL);
+	leak = new;
+	new = ft_strjoin(new, s3);
+	free(leak);
+	return (new);
 }

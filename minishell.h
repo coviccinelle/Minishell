@@ -176,7 +176,6 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*cpy_trim(char *s, char from, char to);
 int		ft_strncmp(char *s1, char *s2, unsigned int n);
 int		nb_tabs(char **s);
-char	*ft_strdup(char *src);
 char	*ft_strcpy(char *dst, char *src);
 int		ft_alphabetical_order_tab(char **env);
 int		ft_unsetenv(char ***env, char *name);
