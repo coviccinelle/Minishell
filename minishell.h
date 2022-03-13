@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/13 20:26:27 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/13 22:05:52 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ int		ft_alphabetical_order_tab(char **env);
 int		ft_unsetenv(char ***env, char *name);
 void	print_export(char **tab);
 int		exec_cmd(int ac, char **av, char ***env);
-int		exec_builtin(char *builtin, int ac, char **av, char ***env);
+int	exec_builtin(char *builtin, int ac, char **av, char ***env);
 int		is_builtin(char *builtin);
 
 //*** PARSING ***//

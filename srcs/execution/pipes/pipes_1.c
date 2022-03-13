@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/13 20:41:24 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/13 22:10:24 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	exec_builtin_no_pipe(t_mini *mini, char ***env)
 		{
 			free_tout_mini(mini);
 			free(mini);
-			free_tab(env);
 		}
+		free_tab(env);
 		close(fd_out);
 		exit(ret);
 	}
