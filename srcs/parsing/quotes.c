@@ -85,7 +85,7 @@ char	*stock_single_quote(int *i, char *line, char *line_after)
 	{
 		printf("ERROR: Single quotes are not safely closed\n");
 		g_exit_value = 1003;
-		return (NULL);
+		return (ft_strdup(""));
 	}
 	(*i)++;
 	while (line[*i] != '\'' && line[*i])
