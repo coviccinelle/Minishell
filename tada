@@ -1,46 +1,589 @@
-==22764== Memcheck, a memory error detector
-==22764== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==22764== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==22764== Command: ./minishell
-==22764== Parent PID: 16940
-==22764== 
-==22766== Syscall param exit_group(status) contains uninitialised byte(s)
-==22766==    at 0x4997176: _Exit (_exit.c:31)
-==22766==    by 0x48FA9F1: __run_exit_handlers (exit.c:132)
-==22766==    by 0x48FAA8F: exit (exit.c:139)
-==22766==    by 0x10FA31: exec_builtin_no_pipe (pipes_1.c:48)
-==22766==    by 0x10FAFA: exec_cmd_with_no_pipe (pipes_1.c:69)
-==22766==    by 0x1095E8: mini_run (main.c:40)
-==22766==    by 0x1097DF: minishell (main.c:82)
-==22766==    by 0x109873: main (main.c:99)
-==22766==  Uninitialised value was created by a stack allocation
-==22766==    at 0x10F8DF: exec_builtin_no_pipe (pipes_1.c:19)
-==22766== 
-==22766== 
-==22766== HEAP SUMMARY:
-==22766==     in use at exit: 204,704 bytes in 218 blocks
-==22766==   total heap usage: 503 allocs, 285 frees, 229,782 bytes allocated
-==22766== 
-==22766== LEAK SUMMARY:
-==22766==    definitely lost: 0 bytes in 0 blocks
-==22766==    indirectly lost: 0 bytes in 0 blocks
-==22766==      possibly lost: 0 bytes in 0 blocks
-==22766==    still reachable: 0 bytes in 0 blocks
-==22766==         suppressed: 204,704 bytes in 218 blocks
-==22766== 
-==22766== For lists of detected and suppressed errors, rerun with: -s
-==22766== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
-==22764== 
-==22764== HEAP SUMMARY:
-==22764==     in use at exit: 204,704 bytes in 218 blocks
-==22764==   total heap usage: 503 allocs, 285 frees, 229,782 bytes allocated
-==22764== 
-==22764== LEAK SUMMARY:
-==22764==    definitely lost: 0 bytes in 0 blocks
-==22764==    indirectly lost: 0 bytes in 0 blocks
-==22764==      possibly lost: 0 bytes in 0 blocks
-==22764==    still reachable: 0 bytes in 0 blocks
-==22764==         suppressed: 204,704 bytes in 218 blocks
-==22764== 
-==22764== For lists of detected and suppressed errors, rerun with: -s
-==22764== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==33533== Memcheck, a memory error detector
+==33533== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==33533== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==33533== Command: ./minishell
+==33533== Parent PID: 26661
+==33533== 
+==33539== Syscall param exit_group(status) contains uninitialised byte(s)
+==33539==    at 0x4997176: _Exit (_exit.c:31)
+==33539==    by 0x48FA9F1: __run_exit_handlers (exit.c:132)
+==33539==    by 0x48FAA8F: exit (exit.c:139)
+==33539==    by 0x10FA59: exec_builtin_no_pipe (pipes_1.c:48)
+==33539==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33539==    by 0x1095E8: mini_run (main.c:40)
+==33539==    by 0x1097DF: minishell (main.c:82)
+==33539==    by 0x109873: main (main.c:99)
+==33539==  Uninitialised value was created by a stack allocation
+==33539==    at 0x10F907: exec_builtin_no_pipe (pipes_1.c:19)
+==33539== 
+==33539== 
+==33539== HEAP SUMMARY:
+==33539==     in use at exit: 204,708 bytes in 218 blocks
+==33539==   total heap usage: 514 allocs, 296 frees, 229,870 bytes allocated
+==33539== 
+==33539== LEAK SUMMARY:
+==33539==    definitely lost: 0 bytes in 0 blocks
+==33539==    indirectly lost: 0 bytes in 0 blocks
+==33539==      possibly lost: 0 bytes in 0 blocks
+==33539==    still reachable: 0 bytes in 0 blocks
+==33539==         suppressed: 204,708 bytes in 218 blocks
+==33539== 
+==33539== For lists of detected and suppressed errors, rerun with: -s
+==33539== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==33533== Invalid read of size 8
+==33533==    at 0x10BEE6: ft_free_cmds (ft_free.c:60)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x109803: minishell (main.c:85)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4ad8048 is 8 bytes inside a block of size 16 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10F8B8: i_am_your_father (pipes.c:104)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x109716: minishell (main.c:66)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid read of size 8
+==33533==    at 0x10BF02: ft_free_cmds (ft_free.c:65)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x109803: minishell (main.c:85)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4b184c0 is 16 bytes inside a block of size 72 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10BF8F: ft_free_cmds (ft_free.c:74)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x10F8AC: i_am_your_father (pipes.c:103)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10AECF: new_elem_cmd (stock_cmd.c:20)
+==33533==    by 0x10B130: stock_cmds (stock_cmd.c:98)
+==33533==    by 0x10959A: mini_run (main.c:33)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid read of size 8
+==33533==    at 0x10BF0F: ft_free_cmds (ft_free.c:66)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x109803: minishell (main.c:85)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4b184c0 is 16 bytes inside a block of size 72 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10BF8F: ft_free_cmds (ft_free.c:74)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x10F8AC: i_am_your_father (pipes.c:103)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10AECF: new_elem_cmd (stock_cmd.c:20)
+==33533==    by 0x10B130: stock_cmds (stock_cmd.c:98)
+==33533==    by 0x10959A: mini_run (main.c:33)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid read of size 8
+==33533==    at 0x10C3D9: nb_tabs (utils.c:20)
+==33533==    by 0x10BF1A: ft_free_cmds (ft_free.c:66)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x109803: minishell (main.c:85)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4b18aa0 is 0 bytes inside a block of size 32 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10C28F: free_tab_3 (ft_free_file.c:42)
+==33533==    by 0x10BF2E: ft_free_cmds (ft_free.c:66)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x10F8AC: i_am_your_father (pipes.c:103)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10C9F6: ft_malloc_avs (ft_avs.c:93)
+==33533==    by 0x10CA71: ft_avs (ft_avs.c:107)
+==33533==    by 0x10B446: avs_and_nul (redirrection.c:51)
+==33533==    by 0x109F92: third_if (parsing_mini.c:96)
+==33533==    by 0x10A05F: ft_each_cmd_4 (parsing_mini.c:121)
+==33533==    by 0x10B180: stock_cmds (stock_cmd.c:104)
+==33533==    by 0x10959A: mini_run (main.c:33)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid read of size 8
+==33533==    at 0x10BF21: ft_free_cmds (ft_free.c:66)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x109803: minishell (main.c:85)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4b184c0 is 16 bytes inside a block of size 72 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10BF8F: ft_free_cmds (ft_free.c:74)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x10F8AC: i_am_your_father (pipes.c:103)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10AECF: new_elem_cmd (stock_cmd.c:20)
+==33533==    by 0x10B130: stock_cmds (stock_cmd.c:98)
+==33533==    by 0x10959A: mini_run (main.c:33)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid read of size 8
+==33533==    at 0x10C24A: free_tab_3 (ft_free_file.c:37)
+==33533==    by 0x10BF2E: ft_free_cmds (ft_free.c:66)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x109803: minishell (main.c:85)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4b18aa0 is 0 bytes inside a block of size 32 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10C28F: free_tab_3 (ft_free_file.c:42)
+==33533==    by 0x10BF2E: ft_free_cmds (ft_free.c:66)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x10F8AC: i_am_your_father (pipes.c:103)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10C9F6: ft_malloc_avs (ft_avs.c:93)
+==33533==    by 0x10CA71: ft_avs (ft_avs.c:107)
+==33533==    by 0x10B446: avs_and_nul (redirrection.c:51)
+==33533==    by 0x109F92: third_if (parsing_mini.c:96)
+==33533==    by 0x10A05F: ft_each_cmd_4 (parsing_mini.c:121)
+==33533==    by 0x10B180: stock_cmds (stock_cmd.c:104)
+==33533==    by 0x10959A: mini_run (main.c:33)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid read of size 8
+==33533==    at 0x10C266: free_tab_3 (ft_free_file.c:38)
+==33533==    by 0x10BF2E: ft_free_cmds (ft_free.c:66)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x109803: minishell (main.c:85)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4b18aa0 is 0 bytes inside a block of size 32 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10C28F: free_tab_3 (ft_free_file.c:42)
+==33533==    by 0x10BF2E: ft_free_cmds (ft_free.c:66)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x10F8AC: i_am_your_father (pipes.c:103)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10C9F6: ft_malloc_avs (ft_avs.c:93)
+==33533==    by 0x10CA71: ft_avs (ft_avs.c:107)
+==33533==    by 0x10B446: avs_and_nul (redirrection.c:51)
+==33533==    by 0x109F92: third_if (parsing_mini.c:96)
+==33533==    by 0x10A05F: ft_each_cmd_4 (parsing_mini.c:121)
+==33533==    by 0x10B180: stock_cmds (stock_cmd.c:104)
+==33533==    by 0x10959A: mini_run (main.c:33)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid free() / delete / delete[] / realloc()
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10C270: free_tab_3 (ft_free_file.c:38)
+==33533==    by 0x10BF2E: ft_free_cmds (ft_free.c:66)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x109803: minishell (main.c:85)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4b18b00 is 0 bytes inside a block of size 5 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10C270: free_tab_3 (ft_free_file.c:38)
+==33533==    by 0x10BF2E: ft_free_cmds (ft_free.c:66)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x10F8AC: i_am_your_father (pipes.c:103)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10C6EF: ft_fill_av (ft_avs.c:35)
+==33533==    by 0x10CA1F: ft_malloc_avs (ft_avs.c:96)
+==33533==    by 0x10CA71: ft_avs (ft_avs.c:107)
+==33533==    by 0x10B446: avs_and_nul (redirrection.c:51)
+==33533==    by 0x109F92: third_if (parsing_mini.c:96)
+==33533==    by 0x10A05F: ft_each_cmd_4 (parsing_mini.c:121)
+==33533==    by 0x10B180: stock_cmds (stock_cmd.c:104)
+==33533==    by 0x10959A: mini_run (main.c:33)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid free() / delete / delete[] / realloc()
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10C28F: free_tab_3 (ft_free_file.c:42)
+==33533==    by 0x10BF2E: ft_free_cmds (ft_free.c:66)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x109803: minishell (main.c:85)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4b18aa0 is 0 bytes inside a block of size 32 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10C28F: free_tab_3 (ft_free_file.c:42)
+==33533==    by 0x10BF2E: ft_free_cmds (ft_free.c:66)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x10F8AC: i_am_your_father (pipes.c:103)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10C9F6: ft_malloc_avs (ft_avs.c:93)
+==33533==    by 0x10CA71: ft_avs (ft_avs.c:107)
+==33533==    by 0x10B446: avs_and_nul (redirrection.c:51)
+==33533==    by 0x109F92: third_if (parsing_mini.c:96)
+==33533==    by 0x10A05F: ft_each_cmd_4 (parsing_mini.c:121)
+==33533==    by 0x10B180: stock_cmds (stock_cmd.c:104)
+==33533==    by 0x10959A: mini_run (main.c:33)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid read of size 8
+==33533==    at 0x10BF33: ft_free_cmds (ft_free.c:67)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x109803: minishell (main.c:85)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4b184d0 is 32 bytes inside a block of size 72 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10BF8F: ft_free_cmds (ft_free.c:74)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x10F8AC: i_am_your_father (pipes.c:103)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10AECF: new_elem_cmd (stock_cmd.c:20)
+==33533==    by 0x10B130: stock_cmds (stock_cmd.c:98)
+==33533==    by 0x10959A: mini_run (main.c:33)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid read of size 8
+==33533==    at 0x10BF50: ft_free_cmds (ft_free.c:69)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x109803: minishell (main.c:85)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4b184d8 is 40 bytes inside a block of size 72 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10BF8F: ft_free_cmds (ft_free.c:74)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x10F8AC: i_am_your_father (pipes.c:103)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10AECF: new_elem_cmd (stock_cmd.c:20)
+==33533==    by 0x10B130: stock_cmds (stock_cmd.c:98)
+==33533==    by 0x10959A: mini_run (main.c:33)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid read of size 8
+==33533==    at 0x10BF75: ft_free_cmds (ft_free.c:72)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x109803: minishell (main.c:85)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4b184f0 is 64 bytes inside a block of size 72 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10BF8F: ft_free_cmds (ft_free.c:74)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x10F8AC: i_am_your_father (pipes.c:103)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10AECF: new_elem_cmd (stock_cmd.c:20)
+==33533==    by 0x10B130: stock_cmds (stock_cmd.c:98)
+==33533==    by 0x10959A: mini_run (main.c:33)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid free() / delete / delete[] / realloc()
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10BF8F: ft_free_cmds (ft_free.c:74)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x109803: minishell (main.c:85)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4b184b0 is 0 bytes inside a block of size 72 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10BF8F: ft_free_cmds (ft_free.c:74)
+==33533==    by 0x10BFC9: free_tout_mini (ft_free.c:84)
+==33533==    by 0x10F8AC: i_am_your_father (pipes.c:103)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10AECF: new_elem_cmd (stock_cmd.c:20)
+==33533==    by 0x10B130: stock_cmds (stock_cmd.c:98)
+==33533==    by 0x10959A: mini_run (main.c:33)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid read of size 8
+==33533==    at 0x10BFCE: free_tout_mini (ft_free.c:85)
+==33533==    by 0x109803: minishell (main.c:85)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4ad8040 is 0 bytes inside a block of size 16 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10F8B8: i_am_your_father (pipes.c:104)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x109716: minishell (main.c:66)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid free() / delete / delete[] / realloc()
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10BFD8: free_tout_mini (ft_free.c:85)
+==33533==    by 0x109803: minishell (main.c:85)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4b17370 is 0 bytes inside a block of size 9 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10BFD8: free_tout_mini (ft_free.c:85)
+==33533==    by 0x10F8AC: i_am_your_father (pipes.c:103)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x48A000C: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==33533==    by 0x48792AB: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==33533==    by 0x487A504: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==33533==    by 0x109534: ft_readline_input (main.c:20)
+==33533==    by 0x109783: minishell (main.c:76)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid free() / delete / delete[] / realloc()
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10980F: minishell (main.c:86)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4ad8040 is 0 bytes inside a block of size 16 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10F8B8: i_am_your_father (pipes.c:104)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x109716: minishell (main.c:66)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid read of size 8
+==33533==    at 0x109772: minishell (main.c:76)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4ad8040 is 0 bytes inside a block of size 16 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10F8B8: i_am_your_father (pipes.c:104)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x109716: minishell (main.c:66)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid free() / delete / delete[] / realloc()
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10954B: ft_readline_input (main.c:23)
+==33533==    by 0x109783: minishell (main.c:76)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4ad8040 is 0 bytes inside a block of size 16 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10F8B8: i_am_your_father (pipes.c:104)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x109716: minishell (main.c:66)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid read of size 8
+==33533==    at 0x10D744: free_tab (utils_libft_3.c:29)
+==33533==    by 0x109557: ft_readline_input (main.c:24)
+==33533==    by 0x109783: minishell (main.c:76)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4ad8090 is 0 bytes inside a block of size 512 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10D778: free_tab (utils_libft_3.c:35)
+==33533==    by 0x10F8C4: i_am_your_father (pipes.c:105)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x109654: ft_copy_env (main.c:52)
+==33533==    by 0x10975C: minishell (main.c:71)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid read of size 8
+==33533==    at 0x10D722: free_tab (utils_libft_3.c:31)
+==33533==    by 0x109557: ft_readline_input (main.c:24)
+==33533==    by 0x109783: minishell (main.c:76)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4ad8090 is 0 bytes inside a block of size 512 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10D778: free_tab (utils_libft_3.c:35)
+==33533==    by 0x10F8C4: i_am_your_father (pipes.c:105)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x109654: ft_copy_env (main.c:52)
+==33533==    by 0x10975C: minishell (main.c:71)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid free() / delete / delete[] / realloc()
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10D72C: free_tab (utils_libft_3.c:31)
+==33533==    by 0x109557: ft_readline_input (main.c:24)
+==33533==    by 0x109783: minishell (main.c:76)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4ad82d0 is 0 bytes inside a block of size 33 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10D72C: free_tab (utils_libft_3.c:31)
+==33533==    by 0x10F8C4: i_am_your_father (pipes.c:105)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10C02D: ft_strdup (cpy_stuff.c:26)
+==33533==    by 0x1096A7: ft_copy_env (main.c:57)
+==33533==    by 0x10975C: minishell (main.c:71)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid read of size 8
+==33533==    at 0x10D75F: free_tab (utils_libft_3.c:34)
+==33533==    by 0x109557: ft_readline_input (main.c:24)
+==33533==    by 0x109783: minishell (main.c:76)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4ad8288 is 504 bytes inside a block of size 512 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10D778: free_tab (utils_libft_3.c:35)
+==33533==    by 0x10F8C4: i_am_your_father (pipes.c:105)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x109654: ft_copy_env (main.c:52)
+==33533==    by 0x10975C: minishell (main.c:71)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== Invalid free() / delete / delete[] / realloc()
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10D778: free_tab (utils_libft_3.c:35)
+==33533==    by 0x109557: ft_readline_input (main.c:24)
+==33533==    by 0x109783: minishell (main.c:76)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Address 0x4ad8090 is 0 bytes inside a block of size 512 free'd
+==33533==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10D778: free_tab (utils_libft_3.c:35)
+==33533==    by 0x10F8C4: i_am_your_father (pipes.c:105)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533==  Block was alloc'd at
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x109654: ft_copy_env (main.c:52)
+==33533==    by 0x10975C: minishell (main.c:71)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== 
+==33533== HEAP SUMMARY:
+==33533==     in use at exit: 204,749 bytes in 222 blocks
+==33533==   total heap usage: 521 allocs, 371 frees, 229,987 bytes allocated
+==33533== 
+==33533== 9 bytes in 3 blocks are indirectly lost in loss record 4 of 63
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10C02D: ft_strdup (cpy_stuff.c:26)
+==33533==    by 0x10D0C4: ft_copy_tab (ft_copy_tab.c:51)
+==33533==    by 0x10F863: i_am_your_father (pipes.c:97)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== 41 (32 direct, 9 indirect) bytes in 1 blocks are definitely lost in loss record 16 of 63
+==33533==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==33533==    by 0x10D089: ft_copy_tab (ft_copy_tab.c:49)
+==33533==    by 0x10F863: i_am_your_father (pipes.c:97)
+==33533==    by 0x10F971: exec_builtin_no_pipe (pipes_1.c:31)
+==33533==    by 0x10FB22: exec_cmd_with_no_pipe (pipes_1.c:69)
+==33533==    by 0x1095E8: mini_run (main.c:40)
+==33533==    by 0x1097DF: minishell (main.c:82)
+==33533==    by 0x109873: main (main.c:99)
+==33533== 
+==33533== LEAK SUMMARY:
+==33533==    definitely lost: 32 bytes in 1 blocks
+==33533==    indirectly lost: 9 bytes in 3 blocks
+==33533==      possibly lost: 0 bytes in 0 blocks
+==33533==    still reachable: 0 bytes in 0 blocks
+==33533==         suppressed: 204,708 bytes in 218 blocks
+==33533== 
+==33533== For lists of detected and suppressed errors, rerun with: -s
+==33533== ERROR SUMMARY: 220 errors from 24 contexts (suppressed: 0 from 0)
