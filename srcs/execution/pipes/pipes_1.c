@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/10 18:41:29 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/13 20:41:24 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	exec_builtin_no_pipe(t_mini *mini, char ***env)
 	if (f != 0)
 	{
 		waitpid(f, &status, 0);
-		i_am_your_father(cmd, env);
+		i_am_your_father(mini, cmd, env);
 	}
 	else
 	{
@@ -38,6 +38,12 @@ int	exec_builtin_no_pipe(t_mini *mini, char ***env)
 		if (cmp_again(cmd) == 0)
 			ret = (exec_builtin(cmd->av[0], \
 				nb_tabs(cmd->av), cmd->av, env));
+		if (ft_strcmp(cmd->av[0], "exit") == 0)
+		{
+			free_tout_mini(mini);
+			free(mini);
+			free_tab(env);
+		}
 		close(fd_out);
 		exit(ret);
 	}

@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:13:00 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/13 20:11:29 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/13 20:36:15 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,18 @@ unsigned char	ft_atoi(char *s)
 int	exec_exit(int ac, char **av, char ***env)
 {
 	int	ret;
+	(void)env;
 
 	if (ac == 1)
 	{
 		printf("exit\n");
 		ret = 0;
-		free_tab(env);
+		//free_tab(env);
 		exit(ret);
 	}
 	else if (!all_are_digits(av[1]))
 	{
-		free_tab(env);
+		//free_tab(env);
 		ret = ft_puterror_fd("minishell: exit: ", \
 				av[1], ":numeric argument required");
 		exit(ret);
@@ -84,7 +85,7 @@ int	exec_exit(int ac, char **av, char ***env)
 	else if (all_are_digits(av[1]) && ac == 2)
 	{
 		printf("exit\n");
-		free_tab(env);
+		//free_tab(env);
 		ret = ft_atoi(av[1]);
 		exit(ret);
 	}

@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/13 20:07:33 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/13 20:26:27 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +243,7 @@ void	init_1(char ***data, char ***name, char **av);
 void	init(int *j, int *c, int *exit_value);
 char	*l(char *line);
 int		cmp_again(t_cmd *cmd);
-void	i_am_your_father(t_cmd *cmd, char ***env);
+void	i_am_your_father(t_mini *mini, t_cmd *cmd, char ***env);
 
 //*** REDIRECTIONS ***//
 void	ft_set_direct(char *line, int *i, t_cmd *mini);
