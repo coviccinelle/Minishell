@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 22:59:20 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/13 19:47:32 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_readline_input(char *line, char ***env, t_mini *mini)
 	line = readline("\033[1;33m~🌈 Minishell 🌻$\033[0m ");
 	if (!line)
 	{
+		free(mini);
+		free_tab(env);
 		if (*env)
 			exit (0);
 	}
@@ -79,10 +81,11 @@ void	minishell(char **env)
 		if (mini->line || mini->cmd->av)
 			mini_run(mini, &env);
 		unlink("heredoc");
+		printf("je vais free mini\n\n");
 		free_tout_mini(mini);
+		free(mini);
+		printf("c'est bon suis un bon fils\n");
 	}
-	free(mini);
-	free_tab(&env);
 }
 
 int	g_exit_value;
