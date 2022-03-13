@@ -27,7 +27,7 @@ int	first_if(t_cmd **cmd, t_mini *m, t_param *p)
 		if (m->line[p->i + 1] && (m->line[p->i + 1] == '\"'))
 			return (p->i += 2, -1);
 		(*cmd)->la = ft_d2_quotes(&p->i, *cmd, m, p->env);
-		if (!(*cmd)->la)
+		if (!ft_strcmp((*cmd)->la, ""))
 			return (0);
 		if (!ft_strcmp((*cmd)->la, "?"))
 			return (ft_avs(*cmd, ft_itoa(g_exit_value)), -1);

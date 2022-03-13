@@ -70,11 +70,9 @@ char	*ft_d2_quotes(int *i, t_cmd *cmd, t_mini *mini, char ***env)
 		cmd->la = NULL;
 	}
 	return_line = ft_add_double_quote(i, mini->line, cmd, env);
-	if (!return_line && g_exit_value == 1003)
+	if (ft_strcmp(return_line, "") == 0 && g_exit_value == 1003)
 	{
 		g_exit_value = 1;
-	//	free(cmd->la);
-	//	free_one_cmd(cmd);
 	}
 	return (return_line);
 }

@@ -122,11 +122,9 @@ char	*dolar_quote(char *str, char **envp)
 	{
 		if (str[i] == '$' && str[i + 1] && str[i + 1] != ' ')
 		{
-			printf("JE PASSE ICI 124\n\n");
 			dolar_value = dolar_name_quote(str, &i);
 			if (*dolar_value == '?')
 			{
-				printf("JE PASSE ICI 128\n\n");
 				char *leak_0 = line_after;
 				line_after = ft_strjoin_2(line_after, ft_itoa(g_exit_value));
 				if (leak_0)
@@ -146,7 +144,6 @@ char	*dolar_quote(char *str, char **envp)
 		}
 		else
 		{
-			printf("JE PASSE ICI\n\n");
 			line_after = ft_add_line_after(line_after, str[i]);
 			i++;
 		}
