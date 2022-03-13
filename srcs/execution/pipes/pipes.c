@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/13 21:31:47 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/13 21:37:16 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ void	i_am_your_father(t_mini *mini, t_cmd *cmd, char ***env)
 			g_exit_value = exec_builtin("exit", \
 			ntabs, avv, env);
 		}
-		g_exit_value = exec_builtin(avv[0], \
-			ntabs, avv, env);
+		else
+			g_exit_value = exec_builtin(avv[0], \
+				ntabs, avv, env);
 	}
 }
