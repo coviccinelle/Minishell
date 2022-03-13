@@ -1,0 +1,146 @@
+==3996== Memcheck, a memory error detector
+==3996== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==3996== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==3996== Command: ./minishell
+==3996== Parent PID: 3476
+==3996== 
+==3997== Syscall param exit_group(status) contains uninitialised byte(s)
+==3997==    at 0x516BAB6: _Exit (_exit.c:31)
+==3997==    by 0x50CA101: __run_exit_handlers (exit.c:132)
+==3997==    by 0x50CA129: exit (exit.c:139)
+==3997==    by 0x10F1C0: exec_builtin_no_pipe (pipes_1.c:42)
+==3997==    by 0x10F282: exec_cmd_with_no_pipe (pipes_1.c:63)
+==3997==    by 0x10906C: mini_run (main.c:38)
+==3997==    by 0x10925D: minishell (main.c:80)
+==3997==    by 0x1092C9: main (main.c:95)
+==3997==  Uninitialised value was created by a stack allocation
+==3997==    at 0x10F0B8: exec_builtin_no_pipe (pipes_1.c:19)
+==3997== 
+==3997== 
+==3997== HEAP SUMMARY:
+==3997==     in use at exit: 138,308 bytes in 258 blocks
+==3997==   total heap usage: 379 allocs, 121 frees, 157,759 bytes allocated
+==3997== 
+==3997== 5 bytes in 1 blocks are still reachable in loss record 3 of 52
+==3997==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3997==    by 0x10C2CA: ft_malloc_avs (ft_avs.c:85)
+==3997==    by 0x10C3AC: ft_avs (ft_avs.c:107)
+==3997==    by 0x10AE1C: avs_and_nul (redirrection.c:51)
+==3997==    by 0x1099CD: third_if (parsing_mini.c:96)
+==3997==    by 0x109A97: ft_each_cmd_4 (parsing_mini.c:121)
+==3997==    by 0x10AB6A: stock_cmds (stock_cmd.c:104)
+==3997==    by 0x10901B: mini_run (main.c:31)
+==3997==    by 0x10925D: minishell (main.c:80)
+==3997==    by 0x1092C9: main (main.c:95)
+==3997== 
+==3997== 16 bytes in 1 blocks are still reachable in loss record 10 of 52
+==3997==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3997==    by 0x109194: minishell (main.c:64)
+==3997==    by 0x1092C9: main (main.c:95)
+==3997== 
+==3997== 16 bytes in 1 blocks are still reachable in loss record 12 of 52
+==3997==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3997==    by 0x10C29C: ft_malloc_avs (ft_avs.c:82)
+==3997==    by 0x10C3AC: ft_avs (ft_avs.c:107)
+==3997==    by 0x10AE1C: avs_and_nul (redirrection.c:51)
+==3997==    by 0x1099CD: third_if (parsing_mini.c:96)
+==3997==    by 0x109A97: ft_each_cmd_4 (parsing_mini.c:121)
+==3997==    by 0x10AB6A: stock_cmds (stock_cmd.c:104)
+==3997==    by 0x10901B: mini_run (main.c:31)
+==3997==    by 0x10925D: minishell (main.c:80)
+==3997==    by 0x1092C9: main (main.c:95)
+==3997== 
+==3997== 72 bytes in 1 blocks are still reachable in loss record 20 of 52
+==3997==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3997==    by 0x10A8C3: new_elem_cmd (stock_cmd.c:20)
+==3997==    by 0x10AB1A: stock_cmds (stock_cmd.c:98)
+==3997==    by 0x10901B: mini_run (main.c:31)
+==3997==    by 0x10925D: minishell (main.c:80)
+==3997==    by 0x1092C9: main (main.c:95)
+==3997== 
+==3997== 464 bytes in 1 blocks are still reachable in loss record 26 of 52
+==3997==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3997==    by 0x1090D4: ft_copy_env (main.c:50)
+==3997==    by 0x1091DA: minishell (main.c:69)
+==3997==    by 0x1092C9: main (main.c:95)
+==3997== 
+==3997== 3,350 bytes in 57 blocks are still reachable in loss record 39 of 52
+==3997==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3997==    by 0x10B9A6: ft_strdup (cpy_stuff.c:26)
+==3997==    by 0x109127: ft_copy_env (main.c:55)
+==3997==    by 0x1091DA: minishell (main.c:69)
+==3997==    by 0x1092C9: main (main.c:95)
+==3997== 
+==3997== LEAK SUMMARY:
+==3997==    definitely lost: 0 bytes in 0 blocks
+==3997==    indirectly lost: 0 bytes in 0 blocks
+==3997==      possibly lost: 0 bytes in 0 blocks
+==3997==    still reachable: 3,923 bytes in 62 blocks
+==3997==         suppressed: 134,385 bytes in 196 blocks
+==3997== 
+==3997== For counts of detected and suppressed errors, rerun with: -v
+==3997== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==3996== 
+==3996== HEAP SUMMARY:
+==3996==     in use at exit: 138,308 bytes in 258 blocks
+==3996==   total heap usage: 379 allocs, 121 frees, 157,759 bytes allocated
+==3996== 
+==3996== 5 bytes in 1 blocks are still reachable in loss record 3 of 52
+==3996==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3996==    by 0x10C2CA: ft_malloc_avs (ft_avs.c:85)
+==3996==    by 0x10C3AC: ft_avs (ft_avs.c:107)
+==3996==    by 0x10AE1C: avs_and_nul (redirrection.c:51)
+==3996==    by 0x1099CD: third_if (parsing_mini.c:96)
+==3996==    by 0x109A97: ft_each_cmd_4 (parsing_mini.c:121)
+==3996==    by 0x10AB6A: stock_cmds (stock_cmd.c:104)
+==3996==    by 0x10901B: mini_run (main.c:31)
+==3996==    by 0x10925D: minishell (main.c:80)
+==3996==    by 0x1092C9: main (main.c:95)
+==3996== 
+==3996== 16 bytes in 1 blocks are still reachable in loss record 10 of 52
+==3996==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3996==    by 0x109194: minishell (main.c:64)
+==3996==    by 0x1092C9: main (main.c:95)
+==3996== 
+==3996== 16 bytes in 1 blocks are still reachable in loss record 12 of 52
+==3996==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3996==    by 0x10C29C: ft_malloc_avs (ft_avs.c:82)
+==3996==    by 0x10C3AC: ft_avs (ft_avs.c:107)
+==3996==    by 0x10AE1C: avs_and_nul (redirrection.c:51)
+==3996==    by 0x1099CD: third_if (parsing_mini.c:96)
+==3996==    by 0x109A97: ft_each_cmd_4 (parsing_mini.c:121)
+==3996==    by 0x10AB6A: stock_cmds (stock_cmd.c:104)
+==3996==    by 0x10901B: mini_run (main.c:31)
+==3996==    by 0x10925D: minishell (main.c:80)
+==3996==    by 0x1092C9: main (main.c:95)
+==3996== 
+==3996== 72 bytes in 1 blocks are still reachable in loss record 20 of 52
+==3996==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3996==    by 0x10A8C3: new_elem_cmd (stock_cmd.c:20)
+==3996==    by 0x10AB1A: stock_cmds (stock_cmd.c:98)
+==3996==    by 0x10901B: mini_run (main.c:31)
+==3996==    by 0x10925D: minishell (main.c:80)
+==3996==    by 0x1092C9: main (main.c:95)
+==3996== 
+==3996== 464 bytes in 1 blocks are still reachable in loss record 26 of 52
+==3996==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3996==    by 0x1090D4: ft_copy_env (main.c:50)
+==3996==    by 0x1091DA: minishell (main.c:69)
+==3996==    by 0x1092C9: main (main.c:95)
+==3996== 
+==3996== 3,350 bytes in 57 blocks are still reachable in loss record 39 of 52
+==3996==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3996==    by 0x10B9A6: ft_strdup (cpy_stuff.c:26)
+==3996==    by 0x109127: ft_copy_env (main.c:55)
+==3996==    by 0x1091DA: minishell (main.c:69)
+==3996==    by 0x1092C9: main (main.c:95)
+==3996== 
+==3996== LEAK SUMMARY:
+==3996==    definitely lost: 0 bytes in 0 blocks
+==3996==    indirectly lost: 0 bytes in 0 blocks
+==3996==      possibly lost: 0 bytes in 0 blocks
+==3996==    still reachable: 3,923 bytes in 62 blocks
+==3996==         suppressed: 134,385 bytes in 196 blocks
+==3996== 
+==3996== For counts of detected and suppressed errors, rerun with: -v
+==3996== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

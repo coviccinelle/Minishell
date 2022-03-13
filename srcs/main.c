@@ -82,6 +82,7 @@ void	minishell(char **env)
 		free_tout_mini(mini);
 	}
 	free(mini);
+	free_tab(&env);
 }
 
 int	g_exit_value;
