@@ -44,7 +44,7 @@ char	*ft_add_double_quote(int *i, char *line, t_cmd *cmd, char ***env)
 	{
 		printf("ERROR: Double quotes are not safely closed\n");
 		g_exit_value = 1003;
-		return (NULL);
+		return (ft_strdup(""));
 	}
 	(*i)++;
 	while (line[*i] != '"' && line[*i])

@@ -104,7 +104,9 @@ t_cmd	*stock_cmds(t_mini *mini, char ***env)
 			if (ft_each_cmd_4(mini, &i, &cmd, env))
 				stock_cmds_3(cmd);
 			else
+			{
 				return (NULL);
+			}
 		}
 		if (mini->line[i] == '|')
 			i++;

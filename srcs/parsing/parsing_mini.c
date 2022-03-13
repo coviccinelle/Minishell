@@ -128,7 +128,9 @@ int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 		if (p.ret1 == -1 || p.ret2 == -1)
 			break;
 		if (p.ret1 == 0)
+		{
 			return (0);
+		}
 	}
 	return ((*i) = p.i, 1);
 }
