@@ -64,6 +64,7 @@ int	exec_exit(int ac, char **av)
 {
 	int	ret;
 
+	ret = 0;
 	if (ac == 1)
 	{
 		printf("exit\n");

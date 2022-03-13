@@ -23,6 +23,7 @@ int	exec_builtin_no_pipe(t_mini *mini, char ***env)
 	int		fd_out;
 	int		ret;
 
+	ret = 0;
 	cmd = mini->cmd;
 	f = fork();
 	if (f != 0)

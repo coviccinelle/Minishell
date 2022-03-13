@@ -16,7 +16,8 @@ void	ft_sigint_ctr_c(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
-	rl_replace_line("", 0);
+	//TODO: faire un condition si c est macOS ou linux
+	//rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
 }
