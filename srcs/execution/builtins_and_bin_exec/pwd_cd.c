@@ -58,7 +58,8 @@ void	free_pwds(char **current_path, char **new_path, char **new_pwd)
 {
 	if (*current_path)
 		free(*current_path);
-	(void)*new_path;
+	if (*new_path)
+		free(*new_path);
 	if (*new_pwd)
 		free(*new_pwd);
 }
@@ -74,7 +75,15 @@ int	exec_cd(int ac, char **av, char ***env)
 	if (ac > 2)
 		return (ft_puterror_fd("minishell: ",
 				"cd: ", "too many arguments"));
-	new_path = av[1];
+	if ((ac == 1) || (ac == 2 && (!ft_strncmp(av[1], "~", ft_strlen("~")))))
+		new_path = ft_getenv(*env, "HOME");
+	else if (ac == 2 && (!ft_strncmp(av[1], "-", ft_strlen("-"))))
+	{
+		new_path = ft_getenv(*env, "OLDPWD");
+		printf("%s\n", new_path);
+	}
+	else
+		new_path = ft_strdup(av[1]);
 	res = chdir(new_path);
 	if (error_case(&new_pwd, &current_path, av, res) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
