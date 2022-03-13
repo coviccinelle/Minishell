@@ -108,11 +108,9 @@ char	*ft_single_quote(int *i, char *line, t_cmd *cmd)
 		cmd->la = NULL;
 	}
 	return_line = stock_single_quote(i, line, cmd->la);
-	if (!return_line && g_exit_value == 1003)
+	if (ft_strcmp(return_line, "") == 0 && g_exit_value == 1003)
 	{
 		g_exit_value = 1;
-		free(cmd->la);
-		free_one_cmd(cmd);
 	}
 	return (return_line);
 }

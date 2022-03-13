@@ -50,7 +50,7 @@ int	second_if(t_cmd **cmd, t_mini *m, t_param *p)
 		if (m->line[p->i + 1] && (m->line[p->i + 1] == '\''))
 			return (p->i += 2, -1);
 		(*cmd)->la = ft_single_quote(&p->i, m->line, *cmd);
-		if (!(*cmd)->la)
+		if (!ft_strcmp((*cmd)->la, ""))
 			return (0);
 		avs_and_nul(*cmd, (*cmd)->la);
 		if (m->line[p->i + 1] == '\0')
