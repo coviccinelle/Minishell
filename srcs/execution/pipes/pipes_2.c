@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/11 10:35:35 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/13 22:12:07 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ void	child_process(t_cmd *cmd, int *fd, char ***env)
 	{
 		g_exit_value = exec_builtin(cmd->av[0], \
 			nb_tabs(cmd->av), cmd->av, env);
+		free_tab(env);
 		exit(g_exit_value);
 	}
 	else if (!is_builtin(cmd->av[0]))
 	{
 		g_exit_value = exec_cmd(nb_tabs(cmd->av), cmd->av, env);
+		free_tab(env);
 		exit(g_exit_value);
 	}
 }

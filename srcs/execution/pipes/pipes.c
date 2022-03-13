@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/13 22:01:52 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/13 22:30:28 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,5 @@ void	i_am_your_father(t_mini *mini, t_cmd *cmd, char ***env)
 				nb_tabs(cmd->av), cmd->av, env);
 		}
 	}
+	free_tab(&avv);
 }
