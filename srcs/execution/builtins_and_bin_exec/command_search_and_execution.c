@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:05:06 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/14 14:15:52 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 14:37:31 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	exec_builtin(char *builtin, int ac, char **av, char ***env)
 	if (!(ft_strcmp(builtin, "export")))
 		exit_status = exec_export(ac, av, env);
 	if (!(ft_strcmp(builtin, "exit")))
-		exit_status = exec_exit(ac, av, env);
+		exit_status = exec_exit(ac, av, &exit_status);
 	if (!(ft_strcmp(builtin, "pwd")))
 		exit_status = exec_pwd();
 	if (!(ft_strcmp(builtin, "unset")))

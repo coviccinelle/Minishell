@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:13:00 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/13 21:35:38 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 14:38:07 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,35 +60,30 @@ unsigned char	ft_atoi(char *s)
 	return (c);
 }
 
-int	exec_exit(int ac, char **av, char ***env)
+int	exec_exit(int ac, char **av, int *ret)
 {
-	int	ret;
-	(void)env;
-
+	*ret = 0;
 	if (ac == 1)
 	{
 		printf("exit\n");
-		ret = 0;
 		free_tab(&av);
-		exit(ret);
+		exit(0);
 	}
 	else if (!all_are_digits(av[1]))
 	{
-		ret = ft_puterror_fd("minishell: exit: ", \
+		*ret = ft_puterror_fd("minishell: exit: ", \
 				av[1], ":numeric argument required");
-
 		free_tab(&av);
-		exit(ret);
+		exit(*ret);
 	}
 	else if (all_are_digits(av[1]) && ac > 2)
-		ret = ft_puterror_fd("minishell: exit: ", \
+		*ret = ft_puterror_fd("minishell: exit: ", \
 		"too many arguments", NULL);
 	else if (all_are_digits(av[1]) && ac == 2)
 	{
 		printf("exit\n");
-		ret = ft_atoi(av[1]);
 		free_tab(&av);
-		exit(ret);
+		exit(ft_atoi(av[1]));
 	}
-	return (ret);
+	return (*ret);
 }

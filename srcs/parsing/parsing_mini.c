@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 10:46:48 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/14 14:09:47 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 14:20:07 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ int	third_if(t_cmd **cmd, t_mini *m, t_param *p)
 		else
 			return (p->i++, 1);
 	}
-	// else if (m->line[p->i] == '|')
-	// 	return (avs_and_nul(*cmd, (*cmd)->la), -1);
+	else if (m->line[p->i] == '|')
+		return (avs_and_nul(*cmd, (*cmd)->la), -1);
 	else
 	{
 		p->buf = malloc(sizeof(char) * 2);

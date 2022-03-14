@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/14 14:15:18 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 14:38:38 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int		ft_unsetenv(char ***env, char *name);
 int		exec_unset(int ac, char **av, char ***env);
 int		print_env(char **env);
 char	*ft_getenv(char **env, char *name);
-int		exec_exit(int ac, char **av, char ***env);
+int		exec_exit(int ac, char **av, int *ret);
 void	ft_bzero(void *b, size_t n);
 void	*ft_memalloc(size_t size);
 void	test_print(char **envp);

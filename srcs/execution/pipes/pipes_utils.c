@@ -6,7 +6,7 @@
 /*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:48 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/10 18:23:21 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/14 14:19:17 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ void	safely_exec_bin_cmds(char *path, char **av, \
 char	*ft_strxjoin(char *s1, char *s2, char *s3)
 {
 	char	*new;
-	char 	*leak;
+	char	*leak;
 
 	new = NULL;
-	new	= ft_strjoin(s1, s2);
+	new = ft_strjoin(s1, s2);
 	if (!new)
 		return (NULL);
 	leak = new;
