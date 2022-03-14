@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/14 11:23:12 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 11:24:18 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	dup_last_file_fd_out(t_cmd *cmd);
 int	dup_last_file_fd_in(t_cmd *cmd);
 
-void	child_process(t_cmd *cmd, int *fd, char ***env)
+void	child_process(t_cmd *cmd, int *fd, char ***env, t_mini *mini)
 {
 	close(fd[0]);
 	if (dup_last_file_fd_in(cmd) == 1)
@@ -29,13 +29,15 @@ void	child_process(t_cmd *cmd, int *fd, char ***env)
 	{
 		g_exit_value = exec_builtin(cmd->av[0], \
 			nb_tabs(cmd->av), cmd->av, env);
-		free_tab(env);
+	//	free_tab(env);
+		free_child(mini, env);
 		exit(g_exit_value);
 	}
 	else if (!is_builtin(cmd->av[0]))
 	{
 		g_exit_value = exec_cmd(nb_tabs(cmd->av), cmd->av, env);
-		free_tab(env);
+		//free_tab(env);
+		free_child(mini, env);
 		exit(g_exit_value);
 	}
 }
@@ -78,7 +80,7 @@ void	run_piped_cmds(t_mini *mini, char ***env)
 		ft_disable_if_fork(cmd->pid);
 		if (cmd->pid == 0)
 		{
-			child_process(cmd, fd, env);
+			child_process(cmd, fd, env, mini);
 		}
 		else
 			close_old_prepare_eventual_new(cmd, fd);

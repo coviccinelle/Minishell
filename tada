@@ -1,164 +1,140 @@
-==48346== Memcheck, a memory error detector
-==48346== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==48346== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==48346== Command: ./minishell
-==48346== Parent PID: 31773
-==48346== 
-==48358== 
-==48358== HEAP SUMMARY:
-==48358==     in use at exit: 204,712 bytes in 218 blocks
-==48358==   total heap usage: 522 allocs, 304 frees, 229,946 bytes allocated
-==48358== 
-==48358== LEAK SUMMARY:
-==48358==    definitely lost: 0 bytes in 0 blocks
-==48358==    indirectly lost: 0 bytes in 0 blocks
-==48358==      possibly lost: 0 bytes in 0 blocks
-==48358==    still reachable: 0 bytes in 0 blocks
-==48358==         suppressed: 204,712 bytes in 218 blocks
-==48358== 
-==48358== For lists of detected and suppressed errors, rerun with: -s
-==48358== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==48380== Syscall param exit_group(status) contains uninitialised byte(s)
-==48380==    at 0x4997176: _Exit (_exit.c:31)
-==48380==    by 0x48FA9F1: __run_exit_handlers (exit.c:132)
-==48380==    by 0x48FAA8F: exit (exit.c:139)
-==48380==    by 0x10FAF2: exec_builtin_no_pipe (pipes_1.c:53)
-==48380==    by 0x10FBBB: exec_cmd_with_no_pipe (pipes_1.c:75)
-==48380==    by 0x1095E8: mini_run (main.c:40)
-==48380==    by 0x1097EB: minishell (main.c:83)
-==48380==    by 0x109867: main (main.c:101)
-==48380==  Uninitialised value was created by a stack allocation
-==48380==    at 0x10F9CF: exec_builtin_no_pipe (pipes_1.c:26)
-==48380== 
-==48380== 
-==48380== HEAP SUMMARY:
-==48380==     in use at exit: 204,765 bytes in 221 blocks
-==48380==   total heap usage: 592 allocs, 371 frees, 230,814 bytes allocated
-==48380== 
-==48380== LEAK SUMMARY:
-==48380==    definitely lost: 0 bytes in 0 blocks
-==48380==    indirectly lost: 0 bytes in 0 blocks
-==48380==      possibly lost: 0 bytes in 0 blocks
-==48380==    still reachable: 0 bytes in 0 blocks
-==48380==         suppressed: 204,765 bytes in 221 blocks
-==48380== 
-==48380== For lists of detected and suppressed errors, rerun with: -s
-==48380== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
-==48383== Syscall param exit_group(status) contains uninitialised byte(s)
-==48383==    at 0x4997176: _Exit (_exit.c:31)
-==48383==    by 0x48FA9F1: __run_exit_handlers (exit.c:132)
-==48383==    by 0x48FAA8F: exit (exit.c:139)
-==48383==    by 0x10FAF2: exec_builtin_no_pipe (pipes_1.c:53)
-==48383==    by 0x10FBBB: exec_cmd_with_no_pipe (pipes_1.c:75)
-==48383==    by 0x1095E8: mini_run (main.c:40)
-==48383==    by 0x1097EB: minishell (main.c:83)
-==48383==    by 0x109867: main (main.c:101)
-==48383==  Uninitialised value was created by a stack allocation
-==48383==    at 0x10F9CF: exec_builtin_no_pipe (pipes_1.c:26)
-==48383== 
-==48383== 
-==48383== HEAP SUMMARY:
-==48383==     in use at exit: 204,808 bytes in 224 blocks
-==48383==   total heap usage: 821 allocs, 597 frees, 237,470 bytes allocated
-==48383== 
-==48383== LEAK SUMMARY:
-==48383==    definitely lost: 0 bytes in 0 blocks
-==48383==    indirectly lost: 0 bytes in 0 blocks
-==48383==      possibly lost: 0 bytes in 0 blocks
-==48383==    still reachable: 0 bytes in 0 blocks
-==48383==         suppressed: 204,808 bytes in 224 blocks
-==48383== 
-==48383== For lists of detected and suppressed errors, rerun with: -s
-==48383== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
-==48404== Syscall param exit_group(status) contains uninitialised byte(s)
-==48404==    at 0x4997176: _Exit (_exit.c:31)
-==48404==    by 0x48FA9F1: __run_exit_handlers (exit.c:132)
-==48404==    by 0x48FAA8F: exit (exit.c:139)
-==48404==    by 0x10FAF2: exec_builtin_no_pipe (pipes_1.c:53)
-==48404==    by 0x10FBBB: exec_cmd_with_no_pipe (pipes_1.c:75)
-==48404==    by 0x1095E8: mini_run (main.c:40)
-==48404==    by 0x1097EB: minishell (main.c:83)
-==48404==    by 0x109867: main (main.c:101)
-==48404==  Uninitialised value was created by a stack allocation
-==48404==    at 0x10F9CF: exec_builtin_no_pipe (pipes_1.c:26)
-==48404== 
-==48404== 
-==48404== HEAP SUMMARY:
-==48404==     in use at exit: 204,856 bytes in 227 blocks
-==48404==   total heap usage: 924 allocs, 697 frees, 242,378 bytes allocated
-==48404== 
-==48404== LEAK SUMMARY:
-==48404==    definitely lost: 0 bytes in 0 blocks
-==48404==    indirectly lost: 0 bytes in 0 blocks
-==48404==      possibly lost: 0 bytes in 0 blocks
-==48404==    still reachable: 0 bytes in 0 blocks
-==48404==         suppressed: 204,856 bytes in 227 blocks
-==48404== 
-==48404== For lists of detected and suppressed errors, rerun with: -s
-==48404== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
-==48406== Syscall param exit_group(status) contains uninitialised byte(s)
-==48406==    at 0x4997176: _Exit (_exit.c:31)
-==48406==    by 0x48FA9F1: __run_exit_handlers (exit.c:132)
-==48406==    by 0x48FAA8F: exit (exit.c:139)
-==48406==    by 0x10FAF2: exec_builtin_no_pipe (pipes_1.c:53)
-==48406==    by 0x10FBBB: exec_cmd_with_no_pipe (pipes_1.c:75)
-==48406==    by 0x1095E8: mini_run (main.c:40)
-==48406==    by 0x1097EB: minishell (main.c:83)
-==48406==    by 0x109867: main (main.c:101)
-==48406==  Uninitialised value was created by a stack allocation
-==48406==    at 0x10F9CF: exec_builtin_no_pipe (pipes_1.c:26)
-==48406== 
-==48406== 
-==48406== HEAP SUMMARY:
-==48406==     in use at exit: 204,899 bytes in 230 blocks
-==48406==   total heap usage: 1,017 allocs, 787 frees, 243,584 bytes allocated
-==48406== 
-==48406== LEAK SUMMARY:
-==48406==    definitely lost: 0 bytes in 0 blocks
-==48406==    indirectly lost: 0 bytes in 0 blocks
-==48406==      possibly lost: 0 bytes in 0 blocks
-==48406==    still reachable: 0 bytes in 0 blocks
-==48406==         suppressed: 204,899 bytes in 230 blocks
-==48406== 
-==48406== For lists of detected and suppressed errors, rerun with: -s
-==48406== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
-==48408== Syscall param exit_group(status) contains uninitialised byte(s)
-==48408==    at 0x4997176: _Exit (_exit.c:31)
-==48408==    by 0x48FA9F1: __run_exit_handlers (exit.c:132)
-==48408==    by 0x48FAA8F: exit (exit.c:139)
-==48408==    by 0x10FAF2: exec_builtin_no_pipe (pipes_1.c:53)
-==48408==    by 0x10FBBB: exec_cmd_with_no_pipe (pipes_1.c:75)
-==48408==    by 0x1095E8: mini_run (main.c:40)
-==48408==    by 0x1097EB: minishell (main.c:83)
-==48408==    by 0x109867: main (main.c:101)
-==48408==  Uninitialised value was created by a stack allocation
-==48408==    at 0x10F9CF: exec_builtin_no_pipe (pipes_1.c:26)
-==48408== 
-==48408== 
-==48408== HEAP SUMMARY:
-==48408==     in use at exit: 204,940 bytes in 233 blocks
-==48408==   total heap usage: 1,104 allocs, 871 frees, 248,385 bytes allocated
-==48408== 
-==48408== LEAK SUMMARY:
-==48408==    definitely lost: 0 bytes in 0 blocks
-==48408==    indirectly lost: 0 bytes in 0 blocks
-==48408==      possibly lost: 0 bytes in 0 blocks
-==48408==    still reachable: 0 bytes in 0 blocks
-==48408==         suppressed: 204,940 bytes in 233 blocks
-==48408== 
-==48408== For lists of detected and suppressed errors, rerun with: -s
-==48408== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
-==48346== 
-==48346== HEAP SUMMARY:
-==48346==     in use at exit: 204,940 bytes in 233 blocks
-==48346==   total heap usage: 1,106 allocs, 873 frees, 248,406 bytes allocated
-==48346== 
-==48346== LEAK SUMMARY:
-==48346==    definitely lost: 0 bytes in 0 blocks
-==48346==    indirectly lost: 0 bytes in 0 blocks
-==48346==      possibly lost: 0 bytes in 0 blocks
-==48346==    still reachable: 0 bytes in 0 blocks
-==48346==         suppressed: 204,940 bytes in 233 blocks
-==48346== 
-==48346== For lists of detected and suppressed errors, rerun with: -s
-==48346== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==50063== Memcheck, a memory error detector
+==50063== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==50063== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==50063== Command: ./minishell
+==50063== Parent PID: 31773
+==50063== 
+==50068== 
+==50068== HEAP SUMMARY:
+==50068==     in use at exit: 204,725 bytes in 218 blocks
+==50068==   total heap usage: 547 allocs, 329 frees, 230,184 bytes allocated
+==50068== 
+==50068== LEAK SUMMARY:
+==50068==    definitely lost: 0 bytes in 0 blocks
+==50068==    indirectly lost: 0 bytes in 0 blocks
+==50068==      possibly lost: 0 bytes in 0 blocks
+==50068==    still reachable: 0 bytes in 0 blocks
+==50068==         suppressed: 204,725 bytes in 218 blocks
+==50068== 
+==50068== For lists of detected and suppressed errors, rerun with: -s
+==50068== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==50069== 
+==50069== HEAP SUMMARY:
+==50069==     in use at exit: 204,725 bytes in 218 blocks
+==50069==   total heap usage: 547 allocs, 329 frees, 230,184 bytes allocated
+==50069== 
+==50069== LEAK SUMMARY:
+==50069==    definitely lost: 0 bytes in 0 blocks
+==50069==    indirectly lost: 0 bytes in 0 blocks
+==50069==      possibly lost: 0 bytes in 0 blocks
+==50069==    still reachable: 0 bytes in 0 blocks
+==50069==         suppressed: 204,725 bytes in 218 blocks
+==50069== 
+==50069== For lists of detected and suppressed errors, rerun with: -s
+==50069== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==50063== 
+==50063== HEAP SUMMARY:
+==50063==     in use at exit: 204,967 bytes in 227 blocks
+==50063==   total heap usage: 550 allocs, 323 frees, 230,260 bytes allocated
+==50063== 
+==50063== 5 bytes in 1 blocks are indirectly lost in loss record 1 of 70
+==50063==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==50063==    by 0x10C6E3: ft_fill_av (ft_avs.c:35)
+==50063==    by 0x10CA13: ft_malloc_avs (ft_avs.c:96)
+==50063==    by 0x10CA65: ft_avs (ft_avs.c:107)
+==50063==    by 0x10BD5C: skip_blank_2 (skip_char.c:66)
+==50063==    by 0x1099FC: first_if (parsing_mini.c:19)
+==50063==    by 0x109FFE: ft_each_cmd_4 (parsing_mini.c:113)
+==50063==    by 0x10B174: stock_cmds (stock_cmd.c:104)
+==50063==    by 0x10959A: mini_run (main.c:33)
+==50063==    by 0x1097EB: minishell (main.c:83)
+==50063==    by 0x109867: main (main.c:101)
+==50063== 
+==50063== 5 bytes in 1 blocks are indirectly lost in loss record 2 of 70
+==50063==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==50063==    by 0x10C6E3: ft_fill_av (ft_avs.c:35)
+==50063==    by 0x10CA13: ft_malloc_avs (ft_avs.c:96)
+==50063==    by 0x10CA65: ft_avs (ft_avs.c:107)
+==50063==    by 0x10B43A: avs_and_nul (redirrection.c:51)
+==50063==    by 0x109F86: third_if (parsing_mini.c:96)
+==50063==    by 0x10A053: ft_each_cmd_4 (parsing_mini.c:121)
+==50063==    by 0x10B174: stock_cmds (stock_cmd.c:104)
+==50063==    by 0x10959A: mini_run (main.c:33)
+==50063==    by 0x1097EB: minishell (main.c:83)
+==50063==    by 0x109867: main (main.c:101)
+==50063== 
+==50063== 6 bytes in 1 blocks are indirectly lost in loss record 3 of 70
+==50063==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==50063==    by 0x10C7F7: ft_fill_av (ft_avs.c:46)
+==50063==    by 0x10CA13: ft_malloc_avs (ft_avs.c:96)
+==50063==    by 0x10CA65: ft_avs (ft_avs.c:107)
+==50063==    by 0x10B43A: avs_and_nul (redirrection.c:51)
+==50063==    by 0x109F86: third_if (parsing_mini.c:96)
+==50063==    by 0x10A053: ft_each_cmd_4 (parsing_mini.c:121)
+==50063==    by 0x10B174: stock_cmds (stock_cmd.c:104)
+==50063==    by 0x10959A: mini_run (main.c:33)
+==50063==    by 0x1097EB: minishell (main.c:83)
+==50063==    by 0x109867: main (main.c:101)
+==50063== 
+==50063== 8 bytes in 1 blocks are indirectly lost in loss record 6 of 70
+==50063==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==50063==    by 0x10C7F7: ft_fill_av (ft_avs.c:46)
+==50063==    by 0x10CA13: ft_malloc_avs (ft_avs.c:96)
+==50063==    by 0x10CA65: ft_avs (ft_avs.c:107)
+==50063==    by 0x10BD5C: skip_blank_2 (skip_char.c:66)
+==50063==    by 0x1099FC: first_if (parsing_mini.c:19)
+==50063==    by 0x109FFE: ft_each_cmd_4 (parsing_mini.c:113)
+==50063==    by 0x10B174: stock_cmds (stock_cmd.c:104)
+==50063==    by 0x10959A: mini_run (main.c:33)
+==50063==    by 0x1097EB: minishell (main.c:83)
+==50063==    by 0x109867: main (main.c:101)
+==50063== 
+==50063== 24 bytes in 1 blocks are indirectly lost in loss record 15 of 70
+==50063==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==50063==    by 0x10C9EA: ft_malloc_avs (ft_avs.c:93)
+==50063==    by 0x10CA65: ft_avs (ft_avs.c:107)
+==50063==    by 0x10BD5C: skip_blank_2 (skip_char.c:66)
+==50063==    by 0x1099FC: first_if (parsing_mini.c:19)
+==50063==    by 0x109FFE: ft_each_cmd_4 (parsing_mini.c:113)
+==50063==    by 0x10B174: stock_cmds (stock_cmd.c:104)
+==50063==    by 0x10959A: mini_run (main.c:33)
+==50063==    by 0x1097EB: minishell (main.c:83)
+==50063==    by 0x109867: main (main.c:101)
+==50063== 
+==50063== 24 bytes in 1 blocks are indirectly lost in loss record 16 of 70
+==50063==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==50063==    by 0x10C9EA: ft_malloc_avs (ft_avs.c:93)
+==50063==    by 0x10CA65: ft_avs (ft_avs.c:107)
+==50063==    by 0x10B43A: avs_and_nul (redirrection.c:51)
+==50063==    by 0x109F86: third_if (parsing_mini.c:96)
+==50063==    by 0x10A053: ft_each_cmd_4 (parsing_mini.c:121)
+==50063==    by 0x10B174: stock_cmds (stock_cmd.c:104)
+==50063==    by 0x10959A: mini_run (main.c:33)
+==50063==    by 0x1097EB: minishell (main.c:83)
+==50063==    by 0x109867: main (main.c:101)
+==50063== 
+==50063== 72 bytes in 1 blocks are indirectly lost in loss record 25 of 70
+==50063==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==50063==    by 0x10AEC3: new_elem_cmd (stock_cmd.c:20)
+==50063==    by 0x10B124: stock_cmds (stock_cmd.c:98)
+==50063==    by 0x10959A: mini_run (main.c:33)
+==50063==    by 0x1097EB: minishell (main.c:83)
+==50063==    by 0x109867: main (main.c:101)
+==50063== 
+==50063== 216 (72 direct, 144 indirect) bytes in 1 blocks are definitely lost in loss record 30 of 70
+==50063==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==50063==    by 0x10AEC3: new_elem_cmd (stock_cmd.c:20)
+==50063==    by 0x10B124: stock_cmds (stock_cmd.c:98)
+==50063==    by 0x10959A: mini_run (main.c:33)
+==50063==    by 0x1097EB: minishell (main.c:83)
+==50063==    by 0x109867: main (main.c:101)
+==50063== 
+==50063== LEAK SUMMARY:
+==50063==    definitely lost: 72 bytes in 1 blocks
+==50063==    indirectly lost: 144 bytes in 7 blocks
+==50063==      possibly lost: 0 bytes in 0 blocks
+==50063==    still reachable: 0 bytes in 0 blocks
+==50063==         suppressed: 204,751 bytes in 219 blocks
+==50063== 
+==50063== For lists of detected and suppressed errors, rerun with: -s
+==50063== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
