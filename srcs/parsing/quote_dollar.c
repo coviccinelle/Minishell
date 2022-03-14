@@ -6,11 +6,13 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:38:44 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/14 14:12:43 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 18:12:50 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	safely_free(char **s1, char **s2);
 
 void	ft_pass_squote(char *str, int *i)
 {
@@ -51,9 +53,7 @@ char	*ft_strjoin_2(char *s1, char *s2)
 	ret[i + e] = ' ';
 	e++;
 	ret[i + e] = '\0';
-	free(s1);
-	if (s2)
-		free(s2);
+	safely_free(&s1, &s2);
 	return (ret);
 }
 
@@ -71,14 +71,37 @@ char	*dolar_name_quote(char *str, int *i)
 	return (name);
 }
 
+void	dollar_quote_2(char **line_after, char **envp, char *dolar_value)
+{
+	char	*leak;
+	char	*leak_2;
+
+	leak = ft_getenv(envp, dolar_value);
+	if (!*line_after)
+		*line_after = ft_strdup("");
+	leak_2 = *line_after;
+	*line_after = ft_strxjoin(leak_2, leak, " ");
+	if (leak)
+		free(leak);
+	if (leak_2)
+		free(leak_2);
+}
+
+void	dollar_quote_1(char **line_after)
+{
+	char	*leak_0;
+
+	leak_0 = *line_after;
+	*line_after = ft_strjoin_2(*line_after, ft_itoa(g_exit_value));
+	if (leak_0)
+		free(leak_0);
+}
+
 char	*dolar_quote(char *str, char **envp)
 {
 	int		i;
 	char	*line_after;
-	char	*leak;
-	char	*leak_2;
 	char	*dolar_value;
-	char	*leak_0;
 
 	line_after = NULL;
 	dolar_value = NULL;
@@ -89,22 +112,9 @@ char	*dolar_quote(char *str, char **envp)
 		{
 			dolar_value = dolar_name_quote(str, &i);
 			if (*dolar_value == '?')
-			{
-				leak_0 = line_after;
-				line_after = ft_strjoin_2(line_after, ft_itoa(g_exit_value));
-				if (leak_0)
-					free(leak_0);
-			}
+				dollar_quote_1(&line_after);
 			else
-			{
-				leak = ft_getenv(envp, dolar_value);
-				if (!line_after)
-					line_after = ft_strdup("");
-				leak_2 = line_after;
-				line_after = ft_strxjoin(leak_2, leak, " ");
-				free(leak_2);
-				free(leak);
-			}
+				dollar_quote_2(&line_after, envp, dolar_value);
 			free(dolar_value);
 		}
 		else
@@ -113,6 +123,5 @@ char	*dolar_quote(char *str, char **envp)
 			i++;
 		}
 	}
-	free(str);
-	return (line_after);
+	return (free(str), line_after);
 }

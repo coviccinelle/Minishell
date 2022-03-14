@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 10:46:48 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/14 14:20:07 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 18:01:43 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int	first_if(t_cmd **cmd, t_mini *m, t_param *p)
 			return (p->i += 2, -1);
 		(*cmd)->la = ft_d2_quotes(&p->i, *cmd, m, p->env);
 		if (!ft_strcmp((*cmd)->la, ""))
+		{
+			free((*cmd)->la);
 			return (0);
+		}
 		if (!ft_strcmp((*cmd)->la, "?"))
 			return (ft_avs(*cmd, ft_itoa(g_exit_value)), -1);
 		avs_and_nul(*cmd, (*cmd)->la);
@@ -108,7 +111,6 @@ int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 	t_param		p;
 
 	ft_init_param(&p, env, i);
-	fprintf(stderr, "mline =%s\n\n", m->line);
 	while (m->line[p.i])
 	{
 		p.ret1 = first_if(cmd, m, &p);
@@ -129,9 +131,7 @@ int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 		if (p.ret1 == -1 || p.ret2 == -1)
 			break ;
 		if (p.ret1 == 0)
-		{
 			return (0);
-		}
 	}
 	return ((*i) = p.i, 1);
 }

@@ -3,27 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils_tab.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:32:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 10:04:49 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/14 18:11:43 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 #include <string.h>
-
-//char	**ft_copy_tab(char **env);
-
-// int	ft_strcmp(char *s, char *t)
-// {
-// 	while (*s && (*s == *t))
-// 	{
-// 		s++;
-// 		t++;
-// 	}
-// 	return (*s - *t);
-// }
 
 void	print_export(char **tab)
 {
@@ -80,4 +68,12 @@ int	ft_alphabetical_order_tab(char **env)
 	if (copy)
 		free_tab_3(copy, nb_tabs(copy));
 	return (0);
+}
+
+void	safely_free(char **s1, char **s2)
+{
+	if (s1)
+		free(s1);
+	if (s2)
+		free(s2);
 }

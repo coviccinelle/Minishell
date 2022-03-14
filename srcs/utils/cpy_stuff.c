@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cpy_stuff.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:54:22 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/09 12:58:07 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/14 17:33:35 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,30 @@ char	**ft_env_cpy(char **envp)
 		env[i] = ft_strdup(envp[i]);
 	env[i] = NULL;
 	return (env);
+}
+
+char	**ft_split(char *s, char sep)
+{
+	char	**tab;
+	int		nb_tabs;
+	int		i;
+	int		j;
+
+	nb_tabs = 0;
+	j = -1;
+	while (s[++j])
+		if (s[j] == sep)
+			nb_tabs++;
+	tab = malloc(sizeof(char *) * (nb_tabs + 2));
+	tab[nb_tabs + 1] = NULL;
+	j = 0;
+	while (j < nb_tabs + 1)
+	{
+		i = 0;
+		while (s[i] && s[i] != sep)
+			i++;
+		tab[j++] = ft_strndup(s, i);
+		s = &s[i + 1];
+	}
+	return (tab);
 }

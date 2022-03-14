@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:05:06 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/14 15:17:38 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 17:26:18 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,32 +52,6 @@ int	exec_builtin(char *builtin, int ac, char **av, char ***env)
 	if (!(ft_strcmp(builtin, "unset")))
 		exit_status = exec_unset(ac, av, env);
 	return (exit_status);
-}
-
-char	**ft_split(char *s, char sep)
-{
-	char	**tab;
-	int		nb_tabs;
-	int		i;
-	int		j;
-
-	nb_tabs = 0;
-	j = -1;
-	while (s[++j])
-		if (s[j] == sep)
-			nb_tabs++;
-	tab = malloc(sizeof(char *) * (nb_tabs + 2));
-	tab[nb_tabs + 1] = NULL;
-	j = 0;
-	while (j < nb_tabs + 1)
-	{
-		i = 0;
-		while (s[i] && s[i] != sep)
-			i++;
-		tab[j++] = ft_strndup(s, i);
-		s = &s[i + 1];
-	}
-	return (tab);
 }
 
 int	path_is_unset(char **possible_paths, char *cmd)
