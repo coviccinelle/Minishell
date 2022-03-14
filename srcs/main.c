@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/13 22:27:58 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 12:18:04 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*ft_readline_input(char *line, char ***env, t_mini *mini)
 	line = readline("\033[1;33m~🌈 Minishell 🌻$\033[0m ");
 	if (!line)
 	{
+		free_tout_mini(mini);
 		free(mini);
 		free_tab(env);
 		if (*env)
