@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 10:46:48 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/14 20:51:34 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 21:21:14 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	second_if(t_cmd **cmd, t_mini *m, t_param *p)
 
 int	third_if(t_cmd **cmd, t_mini *m, t_param *p)
 {
-	if (is_redir(m->line[p->i]))
+	if (is_redir(m->line[p->i])/* && is_blank(m->line[(p->i -1)])*/)
 	{
 		if (!ft_redirec(m->line, &p->i, (*cmd)->la, &*cmd))
 			return (0);

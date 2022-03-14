@@ -79,7 +79,7 @@ void	minishell(char **env)
 		if (!line)
 			exit (130);
 		add_history(line);
-		free_tout_mini(mini);
+		//free_tout_mini(mini);
 		mini->line = line;
 		if (mini->line || mini->cmd->av)
 			mini_run(mini, &env);
