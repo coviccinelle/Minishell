@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/13 22:05:52 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 11:22:24 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,5 +268,6 @@ int		is_alnum(int c);
 void	ft_free_cmds(t_mini *mini);
 int		ft_len_cmd(char **str);
 void	*ft_memset(void *b, int c, size_t len);
+void	free_child(t_mini *mini, char ***env);
 
 #endif
