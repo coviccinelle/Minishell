@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:05:06 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/14 14:50:09 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 15:06:49 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,16 @@ char	**ft_split(char *s, char sep)
 	return (tab);
 }
 
+void	when_path_is_unset(char **possible_paths, char *cmd)
+{
+	if (!ft_strcmp(*possible_paths, ""))
+	{
+		free(*possible_paths);
+		perror(cmd);
+		exit(127);
+	}
+}
+
 char	*find_cmd_path(char *cmd, char **env)
 {
 	char		**path;
@@ -90,12 +100,7 @@ char	*find_cmd_path(char *cmd, char **env)
 
 	possible_paths = ft_getenv(env, "PATH");
 	j = -1;
-	if (!ft_strcmp(possible_paths, ""))
-	{
-		free(possible_paths);
-		perror(cmd);
-		exit(127);
-	}	
+	when_path_is_unset(&possible_paths, cmd);
 	path = ft_split(possible_paths, ':');
 	free(possible_paths);
 	while (path[++j])
