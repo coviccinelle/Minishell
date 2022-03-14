@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_in_out.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:45:23 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/10 19:14:59 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/14 11:48:59 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,16 @@ int	ft_add_to_fstack_out(t_cmd **cmd, char *line)
 {
 	t_file		*new;
 	t_file		*p;
+	char		*tmp;
 
 	p = (*cmd)->file_out;
 	new = (t_file *)malloc(sizeof(t_file));
 	if (!new)
 		return (0);
 	new->next = NULL;
-	new->name = ft_strdup(line);
+	tmp = ft_strdup(line);
+	new->name = tmp;
+	free(tmp);
 	new->type = (*cmd)->type;
 	if (!(*cmd)->file_out)
 		(*cmd)->file_out = new;
@@ -39,13 +42,16 @@ int	ft_add_to_fstack_in(t_cmd **cmd, char *line)
 {
 	t_file		*new;
 	t_file		*p;
+	char		*tmp;
 
 	p = (*cmd)->file_in;
 	new = (t_file *)malloc(sizeof(t_file));
 	if (!new)
 		return (0);
 	new->next = NULL;
+	tmp = ft_strdup(line);
 	new->name = ft_strdup(line);
+	free(tmp);
 	new->type = (*cmd)->type;
 	if (new->type == HEREDOC)
 		call_heredoc(new->name);
