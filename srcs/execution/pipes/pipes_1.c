@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/14 14:55:53 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 14:58:49 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	exec_builtin_no_pipe(t_mini *mini, char ***env)
 	pid_t	f;
 	int		status;
 	int		fd_out;
-	int		ret;
 
 	cmd = mini->cmd;
 	f = fork();
@@ -43,11 +42,11 @@ int	exec_builtin_no_pipe(t_mini *mini, char ***env)
 			exit (1);
 		fd_out = dup_last_file_fd_out(cmd);
 		if (cmp_again(cmd) == 0)
-			ret = (exec_builtin(cmd->av[0], \
+			g_exit_value = (exec_builtin(cmd->av[0], \
 				nb_tabs(cmd->av), cmd->av, env));
 		free_child(mini, env);
 		close(fd_out);
-		exit(ret);
+		exit(g_exit_value);
 	}
 	return (g_exit_value);
 }
