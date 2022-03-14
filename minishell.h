@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:34:43 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/14 11:25:11 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 14:15:18 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ char	*ft_strcpy(char *dst, char *src);
 int		ft_alphabetical_order_tab(char **env);
 int		ft_unsetenv(char ***env, char *name);
 void	print_export(char **tab);
-int		exec_cmd(int ac, char **av, char ***env);
+int	exec_cmd(int ac, char **av, char ***env, t_mini *mini);
 int	exec_builtin(char *builtin, int ac, char **av, char ***env);
 int		is_builtin(char *builtin);
 

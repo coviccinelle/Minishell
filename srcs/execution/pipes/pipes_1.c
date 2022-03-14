@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/14 11:22:04 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 14:16:21 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	exec_cmd_with_no_pipe(t_mini *mini, char ***env)
 			if (dup_last_file_fd_in(cmd) == 1)
 				exit (1);
 			dup_last_file_fd_out(cmd);
-			exit(exec_cmd(nb_tabs(cmd->av), cmd->av, env));
+			exit(exec_cmd(nb_tabs(cmd->av), cmd->av, env, mini));
 		}
 	}
 	ft_start_signal();

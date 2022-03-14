@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/14 11:24:18 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 14:16:46 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	child_process(t_cmd *cmd, int *fd, char ***env, t_mini *mini)
 	}
 	else if (!is_builtin(cmd->av[0]))
 	{
-		g_exit_value = exec_cmd(nb_tabs(cmd->av), cmd->av, env);
+		g_exit_value = exec_cmd(nb_tabs(cmd->av), cmd->av, env, mini);
 		//free_tab(env);
 		free_child(mini, env);
 		exit(g_exit_value);

@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:38:44 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 23:25:31 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 14:12:43 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,50 +70,15 @@ char	*dolar_name_quote(char *str, int *i)
 	}
 	return (name);
 }
-/*
-char	*dolar_quote(char *str, char **envp)
-{
-	int		i;
-	char	*line_after;
-	char	*dolar_value;
-	char 	*another_value;
-
-	line_after = NULL;
-	dolar_value = NULL;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$' && str[i + 1] && str[i + 1] != ' ')
-		{
-			dolar_value = dolar_name_quote(str, &i);
-			if (*dolar_value == '?')
-				line_after = ft_strjoin_2(line_after, ft_itoa(g_exit_value));
-			another_value = ft_getenv(envp, dolar_value);
-			free(dolar_value);
-			line_after = ft_strjoin_2(line_after, another_value);
-		}
-		else
-		{
-			another_value = ft_add_line_after(ft_strdup(line_after), str[i]);
-		//	free(line_after);
-			i++;
-		}
-	}
-	free(str);
-	return (another_value);
-}
-*/
-
-
-
 
 char	*dolar_quote(char *str, char **envp)
 {
 	int		i;
 	char	*line_after;
-	char 	*leak;
-	char    *leak_2;
+	char	*leak;
+	char	*leak_2;
 	char	*dolar_value;
+	char	*leak_0;
 
 	line_after = NULL;
 	dolar_value = NULL;
@@ -125,7 +90,7 @@ char	*dolar_quote(char *str, char **envp)
 			dolar_value = dolar_name_quote(str, &i);
 			if (*dolar_value == '?')
 			{
-				char *leak_0 = line_after;
+				leak_0 = line_after;
 				line_after = ft_strjoin_2(line_after, ft_itoa(g_exit_value));
 				if (leak_0)
 					free(leak_0);

@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 10:46:48 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 22:56:53 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 14:09:47 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ int	third_if(t_cmd **cmd, t_mini *m, t_param *p)
 		else
 			return (p->i++, 1);
 	}
-	else if (m->line[p->i] == '|')
-		return (avs_and_nul(*cmd, (*cmd)->la), -1);
+	// else if (m->line[p->i] == '|')
+	// 	return (avs_and_nul(*cmd, (*cmd)->la), -1);
 	else
 	{
 		p->buf = malloc(sizeof(char) * 2);
@@ -108,6 +108,7 @@ int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 	t_param		p;
 
 	ft_init_param(&p, env, i);
+	fprintf(stderr, "mline =%s\n\n", m->line);
 	while (m->line[p.i])
 	{
 		p.ret1 = first_if(cmd, m, &p);
@@ -120,13 +121,13 @@ int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 			{
 				p.ret3 = third_if(cmd, m, &p);
 				if (p.ret3 == 0)
-					return(0);
+					return (0);
 				else if (p.ret3 == -1)
 					break ;
 			}
 		}
 		if (p.ret1 == -1 || p.ret2 == -1)
-			break;
+			break ;
 		if (p.ret1 == 0)
 		{
 			return (0);
