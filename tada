@@ -1,46 +1,48 @@
-==97962== Memcheck, a memory error detector
-==97962== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==97962== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==97962== Command: ./minishell
-==97962== Parent PID: 79654
-==97962== 
-==97965== Syscall param exit_group(status) contains uninitialised byte(s)
-==97965==    at 0x4997176: _Exit (_exit.c:31)
-==97965==    by 0x48FA9F1: __run_exit_handlers (exit.c:132)
-==97965==    by 0x48FAA8F: exit (exit.c:139)
-==97965==    by 0x10FBED: exec_builtin_no_pipe (pipes_1.c:50)
-==97965==    by 0x10FCB6: exec_cmd_with_no_pipe (pipes_1.c:72)
-==97965==    by 0x109614: mini_run (main.c:41)
-==97965==    by 0x109817: minishell (main.c:84)
-==97965==    by 0x109893: main (main.c:102)
-==97965==  Uninitialised value was created by a stack allocation
-==97965==    at 0x10FACA: exec_builtin_no_pipe (pipes_1.c:26)
-==97965== 
-==97965== 
-==97965== HEAP SUMMARY:
-==97965==     in use at exit: 204,552 bytes in 216 blocks
-==97965==   total heap usage: 504 allocs, 288 frees, 229,835 bytes allocated
-==97965== 
-==97965== LEAK SUMMARY:
-==97965==    definitely lost: 0 bytes in 0 blocks
-==97965==    indirectly lost: 0 bytes in 0 blocks
-==97965==      possibly lost: 0 bytes in 0 blocks
-==97965==    still reachable: 0 bytes in 0 blocks
-==97965==         suppressed: 204,552 bytes in 216 blocks
-==97965== 
-==97965== For lists of detected and suppressed errors, rerun with: -s
-==97965== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
-==97962== 
-==97962== HEAP SUMMARY:
-==97962==     in use at exit: 204,552 bytes in 216 blocks
-==97962==   total heap usage: 506 allocs, 290 frees, 229,856 bytes allocated
-==97962== 
-==97962== LEAK SUMMARY:
-==97962==    definitely lost: 0 bytes in 0 blocks
-==97962==    indirectly lost: 0 bytes in 0 blocks
-==97962==      possibly lost: 0 bytes in 0 blocks
-==97962==    still reachable: 0 bytes in 0 blocks
-==97962==         suppressed: 204,552 bytes in 216 blocks
-==97962== 
-==97962== For lists of detected and suppressed errors, rerun with: -s
-==97962== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==99079== Memcheck, a memory error detector
+==99079== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==99079== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==99079== Command: ./minishell
+==99079== Parent PID: 79654
+==99079== 
+==99089== 
+==99089== HEAP SUMMARY:
+==99089==     in use at exit: 204,744 bytes in 221 blocks
+==99089==   total heap usage: 598 allocs, 377 frees, 231,124 bytes allocated
+==99089== 
+==99089== LEAK SUMMARY:
+==99089==    definitely lost: 0 bytes in 0 blocks
+==99089==    indirectly lost: 0 bytes in 0 blocks
+==99089==      possibly lost: 0 bytes in 0 blocks
+==99089==    still reachable: 0 bytes in 0 blocks
+==99089==         suppressed: 204,744 bytes in 221 blocks
+==99089== 
+==99089== For lists of detected and suppressed errors, rerun with: -s
+==99089== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==99102== 
+==99102== HEAP SUMMARY:
+==99102==     in use at exit: 204,783 bytes in 224 blocks
+==99102==   total heap usage: 682 allocs, 458 frees, 232,474 bytes allocated
+==99102== 
+==99102== LEAK SUMMARY:
+==99102==    definitely lost: 0 bytes in 0 blocks
+==99102==    indirectly lost: 0 bytes in 0 blocks
+==99102==      possibly lost: 0 bytes in 0 blocks
+==99102==    still reachable: 0 bytes in 0 blocks
+==99102==         suppressed: 204,783 bytes in 224 blocks
+==99102== 
+==99102== For lists of detected and suppressed errors, rerun with: -s
+==99102== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==99079== 
+==99079== HEAP SUMMARY:
+==99079==     in use at exit: 204,783 bytes in 224 blocks
+==99079==   total heap usage: 620 allocs, 396 frees, 231,490 bytes allocated
+==99079== 
+==99079== LEAK SUMMARY:
+==99079==    definitely lost: 0 bytes in 0 blocks
+==99079==    indirectly lost: 0 bytes in 0 blocks
+==99079==      possibly lost: 0 bytes in 0 blocks
+==99079==    still reachable: 0 bytes in 0 blocks
+==99079==         suppressed: 204,783 bytes in 224 blocks
+==99079== 
+==99079== For lists of detected and suppressed errors, rerun with: -s
+==99079== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

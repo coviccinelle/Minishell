@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/13 22:30:28 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 14:53:27 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,11 @@ int	cmp_again(t_cmd *cmd)
 
 void	i_am_your_father(t_mini *mini, t_cmd *cmd, char ***env)
 {
-	char	**avv = ft_copy_tab(cmd->av);
-	int	ntabs = nb_tabs(avv);
+	char	**avv;
+	int		ntabs;
+
+	avv = ft_copy_tab(cmd->av);
+	nb_tabs = nb_tabs(avv);
 	if (cmp_them_all(cmd) == 0)
 	{
 		if (ft_strcmp(avv[0], "exit") == 0)

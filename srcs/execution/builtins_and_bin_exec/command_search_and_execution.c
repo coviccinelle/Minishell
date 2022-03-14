@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:05:06 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/14 14:37:31 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 14:50:09 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ char	*find_cmd_path(char *cmd, char **env)
 
 	possible_paths = ft_getenv(env, "PATH");
 	j = -1;
-	if (!cmd)
-		return (NULL);
 	if (!ft_strcmp(possible_paths, ""))
 	{
 		free(possible_paths);
@@ -137,7 +135,6 @@ int	exec_cmd(int ac, char **av, char ***env, t_mini *mini)
 		ft_puterror_fd("minishell: ", "command not found: ", av[0]);
 		free_child(mini, env);
 		exit(127);
-		return (127);
 	}
 	else if (path != NULL)
 		safely_exec_bin_cmds(path, av, *env, &exit_status);

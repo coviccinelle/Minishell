@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/14 12:18:04 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 14:46:05 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	mini_run(t_mini *mini, char ***env)
 	{
 		return ;
 	}
-	//print_mini_avs(mini);
 	if (nb_cmds(mini->cmd) == 1)
 		exec_cmd_with_no_pipe(mini, env);
 	else
@@ -83,11 +82,6 @@ void	minishell(char **env)
 		if (mini->line || mini->cmd->av)
 			mini_run(mini, &env);
 		unlink("heredoc");
-		printf("je vais free mini\n\n");
-		//free_tab(&(mini->cmd->av));
-		//free_tout_mini(mini);
-		//free(mini);
-		printf("c'est bon suis un bon fils\n");
 	}
 }
 

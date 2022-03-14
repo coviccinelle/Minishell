@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:48:19 by mloubet           #+#    #+#             */
-/*   Updated: 2022/03/14 14:16:21 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 14:55:53 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	father_no_pipe(t_cmd *cmd)
 	waitpid(cmd->pid, &status, 0);
 	if (WIFEXITED(status))
 		g_exit_value = WEXITSTATUS(status);
-	//free_one_cmd(cmd);
 }
 
 int	exec_cmd_with_no_pipe(t_mini *mini, char ***env)
