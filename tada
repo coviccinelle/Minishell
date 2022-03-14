@@ -1,48 +1,117 @@
-==154776== Memcheck, a memory error detector
-==154776== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==154776== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==154776== Command: ./minishell
-==154776== Parent PID: 143746
-==154776== 
-==154785== 
-==154785== HEAP SUMMARY:
-==154785==     in use at exit: 204,712 bytes in 218 blocks
-==154785==   total heap usage: 534 allocs, 316 frees, 230,204 bytes allocated
-==154785== 
-==154785== LEAK SUMMARY:
-==154785==    definitely lost: 0 bytes in 0 blocks
-==154785==    indirectly lost: 0 bytes in 0 blocks
-==154785==      possibly lost: 0 bytes in 0 blocks
-==154785==    still reachable: 0 bytes in 0 blocks
-==154785==         suppressed: 204,712 bytes in 218 blocks
-==154785== 
-==154785== For lists of detected and suppressed errors, rerun with: -s
-==154785== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==154814== 
-==154814== HEAP SUMMARY:
-==154814==     in use at exit: 204,781 bytes in 223 blocks
-==154814==   total heap usage: 594 allocs, 371 frees, 230,895 bytes allocated
-==154814== 
-==154814== LEAK SUMMARY:
-==154814==    definitely lost: 0 bytes in 0 blocks
-==154814==    indirectly lost: 0 bytes in 0 blocks
-==154814==      possibly lost: 0 bytes in 0 blocks
-==154814==    still reachable: 0 bytes in 0 blocks
-==154814==         suppressed: 204,781 bytes in 223 blocks
-==154814== 
-==154814== For lists of detected and suppressed errors, rerun with: -s
-==154814== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==154776== 
-==154776== HEAP SUMMARY:
-==154776==     in use at exit: 204,756 bytes in 221 blocks
-==154776==   total heap usage: 600 allocs, 379 frees, 231,015 bytes allocated
-==154776== 
-==154776== LEAK SUMMARY:
-==154776==    definitely lost: 0 bytes in 0 blocks
-==154776==    indirectly lost: 0 bytes in 0 blocks
-==154776==      possibly lost: 0 bytes in 0 blocks
-==154776==    still reachable: 0 bytes in 0 blocks
-==154776==         suppressed: 204,756 bytes in 221 blocks
-==154776== 
-==154776== For lists of detected and suppressed errors, rerun with: -s
-==154776== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==201065== Memcheck, a memory error detector
+==201065== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==201065== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==201065== Command: ./minishell
+==201065== Parent PID: 199345
+==201065== 
+==201065== Invalid read of size 1
+==201065==    at 0x10A0BA: ft_each_cmd_4 (parsing_mini.c:114)
+==201065==    by 0x10B1F6: stock_cmds (stock_cmd.c:104)
+==201065==    by 0x1095BD: mini_run (main.c:36)
+==201065==    by 0x109811: minishell (main.c:85)
+==201065==    by 0x109875: main (main.c:98)
+==201065==  Address 0x4b174a8 is 0 bytes after a block of size 24 alloc'd
+==201065==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==201065==    by 0x48A000C: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==201065==    by 0x48792AB: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==201065==    by 0x487A504: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==201065==    by 0x109534: ft_readline_input (main.c:20)
+==201065==    by 0x1097A9: minishell (main.c:78)
+==201065==    by 0x109875: main (main.c:98)
+==201065== 
+==201065== Invalid read of size 1
+==201065==    at 0x10B21F: stock_cmds (stock_cmd.c:100)
+==201065==    by 0x1095BD: mini_run (main.c:36)
+==201065==    by 0x109811: minishell (main.c:85)
+==201065==    by 0x109875: main (main.c:98)
+==201065==  Address 0x4b174a8 is 0 bytes after a block of size 24 alloc'd
+==201065==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==201065==    by 0x48A000C: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==201065==    by 0x48792AB: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==201065==    by 0x487A504: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==201065==    by 0x109534: ft_readline_input (main.c:20)
+==201065==    by 0x1097A9: minishell (main.c:78)
+==201065==    by 0x109875: main (main.c:98)
+==201065== 
+==201065== Invalid read of size 1
+==201065==    at 0x10B24B: stock_cmds (stock_cmd.c:109)
+==201065==    by 0x1095BD: mini_run (main.c:36)
+==201065==    by 0x109811: minishell (main.c:85)
+==201065==    by 0x109875: main (main.c:98)
+==201065==  Address 0x4b174a8 is 0 bytes after a block of size 24 alloc'd
+==201065==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==201065==    by 0x48A000C: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==201065==    by 0x48792AB: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==201065==    by 0x487A504: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==201065==    by 0x109534: ft_readline_input (main.c:20)
+==201065==    by 0x1097A9: minishell (main.c:78)
+==201065==    by 0x109875: main (main.c:98)
+==201065== 
+==201065== Invalid read of size 1
+==201065==    at 0x10B280: stock_cmds (stock_cmd.c:96)
+==201065==    by 0x1095BD: mini_run (main.c:36)
+==201065==    by 0x109811: minishell (main.c:85)
+==201065==    by 0x109875: main (main.c:98)
+==201065==  Address 0x4b174a8 is 0 bytes after a block of size 24 alloc'd
+==201065==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==201065==    by 0x48A000C: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==201065==    by 0x48792AB: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==201065==    by 0x487A504: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==201065==    by 0x109534: ft_readline_input (main.c:20)
+==201065==    by 0x1097A9: minishell (main.c:78)
+==201065==    by 0x109875: main (main.c:98)
+==201065== 
+==201073== 
+==201073== HEAP SUMMARY:
+==201073==     in use at exit: 204,731 bytes in 219 blocks
+==201073==   total heap usage: 532 allocs, 313 frees, 230,060 bytes allocated
+==201073== 
+==201073== 8 bytes in 1 blocks are definitely lost in loss record 3 of 62
+==201073==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==201073==    by 0x10C0F3: ft_strdup (cpy_stuff.c:26)
+==201073==    by 0x10B664: ft_add_to_fstack_out (file_in_out.c:31)
+==201073==    by 0x10B8BC: ft_add_file_out (file_in_out.c:86)
+==201073==    by 0x10B5FB: ft_redirec (redirrection.c:77)
+==201073==    by 0x109EA7: third_if (parsing_mini.c:86)
+==201073==    by 0x10A073: ft_each_cmd_4 (parsing_mini.c:124)
+==201073==    by 0x10B1F6: stock_cmds (stock_cmd.c:104)
+==201073==    by 0x1095BD: mini_run (main.c:36)
+==201073==    by 0x109811: minishell (main.c:85)
+==201073==    by 0x109875: main (main.c:98)
+==201073== 
+==201073== LEAK SUMMARY:
+==201073==    definitely lost: 8 bytes in 1 blocks
+==201073==    indirectly lost: 0 bytes in 0 blocks
+==201073==      possibly lost: 0 bytes in 0 blocks
+==201073==    still reachable: 0 bytes in 0 blocks
+==201073==         suppressed: 204,723 bytes in 218 blocks
+==201073== 
+==201073== For lists of detected and suppressed errors, rerun with: -s
+==201073== ERROR SUMMARY: 5 errors from 5 contexts (suppressed: 0 from 0)
+==201065== 
+==201065== HEAP SUMMARY:
+==201065==     in use at exit: 204,731 bytes in 219 blocks
+==201065==   total heap usage: 538 allocs, 319 frees, 230,173 bytes allocated
+==201065== 
+==201065== 8 bytes in 1 blocks are definitely lost in loss record 3 of 62
+==201065==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==201065==    by 0x10C0F3: ft_strdup (cpy_stuff.c:26)
+==201065==    by 0x10B664: ft_add_to_fstack_out (file_in_out.c:31)
+==201065==    by 0x10B8BC: ft_add_file_out (file_in_out.c:86)
+==201065==    by 0x10B5FB: ft_redirec (redirrection.c:77)
+==201065==    by 0x109EA7: third_if (parsing_mini.c:86)
+==201065==    by 0x10A073: ft_each_cmd_4 (parsing_mini.c:124)
+==201065==    by 0x10B1F6: stock_cmds (stock_cmd.c:104)
+==201065==    by 0x1095BD: mini_run (main.c:36)
+==201065==    by 0x109811: minishell (main.c:85)
+==201065==    by 0x109875: main (main.c:98)
+==201065== 
+==201065== LEAK SUMMARY:
+==201065==    definitely lost: 8 bytes in 1 blocks
+==201065==    indirectly lost: 0 bytes in 0 blocks
+==201065==      possibly lost: 0 bytes in 0 blocks
+==201065==    still reachable: 0 bytes in 0 blocks
+==201065==         suppressed: 204,723 bytes in 218 blocks
+==201065== 
+==201065== For lists of detected and suppressed errors, rerun with: -s
+==201065== ERROR SUMMARY: 5 errors from 5 contexts (suppressed: 0 from 0)

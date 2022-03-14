@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:11:08 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/14 14:10:50 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 21:02:07 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ t_cmd	*stock_cmds(t_mini *mini, char ***env)
 			else
 				return (NULL);
 		}
-		if (mini->line[i] == '|')
+		if (mini->line[i] && mini->line[i] == '|')
 			i++;
 	}
 	return (cmd_lst);

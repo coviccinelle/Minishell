@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:13:09 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/14 14:46:05 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/14 20:36:19 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ char	*ft_readline_input(char *line, char ***env, t_mini *mini)
 }
 
 void	mini_run(t_mini *mini, char ***env)
-{
+{	
+	if (!mini || !mini->line)
+		return ;
 	mini->cmd = stock_cmds(mini, env);
 	if (!mini->cmd || !mini->cmd->av)
 	{
