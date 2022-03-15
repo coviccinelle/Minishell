@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 13:09:01 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/14 21:02:00 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/15 11:39:05 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	ft_free_cmds(t_mini *mini)
 			free_t_file(&(cmd->file_out));
 		if (cmd->last_file_in)
 			free(cmd->last_file_in);
+		if (cmd->last_file_out)
+			free(cmd->last_file_out->name);
 		if (cmd->last_file_out)
 			free(cmd->last_file_out);
 		tmp = cmd;
