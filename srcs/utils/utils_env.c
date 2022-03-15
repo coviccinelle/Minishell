@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thi-phng <thi-phng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:20:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/11 14:47:02 by thi-phng         ###   ########.fr       */
+/*   Updated: 2022/03/15 13:43:11 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+void	safely_free(char **s1, char **s2);
 
 int	is_valid_var_name(char *av)
 {
@@ -58,25 +59,34 @@ char	*ft_strndup(char *s, int n)
 	return (copy);
 }
 
-/*
-char	*ft_strndup(char *s, int n)
+char	*ft_strjoin_2(char *s1, char *s2)
 {
-	char			*res;
-	int	i;
+	char	*ret;
+	int		i;
+	int		e;
 
-	i = 0;
-	res = malloc(sizeof(char) * n) + 1;
-	if (res == NULL)
+	i = -1;
+	e = 0;
+	if (!s1)
+		return (s2);
+	if (!s2)
+		return (s1);
+	ret = malloc(ft_strlen(s1) + ft_strlen(s2) + 2);
+	if (!ret)
 		return (NULL);
-	while (i < n)
+	while (s1[++i])
+		ret[i] = s1[i];
+	while (s2[e])
 	{
-		res[i] = s[i];
-		i++;
+		ret[i + e] = s2[e];
+		e++;
 	}
-	res[i + 1] = '\0';
-	return (res);
+	ret[i + e] = ' ';
+	e++;
+	ret[i + e] = '\0';
+	safely_free(&s1, &s2);
+	return (ret);
 }
-*/
 
 char	*cpy_trim(char *s, char from, char to)
 {

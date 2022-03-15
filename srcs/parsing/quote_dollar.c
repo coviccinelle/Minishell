@@ -6,13 +6,14 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:38:44 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/14 18:12:50 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/15 13:41:03 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 void	safely_free(char **s1, char **s2);
+char	*ft_strjoin_2(char *s1, char *s2);
 
 void	ft_pass_squote(char *str, int *i)
 {
@@ -26,35 +27,6 @@ void	ft_pass_squote(char *str, int *i)
 	}
 	else if (str[*i] == 39 && str[(*i) + 1] && str[(*i) + 1] != ' ')
 		(*i)++;
-}
-
-char	*ft_strjoin_2(char *s1, char *s2)
-{
-	char	*ret;
-	int		i;
-	int		e;
-
-	i = -1;
-	e = 0;
-	if (!s1)
-		return (s2);
-	if (!s2)
-		return (s1);
-	ret = malloc(ft_strlen(s1) + ft_strlen(s2) + 2);
-	if (!ret)
-		return (NULL);
-	while (s1[++i])
-		ret[i] = s1[i];
-	while (s2[e])
-	{
-		ret[i + e] = s2[e];
-		e++;
-	}
-	ret[i + e] = ' ';
-	e++;
-	ret[i + e] = '\0';
-	safely_free(&s1, &s2);
-	return (ret);
 }
 
 char	*dolar_name_quote(char *str, int *i)

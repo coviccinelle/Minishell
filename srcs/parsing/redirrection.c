@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:53:50 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/14 22:21:03 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/15 13:39:10 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_redir(char *line, int i)
 
 	k = 0;
 	j = i;
-	while ((line[i] == '>' || line[i] == '<') && is_blank(line[i - 1]))
+	while ((line[i] == '>' || line[i] == '<'))
 	{
 		k++;
 		i++;
