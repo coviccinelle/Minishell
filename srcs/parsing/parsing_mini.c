@@ -6,11 +6,21 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 10:46:48 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/15 12:37:36 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/15 13:22:18 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	free_one_cmd2(t_cmd *cmd)
+{
+	if (!cmd)
+		return ;
+	if (cmd->la)
+		free(cmd->la);
+	if (cmd->av)
+		free_tab_3((cmd->av), nb_tabs(cmd->av));
+}
 
 int	first_if(t_cmd **cmd, t_mini *m, t_param *p)
 {
@@ -28,7 +38,7 @@ int	first_if(t_cmd **cmd, t_mini *m, t_param *p)
 			return (p->i += 2, -1);
 		(*cmd)->la = ft_d2_quotes(&p->i, *cmd, m, p->env);
 		if (!ft_strcmp((*cmd)->la, ""))
-			return (free((*cmd)->la), 0);
+			return (free_one_cmd2((*cmd)), 0);
 		if (!ft_strcmp((*cmd)->la, "?"))
 			return (ft_avs(*cmd, ft_itoa(g_exit_value)), -1);
 		avs_and_nul(*cmd, (*cmd)->la);
@@ -50,7 +60,7 @@ int	second_if(t_cmd **cmd, t_mini *m, t_param *p)
 			return (p->i += 2, -1);
 		(*cmd)->la = ft_single_quote(&p->i, m->line, *cmd);
 		if (!ft_strcmp((*cmd)->la, ""))
-			return (0);
+			return (free_one_cmd2((*cmd)), 0);
 		avs_and_nul(*cmd, (*cmd)->la);
 		if (m->line[p->i + 1] == '\0')
 			return (-1);
@@ -102,14 +112,6 @@ int	third_if(t_cmd **cmd, t_mini *m, t_param *p)
 	// return (1) on deja passer dans un if
 	// return (0) il faut return (0);
 
-void	free_one_cmd2(t_cmd *cmd)
-{
-	if (!cmd)
-		return ;
-	if (cmd->av)
-		free_tab_3((cmd->av), nb_tabs(cmd->av));
-}
-
 int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 {
 	t_param		p;
@@ -122,20 +124,18 @@ int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 		{
 			p.ret2 = second_if(cmd, m, &p);
 			if (p.ret2 == 0)
-				return (free_one_cmd(*cmd), 0);
+				return (0);
 			else if (p.ret2 == 2)
 			{
 				p.ret3 = third_if(cmd, m, &p);
-				if (p.ret3 == 0)
-					return (0);
-				else if (p.ret3 == -1)
+				if (p.ret3 == -1)
 					break ;
 			}
 		}
 		if (p.ret1 == -1 || p.ret2 == -1)
 			break ;
-		if (p.ret1 == 0)
-			return (free_one_cmd2(*cmd), 0);
+		if (p.ret1 == 0 || p.ret3 == 0)
+			return (0);
 	}
 	return ((*i) = p.i, 1);
 }
