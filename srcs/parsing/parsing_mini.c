@@ -6,7 +6,7 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 10:46:48 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/14 20:51:34 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/15 12:00:59 by mloubet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,19 @@ int	third_if(t_cmd **cmd, t_mini *m, t_param *p)
 	// return (-1) = break;
 	// return (1) on deja passer dans un if
 	// return (0) il faut return (0);
+void	free_one_cmd2(t_cmd *cmd)
+{
+	if (!cmd)
+		return ;
+	if (cmd->av)
+		free_tab_3((cmd->av), nb_tabs(cmd->av));
+	//if (cmd->la)
+//		free(cmd->la);
+//	if (cmd->file_in)
+//		free_t_file(&(cmd->file_in));
+//	if (cmd->file_out)
+//		free_t_file(&(cmd->file_out));
+}
 
 int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 {
@@ -118,7 +131,10 @@ int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 		{
 			p.ret2 = second_if(cmd, m, &p);
 			if (p.ret2 == 0)
+			{
+				free_one_cmd(*cmd);
 				return (0);
+			}
 			else if (p.ret2 == 2)
 			{
 				p.ret3 = third_if(cmd, m, &p);
@@ -131,7 +147,11 @@ int	ft_each_cmd_4(t_mini *m, int *i, t_cmd **cmd, char ***env)
 		if (p.ret1 == -1 || p.ret2 == -1)
 			break ;
 		if (p.ret1 == 0)
+		{
+			free_one_cmd2(*cmd);
 			return (0);
+		}
+			
 	}
 	return ((*i) = p.i, 1);
 }

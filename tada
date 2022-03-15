@@ -1,119 +1,98 @@
-==132057== Memcheck, a memory error detector
-==132057== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==132057== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==132057== Command: ./minishell
-==132057== Parent PID: 126742
-==132057== 
-==132057== Invalid read of size 1
-==132057==    at 0x10A0BA: ft_each_cmd_4 (parsing_mini.c:114)
-==132057==    by 0x10B1F6: stock_cmds (stock_cmd.c:104)
-==132057==    by 0x1095BD: mini_run (main.c:36)
-==132057==    by 0x109811: minishell (main.c:85)
-==132057==    by 0x109875: main (main.c:98)
-==132057==  Address 0x4b17383 is 0 bytes after a block of size 19 alloc'd
-==132057==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==132057==    by 0x48A000C: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
-==132057==    by 0x48792AB: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
-==132057==    by 0x487A504: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
-==132057==    by 0x109534: ft_readline_input (main.c:20)
-==132057==    by 0x1097A9: minishell (main.c:78)
-==132057==    by 0x109875: main (main.c:98)
-==132057== 
-==132057== Invalid read of size 1
-==132057==    at 0x10B21F: stock_cmds (stock_cmd.c:100)
-==132057==    by 0x1095BD: mini_run (main.c:36)
-==132057==    by 0x109811: minishell (main.c:85)
-==132057==    by 0x109875: main (main.c:98)
-==132057==  Address 0x4b17383 is 0 bytes after a block of size 19 alloc'd
-==132057==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==132057==    by 0x48A000C: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
-==132057==    by 0x48792AB: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
-==132057==    by 0x487A504: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
-==132057==    by 0x109534: ft_readline_input (main.c:20)
-==132057==    by 0x1097A9: minishell (main.c:78)
-==132057==    by 0x109875: main (main.c:98)
-==132057== 
-==132057== Invalid read of size 1
-==132057==    at 0x10B24B: stock_cmds (stock_cmd.c:109)
-==132057==    by 0x1095BD: mini_run (main.c:36)
-==132057==    by 0x109811: minishell (main.c:85)
-==132057==    by 0x109875: main (main.c:98)
-==132057==  Address 0x4b17383 is 0 bytes after a block of size 19 alloc'd
-==132057==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==132057==    by 0x48A000C: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
-==132057==    by 0x48792AB: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
-==132057==    by 0x487A504: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
-==132057==    by 0x109534: ft_readline_input (main.c:20)
-==132057==    by 0x1097A9: minishell (main.c:78)
-==132057==    by 0x109875: main (main.c:98)
-==132057== 
-==132057== Invalid read of size 1
-==132057==    at 0x10B280: stock_cmds (stock_cmd.c:96)
-==132057==    by 0x1095BD: mini_run (main.c:36)
-==132057==    by 0x109811: minishell (main.c:85)
-==132057==    by 0x109875: main (main.c:98)
-==132057==  Address 0x4b17383 is 0 bytes after a block of size 19 alloc'd
-==132057==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==132057==    by 0x48A000C: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
-==132057==    by 0x48792AB: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
-==132057==    by 0x487A504: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
-==132057==    by 0x109534: ft_readline_input (main.c:20)
-==132057==    by 0x1097A9: minishell (main.c:78)
-==132057==    by 0x109875: main (main.c:98)
-==132057== 
-==132081== 
-==132081== HEAP SUMMARY:
-==132081==     in use at exit: 204,718 bytes in 218 blocks
-==132081==   total heap usage: 522 allocs, 304 frees, 229,915 bytes allocated
-==132081== 
-==132081== LEAK SUMMARY:
-==132081==    definitely lost: 0 bytes in 0 blocks
-==132081==    indirectly lost: 0 bytes in 0 blocks
-==132081==      possibly lost: 0 bytes in 0 blocks
-==132081==    still reachable: 0 bytes in 0 blocks
-==132081==         suppressed: 204,718 bytes in 218 blocks
-==132081== 
-==132081== For lists of detected and suppressed errors, rerun with: -s
-==132081== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 0 from 0)
-==132106== 
-==132106== HEAP SUMMARY:
-==132106==     in use at exit: 204,764 bytes in 221 blocks
-==132106==   total heap usage: 555 allocs, 334 frees, 230,285 bytes allocated
-==132106== 
-==132106== LEAK SUMMARY:
-==132106==    definitely lost: 0 bytes in 0 blocks
-==132106==    indirectly lost: 0 bytes in 0 blocks
-==132106==      possibly lost: 0 bytes in 0 blocks
-==132106==    still reachable: 0 bytes in 0 blocks
-==132106==         suppressed: 204,764 bytes in 221 blocks
-==132106== 
-==132106== For lists of detected and suppressed errors, rerun with: -s
-==132106== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 0 from 0)
-==132125== 
-==132125== HEAP SUMMARY:
-==132125==     in use at exit: 204,835 bytes in 226 blocks
-==132125==   total heap usage: 589 allocs, 363 frees, 230,647 bytes allocated
-==132125== 
-==132125== LEAK SUMMARY:
-==132125==    definitely lost: 0 bytes in 0 blocks
-==132125==    indirectly lost: 0 bytes in 0 blocks
-==132125==      possibly lost: 0 bytes in 0 blocks
-==132125==    still reachable: 0 bytes in 0 blocks
-==132125==         suppressed: 204,835 bytes in 226 blocks
-==132125== 
-==132125== For lists of detected and suppressed errors, rerun with: -s
-==132125== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 0 from 0)
-==132057== 
-==132057== HEAP SUMMARY:
-==132057==     in use at exit: 204,810 bytes in 224 blocks
-==132057==   total heap usage: 608 allocs, 384 frees, 230,993 bytes allocated
-==132057== 
-==132057== LEAK SUMMARY:
-==132057==    definitely lost: 0 bytes in 0 blocks
-==132057==    indirectly lost: 0 bytes in 0 blocks
-==132057==      possibly lost: 0 bytes in 0 blocks
-==132057==    still reachable: 0 bytes in 0 blocks
-==132057==         suppressed: 204,810 bytes in 224 blocks
-==132057== 
-==132057== For lists of detected and suppressed errors, rerun with: -s
-==132057== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 0 from 0)
+==139955== Memcheck, a memory error detector
+==139955== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==139955== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==139955== Command: ./minishell
+==139955== Parent PID: 126742
+==139955== 
+==139962== 
+==139962== HEAP SUMMARY:
+==139962==     in use at exit: 204,849 bytes in 224 blocks
+==139962==   total heap usage: 532 allocs, 308 frees, 230,119 bytes allocated
+==139962== 
+==139962== 5 bytes in 1 blocks are indirectly lost in loss record 1 of 64
+==139962==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==139962==    by 0x10CC0D: ft_malloc_avs (ft_avs.c:85)
+==139962==    by 0x10CCF3: ft_avs (ft_avs.c:107)
+==139962==    by 0x10BE75: skip_blank_2 (skip_char.c:66)
+==139962==    by 0x109A0A: first_if (parsing_mini.c:19)
+==139962==    by 0x10A06B: ft_each_cmd_4 (parsing_mini.c:129)
+==139962==    by 0x10B252: stock_cmds (stock_cmd.c:104)
+==139962==    by 0x1095BD: mini_run (main.c:36)
+==139962==    by 0x109811: minishell (main.c:85)
+==139962==    by 0x109875: main (main.c:98)
+==139962== 
+==139962== 16 bytes in 1 blocks are indirectly lost in loss record 8 of 64
+==139962==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==139962==    by 0x10CBDF: ft_malloc_avs (ft_avs.c:82)
+==139962==    by 0x10CCF3: ft_avs (ft_avs.c:107)
+==139962==    by 0x10BE75: skip_blank_2 (skip_char.c:66)
+==139962==    by 0x109A0A: first_if (parsing_mini.c:19)
+==139962==    by 0x10A06B: ft_each_cmd_4 (parsing_mini.c:129)
+==139962==    by 0x10B252: stock_cmds (stock_cmd.c:104)
+==139962==    by 0x1095BD: mini_run (main.c:36)
+==139962==    by 0x109811: minishell (main.c:85)
+==139962==    by 0x109875: main (main.c:98)
+==139962== 
+==139962== 93 (72 direct, 21 indirect) bytes in 1 blocks are definitely lost in loss record 21 of 64
+==139962==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==139962==    by 0x10AFA1: new_elem_cmd (stock_cmd.c:20)
+==139962==    by 0x10B202: stock_cmds (stock_cmd.c:98)
+==139962==    by 0x1095BD: mini_run (main.c:36)
+==139962==    by 0x109811: minishell (main.c:85)
+==139962==    by 0x109875: main (main.c:98)
+==139962== 
+==139962== LEAK SUMMARY:
+==139962==    definitely lost: 72 bytes in 1 blocks
+==139962==    indirectly lost: 21 bytes in 2 blocks
+==139962==      possibly lost: 0 bytes in 0 blocks
+==139962==    still reachable: 0 bytes in 0 blocks
+==139962==         suppressed: 204,756 bytes in 221 blocks
+==139962== 
+==139962== For lists of detected and suppressed errors, rerun with: -s
+==139962== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==139955== 
+==139955== HEAP SUMMARY:
+==139955==     in use at exit: 204,849 bytes in 224 blocks
+==139955==   total heap usage: 538 allocs, 314 frees, 230,228 bytes allocated
+==139955== 
+==139955== 5 bytes in 1 blocks are indirectly lost in loss record 1 of 64
+==139955==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==139955==    by 0x10CC0D: ft_malloc_avs (ft_avs.c:85)
+==139955==    by 0x10CCF3: ft_avs (ft_avs.c:107)
+==139955==    by 0x10BE75: skip_blank_2 (skip_char.c:66)
+==139955==    by 0x109A0A: first_if (parsing_mini.c:19)
+==139955==    by 0x10A06B: ft_each_cmd_4 (parsing_mini.c:129)
+==139955==    by 0x10B252: stock_cmds (stock_cmd.c:104)
+==139955==    by 0x1095BD: mini_run (main.c:36)
+==139955==    by 0x109811: minishell (main.c:85)
+==139955==    by 0x109875: main (main.c:98)
+==139955== 
+==139955== 16 bytes in 1 blocks are indirectly lost in loss record 8 of 64
+==139955==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==139955==    by 0x10CBDF: ft_malloc_avs (ft_avs.c:82)
+==139955==    by 0x10CCF3: ft_avs (ft_avs.c:107)
+==139955==    by 0x10BE75: skip_blank_2 (skip_char.c:66)
+==139955==    by 0x109A0A: first_if (parsing_mini.c:19)
+==139955==    by 0x10A06B: ft_each_cmd_4 (parsing_mini.c:129)
+==139955==    by 0x10B252: stock_cmds (stock_cmd.c:104)
+==139955==    by 0x1095BD: mini_run (main.c:36)
+==139955==    by 0x109811: minishell (main.c:85)
+==139955==    by 0x109875: main (main.c:98)
+==139955== 
+==139955== 93 (72 direct, 21 indirect) bytes in 1 blocks are definitely lost in loss record 21 of 64
+==139955==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==139955==    by 0x10AFA1: new_elem_cmd (stock_cmd.c:20)
+==139955==    by 0x10B202: stock_cmds (stock_cmd.c:98)
+==139955==    by 0x1095BD: mini_run (main.c:36)
+==139955==    by 0x109811: minishell (main.c:85)
+==139955==    by 0x109875: main (main.c:98)
+==139955== 
+==139955== LEAK SUMMARY:
+==139955==    definitely lost: 72 bytes in 1 blocks
+==139955==    indirectly lost: 21 bytes in 2 blocks
+==139955==      possibly lost: 0 bytes in 0 blocks
+==139955==    still reachable: 0 bytes in 0 blocks
+==139955==         suppressed: 204,756 bytes in 221 blocks
+==139955== 
+==139955== For lists of detected and suppressed errors, rerun with: -s
+==139955== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
