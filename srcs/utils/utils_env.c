@@ -6,11 +6,12 @@
 /*   By: mloubet <mloubet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:20:39 by thi-phng          #+#    #+#             */
-/*   Updated: 2022/03/15 13:43:11 by mloubet          ###   ########.fr       */
+/*   Updated: 2022/03/15 14:49:49 by thi-phng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
 void	safely_free(char **s1, char **s2);
 
 int	is_valid_var_name(char *av)
