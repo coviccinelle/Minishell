@@ -3,7 +3,7 @@
 by Marie-Ines and Thao
 (Let's hope it'll go well, and not too long ^^ )
 
-![til](https://github.com/coviccinelle/Minishell/blob/norme/minishell_.gif)
+![til](https://github.com/coviccinelle/Minishell/blob/norme/minishell_b.gif)
 
 ## Table of Contents
 1. [Common Instructions](#common-instructions)
